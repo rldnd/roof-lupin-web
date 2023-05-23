@@ -20,8 +20,7 @@
     "plugin:jsx-a11y/recommended",
     "eslint-config-prettier",
     "plugin:react/recommended",
-    "next/core-web-vitals",
-    "next"
+    "next/core-web-vitals"
   ],
   "plugins": ["@typescript-eslint", "import", "prettier", "react", "react-hooks"],
   "settings": {
@@ -162,10 +161,6 @@
             "position": "before"
           },
           {
-            "pattern": "next/*",
-            "group": "external"
-          },
-          {
             "pattern": "@/**",
             "group": "internal"
           },
@@ -174,11 +169,16 @@
             "group": "internal"
           },
           {
+            "pattern": "{public/**,public/**/*}",
+            "group": "index",
+            "position": "before"
+          },
+          {
             "pattern": "{./*.module.scss,../**/*.module.scss,./*.scss,../**/*.scss}",
             "group": "unknown"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["@/**", "src/**"],
+        "pathGroupsExcludedImportTypes": ["@/**", "src/**", "public/**"],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
