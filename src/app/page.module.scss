@@ -191,7 +191,8 @@
     height: 200px;
     padding: 2rem;
     pointer-events: none;
-    background: linear-gradient(to bottom, transparent 0%, rgb(var(--background-end-rgb)) 40%);
+    /* stylelint-disable-next-line color-function-notation */
+    background: linear-gradient(to bottom, transparent 0%, rgba(var(--background-end-rgb)), 0.4);
   }
 }
 
