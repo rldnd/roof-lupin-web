@@ -2,12 +2,11 @@ import Image from "next/image";
 
 import styles from "./page.module.scss";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          {process.env.NEXT_PUBLIC_API_URL}
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
