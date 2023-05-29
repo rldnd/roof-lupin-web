@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: var(--c-primary-default);
+  border: 0;
+  border-radius: 8px;
+  outline: none;
+}

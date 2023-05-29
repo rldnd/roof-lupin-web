@@ -1,3 +1,9 @@
 import { apiClientLocal } from "@/services/apiClient";
 
-export const revalidateApi = (tag: string) => apiClientLocal.get("/revalidate", { params: { tag } });
+interface RevalidateParams {
+  tag?: string;
+  path?: string;
+}
+
+export const revalidateApi = ({ tag, path }: RevalidateParams) =>
+  apiClientLocal.get("/revalidate", { params: { tag, path } });
