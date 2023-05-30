@@ -1,7 +1,8 @@
 import "@/styles/global.scss";
-import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+import { pretendard } from "./fonts";
+
+import styles from "./layout.module.scss";
 
 export const metadata = {
   title: "루프루팡",
@@ -11,8 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className={inter.className} suppressHydrationWarning>
-        {children}
+      <body className={pretendard.className} suppressHydrationWarning>
+        <div className={styles.background} />
+        <div className={styles.wrapper}>{children}</div>
       </body>
     </html>
   );

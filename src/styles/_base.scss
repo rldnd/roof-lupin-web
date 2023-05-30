@@ -20,8 +20,8 @@ textarea,
 button {
   padding: 0;
   margin: 0;
-  font-family: Pretendard, "Spoqa Han Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font-family: var(--font-pretendard), "Spoqa Han Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,11 +49,11 @@ ol {
 }
 
 pre {
-  font-family: Pretendard;
+  font-family: var(--font-pretendard);
 }
 
 textarea {
-  font-family: Pretendard, "Spoqa Han Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font-family: var(--font-pretendard), "Spoqa Han Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
   resize: none;
 }
