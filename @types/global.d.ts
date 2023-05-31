@@ -1,3 +1,3 @@
-declare module "*.svg" {
-  export const ReactComponent: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+interface Window {
+  dataLayer: unknown[];
 }
