@@ -1,5 +1,8 @@
 import axios, { AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
 
+import { getAccessToken } from "@/utils/auth";
+import { isClient } from "@/utils/next";
+
 interface FetchOptions {
   revalidate?: number;
   tags?: string[];
@@ -29,6 +32,11 @@ export const apiClientLocal = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
+  if (!isClient) return config;
+
+  const accessToken = getAccessToken();
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
   return config;
 });
 
