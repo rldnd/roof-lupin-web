@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={pretendard.className} suppressHydrationWarning>
         <div className={styles.background} />
         <div className={styles.wrapper}>{children}</div>
+        <div id="modal" />
       </body>
     </html>
   );

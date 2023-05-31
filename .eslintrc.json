@@ -151,7 +151,7 @@
         "groups": [["builtin", "external"], ["type", "internal", "object"], ["parent", "sibling", "index"], "unknown"],
         "pathGroups": [
           {
-            "pattern": "react",
+            "pattern": "{react,react-dom}",
             "group": "external",
             "position": "before"
           },

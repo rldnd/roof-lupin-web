@@ -4,7 +4,10 @@
 .wrapper {
   display: inline-block;
   padding: 8px 12px;
-  background-color: var(--c-primary-default);
+  font-weight: 500;
+  color: var(--c-gray-100);
+  cursor: pointer;
+  background-color: var(--c-roof-orange);
   border: 0;
   border-radius: 8px;
   outline: none;

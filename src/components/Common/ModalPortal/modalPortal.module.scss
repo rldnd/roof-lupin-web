@@ -1,0 +1,36 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(0 0 0 0);
+  @include m.flex;
+  z-index: c.$Z_MODAL;
+
+  &.enterDone,
+  &.exit {
+    > .modal {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.enter,
+  &.exitActive {
+    > .modal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+  }
+
+  .modal {
+    @include m.posCenter;
+    min-width: 300px;
+    max-width: c.$S_CONTENT_WIDTH;
+    min-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}

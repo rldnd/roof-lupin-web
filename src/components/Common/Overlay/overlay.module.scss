@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.absoluteZero;
+  background-color: rgba(var(--c-gray-500), 0.92);
+
+  &.isTransparent {
+    background-color: transparent;
+  }
+}
