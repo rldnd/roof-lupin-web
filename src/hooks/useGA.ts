@@ -1,12 +1,23 @@
 import "client-only";
 
-// import { decamelize } from "humps";
+import { decamelizeKeys } from "humps";
+
 import "@/utils/ga";
+import useDebounceCallback from "./useDebounceCallback";
 
-interface UseGAReturn {}
+interface UseGAReturn {
+  gaEvent(evnetName: string, eventData: any): void;
+}
 
+// TODO: event category customize
 const useGA = (): UseGAReturn => {
-  return {};
+  const gaEvent = useDebounceCallback((eventName: string, eventData: any) => {
+    window.gtag("event", eventName, decamelizeKeys(eventData));
+  });
+
+  return {
+    gaEvent,
+  };
 };
 
 export default useGA;
