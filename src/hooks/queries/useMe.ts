@@ -23,7 +23,7 @@ interface UseMeReturn {
 const useMe = (options?: Options): UseMeReturn => {
   const [me, setMe] = useAtom(meState);
   const { refetch } = useQuery(["getMe"], () => getMeApi().then((res) => res.data), {
-    cacheTime: Infinity,
+    staleTime: Infinity,
     onSuccess: (data) => setMe(data),
     ...options,
   });

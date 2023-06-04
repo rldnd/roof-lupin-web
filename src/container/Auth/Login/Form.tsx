@@ -3,14 +3,10 @@
 import React, { MouseEventHandler } from "react";
 
 import { Button } from "@/components/Common";
-import { useGA } from "@/hooks";
 
 const Form: React.FC = () => {
-  const { gaEvent } = useGA();
-
   const onClickSocial: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { dataset } = e.currentTarget;
-    gaEvent("login", {});
     window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/social/${dataset.social}`, "_self");
   };
 

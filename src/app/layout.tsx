@@ -1,6 +1,6 @@
 import "@/styles/global.scss";
 
-import { pretendard } from "./fonts";
+import { suit } from "./fonts";
 import Providers from "./providers";
 
 import styles from "./layout.module.scss";
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className={pretendard.className} suppressHydrationWarning>
+      <body className={suit.className} suppressHydrationWarning>
         <Providers>
           <div className={styles.background} />
           <div className={styles.wrapper}>{children}</div>
