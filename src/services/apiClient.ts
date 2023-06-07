@@ -5,6 +5,9 @@ import type { Token } from "@/common/types/auth";
 import type { ErrorDTO } from "@/common/types/common";
 import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
+import { PromiseHolder } from "@/utils/promiseHolder";
+
+const holder = new PromiseHolder();
 
 interface FetchOptions {
   revalidate?: number;
@@ -34,11 +37,12 @@ export const apiClientLocal = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/api`,
 });
 
-apiClient.interceptors.request.use((config) => {
+apiClient.interceptors.request.use(async (config) => {
   if (!isClient) return config;
+  if (holder.isLocked) await holder.promise;
 
   const accessToken = getAccessToken();
-  config.headers.Authorization = `Bearer ${accessToken}`;
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 });
@@ -53,19 +57,32 @@ apiClient.interceptors.response.use(
         try {
           const { accessToken, refreshToken } = getTokens();
           if (!accessToken || !refreshToken) throw new Error();
-          else {
-            const refreshResponse = await axios.post<Token>(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/refresh`);
-            const { accessToken, refreshToken } = refreshResponse.data;
-            setTokens({ accessToken, refreshToken });
-            return await apiClient(error.config!);
-          }
+
+          if (!holder.isLocked) {
+            holder.hold();
+
+            const refreshResponse = await axios.post<Token>(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/refresh`, {
+              accessToken,
+              refreshToken,
+            });
+
+            const { accessToken: newAccessToken, refreshToken: newRefreshToken } = refreshResponse.data;
+            setTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+
+            error.config!.headers.Authorization = `Bearer ${newAccessToken}`;
+            holder.successRelease();
+          } else await holder.promise;
+
+          return await apiClient(error.config!);
         } catch {
+          holder.failRelease();
           removeTokens();
           removeSocialType();
           window.dispatchEvent(new CustomEvent(LOGOUT_EVENT_NAME));
         }
       }
     }
+
     return Promise.reject(error);
   },
 );
