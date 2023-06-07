@@ -1,5 +1,6 @@
 import "client-only";
 
+import type { Nullable } from "./types";
 import { ACCESS_TOKEN, REFRESH_TOKEN, SOCIAL_TYPE } from "@/common/constants";
 import type { SocialType, Token } from "@/common/types/auth";
 
@@ -19,9 +20,9 @@ export const setRefreshToken = (refreshToken: string): void => {
   localStorage.setItem(REFRESH_TOKEN, refreshToken);
 };
 
-export const getTokens = (): Partial<Token> => {
-  const accessToken = getAccessToken() ?? undefined;
-  const refreshToken = getRefreshToken() ?? undefined;
+export const getTokens = (): Nullable<Token> => {
+  const accessToken = getAccessToken() ?? null;
+  const refreshToken = getRefreshToken() ?? null;
 
   return { accessToken, refreshToken };
 };

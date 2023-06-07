@@ -1,15 +1,7 @@
 "use client";
 
-import { useMe } from "@/hooks/queries";
-
 const HomeContainer: React.FC = () => {
-  const { me } = useMe();
-
-  return (
-    <div>
-      <span>{JSON.stringify(me)}</span>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default HomeContainer;

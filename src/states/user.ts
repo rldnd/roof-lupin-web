@@ -1,6 +1,5 @@
-import { atom } from "jotai";
-
+import { USER_INFO } from "@/common/constants";
 import type { CommonUser } from "@/common/types/user";
+import { persistenceAtom } from "@/utils/jotai";
 
-// TODO: persistenceAtom
-export const meState = atom<CommonUser | null>(null);
+export const meState = persistenceAtom<CommonUser | null>(USER_INFO, null);

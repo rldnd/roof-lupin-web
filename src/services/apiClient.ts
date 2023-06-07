@@ -1,6 +1,9 @@
-import axios, { AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
+import axios, { type AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
 
-import { getAccessToken } from "@/utils/auth";
+import { LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, TOKEN_EXPIRED_STATUS } from "@/common/constants";
+import type { Token } from "@/common/types/auth";
+import type { ErrorDTO } from "@/common/types/common";
+import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
 
 interface FetchOptions {
@@ -42,7 +45,27 @@ apiClient.interceptors.request.use((config) => {
 
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    if (isAxiosError<ErrorDTO>(error) && error?.response?.data) {
+      const { message, statusCode } = error.response.data;
+
+      if (message === TOKEN_EXPIRED_MESSAGE && statusCode === TOKEN_EXPIRED_STATUS) {
+        try {
+          const { accessToken, refreshToken } = getTokens();
+          if (!accessToken || !refreshToken) throw new Error();
+          else {
+            const refreshResponse = await axios.post<Token>(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/refresh`);
+            const { accessToken, refreshToken } = refreshResponse.data;
+            setTokens({ accessToken, refreshToken });
+            return await apiClient(error.config!);
+          }
+        } catch {
+          removeTokens();
+          removeSocialType();
+          window.dispatchEvent(new CustomEvent(LOGOUT_EVENT_NAME));
+        }
+      }
+    }
     return Promise.reject(error);
   },
 );

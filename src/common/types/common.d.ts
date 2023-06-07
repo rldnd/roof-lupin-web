@@ -29,3 +29,10 @@ export interface PaginationParams {
   page: number;
   limit: number;
 }
+
+export interface ErrorDTO {
+  message: string;
+  path: string;
+  statusCode: number;
+  timestamp: Date;
+}
