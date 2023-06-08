@@ -25,7 +25,7 @@ export interface DateDTO {
   deletedAt: Date | null;
 }
 
-export interface PaginationParams {
+export interface BasePaginationQueryParams {
   page: number;
   limit: number;
 }

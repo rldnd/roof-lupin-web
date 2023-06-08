@@ -5,6 +5,7 @@ import type { Hashtag } from "./hashtag";
 import type { Host } from "./host";
 import type { Location } from "./location";
 import type { RefundPolicy } from "./refund";
+import type { PackageRentalType, TimeRentalType } from "./rentalType";
 import type { Review } from "./review";
 import type { Service } from "./service";
 
@@ -84,4 +85,11 @@ export interface SpaceDetail extends Omit<Space, "publicTransportation"> {
   hashtags: Hashtag[];
   /** 대중교통 목록 */
   publicTransportations: Transportation[];
+}
+
+export interface SpaceRentalType {
+  /** 시간 대여타입 */
+  timeRentalTypes: TimeRentalType | null;
+  /** 패키지 대여타입 */
+  packageRentalType: PackageRentalType | null;
 }
