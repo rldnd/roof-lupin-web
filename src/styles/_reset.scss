@@ -132,17 +132,15 @@ table {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  letter-spacing: -0.05em;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -ms-overflow-style: none; // IE and Edge
-  scrollbar-width: none; // Firefox
 
   &::before,
   &::after {
     box-sizing: border-box;
   }
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
 
   &::-webkit-scrollbar {
     display: none; // Chrome

@@ -23,6 +23,11 @@ export const suit = localFont({
       style: "normal",
     },
     {
+      path: "../styles/fonts/Suit/SUIT-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
       path: "../styles/fonts/Suit/SUIT-Bold.woff2",
       weight: "700",
       style: "normal",
