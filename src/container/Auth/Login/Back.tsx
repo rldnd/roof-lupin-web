@@ -4,7 +4,7 @@ import React from "react";
 
 import { useRouter } from "next/navigation";
 
-import styles from "./header.module.scss";
+import styles from "./back.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();

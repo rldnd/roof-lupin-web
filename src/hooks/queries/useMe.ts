@@ -19,6 +19,7 @@ type Options = Omit<
 
 interface UseMeReturn {
   me: CommonUser | null;
+  isLogined: boolean;
   refetchMe: () => Promise<QueryObserverResult<CommonUser>>;
   onLogout(): void;
 }
@@ -33,7 +34,6 @@ const useMe = (options?: Options): UseMeReturn => {
 
   const onLogout = useCallback(() => {
     removeTokens();
-    removeSocialType();
     setMe(null);
   }, [setMe]);
 
@@ -49,6 +49,7 @@ const useMe = (options?: Options): UseMeReturn => {
 
   return {
     me,
+    isLogined: me !== null,
     refetchMe: refetch,
     onLogout,
   };

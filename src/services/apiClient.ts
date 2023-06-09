@@ -20,7 +20,7 @@ const REVALIDATE = 60 * 5;
 
 /** SSR / SSG / ISR */
 export const fetchClient = (url?: string, options?: FetchOptions) => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api${url}`, {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1${url}`, {
     next: { revalidate: options?.revalidate ?? REVALIDATE, tags: options?.tags },
     cache: options?.cache,
   });

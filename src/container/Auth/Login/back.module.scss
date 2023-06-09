@@ -1,0 +1,10 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.absolute(56px 20px auto auto);
+  @include m.fontH4Regular;
+  color: var(--c-gray-300);
+  cursor: pointer;
+  background-color: transparent;
+}

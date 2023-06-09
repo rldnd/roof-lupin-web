@@ -1,5 +1,3 @@
-import "client-only";
-
 import type { Nullable } from "./types";
 import { ACCESS_TOKEN, REFRESH_TOKEN, SOCIAL_TYPE } from "@/common/constants";
 import type { SocialType, Token } from "@/common/types/auth";

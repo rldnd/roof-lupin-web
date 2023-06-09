@@ -1,0 +1,33 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  gap: 12px;
+  width: 100%;
+  margin-top: auto;
+
+  button {
+    @include m.flex;
+    @include m.fontButton1;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0;
+    border-radius: 8px;
+  }
+
+  [data-social="kakao"] {
+    color: var(--c-black);
+    background-color: var(--c-kakao);
+  }
+
+  [data-social="naver"] {
+    color: var(--c-white);
+    background-color: var(--c-naver);
+  }
+
+  [data-social="apple"] {
+    color: var(--c-white);
+    background-color: var(--c-apple);
+  }
+}
