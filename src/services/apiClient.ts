@@ -1,6 +1,6 @@
 import axios, { type AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
 
-import { LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, TOKEN_EXPIRED_STATUS } from "@/common/constants";
+import { DEFAULT_REVALIDATE, LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, TOKEN_EXPIRED_STATUS } from "@/common/constants";
 import type { Token } from "@/common/types/auth";
 import type { ErrorDTO } from "@/common/types/common";
 import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
@@ -15,13 +15,10 @@ interface FetchOptions {
   cache?: RequestCache;
 }
 
-// 5 minutes
-const REVALIDATE = 60 * 5;
-
 /** SSR / SSG / ISR */
 export const fetchClient = (url?: string, options?: FetchOptions) => {
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1${url}`, {
-    next: { revalidate: options?.revalidate ?? REVALIDATE, tags: options?.tags },
+    next: { revalidate: options?.revalidate ?? DEFAULT_REVALIDATE, tags: options?.tags },
     cache: options?.cache,
   });
 };

@@ -1,8 +1,8 @@
-export interface Home {
+export interface Main {
   /** 메인화면 배경 이미지 ID */
-  homeImageId: string;
+  mainImageId: string;
   /** 메인화면 배경 이미지 url */
-  homeImage: string;
+  mainImage: string;
   /** 메인화면 슬로건 ID */
   sloganId: string;
   /** 메인화면 슬로건 */
