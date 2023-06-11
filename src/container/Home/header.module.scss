@@ -9,7 +9,7 @@
   max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_MAIN_HEADER_HEIGHT;
   padding: 50px c.$S_PAGE_HORIZONTAL_PADDING 10px;
-  translate: -50% 0;
+  transform: translateX(-50%);
 
   svg {
     cursor: pointer;
