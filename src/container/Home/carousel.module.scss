@@ -1,0 +1,44 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  position: relative;
+  width: 100%;
+  aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO;
+
+  @media screen and (width >= 550px) {
+    aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO_WIDE;
+  }
+
+  .slider {
+    width: 100%;
+
+    .image {
+      width: 100%;
+      aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO;
+      object-fit: cover;
+
+      @media screen and (width >= 550px) {
+        aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO_WIDE;
+      }
+    }
+  }
+
+  progress {
+    @include m.absolute(auto auto 0 auto);
+    width: 100%;
+    height: c.$S_MAIN_CAROUSEL_PROGRESS_HEIGHT;
+    border: 0;
+    appearance: none;
+
+    &::-webkit-progress-bar {
+      background-color: var(--c-gray-400);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--c-roof-orange);
+      transition: width 0.5s ease-in-out;
+    }
+  }
+}

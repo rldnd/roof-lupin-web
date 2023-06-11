@@ -1,3 +1,5 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+/* stylelint-disable property-no-unknown */
 :root {
   // NOTE: Primary
   --c-roof-orange: #eb4824;
@@ -29,4 +31,6 @@
   --c-kakao: #fee500;
   --c-naver: #03c75a;
   --c-apple: #000000;
+
+  --c-background: #ffffff;
 }

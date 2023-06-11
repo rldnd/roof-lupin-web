@@ -2,7 +2,7 @@
 
 import React, { MouseEventHandler } from "react";
 
-import { IconApple, IconKakao, IconNaver } from "public/icons/auth";
+import { IconApple, IconKakao, IconNaver } from "public/icons";
 
 import styles from "./form.module.scss";
 

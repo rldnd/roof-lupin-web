@@ -1,0 +1,37 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  @include m.fixed(0 auto auto 50%);
+  z-index: c.$Z_HEADER;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_MAIN_HEADER_HEIGHT;
+  padding: 50px c.$S_PAGE_HORIZONTAL_PADDING 10px;
+  translate: -50% 0;
+
+  svg {
+    cursor: pointer;
+  }
+
+  nav {
+    a {
+      display: inline-block;
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  &.breakpoint {
+    svg {
+      filter: brightness(0) saturate(100%);
+      opacity: var(--opacity);
+    }
+  }
+
+  &.backgroundBreakpoint {
+    background-color: rgba(255, 255, 255, var(--background-opacity));
+    border-bottom: 2px solid rgba(245, 245, 245, var(--background-opacity));
+  }
+}
