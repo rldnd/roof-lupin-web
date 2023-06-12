@@ -16,11 +16,14 @@ interface FetchOptions {
 }
 
 /** SSR / SSG / ISR */
-export const fetchClient = (url?: string, options?: FetchOptions) => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1${url}`, {
+export const fetchClient = async <T>(url?: string, options?: FetchOptions): Promise<T> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1${url}`, {
     next: { revalidate: options?.revalidate ?? DEFAULT_REVALIDATE, tags: options?.tags },
     cache: options?.cache,
   });
+
+  const data = (await response.json()) as T;
+  return data;
 };
 
 /** api call on client side */
@@ -47,6 +50,8 @@ apiClient.interceptors.request.use(async (config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
+    if (!isClient) return Promise.reject(error);
+
     if (isAxiosError<ErrorDTO>(error) && error?.response?.data) {
       const { message, statusCode } = error.response.data;
 

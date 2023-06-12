@@ -11,8 +11,10 @@ import Header from "./Header";
 import styles from "./homeContainer.module.scss";
 
 export default async function HomeContainer() {
-  const { data: curations } = await getHomeCurationsApi();
-  const { data: categories } = await getHomeCategoriesApi();
+  const curationsPromise = getHomeCurationsApi();
+  const categoriesPromise = getHomeCategoriesApi();
+
+  const [curations, categories] = await Promise.all([curationsPromise, categoriesPromise]);
 
   return (
     <main className={styles.wrapper}>

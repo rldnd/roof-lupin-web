@@ -30,8 +30,13 @@ button {
   outline: none;
 }
 
+*:focus-visible {
+  outline: 1px solid var(--c-roof-orange);
+}
+
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 figure {
