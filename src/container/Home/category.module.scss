@@ -1,0 +1,49 @@
+/* stylelint-disable property-no-unknown */
+/* stylelint-disable selector-pseudo-class-no-unknown */
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$CATEGORY_WIDTH: 56px;
+
+.wrapper {
+  @include m.flex(space-between);
+  gap: 12px;
+  width: 100%;
+  padding: 40px 0 32px;
+  overflow-x: scroll;
+
+  .item {
+    @include m.flex(flex-start, center, column);
+    position: relative;
+    gap: 6px;
+    width: max-content;
+
+    img {
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .name {
+      @include m.fontBody1Regular;
+      color: var(--c-black);
+      white-space: nowrap;
+    }
+
+    .recommend {
+      @include m.flex;
+      @include m.fontCaption;
+      @include m.absolute(-12px auto auto 50%);
+      padding: 4px 10px;
+      color: var(--c-roof-orange);
+      white-space: nowrap;
+      background-color: var(--c-white);
+      border: 1px solid var(--c-roof-orange);
+      border-radius: 100px;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:export {
+  categoryWidth: $CATEGORY_WIDTH;
+}
