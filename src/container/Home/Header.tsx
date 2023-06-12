@@ -6,8 +6,7 @@ import Link from "next/link";
 
 import cx from "clsx";
 
-import { useContentWidth, useHeaderScrollOpacity } from "@/hooks";
-import useBreakPoint from "@/hooks/useBreakpoint";
+import { useHeaderScrollOpacity } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { getNumberFromPixel } from "@/utils/styles";
 
@@ -16,16 +15,9 @@ import { IconBell, IconMainLogo, IconSearch } from "public/icons";
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
-  const { width } = useContentWidth();
-
-  const mainCarouselRatio = useBreakPoint({
-    breakpoint: 550,
-    maxValue: Number(sizes.mainCarouselRatioWide),
-    minValue: Number(sizes.mainCarouselRatio),
-  });
-
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
-    containerHeight: (1 / mainCarouselRatio) * width + getNumberFromPixel(sizes.mainCarouselProgressHeight),
+    containerHeight:
+      getNumberFromPixel(sizes.mainCarouselHeight) + getNumberFromPixel(sizes.mainCarouselProgressHeight),
     headerHeight: getNumberFromPixel(sizes.mainHeaderHeight),
   });
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { memo, type ReactNode, useCallback, useMemo, useState } from "react";
 
+import Skeleton from "react-loading-skeleton";
 import Slider, { type Settings } from "react-slick";
 
 import styles from "./carousel.module.scss";
@@ -15,29 +16,36 @@ const defaultSettings: Settings = {
   slidesToScroll: 1,
 };
 
-const TOTAL_SLIDES = 4;
+interface Props {
+  slideCount: number;
+  children: ReactNode;
+}
 
-const Carousel: React.FC = () => {
-  const [progress, setProgress] = useState((1 / TOTAL_SLIDES) * 100);
+const Carousel: React.FC<Props> = ({ slideCount, children }) => {
+  const [progress, setProgress] = useState((1 / slideCount) * 100);
 
-  const handleScroll = (currentIndex: number, nextIndex: number) => {
-    const progress = ((nextIndex + 1) / TOTAL_SLIDES) * 100;
-    setProgress(progress);
-  };
+  const handleScroll = useCallback(
+    (currentIndex: number, nextIndex: number) => {
+      const progress = ((nextIndex + 1) / slideCount) * 100;
+      setProgress(progress);
+    },
+    [slideCount],
+  );
 
-  const settings = { ...defaultSettings, beforeChange: handleScroll };
+  const settings = useMemo<Settings>(() => ({ ...defaultSettings, beforeChange: handleScroll }), [handleScroll]);
 
   return (
     <section className={styles.wrapper} aria-label="메인 페이지 이미지 리스트">
       <Slider className={styles.slider} {...settings}>
-        <img src="https://via.placeholder.com/300x150" alt="placeholder" className={styles.image} />
-        <img src="https://via.placeholder.com/300x150" alt="placeholder" className={styles.image} />
-        <img src="https://via.placeholder.com/300x150" alt="placeholder" className={styles.image} />
-        <img src="https://via.placeholder.com/300x150" alt="placeholder" className={styles.image} />
+        {children as any}
       </Slider>
       <progress value={progress} max="100" />
     </section>
   );
 };
 
-export default Carousel;
+export default memo(Carousel);
+
+export const LoadingCarousel: React.FC = () => {
+  return <Skeleton className={styles.wrapper} />;
+};

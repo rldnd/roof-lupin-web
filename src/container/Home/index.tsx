@@ -1,18 +1,26 @@
-"use client";
+import { Suspense } from "react";
 
-import Carousel from "./Carousel";
+import { getHomeCurationsApi } from "@/services/curation";
+
+import Carousel, { LoadingCarousel } from "./Carousel";
+import CarouselItem from "./CarouselItem";
 import Header from "./Header";
 
-import styles from "./homePage.module.scss";
+import styles from "./homeContainer.module.scss";
 
-const HomeContainer: React.FC = () => {
+export default async function HomeContainer() {
+  const { data: curations } = await getHomeCurationsApi();
+
   return (
     <main className={styles.wrapper}>
       <Header />
-      <Carousel />
-      <div style={{ height: "2000px" }}>sdf</div>
+      <Suspense fallback={<LoadingCarousel />}>
+        <Carousel slideCount={curations.length}>
+          {curations.map((curation) => (
+            <CarouselItem key={curation.id} curation={curation} />
+          ))}
+        </Carousel>
+      </Suspense>
     </main>
   );
-};
-
-export default HomeContainer;
+}

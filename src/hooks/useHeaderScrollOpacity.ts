@@ -23,6 +23,7 @@ const useHeaderScrollOpacity = ({
   };
 
   const getOpacity = (earlyLevel: number) => {
+    if (y < containerHeight - earlyLevel * headerHeight) return 0;
     if (containerHeight - y < earlyLevel * headerHeight && containerHeight - y > 0) {
       return Math.abs(containerHeight - y - earlyLevel * headerHeight) / (earlyLevel * headerHeight);
     } else return 1;

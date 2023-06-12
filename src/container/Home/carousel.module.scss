@@ -5,24 +5,11 @@
   @include m.flex(flex-start, center, column);
   position: relative;
   width: 100%;
-  aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO;
-
-  @media screen and (width >= 550px) {
-    aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO_WIDE;
-  }
+  height: calc(c.$S_MAIN_CAROUSEL_HEIGHT + c.$S_MAIN_CAROUSEL_PROGRESS_HEIGHT);
 
   .slider {
     width: 100%;
-
-    .image {
-      width: 100%;
-      aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO;
-      object-fit: cover;
-
-      @media screen and (width >= 550px) {
-        aspect-ratio: c.$S_MAIN_CAROUSEL_RATIO_WIDE;
-      }
-    }
+    height: c.$S_MAIN_CAROUSEL_HEIGHT;
   }
 
   progress {

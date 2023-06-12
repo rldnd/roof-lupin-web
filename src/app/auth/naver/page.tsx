@@ -1,5 +1,1 @@
-import NaverContainer from "@/container/Auth/Naver";
-
-const NaverPage: React.FC = () => <NaverContainer />;
-
-export default NaverPage;
+export { default } from "@/container/Auth/Naver";
