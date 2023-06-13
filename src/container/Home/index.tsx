@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import BottomNavigation from "@/components/Common/BottomNavigation";
 import SpaceCard from "@/components/SpaceCard/SpaceCard";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
@@ -39,6 +40,7 @@ export default async function HomeContainer() {
           </ContentList>
         );
       })}
+      <BottomNavigation />
     </main>
   );
 }

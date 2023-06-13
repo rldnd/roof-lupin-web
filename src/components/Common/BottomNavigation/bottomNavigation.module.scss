@@ -2,15 +2,27 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.fixed(auto auto 0 50%);
-  @include m.flex(space-around);
-  z-index: c.$Z_BOTTOM_NAVIGATION;
-  width: 100%;
-  height: c.$S_BOTTOM_NAVIGATION_HEIGHT;
-  padding: 8px 0 22px;
-  transform: translateX(-50%);
+  nav {
+    @include m.fixed(auto auto 0 50%);
+    @include m.flex(space-around);
+    z-index: c.$Z_BOTTOM_NAVIGATION;
+    width: 100%;
+    max-width: c.$S_CONTENT_WIDTH;
+    height: c.$S_BOTTOM_NAVIGATION_HEIGHT;
+    padding: 8px 0 22px;
+    background-color: var(--c-white);
+    transform: translateX(-50%);
 
-  .item {
-    @include m.flex(flex-start, center, column);
+    .item {
+      @include m.flex(flex-start, center, column);
+      @include m.fontCaption;
+      color: var(--c-gray-400);
+
+      &.isActive {
+        color: var(--c-roof-orange);
+        filter: brightness(0) saturate(100%) invert(30%) sepia(81%) saturate(3098%) hue-rotate(353deg) brightness(101%)
+          contrast(84%);
+      }
+    }
   }
 }
