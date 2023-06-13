@@ -57,3 +57,25 @@
   font-weight: 400;
   line-height: 130%;
 }
+
+@mixin fontCaptionSemiBold {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+}
+
+@mixin makeEllipsis($line-cnt: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @if $line-cnt == 1 {
+    white-space: nowrap;
+  }
+
+  @if $line-cnt > 1 {
+    display: -webkit-box;
+    -webkit-line-clamp: $line-cnt;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+}

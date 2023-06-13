@@ -15,6 +15,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "kyoongdev-blog.sgp1.vultrobjects.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.pinimg.com",
+      },
     ],
   },
   webpack(config) {

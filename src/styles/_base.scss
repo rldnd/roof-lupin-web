@@ -63,3 +63,13 @@ textarea {
     "Helvetica Neue", Helvetica, Arial, sans-serif;
   resize: none;
 }
+
+// NOTE: Hide scrollbar
+* {
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome
+  }
+}

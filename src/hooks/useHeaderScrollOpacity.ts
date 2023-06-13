@@ -1,4 +1,4 @@
-import { useWindowScroll } from "react-use";
+import useWindowScroll from "./useWindowScroll";
 
 interface UseHeaderScrollOpacityArgs {
   containerHeight: number;

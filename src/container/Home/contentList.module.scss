@@ -1,0 +1,43 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(center, center, column);
+  gap: 24px;
+  width: 100%;
+  padding-bottom: 32px;
+  margin-top: 44px;
+
+  .header {
+    @include m.flex(space-between);
+    @include m.fontH3SemiBold;
+    width: 100%;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+    color: var(--c-roof-orange);
+
+    h2 {
+      flex: 1;
+      @include m.makeEllipsis;
+
+      span {
+        @include m.fontH3Medium;
+        color: var(--c-black);
+      }
+    }
+  }
+
+  .list {
+    @include m.flex(flex-start, center, row);
+    gap: 16px;
+    width: 100%;
+    overflow-x: scroll;
+
+    li:first-of-type {
+      margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+    }
+
+    li:last-of-type {
+      margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
+    }
+  }
+}

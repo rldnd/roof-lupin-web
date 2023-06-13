@@ -1,0 +1,25 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  position: absolute;
+  width: 48px;
+  height: 24px;
+  background-color: var(--c-roof-orange);
+
+  &::after {
+    @include m.absolute(auto auto 0 50%);
+    content: "";
+    border-top: 14px solid var(--c-roof-orange);
+    border-right: 24px solid transparent;
+    border-left: 24px solid transparent;
+    transform: translate(-50%, 100%);
+  }
+
+  .text {
+    @include m.absolute(3px auto auto 50%);
+    @include m.fontBody1SemiBold;
+    color: var(--c-white);
+    transform: translateX(-50%);
+  }
+}

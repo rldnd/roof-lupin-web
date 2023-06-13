@@ -38,6 +38,8 @@ export interface Space {
   cost: number;
   /** 공간 베스트 여부 */
   isBest: boolean | null;
+  /** 찜 여부 */
+  isInterested: boolean | null;
   /** 공간 썸네일 */
   thumbnail: string;
   /** 공간 대중 교통 */
@@ -46,7 +48,11 @@ export interface Space {
   location: Location | null;
 }
 
-export interface SpaceDetail extends Omit<Space, "publicTransportation"> {
+export interface SpaceDetail extends Omit<Space, "publicTransportation" | "isBest" | "isInterested"> {
+  /** 공간 베스트 여부 */
+  isBest: boolean;
+  /** 찜 여부 */
+  isInterested: boolean;
   /** 공간 설명 */
   description: string;
   /** 공간 최소 크기 */
@@ -63,8 +69,6 @@ export interface SpaceDetail extends Omit<Space, "publicTransportation"> {
   overflowUserCost: number;
   /** 초과 인원 */
   overflowUserCount: number;
-  /** 찜 여부 */
-  isInterested: boolean;
   /** 호스트 정보 */
   host: Host;
   /** 리뷰 목록 */
