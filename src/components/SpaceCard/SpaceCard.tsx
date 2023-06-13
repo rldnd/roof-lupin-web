@@ -7,9 +7,9 @@ import cx from "clsx";
 
 import { FULL_STAR } from "@/common/constants/common";
 import type { Space } from "@/common/types/space";
+import { BestTag } from "@/components";
 
 import Bookmark from "./Bookmark";
-import BestTag from "../BestTag";
 
 import styles from "./spaceCard.module.scss";
 
@@ -21,11 +21,9 @@ interface Props {
 
 const SpaceCard: React.FC<Props> = ({ className, space, href }) => {
   const hasTimeCost = space.timeCost !== null;
-  const [pricePrefix, priceSuffix, price] = [
-    hasTimeCost ? "1시간" : "패키지",
-    hasTimeCost ? "원" : "원~",
-    hasTimeCost ? space.timeCost! : space.packageCost!,
-  ];
+  const price = hasTimeCost ? space.timeCost! : space.packageCost!;
+  const pricePrefix = hasTimeCost ? "1시간" : "패키지";
+  const priceSuffix = hasTimeCost ? "원" : "원~";
 
   return (
     <li className={cx(styles.wrapper, className)}>

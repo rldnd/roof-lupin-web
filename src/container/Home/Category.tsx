@@ -18,7 +18,7 @@ const Category: React.FC<Props> = ({ categories }) => {
             src={category.iconPath as string}
             width={getNumberFromPixel(styles.categoryWidth)}
             height={getNumberFromPixel(styles.categoryWidth)}
-            alt="카테고리 이미지"
+            alt={`${category.name} 카테고리 이미지`}
           />
           <span className={styles.name}>{category.name}</span>
           {category.isRecommended && <span className={styles.recommend}>추천</span>}

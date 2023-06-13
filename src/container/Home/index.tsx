@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 
-import DataToggleButton from "@/components/DataToggleButton";
 import SpaceCard from "@/components/SpaceCard/SpaceCard";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
