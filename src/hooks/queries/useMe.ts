@@ -7,7 +7,7 @@ import { LOGOUT_EVENT_NAME } from "@/common/constants";
 import type { CommonUser } from "@/common/types/user";
 import { getMeApi } from "@/services/user";
 import { meState } from "@/states";
-import { removeSocialType, removeTokens } from "@/utils/auth";
+import { removeTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
 
 type Options = Omit<
@@ -29,7 +29,9 @@ const useMe = (options?: Options): UseMeReturn => {
   const { refetch } = useQuery(["getMe"], () => getMeApi().then((res) => res.data), {
     staleTime: Infinity,
     onSuccess: (data) => setMe(data),
+    onError: () => onLogout(),
     ...options,
+    enabled: isClient && options?.enabled,
   });
 
   const onLogout = useCallback(() => {

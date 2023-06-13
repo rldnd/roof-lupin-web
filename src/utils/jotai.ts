@@ -2,8 +2,12 @@ import "client-only";
 
 import { atom } from "jotai";
 
+import { isClient } from "./next";
+
 export const persistenceAtom = <T>(key: string, initialValue: T) => {
   const getInitialValue = (): T => {
+    if (!isClient) return initialValue;
+
     const item = localStorage.getItem(key);
 
     if (item !== null) {

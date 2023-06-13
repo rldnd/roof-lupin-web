@@ -34,12 +34,14 @@ export interface Space {
   averageScore: number;
   /** 공간 리뷰 개수 */
   reviewCount: number;
-  /** 공간 가격 */
-  cost: number;
+  /** 공간 시간 최소 가격 */
+  timeCost: number | null;
+  /** 공간 패키지 최소 가격 */
+  packageCost: number | null;
   /** 공간 베스트 여부 */
-  isBest: boolean | null;
+  isBest: boolean;
   /** 찜 여부 */
-  isInterested: boolean | null;
+  isInterested: boolean;
   /** 공간 썸네일 */
   thumbnail: string;
   /** 공간 대중 교통 */
@@ -48,7 +50,10 @@ export interface Space {
   location: Location | null;
 }
 
-export interface SpaceDetail extends Omit<Space, "publicTransportation" | "isBest" | "isInterested"> {
+export interface SpaceDetail
+  extends Omit<Space, "publicTransportation" | "isBest" | "isInterested" | "timeCost" | "packageCost"> {
+  /** 공간 가격 */
+  cost: number;
   /** 공간 베스트 여부 */
   isBest: boolean;
   /** 찜 여부 */
