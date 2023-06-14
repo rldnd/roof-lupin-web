@@ -6,6 +6,7 @@
     "node": "18.x"
   },
   "scripts": {
+    "predev": "rm -rf .next",
     "dev": "next dev",
     "build": "cross-env ANALYZE=true next build",
     "start": "next start",
