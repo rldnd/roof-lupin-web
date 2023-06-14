@@ -20,7 +20,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
 
   return (
     <main className={styles.wrapper}>
-      <Header spaceId={space.id} />
+      <Header space={space} />
       <Carousel slideCount={space.images.length}>
         {space.images.map((image) => (
           <CarouselItem key={image.url} image={image} />

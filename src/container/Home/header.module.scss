@@ -21,7 +21,7 @@
 
   &.breakpoint {
     svg {
-      filter: brightness(0) saturate(100%);
+      @include m.filterGray900;
       opacity: var(--opacity);
     }
   }

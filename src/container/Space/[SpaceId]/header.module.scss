@@ -5,11 +5,41 @@
   @include m.fixed(0 auto auto 50%);
   @include m.flex(space-between);
   z-index: c.$Z_HEADER;
+  gap: 16px;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_SPACE_DETAIL_HEADER_HEIGHT;
   padding: 26px 16px 10px 12px;
   transform: translateX(-50%);
+
+  .title {
+    display: none;
+  }
+
+  &.breakpoint {
+    .bookmark[data-active="false"] path {
+      fill-opacity: 0;
+    }
+
+    .title {
+      @include m.makeEllipsis;
+      @include m.fontH4Regular;
+      display: block;
+      flex: 1;
+      color: var(--c-gray-700);
+      opacity: var(--opacity);
+    }
+
+    svg {
+      @include m.filterGray700;
+      opacity: var(--opacity);
+    }
+  }
+
+  &.backgroundBreakpoint {
+    background-color: rgba(255, 255, 255, var(--background-opacity));
+    border-bottom: 2px solid rgba(245, 245, 245, var(--background-opacity));
+  }
 
   menu {
     @include m.flex;
