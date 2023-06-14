@@ -1,10 +1,19 @@
+import { Suspense } from "react";
+
 import { getSpaceRentalTypeApi } from "@/services/rentalType";
 import { getSpaceApi } from "@/services/space";
 
-import Carousel from "./Carousel";
-import CarouselItem from "./CarouselItem";
+import BestPhoto from "./BestPhoto";
+import Building from "./Building";
+import { Carousel, CarouselItem } from "./Carousel";
+import Caution from "./Caution";
+import Facility from "./Facility";
 import Header from "./Header";
 import Introduction from "./Introduction";
+import Map from "./Map";
+import Price from "./Price";
+import Review from "./Review";
+import TabBar from "./TabBar";
 
 import styles from "./spaceDetailContainer.module.scss";
 
@@ -27,8 +36,21 @@ export default async function SpaceDetailContainer({ params }: Props) {
         ))}
       </Carousel>
       <Introduction space={space} />
+      <TabBar />
+      <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
+      <Price />
       <hr />
-      <div style={{ height: 2000 }} />
+      <BestPhoto />
+      <hr />
+      <Facility />
+      <hr />
+      <Building />
+      <hr />
+      <Caution />
+      <hr />
+      <Map />
+      <hr />
+      <Review />
     </main>
   );
 }

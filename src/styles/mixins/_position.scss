@@ -50,6 +50,10 @@
   @include position(fixed, $args);
 }
 
+@mixin sticky($args: ()) {
+  @include position(sticky, $args);
+}
+
 @mixin relative($args: ()) {
   @include position(relative, $args);
 }
