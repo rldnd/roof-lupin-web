@@ -2,5 +2,22 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  position: relative;
   width: 100%;
+  height: c.$S_SPACE_DETAIL_CAROUSEL_HEIGHT;
+
+  .slider {
+    width: 100%;
+    height: c.$S_SPACE_DETAIL_CAROUSEL_HEIGHT;
+  }
+
+  .countWrapper {
+    @include m.absolute(auto 20px 16px auto);
+    @include m.flex;
+    @include m.fontBody1Regular;
+    padding: 0 8px;
+    color: var(--c-white);
+    background-color: rgba(255, 255, 255, 20%);
+    border-radius: 4px;
+  }
 }

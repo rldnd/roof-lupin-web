@@ -1,0 +1,37 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.oneRowWrapper {
+  @include m.fontH4Regular;
+  color: var(--c-gray-600);
+
+  > span {
+    @include m.fontH4SemiBold;
+    margin-left: 4px;
+    color: var(--c-roof-orange);
+  }
+}
+
+.twoRowsWrapper {
+  @include m.flex(flex-start, flex-end, column);
+  gap: 4px;
+
+  .firstRow {
+    @include m.fontH4SemiBold;
+    color: var(--c-gray-500);
+
+    > span {
+      margin-left: 4px;
+      color: var(--c-roof-orange);
+    }
+  }
+
+  .secondRow {
+    @include m.fontH4Regular;
+    color: var(--c-gray-500);
+
+    > span {
+      margin-left: 4px;
+    }
+  }
+}

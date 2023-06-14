@@ -1,12 +1,17 @@
 "use client";
 
-import { AuthChecker, BackButton } from "@/components";
+import { AuthChecker, BackButton, DataToggleButton } from "@/components";
+import { createSpaceInterestApi, deleteSpaceInterestApi, getSpaceInterestedApi } from "@/services/space";
 
 import { IconBack, IconBookmarkActive, IconBookmarkInactive, IconShare } from "public/icons";
 
 import styles from "./header.module.scss";
 
-const Header: React.FC = () => {
+interface Props {
+  spaceId: string;
+}
+
+const Header: React.FC<Props> = ({ spaceId }) => {
   return (
     <header className={styles.wrapper}>
       <BackButton>
@@ -20,10 +25,19 @@ const Header: React.FC = () => {
         </li>
         <li>
           <AuthChecker>
-            {/* <DataToggleButton> */}
-            <IconBookmarkActive />
-            <IconBookmarkInactive />
-            {/* </DataToggleButton> */}
+            <DataToggleButton
+              id={spaceId}
+              queryKey={["getSpaceInterested", spaceId]}
+              hasQueryFnIdArg
+              dataKey={{ valueKey: "isInterested" }}
+              queryFn={getSpaceInterestedApi}
+              className={styles.bookmark}
+              activeFn={createSpaceInterestApi}
+              inactiveFn={deleteSpaceInterestApi}
+            >
+              <IconBookmarkActive />
+              <IconBookmarkInactive />
+            </DataToggleButton>
           </AuthChecker>
         </li>
       </menu>

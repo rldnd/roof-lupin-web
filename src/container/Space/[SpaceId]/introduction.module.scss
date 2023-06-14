@@ -1,0 +1,18 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 32px;
+
+  .transport {
+    @include m.fontCaption;
+    margin-bottom: 4px;
+    color: var(--c-gray-500);
+  }
+
+  .title {
+    @include m.fontH1;
+    color: var(--c-black);
+  }
+}

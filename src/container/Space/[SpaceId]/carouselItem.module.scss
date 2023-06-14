@@ -1,0 +1,13 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: c.$S_SPACE_DETAIL_CAROUSEL_HEIGHT;
+  cursor: grab;
+
+  img {
+    object-fit: cover;
+  }
+}

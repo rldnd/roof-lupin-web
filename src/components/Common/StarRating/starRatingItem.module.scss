@@ -1,0 +1,22 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex;
+  gap: 2px;
+
+  .star {
+    @include m.fontH4SemiBold;
+    color: var(--c-roof-yellow);
+  }
+
+  .score {
+    @include m.fontH4SemiBold;
+    color: var(--c-gray-900);
+  }
+
+  .reviewCount {
+    @include m.fontH4Regular;
+    color: var(--c-gray-600);
+  }
+}

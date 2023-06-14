@@ -1,15 +1,15 @@
-import { memo, Suspense } from "react";
+import { memo } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
 
-import { FULL_STAR } from "@/common/constants";
 import type { Space } from "@/common/types/space";
-import { BestTag } from "@/components";
+import { BestTag, Price } from "@/components";
 
 import Bookmark from "./Bookmark";
+import { StarRatingItem } from "../Common/StarRating";
 
 import styles from "./spaceCard.module.scss";
 
@@ -20,38 +20,21 @@ interface Props {
 }
 
 const SpaceCard: React.FC<Props> = ({ className, space, href }) => {
-  const hasTimeCost = space.timeCost !== null;
-  const price = hasTimeCost ? space.timeCost! : space.packageCost!;
-  const pricePrefix = hasTimeCost ? "1시간" : "패키지";
-  const priceSuffix = hasTimeCost ? "원" : "원~";
-
   return (
     <li className={cx(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
         <Link href={href}>
           <Image src={space.thumbnail} fill alt={`${space.title} 공간 이미지`} />
         </Link>
-        <Suspense fallback={null}>
-          <Bookmark space={space} />
-        </Suspense>
+        <Bookmark space={space} />
       </div>
 
       <Link href={href} className={styles.content}>
         {space.publicTransportation && <span className={styles.transport}>{space.publicTransportation.name}</span>}
         <p className={styles.title}>{space.title}</p>
         <div className={styles.info}>
-          <div className={styles.rating}>
-            <span className={styles.star}>{FULL_STAR}</span>
-            <span className={styles.score}>{space.averageScore}</span>
-            <span className={styles.reviewCount}>({space.reviewCount})</span>
-          </div>
-          <span className={styles.price}>
-            {pricePrefix} /
-            <span>
-              {price.toLocaleString("ko-KR")}
-              {priceSuffix}
-            </span>
-          </span>
+          <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} />
+          <Price packageCost={space.packageCost} timeCost={space.timeCost} rows={1} />
         </div>
         {space.isBest && <BestTag top="0" left="8px" />}
       </Link>

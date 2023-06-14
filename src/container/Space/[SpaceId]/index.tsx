@@ -2,7 +2,9 @@ import { getSpaceRentalTypeApi } from "@/services/rentalType";
 import { getSpaceApi } from "@/services/space";
 
 import Carousel from "./Carousel";
+import CarouselItem from "./CarouselItem";
 import Header from "./Header";
+import Introduction from "./Introduction";
 
 import styles from "./spaceDetailContainer.module.scss";
 
@@ -18,8 +20,14 @@ export default async function SpaceDetailContainer({ params }: Props) {
 
   return (
     <main className={styles.wrapper}>
-      <Header />
-      <Carousel />
+      <Header spaceId={space.id} />
+      <Carousel slideCount={space.images.length}>
+        {space.images.map((image) => (
+          <CarouselItem key={image.url} image={image} />
+        ))}
+      </Carousel>
+      <Introduction space={space} />
+      <hr />
     </main>
   );
 }

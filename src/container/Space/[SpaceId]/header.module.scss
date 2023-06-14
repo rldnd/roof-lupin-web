@@ -3,10 +3,29 @@
 
 .wrapper {
   @include m.fixed(0 auto auto 50%);
+  @include m.flex(space-between);
   z-index: c.$Z_HEADER;
   width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_SPACE_DETAIL_HEADER_HEIGHT;
   padding: 26px 16px 10px 12px;
-  background-color: black;
   transform: translateX(-50%);
+
+  menu {
+    @include m.flex;
+
+    .bookmark {
+      &[data-active="true"] {
+        svg:last-of-type {
+          display: none;
+        }
+      }
+
+      &[data-active="false"] {
+        svg:first-of-type {
+          display: none;
+        }
+      }
+    }
+  }
 }

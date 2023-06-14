@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import axios, { type AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
 
-import { DEFAULT_REVALIDATE, LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, TOKEN_EXPIRED_STATUS } from "@/common/constants";
+import { DEFAULT_REVALIDATE, LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, UNAUTHORIZED_STATUS } from "@/common/constants";
 import type { Token } from "@/common/types/auth";
 import type { ErrorDTO } from "@/common/types/common";
 import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
@@ -56,11 +56,10 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (!isClient) return Promise.reject(error);
-
     if (isAxiosError<ErrorDTO>(error) && error?.response?.data) {
       const { message, statusCode } = error.response.data;
 
-      if (message === TOKEN_EXPIRED_MESSAGE && statusCode === TOKEN_EXPIRED_STATUS) {
+      if (message === TOKEN_EXPIRED_MESSAGE && statusCode === UNAUTHORIZED_STATUS) {
         try {
           const { accessToken, refreshToken } = getTokens();
           if (!accessToken || !refreshToken) throw new Error();

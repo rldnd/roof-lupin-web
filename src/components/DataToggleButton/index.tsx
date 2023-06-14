@@ -10,15 +10,18 @@ import { genericMemo } from "@/utils/genericMemo";
 type CheckIsArray<T> = T extends unknown[] ? true : false;
 type GetArrayType<T> = T extends Array<infer R> ? R : never;
 
-interface BaseDataKey<T> {
-  valueKey: keyof T;
-  idKey: keyof T;
-}
+type BaseDataKey<T, IsArray extends boolean> = IsArray extends true
+  ? {
+      valueKey: keyof T;
+      idKey: keyof T;
+    }
+  : { valueKey: keyof T };
 
-type DataKey<T> = CheckIsArray<T> extends true ? BaseDataKey<GetArrayType<T>> : BaseDataKey<T>;
+type DataKey<T> = CheckIsArray<T> extends true ? BaseDataKey<GetArrayType<T>, true> : BaseDataKey<T, false>;
 
 interface Props<T> {
   id: unknown;
+  hasQueryFnIdArg?: boolean;
   queryFn: (...args: any[]) => Promise<T>;
   activeFn: (key: any) => Promise<unknown>;
   inactiveFn: (key: any) => Promise<unknown>;
@@ -31,6 +34,7 @@ interface Props<T> {
 
 /** 리스트 중 한 데이터 혹은 데이터 하나에 대해서 좋아요 / 저장 / 찜 등의 기능을 구현할 때 사용하는 컴포넌트 입니다.
  * @param  id - 선택한 데이터의 id 값
+ * @param  hasQueryFnIdArg - queryFn에 id를 인자로 넘겨줄지 여부
  * @param  queryFn - 데이터를 가져오는 함수
  * @param  activeFn - 좋아요 / 저장 / 찜 등을 활성화 하는 함수
  * @param  inactiveFn - 좋아요 / 저장 / 찜 등을 비활성화 하는 함수
@@ -42,11 +46,12 @@ interface Props<T> {
  */
 const DataToggleButton = <T,>({
   id,
+  hasQueryFnIdArg = false,
   queryKey,
-  queryFn,
+  queryFn: queryFnProps,
   activeFn,
   inactiveFn,
-  dataKey: { valueKey, idKey },
+  dataKey,
   className,
   children,
   debounceDelay = 1000,
@@ -54,14 +59,18 @@ const DataToggleButton = <T,>({
   const beforeActive = useRef(false);
   const [isActive, setIsActive] = useState(false);
 
+  const queryFn = useCallback(() => {
+    if (hasQueryFnIdArg) return queryFnProps(id);
+    return queryFnProps();
+  }, [hasQueryFnIdArg, id, queryFnProps]);
+
   const { data, refetch } = useQuery(queryKey, queryFn, {
     select: (response) => {
-      if (Array.isArray(response)) {
-        return response.find((item) => (item as GetArrayType<T>)[idKey as keyof typeof item] === id);
+      if (Array.isArray(response) && "idKey" in dataKey) {
+        return response.find((item) => (item as GetArrayType<T>)[dataKey.idKey as keyof typeof item] === id);
       }
       return response;
     },
-    suspense: true,
   });
 
   const { mutate: active } = useMutation(activeFn, { onSuccess: () => refetch() });
@@ -86,9 +95,9 @@ const DataToggleButton = <T,>({
   useEffect(() => {
     if (!data) return;
 
-    setIsActive((data[valueKey as keyof typeof data] as boolean) ?? false);
-    beforeActive.current = (data[valueKey as keyof typeof data] as boolean) ?? false;
-  }, [data, valueKey]);
+    setIsActive((data[dataKey.valueKey as keyof typeof data] as boolean) ?? false);
+    beforeActive.current = (data[dataKey.valueKey as keyof typeof data] as boolean) ?? false;
+  }, [data, dataKey.valueKey]);
 
   return (
     <button type="button" className={className} data-active={`${Boolean(isActive)}`} onClick={onClick}>
