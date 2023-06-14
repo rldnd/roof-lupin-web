@@ -35,7 +35,7 @@ export default async function HomeContainer() {
         return (
           <ContentList key={content.id} content={{ id, name, highlight }}>
             {spaces.map((space) => (
-              <SpaceCard key={space.id} space={space} href={"/"} />
+              <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`} />
             ))}
           </ContentList>
         );

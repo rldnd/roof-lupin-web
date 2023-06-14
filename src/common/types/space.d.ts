@@ -52,8 +52,6 @@ export interface Space {
 
 export interface SpaceDetail
   extends Omit<Space, "publicTransportation" | "isBest" | "isInterested" | "timeCost" | "packageCost"> {
-  /** 공간 가격 */
-  cost: number;
   /** 공간 베스트 여부 */
   isBest: boolean;
   /** 찜 여부 */
