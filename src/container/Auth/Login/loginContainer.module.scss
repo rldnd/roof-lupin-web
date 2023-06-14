@@ -20,7 +20,7 @@
     @include m.flex(flex-start, center, column);
     width: 100%;
     height: 100%;
-    padding: 196px c.$S_PAGE_HORIZONTAL_PADDING 80px;
+    padding: 25dvh c.$S_PAGE_HORIZONTAL_PADDING 10dvh;
 
     .slogan {
       @include m.fontH4Regular;

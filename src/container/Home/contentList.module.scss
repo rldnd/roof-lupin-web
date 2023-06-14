@@ -11,17 +11,19 @@
   .header {
     @include m.flex(space-between);
     @include m.fontH3SemiBold;
+    gap: 12px;
     width: 100%;
     padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-    color: var(--c-roof-orange);
 
     h2 {
-      flex: 1;
       @include m.makeEllipsis;
+      @include m.fontH3Medium;
+      flex: 1;
+      color: var(--c-black);
 
       span {
-        @include m.fontH3Medium;
-        color: var(--c-black);
+        @include m.fontH3SemiBold;
+        color: var(--c-roof-orange);
       }
     }
   }

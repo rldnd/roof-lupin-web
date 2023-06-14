@@ -17,7 +17,7 @@ export default async function LoginContainer() {
       </div>
       <main>
         <Back />
-        <Image src={"/images/auth/login-logo.png"} width={100} height={112} alt="로그인 화면 로고" />
+        <Image src={"/images/auth/login-logo.png"} priority width={100} height={112} alt="로그인 화면 로고" />
         <p className={styles.slogan}>{main.content}</p>
         <Form />
       </main>

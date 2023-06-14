@@ -15,7 +15,7 @@ const ContentList: React.FC<Props> = ({ content, children }) => {
     <section className={styles.wrapper} aria-label={`#${content.highlight} ${content.name}`}>
       <header className={styles.header}>
         <h2>
-          #{content.highlight} <span>{content.name}</span>
+          <span>#{content.highlight}</span> {content.name}
         </h2>
         <ArrowLink href="/">더보기</ArrowLink>
       </header>
