@@ -1,3 +1,4 @@
-@function toRGBA($color, $opacity: 1) {
-  @return rgba(red($color), green($color), blue($color), $opacity);
+@mixin filterRoofOrange {
+  filter: brightness(0) saturate(100%) invert(30%) sepia(81%) saturate(3098%) hue-rotate(353deg) brightness(101%)
+    contrast(84%);
 }

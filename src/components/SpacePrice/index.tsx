@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import styles from "./price.module.scss";
+import styles from "./spacePrice.module.scss";
 
 interface Props {
   timeCost: number | null;
@@ -65,7 +65,7 @@ const TwoLinePrice: React.FC<TwoLinePriceProps> = memo(
   },
 );
 
-const Price: React.FC<Props> = ({ packageCost, timeCost, rows }) => {
+const SpacePrice: React.FC<Props> = ({ packageCost, timeCost, rows }) => {
   const [hasTimeCost, hasPriceCost] = [timeCost !== null, packageCost !== null];
   const [timePrefix, timeSuffix] = ["1시간 /", "원"];
   const [packagePrefix, packageSuffix] = ["패키지 /", "원~"];
@@ -93,4 +93,4 @@ const Price: React.FC<Props> = ({ packageCost, timeCost, rows }) => {
   return null;
 };
 
-export default memo(Price);
+export default memo(SpacePrice);

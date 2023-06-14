@@ -28,6 +28,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
       </Carousel>
       <Introduction space={space} />
       <hr />
+      <div style={{ height: 2000 }} />
     </main>
   );
 }

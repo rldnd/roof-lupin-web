@@ -3,5 +3,19 @@
 
 .wrapper {
   @include m.flex;
+  @include m.fontBody1Regular;
   gap: 6px;
+  white-space: nowrap;
+
+  &.isBold {
+    @include m.fontBody1SemiBold;
+  }
+
+  &.primary {
+    color: var(--c-roof-orange);
+  }
+
+  &.secondary {
+    color: var(--c-gray-600);
+  }
 }

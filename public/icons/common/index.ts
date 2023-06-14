@@ -6,3 +6,5 @@ export { default as IconBookmarkInactive } from "./bookmark-inactive.svg";
 export { default as IconHome } from "./home.svg";
 export { default as IconBack } from "./back.svg";
 export { default as IconShare } from "./share.svg";
+export { default as IconOrangeRightChevron } from "./orange-right-chevron.svg";
+export { default as IconOrangeDownChevron } from "./orange-down-chevron.svg";

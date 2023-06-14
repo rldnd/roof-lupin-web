@@ -19,9 +19,8 @@
       color: var(--c-gray-400);
 
       &.isActive {
+        @include m.filterRoofOrange;
         color: var(--c-roof-orange);
-        filter: brightness(0) saturate(100%) invert(30%) sepia(81%) saturate(3098%) hue-rotate(353deg) brightness(101%)
-          contrast(84%);
       }
     }
   }

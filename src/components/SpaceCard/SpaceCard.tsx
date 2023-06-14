@@ -6,7 +6,7 @@ import Link from "next/link";
 import cx from "clsx";
 
 import type { Space } from "@/common/types/space";
-import { BestTag, Price } from "@/components";
+import { BestTag, SpacePrice } from "@/components";
 
 import Bookmark from "./Bookmark";
 import { StarRatingItem } from "../Common/StarRating";
@@ -34,7 +34,7 @@ const SpaceCard: React.FC<Props> = ({ className, space, href }) => {
         <p className={styles.title}>{space.title}</p>
         <div className={styles.info}>
           <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} />
-          <Price packageCost={space.packageCost} timeCost={space.timeCost} rows={1} />
+          <SpacePrice packageCost={space.packageCost} timeCost={space.timeCost} rows={1} />
         </div>
         {space.isBest && <BestTag top="0" left="8px" />}
       </Link>
