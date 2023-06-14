@@ -1,21 +1,21 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { type CSSProperties, useEffect, useRef } from "react";
 
 import cx from "clsx";
 
 import { useHeaderScrollOpacity } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
+import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
 
 import styles from "./tabBar.module.scss";
 
-// TODO: check opacity breakpoint
 const TabBar: React.FC = () => {
-  const $tabBarHorizon = document.getElementById("tab-bar-horizon") as HTMLHRElement;
+  const tabBarPosition = useRef(Infinity);
 
   const { backgroundBreakpoint, backgroundOpacity, breakpoint, opacity } = useHeaderScrollOpacity({
-    containerHeight: $tabBarHorizon.offsetTop,
+    containerHeight: tabBarPosition.current - getNumberFromPixel(sizes.spaceDetailTabBarHeight),
     headerHeight: getNumberFromPixel(sizes.spaceDetailTabBarHeight),
   });
 
@@ -24,6 +24,13 @@ const TabBar: React.FC = () => {
     "--background-opacity": backgroundOpacity,
     willChange: opacity !== 1 ? "opacity" : "auto",
   } as CSSProperties;
+
+  useEffect(() => {
+    if (!isClient) return;
+
+    const $tabBarHorizon = document.getElementById("tab-bar-horizon") as HTMLHRElement;
+    tabBarPosition.current = $tabBarHorizon.offsetTop;
+  }, []);
 
   return (
     <nav
