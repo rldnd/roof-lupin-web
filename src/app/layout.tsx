@@ -1,6 +1,9 @@
 import "@/styles/global.scss";
 
+import { Suspense } from "react";
+
 import { suit } from "./fonts";
+import NavigationStore from "./NavigationHandler";
 import Providers from "./providers";
 
 import styles from "./layout.module.scss";
@@ -19,6 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className={styles.wrapper}>{children}</div>
           <div id="modal" />
         </Providers>
+
+        <Suspense fallback={null}>
+          <NavigationStore />
+        </Suspense>
       </body>
     </html>
   );

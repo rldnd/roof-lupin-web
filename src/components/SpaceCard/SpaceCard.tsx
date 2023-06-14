@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import cx from "clsx";
 
-import { FULL_STAR } from "@/common/constants/common";
+import { FULL_STAR } from "@/common/constants";
 import type { Space } from "@/common/types/space";
 import { BestTag } from "@/components";
 

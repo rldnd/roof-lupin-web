@@ -3,12 +3,9 @@
 import { MouseEventHandler, type ReactElement, type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import cx from "clsx";
 
 import { useDebounceCallback } from "@/hooks";
 import { genericMemo } from "@/utils/genericMemo";
-
-import styles from "./dataToggleButton.module.scss";
 
 interface DataKey<T> {
   valueKey: keyof T;
@@ -84,12 +81,7 @@ const DataListToggleButton = <T,>({
   }, [data, valueKey]);
 
   return (
-    <button
-      type="button"
-      className={cx(styles.wrapper, className)}
-      data-active={`${Boolean(isActive)}`}
-      onClick={onClick}
-    >
+    <button type="button" className={className} data-active={`${Boolean(isActive)}`} onClick={onClick}>
       {children}
     </button>
   );
