@@ -1,0 +1,47 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  height: calc(100dvh - 80px);
+  padding: 76px c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: white;
+
+  .closeButton {
+    @include m.absolute(24px auto auto 16px);
+  }
+
+  main {
+    flex: 1;
+    overflow-y: scroll;
+
+    h1 {
+      @include m.fontH1;
+      margin-bottom: 32px;
+      color: var(--c-black);
+    }
+
+    ul {
+      @include m.flex(flex-start, flex-start);
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+
+      li {
+        @include m.fontCaption;
+        @include m.flex;
+        width: max-content;
+        padding: 8px 12px;
+        color: var(--c-gray-700);
+        white-space: nowrap;
+        background-color: var(--c-gray-100);
+        border-radius: 8px;
+      }
+    }
+
+    p {
+      @include m.fontBody1Regular;
+      color: var(--c-gray-900);
+    }
+  }
+}

@@ -33,7 +33,7 @@ const Carousel: React.FC<Props> = ({ slideCount, children }) => {
   return (
     <section className={styles.wrapper} aria-label="공간 이미지 리스트">
       <Slider className={styles.slider} {...settings}>
-        {children as any}
+        {children}
       </Slider>
       <span className={styles.countWrapper}>
         {index}/{slideCount}

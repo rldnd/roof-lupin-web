@@ -39,7 +39,7 @@ const Carousel: React.FC<Props> = ({ slideCount, children }) => {
   return (
     <section className={styles.wrapper} aria-label="메인 페이지 이미지 리스트">
       <Slider className={styles.slider} {...settings}>
-        {children as any}
+        {children}
       </Slider>
       <progress value={progress} max="100" />
     </section>

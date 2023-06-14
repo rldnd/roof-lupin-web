@@ -1,0 +1,36 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-end, center, column);
+  @include m.fixed(0 0 0 0);
+  z-index: c.$Z_BOTTOM_SHEET;
+
+  &.enterDone,
+  &.exit {
+    > .bottomSheet {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &.enter,
+  &.exitActive {
+    > .bottomSheet {
+      opacity: 0;
+      transform: translate(-50%, 100%);
+    }
+  }
+
+  .bottomSheet {
+    @include m.posCenterX;
+    width: 100%;
+    max-width: c.$S_CONTENT_WIDTH;
+    overflow-x: hidden;
+    background-color: var(--c-white);
+    border-radius: 16px 16px 0 0;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    transform: translate(-50%, 100%);
+  }
+}

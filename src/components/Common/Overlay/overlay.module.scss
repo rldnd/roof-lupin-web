@@ -3,7 +3,7 @@
 
 .wrapper {
   @include m.absoluteZero;
-  background-color: rgba(var(--c-gray-500), 0.92);
+  background-color: rgba(0, 0, 0, 50%);
 
   &.isTransparent {
     background-color: transparent;

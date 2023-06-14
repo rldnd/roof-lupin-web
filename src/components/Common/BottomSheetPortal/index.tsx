@@ -1,20 +1,20 @@
 "use client";
 
-import { memo, MouseEventHandler, type ReactNode, useRef } from "react";
+import { memo, type ReactNode, useRef } from "react";
 import { createPortal } from "react-dom";
 
-import cx from "clsx";
+import cx from "classnames";
 import { CSSTransition } from "react-transition-group";
 
 import Overlay from "../Overlay";
 
-import styles from "./modalPortal.module.scss";
+import styles from "./bottomSheetPortal.module.scss";
 
-const modalRoot = document.querySelector("#modal") as HTMLDivElement;
+const bottomSheetRoot = document.querySelector("#bottom-sheet") as HTMLDivElement;
 
 export interface Props {
   isShow: boolean;
-  onClose?: MouseEventHandler<HTMLDivElement>;
+  onClose?: () => void;
   className?: string;
   wrapperClassName?: string;
   hideOverlay?: boolean;
@@ -23,7 +23,7 @@ export interface Props {
   children: ReactNode;
 }
 
-const ModalPortal: React.FC<Props> = ({
+const BottomSheetPortal: React.FC<Props> = ({
   isShow,
   onClose,
   wrapperClassName,
@@ -55,11 +55,11 @@ const ModalPortal: React.FC<Props> = ({
             isOverlayTransparent={isOverlayTransparent}
           />
         )}
-        <aside className={cx(styles.modal, className)}>{children}</aside>
+        <aside className={cx(styles.bottomSheet, className)}>{children}</aside>
       </div>
     </CSSTransition>,
-    modalRoot,
+    bottomSheetRoot,
   );
 };
 
-export default memo(ModalPortal);
+export default memo(BottomSheetPortal);

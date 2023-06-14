@@ -2,6 +2,8 @@ import type { SpaceDetail } from "@/common/types/space";
 import { ArrowButton } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
+import IntroductionMoreButton from "./IntroductionMoreButton";
+
 import styles from "./introduction.module.scss";
 
 interface Props {
@@ -32,9 +34,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
         ))}
       </ul>
       <p className={styles.desc}>{description}</p>
-      <ArrowButton direction="right" color="primary" className={styles.more}>
-        더보기
-      </ArrowButton>
+      <IntroductionMoreButton space={space} />
     </section>
   );
 };

@@ -16,7 +16,7 @@ const Overlay: React.FC<Props> = ({ onClose, isOverlayTransparent }) => {
     <div
       role="button"
       tabIndex={0}
-      aria-label="modal overlay"
+      aria-label="overlay"
       className={cx(styles.wrapper, {
         [styles.isTransparent]: isOverlayTransparent,
       })}

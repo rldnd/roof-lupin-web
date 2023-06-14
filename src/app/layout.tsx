@@ -21,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className={styles.background} />
           <div className={styles.wrapper}>{children}</div>
           <div id="modal" />
+          <div id="bottom-sheet" />
         </Providers>
 
         <Suspense fallback={null}>
