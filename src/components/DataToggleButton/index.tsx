@@ -7,14 +7,19 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useDebounceCallback } from "@/hooks";
 import { genericMemo } from "@/utils/genericMemo";
 
-interface DataKey<T> {
+type CheckIsArray<T> = T extends unknown[] ? true : false;
+type GetArrayType<T> = T extends Array<infer R> ? R : never;
+
+interface BaseDataKey<T> {
   valueKey: keyof T;
   idKey: keyof T;
 }
 
+type DataKey<T> = CheckIsArray<T> extends true ? BaseDataKey<GetArrayType<T>> : BaseDataKey<T>;
+
 interface Props<T> {
   id: unknown;
-  queryFn: (...args: any[]) => Promise<T[]>;
+  queryFn: (...args: any[]) => Promise<T>;
   activeFn: (key: any) => Promise<unknown>;
   inactiveFn: (key: any) => Promise<unknown>;
   queryKey: readonly unknown[];
@@ -24,18 +29,18 @@ interface Props<T> {
   debounceDelay?: number;
 }
 
-/** 리스트 중 한 데이터에 대해 좋아요 / 저장 / 찜 등의 기능을 구현할 때 사용하는 컴포넌트 입니다.
- * @param {unknown} id - 리스트에서 선택한 데이터의 id 값
- * @param {(...args: any[]) => Promise<T[]>} queryFn - 리스트 데이터를 가져오는 함수
- * @param {(key: any) => Promise<unknown>} activeFn - 좋아요 / 저장 / 찜 등을 활성화 하는 함수
- * @param {(key: any) => Promise<unknown>} inactiveFn - 좋아요 / 저장 / 찜 등을 비활성화 하는 함수
- * @param {readonly unknown[]} queryKey - useQuery 리스트를 가져오는데 사용하는 queryKey
- * @param {DataKey<T>} dataKey - 리스트 데이터에서 좋아요 / 저장 / 찜 등을 판단하는 키 값과 id 키 값
- * @param {ReactNode} children - 활성화 / 비활성화 상태에 따라 보여줄 컴포넌트
- * @param {string} className - 컴포넌트에 적용할 클래스 이름 (data-key를 이용해 분기 가능)
- * @param {number} debounceDelay - debounce delay
+/** 리스트 중 한 데이터 혹은 데이터 하나에 대해서 좋아요 / 저장 / 찜 등의 기능을 구현할 때 사용하는 컴포넌트 입니다.
+ * @param  id - 선택한 데이터의 id 값
+ * @param  queryFn - 데이터를 가져오는 함수
+ * @param  activeFn - 좋아요 / 저장 / 찜 등을 활성화 하는 함수
+ * @param  inactiveFn - 좋아요 / 저장 / 찜 등을 비활성화 하는 함수
+ * @param queryKey - useQuery 리스트를 가져오는데 사용하는 queryKey
+ * @param  dataKey - 데이터에서 좋아요 / 저장 / 찜 등을 판단하는 키 값과 id 키 값
+ * @param  children - 활성화 / 비활성화 상태에 따라 보여줄 컴포넌트
+ * @param  className - 컴포넌트에 적용할 클래스 이름 (data-active를 이용해 분기 가능)
+ * @param  debounceDelay - debounce delay
  */
-const DataListToggleButton = <T,>({
+const DataToggleButton = <T,>({
   id,
   queryKey,
   queryFn,
@@ -50,7 +55,12 @@ const DataListToggleButton = <T,>({
   const [isActive, setIsActive] = useState(false);
 
   const { data, refetch } = useQuery(queryKey, queryFn, {
-    select: (response) => response.find((item) => item[idKey] === id) as T,
+    select: (response) => {
+      if (Array.isArray(response)) {
+        return response.find((item) => (item as GetArrayType<T>)[idKey as keyof typeof item] === id);
+      }
+      return response;
+    },
     suspense: true,
   });
 
@@ -76,8 +86,8 @@ const DataListToggleButton = <T,>({
   useEffect(() => {
     if (!data) return;
 
-    setIsActive((data[valueKey] as boolean) ?? false);
-    beforeActive.current = (data[valueKey] as boolean) ?? false;
+    setIsActive((data[valueKey as keyof typeof data] as boolean) ?? false);
+    beforeActive.current = (data[valueKey as keyof typeof data] as boolean) ?? false;
   }, [data, valueKey]);
 
   return (
@@ -87,4 +97,4 @@ const DataListToggleButton = <T,>({
   );
 };
 
-export default genericMemo(DataListToggleButton);
+export default genericMemo(DataToggleButton);

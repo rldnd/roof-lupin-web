@@ -4,3 +4,5 @@ export { default as IconGrayRightChevron } from "./gray-right-chevron.svg";
 export { default as IconBookmarkActive } from "./bookmark-active.svg";
 export { default as IconBookmarkInactive } from "./bookmark-inactive.svg";
 export { default as IconHome } from "./home.svg";
+export { default as IconBack } from "./back.svg";
+export { default as IconShare } from "./share.svg";

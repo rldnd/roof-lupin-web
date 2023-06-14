@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Bookmark: React.FC<Props> = ({ space }) => {
-  // console.log(space);
   return (
     <AuthChecker className={styles.wrapper}>
       <DataToggleButton

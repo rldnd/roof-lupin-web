@@ -1,18 +1,26 @@
 /* stylelint-disable property-no-unknown */
 /* stylelint-disable selector-pseudo-class-no-unknown */
+// NOTE: COMMON
 $S_STANDARD_WIDTH: 375px;
 
 $S_BOTTOM_NAVIGATION_HEIGHT: 90px;
 $S_CONTENT_WIDTH: 768px;
 $S_PAGE_HORIZONTAL_PADDING: 24px;
 
+// NOTE: MAIN PAGE
 $S_MAIN_CAROUSEL_HEIGHT: 396px;
 $S_MAIN_CAROUSEL_PROGRESS_HEIGHT: 4px;
 $S_MAIN_HEADER_HEIGHT: 104px;
+
+// NOTE: SPACE DETAIL PAGE
+$S_SPACE_DETAIL_HEADER_HEIGHT: 80px;
+$S_SPACE_DETAIL_CAROUSEL_HEIGHT: 282px;
 
 :export {
   contentWidth: $S_CONTENT_WIDTH;
   mainCarouselHeight: $S_MAIN_CAROUSEL_HEIGHT;
   mainHeaderHeight: $S_MAIN_HEADER_HEIGHT;
   mainCarouselProgressHeight: $S_MAIN_CAROUSEL_PROGRESS_HEIGHT;
+  spaceDetailHeaderHeight: $S_SPACE_DETAIL_HEADER_HEIGHT;
+  spaceDetailCarouselHeight: $S_SPACE_DETAIL_CAROUSEL_HEIGHT;
 }
