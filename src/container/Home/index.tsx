@@ -21,7 +21,9 @@ export default async function HomeContainer() {
 
   return (
     <main className={styles.wrapper}>
-      <Header />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
       <Suspense fallback={<LoadingCarousel />}>
         <Carousel slideCount={curations.length}>
           {curations.map((curation) => (

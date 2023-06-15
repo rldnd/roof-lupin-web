@@ -36,7 +36,9 @@ export default async function SpaceDetailContainer({ params }: Props) {
         ))}
       </Carousel>
       <Introduction space={space} />
-      <TabBar />
+      <Suspense fallback={null}>
+        <TabBar />
+      </Suspense>
       <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
       <Price />
       <hr />
