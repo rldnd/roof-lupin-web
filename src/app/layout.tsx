@@ -11,6 +11,7 @@ import styles from "./layout.module.scss";
 export const metadata = {
   title: "루프루팡",
   description: "Cumuco Roof-lupin service",
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

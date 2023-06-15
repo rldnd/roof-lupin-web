@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { SafeArea } from "@/components";
 import { getSpaceRentalTypesApi } from "@/services/rentalType";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
@@ -36,31 +37,33 @@ export default async function SpaceDetailContainer({ params }: Props) {
   const [space, spaceRentalTypes] = await Promise.all([spacePromise, spaceRentalTypesPromise]);
 
   return (
-    <main className={styles.wrapper}>
-      <Header space={space} />
-      <Carousel slideCount={space.images.length}>
-        {space.images.map((image) => (
-          <CarouselItem key={image.url} image={image} />
-        ))}
-      </Carousel>
-      <Introduction space={space} />
-      <Suspense fallback={null}>
-        <TabBar />
-      </Suspense>
-      <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
-      <Price rentalTypes={spaceRentalTypes} />
-      <hr />
-      <BestPhoto />
-      <hr />
-      <Facility />
-      <hr />
-      <Building />
-      <hr />
-      <Caution />
-      <hr />
-      <Location />
-      <hr />
-      <Review />
-    </main>
+    <SafeArea top theme="dark">
+      <main className={styles.wrapper}>
+        <Header space={space} />
+        <Carousel slideCount={space.images.length}>
+          {space.images.map((image) => (
+            <CarouselItem key={image.url} image={image} />
+          ))}
+        </Carousel>
+        <Introduction space={space} />
+        <Suspense fallback={null}>
+          <TabBar />
+        </Suspense>
+        <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
+        <Price rentalTypes={spaceRentalTypes} />
+        <hr />
+        <BestPhoto />
+        <hr />
+        <Facility />
+        <hr />
+        <Building />
+        <hr />
+        <Caution />
+        <hr />
+        <Location />
+        <hr />
+        <Review />
+      </main>
+    </SafeArea>
   );
 }

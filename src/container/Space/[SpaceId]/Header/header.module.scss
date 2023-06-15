@@ -9,7 +9,7 @@
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_SPACE_DETAIL_HEADER_HEIGHT;
-  padding: 26px 16px 10px 12px;
+  padding: 12px 16px 10px 12px;
   transform: translateX(-50%);
 
   .title {
@@ -23,15 +23,15 @@
 
     .title {
       @include m.makeEllipsis;
-      @include m.fontH4Regular;
+      @include m.fontButton1;
       display: block;
       flex: 1;
-      color: var(--c-gray-700);
+      color: var(--c-gray-900);
       opacity: var(--opacity);
     }
 
     svg {
-      @include m.filterGray700;
+      @include m.filterGray900;
       opacity: var(--opacity);
     }
   }

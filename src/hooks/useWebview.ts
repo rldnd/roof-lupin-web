@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { BaseWebviewPayload, WithoutData } from "@/common/types/webview";
 import { parseConverter, stringifyConverter } from "@/utils/json";
+import { isClient } from "@/utils/next";
+import { isWebview } from "@/utils/webview";
 
 interface Listener {
   type: unknown;
@@ -14,7 +16,7 @@ type SendMessagePayload<T extends BaseWebviewPayload> = T["data"] extends Withou
 type SendMessage = <T extends BaseWebviewPayload>(payload: SendMessagePayload<T>) => void;
 
 const checkHasWebviewConnected = (): boolean => {
-  return typeof window.flutterWebview !== "undefined";
+  return typeof window.flutterWebview !== "undefined" || !isWebview;
 };
 
 interface ReturnUseWebview {
@@ -35,13 +37,13 @@ const useWebview = (): ReturnUseWebview => {
   }, []);
 
   const sendMessage: SendMessage = useCallback((payload) => {
-    if (!checkHasWebviewConnected()) return;
+    if (!checkHasWebviewConnected() || !isClient) return;
 
-    window.flutterWebview.postMessage(stringifyConverter(payload));
+    window.flutterWebview?.postMessage(stringifyConverter(payload));
   }, []);
 
   useEffect(() => {
-    if (!checkHasWebviewConnected()) return;
+    if (!checkHasWebviewConnected() || !isClient) return;
 
     const handleListener = (event: any) => {
       const payload = event.data;

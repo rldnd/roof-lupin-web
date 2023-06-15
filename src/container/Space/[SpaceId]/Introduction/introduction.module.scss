@@ -7,6 +7,7 @@
 
   .transport {
     @include m.fontCaption;
+    display: block;
     margin-bottom: 4px;
     color: var(--c-gray-500);
   }

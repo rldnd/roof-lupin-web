@@ -18,7 +18,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
     <section className={styles.wrapper}>
       {publicTransportations.length > 0 && (
         <small className={styles.transport}>
-          {publicTransportations[0].name} 도보{publicTransportations[0].timeTaken}분
+          {publicTransportations[0].name} 도보 {publicTransportations[0].timeTaken}분
         </small>
       )}
       <h1 className={styles.title}>{title}</h1>

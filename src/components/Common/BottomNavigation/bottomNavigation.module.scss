@@ -2,16 +2,20 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  @include m.fixed(auto auto 0 50%);
+  z-index: c.$Z_BOTTOM_NAVIGATION;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BOTTOM_NAVIGATION_HEIGHT;
+  padding: 8px 0 22px;
+  background-color: var(--c-white);
+  filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 20%));
+  transform: translateX(-50%);
+
   nav {
-    @include m.fixed(auto auto 0 50%);
     @include m.flex(space-around);
-    z-index: c.$Z_BOTTOM_NAVIGATION;
     width: 100%;
-    max-width: c.$S_CONTENT_WIDTH;
-    height: c.$S_BOTTOM_NAVIGATION_HEIGHT;
-    padding: 8px 0 22px;
-    background-color: var(--c-white);
-    transform: translateX(-50%);
+    height: 100%;
 
     .item {
       @include m.flex(flex-start, center, column);
@@ -24,4 +28,8 @@
       }
     }
   }
+
+  // &:not(.isWebview) {
+
+  // }
 }

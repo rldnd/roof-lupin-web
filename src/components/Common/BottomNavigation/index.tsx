@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import cx from "clsx";
 
+import { isWebview } from "@/utils/webview";
+
 import { IconHome } from "public/icons";
 
 import styles from "./bottomNavigation.module.scss";
@@ -17,7 +19,7 @@ const BottomNavigation: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <footer className={styles.wrapper}>
+    <footer className={cx(styles.wrapper, { [styles.isWebview]: isWebview })}>
       <nav>
         <Link className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/") })} href="/">
           <IconHome />

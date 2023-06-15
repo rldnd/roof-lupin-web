@@ -1,7 +1,11 @@
-// import styles from './map.module.scss'
+// import styles from './Location.module.scss'
 
-const Map: React.FC = () => {
-  return <section id="location-section" style={{ height: 400 }}></section>;
+const Location: React.FC = () => {
+  return (
+    <section id="location-section" style={{ height: 400 }}>
+      위치
+    </section>
+  );
 };
 
-export default Map;
+export default Location;

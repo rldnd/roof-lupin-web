@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { SafeArea } from "@/components";
 import BottomNavigation from "@/components/Common/BottomNavigation";
 import SpaceCard from "@/components/SpaceCard/SpaceCard";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
@@ -20,29 +21,31 @@ export default async function HomeContainer() {
   const [curations, categories, contents] = await Promise.all([curationsPromise, categoriesPromise, contentsPromise]);
 
   return (
-    <main className={styles.wrapper}>
-      <Suspense fallback={null}>
-        <Header />
-      </Suspense>
-      <Suspense fallback={<LoadingCarousel />}>
-        <Carousel slideCount={curations.length}>
-          {curations.map((curation) => (
-            <CarouselItem key={curation.id} curation={curation} />
-          ))}
-        </Carousel>
-      </Suspense>
-      <Category categories={categories} />
-      {contents.map((content) => {
-        const { id, name, highlight, spaces } = content;
-        return (
-          <ContentList key={content.id} content={{ id, name, highlight }}>
-            {spaces.map((space) => (
-              <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`} />
+    <SafeArea>
+      <main className={styles.wrapper}>
+        <Suspense fallback={null}>
+          <Header />
+        </Suspense>
+        <Suspense fallback={<LoadingCarousel />}>
+          <Carousel slideCount={curations.length}>
+            {curations.map((curation) => (
+              <CarouselItem key={curation.id} curation={curation} />
             ))}
-          </ContentList>
-        );
-      })}
-      <BottomNavigation />
-    </main>
+          </Carousel>
+        </Suspense>
+        <Category categories={categories} />
+        {contents.map((content) => {
+          const { id, name, highlight, spaces } = content;
+          return (
+            <ContentList key={content.id} content={{ id, name, highlight }}>
+              {spaces.map((space) => (
+                <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`} />
+              ))}
+            </ContentList>
+          );
+        })}
+        <BottomNavigation />
+      </main>
+    </SafeArea>
   );
 }
