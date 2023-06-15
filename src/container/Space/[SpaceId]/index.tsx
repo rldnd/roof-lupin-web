@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import { getSpaceRentalTypesApi } from "@/services/rentalType";
-import { getSpaceApi } from "@/services/space";
+import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
 import BestPhoto from "./BestPhoto";
 import Building from "./Building";
@@ -19,6 +19,14 @@ import styles from "./spaceDetailContainer.module.scss";
 
 interface Props {
   params: { spaceId: string };
+}
+
+export async function generateStaticParams() {
+  const { ids } = await getSpaceIdsApi();
+
+  return ids.map((id) => ({
+    spaceId: id,
+  }));
 }
 
 export default async function SpaceDetailContainer({ params }: Props) {
