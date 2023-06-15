@@ -1,5 +1,9 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+/* stylelint-disable property-no-unknown */
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
+
+$HR_MARGIN: 32px;
 
 .wrapper {
   width: 100%;
@@ -12,4 +16,8 @@
     background-color: var(--c-gray-150);
     border: 0;
   }
+}
+
+:export {
+  hrMargin: $HR_MARGIN;
 }

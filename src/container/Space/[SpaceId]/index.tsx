@@ -10,7 +10,7 @@ import Caution from "./Caution";
 import Facility from "./Facility";
 import Header from "./Header";
 import Introduction from "./Introduction";
-import Map from "./Map";
+import Location from "./Location";
 import Price from "./Price";
 import Review from "./Review";
 import TabBar from "./TabBar";
@@ -48,7 +48,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
       <hr />
       <Caution />
       <hr />
-      <Map />
+      <Location />
       <hr />
       <Review />
     </main>
