@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, memo, useCallback, useEffect, useRef } from "react";
+import { type CSSProperties, memo, type MouseEventHandler, useCallback, useEffect, useMemo, useRef } from "react";
 
 import cx from "clsx";
 
@@ -9,10 +9,23 @@ import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
 
+import TabBarItem from "./TabBarItem";
+
 import styles from "./tabBar.module.scss";
 import pageStyles from "../spaceDetailContainer.module.scss";
 
-type DataSection = "price" | "facility" | "caution" | "location" | "review";
+export type DataSection = "price" | "facility" | "caution" | "location" | "review";
+type Positions = {
+  [K in DataSection]: number;
+};
+
+const initialPositions: Positions = {
+  price: Infinity,
+  facility: Infinity,
+  caution: Infinity,
+  location: Infinity,
+  review: Infinity,
+};
 
 const getSectionOffsetTop = (offsetTop: number) => {
   return (
@@ -26,28 +39,34 @@ const getSectionOffsetTop = (offsetTop: number) => {
 const TabBar: React.FC = () => {
   const { y } = useWindowScroll();
   const tabBarPosition = useRef(Infinity);
-
-  const pricePosition = useRef(Infinity);
-  const facilityPosition = useRef(Infinity);
-  const cautionPosition = useRef(Infinity);
-  const locationPosition = useRef(Infinity);
-  const reviewPosition = useRef(Infinity);
+  const positions = useRef(initialPositions);
 
   const { backgroundBreakpoint, backgroundOpacity, breakpoint, opacity } = useHeaderScrollOpacity({
     containerHeight: tabBarPosition.current - getNumberFromPixel(sizes.spaceDetailTabBarHeight),
     headerHeight: getNumberFromPixel(sizes.spaceDetailTabBarHeight),
   });
 
-  const getCurrentPosition = useCallback((): DataSection | "" => {
+  const currentPosition = useMemo<DataSection | "">(() => {
     if (!isClient) return "";
 
-    if (pricePosition.current <= y && y < facilityPosition.current) return "price";
-    if (facilityPosition.current <= y && y < cautionPosition.current) return "facility";
-    if (cautionPosition.current <= y && y < locationPosition.current) return "caution";
-    if (locationPosition.current <= y && y < reviewPosition.current) return "location";
-    if (reviewPosition.current <= y) return "review";
+    const { price, facility, caution, location, review } = positions.current;
+
+    if (price <= y && y < facility) return "price";
+    if (facility <= y && y < caution) return "facility";
+    if (caution <= y && y < location) return "caution";
+    if (location <= y && y < review) return "location";
+    if (review <= y) return "review";
     else return "";
   }, [y]);
+
+  const onClickItem: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
+    const section = e.currentTarget.dataset.section as DataSection;
+    const top =
+      section === "price"
+        ? positions.current[section] + getNumberFromPixel(sizes.spaceDetailHeaderHeight)
+        : positions.current[section];
+    window.scrollTo({ top, behavior: "smooth" });
+  }, []);
 
   const style = {
     "--opacity": opacity,
@@ -66,11 +85,13 @@ const TabBar: React.FC = () => {
     const $cautionSection = document.getElementById("caution-section") as HTMLDivElement;
     const $locationSection = document.getElementById("location-section") as HTMLDivElement;
     const $reviewSection = document.getElementById("review-section") as HTMLDivElement;
-    pricePosition.current = getSectionOffsetTop($priceSection.offsetTop);
-    facilityPosition.current = getSectionOffsetTop($facilitySection.offsetTop);
-    cautionPosition.current = getSectionOffsetTop($cautionSection.offsetTop);
-    locationPosition.current = getSectionOffsetTop($locationSection.offsetTop);
-    reviewPosition.current = getSectionOffsetTop($reviewSection.offsetTop);
+    positions.current = {
+      price: getSectionOffsetTop($priceSection.offsetTop),
+      facility: getSectionOffsetTop($facilitySection.offsetTop),
+      caution: getSectionOffsetTop($cautionSection.offsetTop),
+      location: getSectionOffsetTop($locationSection.offsetTop),
+      review: getSectionOffsetTop($reviewSection.offsetTop),
+    };
   }, []);
 
   return (
@@ -81,25 +102,21 @@ const TabBar: React.FC = () => {
         [styles.backgroundBreakpoint]: backgroundBreakpoint,
       })}
     >
-      <button type="button" className={cx(styles.item, { [styles.active]: getCurrentPosition() === "price" })}>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="price">
         상세요금
-      </button>
-      <button type="button" className={cx(styles.item, { [styles.active]: getCurrentPosition() === "facility" })}>
+      </TabBarItem>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="facility">
         시설/건물
-      </button>
-      <button
-        type="button"
-        className={cx(styles.item, { [styles.active]: getCurrentPosition() === "caution" })}
-        data-section="caution"
-      >
+      </TabBarItem>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="caution">
         주의사항
-      </button>
-      <button type="button" className={cx(styles.item, { [styles.active]: getCurrentPosition() === "location" })}>
+      </TabBarItem>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="location">
         위치
-      </button>
-      <button type="button" className={cx(styles.item, { [styles.active]: getCurrentPosition() === "review" })}>
+      </TabBarItem>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="review">
         리뷰
-      </button>
+      </TabBarItem>
       <div className={styles.activeBar} />
     </nav>
   );
