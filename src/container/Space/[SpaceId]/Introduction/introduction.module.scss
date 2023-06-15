@@ -25,9 +25,9 @@
 
   ul {
     @include m.flex(flex-start, flex-start);
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 8px;
-    overflow-x: hidden;
 
     li {
       @include m.fontCaption;

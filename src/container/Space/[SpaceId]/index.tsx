@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { getSpaceRentalTypeApi } from "@/services/rentalType";
+import { getSpaceRentalTypesApi } from "@/services/rentalType";
 import { getSpaceApi } from "@/services/space";
 
 import BestPhoto from "./BestPhoto";
@@ -23,9 +23,9 @@ interface Props {
 
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getSpaceApi(params.spaceId);
-  const spaceRentalTypePromise = getSpaceRentalTypeApi(params.spaceId);
+  const spaceRentalTypesPromise = getSpaceRentalTypesApi(params.spaceId);
 
-  const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
+  const [space, spaceRentalTypes] = await Promise.all([spacePromise, spaceRentalTypesPromise]);
 
   return (
     <main className={styles.wrapper}>
@@ -40,7 +40,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <TabBar />
       </Suspense>
       <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
-      <Price />
+      <Price rentalTypes={spaceRentalTypes} />
       <hr />
       <BestPhoto />
       <hr />

@@ -1,23 +1,19 @@
 export interface TimeCostInfo {
-  /** 시간별 가격 id */
-  id: string;
   /** 시간별 가격 */
   cost: number;
   /** 시작 시간 */
-  startAt: number;
-  /** 종료 시간 */
-  endAt: number;
+  time: number;
 }
 
-export interface RentalType {
+export interface BaseTimeRentalType {
   /** 대여타입 시간 */
   id: string;
   /** 대여타입 이름 */
   name: string;
   /** 기본 가격 */
   baseCost: number;
-  /** 대여타입, 시간 | 패키지 */
-  rentalType: number;
+  /** 대여타입 */
+  rentalType: "TIME";
   /** 기본 시간 */
   baseHour: number | null;
   /** 시작 시간 */
@@ -26,7 +22,28 @@ export interface RentalType {
   endAt: number;
   /** 시간별 가격 */
   timeCostInfos: TimeCostInfo[];
+  /** 공간 ID */
+  spaceId: string;
 }
+
+export interface BasePackageRentalType {
+  /** 대여타입 시간 */
+  id: string;
+  /** 대여타입 이름 */
+  name: string;
+  /** 기본 가격 */
+  baseCost: number;
+  /** 대여타입 */
+  rentalType: "PACKAGE";
+  /** 시작 시간 */
+  startAt: number;
+  /** 종료 시간 */
+  endAt: number;
+  /** 공간 ID */
+  spaceId: string;
+}
+
+export type RentalType = BaseTimeRentalType | BasePackageRentalType;
 
 export interface TimeRentalType {
   /** 렌탈타입 ID */

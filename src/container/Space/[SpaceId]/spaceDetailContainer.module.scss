@@ -16,6 +16,11 @@ $HR_MARGIN: 32px;
     background-color: var(--c-gray-150);
     border: 0;
   }
+
+  h2 {
+    @include m.fontH3SemiBold;
+    color: var(--c-black);
+  }
 }
 
 :export {
