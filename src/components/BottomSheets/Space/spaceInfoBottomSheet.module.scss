@@ -5,10 +5,9 @@
   @include m.flex(flex-start, flex-start, column);
   height: calc(100dvh - 80px);
   padding: 76px c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING;
-  background-color: white;
 
   .closeButton {
-    @include m.absolute(24px auto auto 16px);
+    @include m.absolute(24px 16px auto auto);
   }
 
   main {

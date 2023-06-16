@@ -33,7 +33,7 @@ const SpaceCard: React.FC<Props> = ({ className, space, href }) => {
         {space.publicTransportation && <span className={styles.transport}>{space.publicTransportation.name}</span>}
         <p className={styles.title}>{space.title}</p>
         <div className={styles.info}>
-          <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} />
+          <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} viewReviewCount />
           <SpacePrice packageCost={space.packageCost} timeCost={space.timeCost} rows={1} />
         </div>
         {space.isBest && <BestTag top="0" left="8px" />}

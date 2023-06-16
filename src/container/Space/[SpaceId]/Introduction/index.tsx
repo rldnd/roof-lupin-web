@@ -10,7 +10,6 @@ interface Props {
   space: SpaceDetail;
 }
 
-// TODO: tag components
 const Introduction: React.FC<Props> = ({ space }) => {
   const { title, hashtags, reviewCount, description, publicTransportations } = space;
 
@@ -23,10 +22,12 @@ const Introduction: React.FC<Props> = ({ space }) => {
       )}
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.info}>
-        <StarRatingItem score={space.averageScore} />
-        <ArrowButton direction="right" isBold color="primary">
-          리뷰 {reviewCount}개
-        </ArrowButton>
+        <StarRatingItem score={space.averageScore} reviewCount={reviewCount} viewReviewCount={false} />
+        {reviewCount !== 0 && (
+          <ArrowButton direction="right" isBold color="primary">
+            리뷰 {reviewCount}개
+          </ArrowButton>
+        )}
       </div>
       <ul>
         {hashtags.map((tag) => (
