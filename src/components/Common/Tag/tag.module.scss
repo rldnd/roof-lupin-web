@@ -1,0 +1,59 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+@mixin _size($size) {
+  @if $size == "big" {
+    @include m.fontCaption;
+    padding: 6px 12px;
+  }
+
+  @if $size == "small" {
+    @include m.fontCaption2;
+    padding: 4px 12px;
+  }
+}
+
+@mixin _type($type) {
+  @if $type == "bw" {
+    color: var(--c-gray-700);
+    background-color: var(--c-gray-100);
+    border-radius: 8px;
+  }
+
+  @if $type == "color" {
+    color: var(--c-roof-orange);
+    background-color: var(--c-orange-bg);
+    border-radius: 8px;
+  }
+
+  @if $type == "outlined" {
+    color: var(--c-roof-orange);
+    border: 1px solid var(--c-roof-orange);
+  }
+}
+
+.wrapper {
+  display: inline-block;
+  width: max-content;
+  white-space: nowrap;
+
+  &.big {
+    @include _size("big");
+  }
+
+  &.small {
+    @include _size("small");
+  }
+
+  &.bw {
+    @include _type("bw");
+  }
+
+  &.color {
+    @include _type("color");
+  }
+
+  &.outlined {
+    @include _type("outlined");
+  }
+}

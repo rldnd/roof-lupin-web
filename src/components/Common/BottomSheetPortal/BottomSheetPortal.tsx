@@ -17,7 +17,7 @@ const bottomSheetRoot = document.querySelector("#bottom-sheet") as HTMLDivElemen
 
 export interface Props {
   isShow: boolean;
-  onClose?: MouseEventHandler<HTMLDivElement>;
+  onClose?: MouseEventHandler<HTMLElement>;
   className?: string;
   blockWindowScroll?: boolean;
   wrapperClassName?: string;
