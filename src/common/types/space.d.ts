@@ -60,8 +60,6 @@ export interface SpaceDetail
   description: string;
   /** 공간 최소 크기 */
   minSize: number;
-  /** 공간 타입 */
-  spaceType: number | null;
   /** 건물 타입 */
   buildingType: number | null;
   /** 공간 최소 인원 */
