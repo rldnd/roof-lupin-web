@@ -3,6 +3,9 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
+  height: 70dvh;
+  min-height: 70dvh;
+  padding-top: 8px;
 
   .header {
     @include m.flex(space-between);

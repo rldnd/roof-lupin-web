@@ -1,8 +1,10 @@
+import dynamic from "next/dynamic";
+
 import type { SpaceDetail } from "@/common/types/space";
-import { ArrowButton } from "@/components";
+import { ArrowButton, Tag } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
-import IntroductionMoreButton from "./IntroductionMoreButton";
+const IntroductionMoreButton = dynamic(() => import("./IntroductionMoreButton"), { ssr: false });
 
 import styles from "./introduction.module.scss";
 
@@ -31,11 +33,17 @@ const Introduction: React.FC<Props> = ({ space }) => {
       </div>
       <ul>
         {hashtags.map((tag) => (
-          <li key={tag.id}>{tag.name}</li>
+          <li key={tag.id}>
+            <Tag size="big" type="bw">
+              {tag.name}
+            </Tag>
+          </li>
         ))}
       </ul>
-      <p className={styles.desc}>{description}</p>
-      <IntroductionMoreButton space={space} />
+      <p className={styles.desc} id="space-detail-description">
+        {description}
+        <IntroductionMoreButton space={space} />
+      </p>
     </section>
   );
 };

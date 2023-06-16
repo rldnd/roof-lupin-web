@@ -3,24 +3,12 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
-  height: calc(100dvh - 80px);
 
   ul {
     @include m.flex(flex-start, flex-start);
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 16px;
-
-    li {
-      @include m.fontCaption;
-      @include m.flex;
-      width: max-content;
-      padding: 8px 12px;
-      color: var(--c-gray-700);
-      white-space: nowrap;
-      background-color: var(--c-gray-100);
-      border-radius: 8px;
-    }
   }
 
   p {

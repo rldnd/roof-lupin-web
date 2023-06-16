@@ -29,22 +29,12 @@
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 8px;
-
-    li {
-      @include m.fontCaption;
-      @include m.flex;
-      width: max-content;
-      padding: 8px 12px;
-      color: var(--c-gray-700);
-      white-space: nowrap;
-      background-color: var(--c-gray-100);
-      border-radius: 8px;
-    }
   }
 
   .desc {
     @include m.fontBody1Regular;
     @include m.makeEllipsis(4);
+    position: relative;
     color: var(--c-gray-900);
   }
 }

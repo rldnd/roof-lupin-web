@@ -14,7 +14,7 @@ interface Props extends BottomSheetPortalProps {
 
 const BaseBottomSheet: React.FC<Props> = ({ className, children, title, onClose, ...props }) => {
   return (
-    <BottomSheetPortal className={cx(styles.wrapper, className)} {...props}>
+    <BottomSheetPortal className={cx(styles.wrapper, className)} onClose={onClose} {...props}>
       <header className={styles.header}>
         {title && <h1>{title}</h1>}
         {onClose && (
