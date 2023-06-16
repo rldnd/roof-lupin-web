@@ -1,11 +1,68 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
+@mixin _size($size: "default") {
+  @if $size == "default" {
+    @include m.fontH4SemiBold;
+    padding: 11.5px 25px;
+    border-radius: 4px;
+  }
+}
+
+@mixin _full() {
+  width: 100%;
+}
+
+@mixin _color($color) {
+  @if $color == "primary" {
+    color: var(--c-white);
+    background-color: var(--c-roof-orange);
+
+    &:hover {
+      background-color: var(--c-roof-orange-65);
+    }
+
+    &:active {
+      background-color: var(--c-roof-orange-40);
+    }
+
+    &:disabled {
+      color: var(--c-gray-400);
+      background-color: var(--c-gray-200);
+    }
+  }
+
+  @if $color == "secondary" {
+    color: var(--c-roof-orange);
+    background-color: var(--c-white);
+    border: 1px solid var(--c-roof-orange);
+
+    &:active {
+      background-color: var(--c-orange-bg);
+    }
+
+    &:disabled {
+      color: var(--c-gray-400);
+      background-color: var(--c-gray-200);
+      border-color: var(--c-gray-400);
+    }
+  }
+}
+
 .wrapper {
+  @include _size;
   display: inline-block;
-  padding: 8px 12px;
-  font-weight: 500;
-  color: var(--c-gray-100);
-  background-color: var(--c-roof-orange);
-  border-radius: 8px;
+  transition: all 0.2s;
+
+  &.primary {
+    @include _color("primary");
+  }
+
+  &.secondary {
+    @include _color("secondary");
+  }
+
+  &.full {
+    @include _full;
+  }
 }
