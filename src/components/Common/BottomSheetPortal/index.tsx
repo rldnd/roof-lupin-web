@@ -1,10 +1,13 @@
 "use client";
 
-import { memo, type ReactNode, useRef } from "react";
+import { memo, type MouseEventHandler, type ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import cx from "classnames";
 import { CSSTransition } from "react-transition-group";
+
+import { useScrollBlock } from "@/hooks";
+import { isClient } from "@/utils/next";
 
 import Overlay from "../Overlay";
 
@@ -14,8 +17,9 @@ const bottomSheetRoot = document.querySelector("#bottom-sheet") as HTMLDivElemen
 
 export interface Props {
   isShow: boolean;
-  onClose?: () => void;
+  onClose?: MouseEventHandler<HTMLDivElement>;
   className?: string;
+  blockWindowScroll?: boolean;
   wrapperClassName?: string;
   hideOverlay?: boolean;
   shouldCloseOnOverlayClick?: boolean;
@@ -29,11 +33,20 @@ const BottomSheetPortal: React.FC<Props> = ({
   wrapperClassName,
   className,
   children,
+  blockWindowScroll = false,
   hideOverlay = false,
   isOverlayTransparent = false,
   shouldCloseOnOverlayClick = true,
 }) => {
   const nodeRef = useRef(null);
+  const { block, unBlock } = useScrollBlock();
+
+  useEffect(() => {
+    if (!blockWindowScroll || !isClient) return;
+
+    if (isShow) block();
+    if (!isShow) unBlock();
+  }, [isShow, blockWindowScroll, block, unBlock]);
 
   return createPortal(
     <CSSTransition

@@ -1,5 +1,7 @@
 "use client";
 
+import type { MouseEventHandler } from "react";
+
 import type { SpaceDetail } from "@/common/types/space";
 import { BottomSheetPortal } from "@/components/Common";
 
@@ -9,13 +11,13 @@ import styles from "./spaceInfoBottomSheet.module.scss";
 
 interface Props {
   isShow: boolean;
-  onClose: () => void;
+  onClose: MouseEventHandler<HTMLElement>;
   space: SpaceDetail;
 }
 
 const SpaceInfoBottomSheet: React.FC<Props> = ({ isShow, onClose, space }) => {
   return (
-    <BottomSheetPortal isShow={isShow} className={styles.wrapper} onClose={onClose}>
+    <BottomSheetPortal isShow={isShow} className={styles.wrapper} onClose={onClose} blockWindowScroll>
       <button type="button" className={styles.closeButton} onClick={onClose}>
         <IconClose />
       </button>

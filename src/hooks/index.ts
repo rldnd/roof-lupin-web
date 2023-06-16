@@ -6,5 +6,6 @@ export { default as useThrottleCallback } from "./useThrottleCallback";
 export { default as useContentWidth } from "./useContentWidth";
 export { default as useWindowScroll } from "./useWindowScroll";
 export { default as useHeaderScrollOpacity } from "./useHeaderScrollOpacity";
+export { default as useScrollBlock } from "./useScrollBlock";
 
 export { default as useWebview } from "./useWebview";
