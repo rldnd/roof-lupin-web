@@ -2,6 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  @include m.flex(flex-start, flex-start, column);
   width: 100%;
 
   .header {
@@ -13,5 +14,17 @@
       @include m.fontCaption;
       color: var(--c-gray-500);
     }
+  }
+
+  ul {
+    @include m.flex(flex-start, flex-start, column);
+    gap: 4px;
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .link {
+    margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
+    margin-left: auto;
   }
 }

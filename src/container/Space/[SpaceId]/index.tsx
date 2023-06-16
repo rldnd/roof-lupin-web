@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import { SafeArea } from "@/components";
-import { getSpaceRentalTypesApi } from "@/services/rentalType";
+import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
 import BestPhoto from "./BestPhoto";
@@ -32,9 +32,9 @@ export async function generateStaticParams() {
 
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getSpaceApi(params.spaceId);
-  const spaceRentalTypesPromise = getSpaceRentalTypesApi(params.spaceId);
+  const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
 
-  const [space, spaceRentalTypes] = await Promise.all([spacePromise, spaceRentalTypesPromise]);
+  const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
   return (
     <SafeArea top theme="dark">
@@ -50,7 +50,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
           <TabBar />
         </Suspense>
         <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
-        <Price rentalTypes={spaceRentalTypes} />
+        <Price rentalType={spaceRentalType} />
         <hr />
         <BestPhoto />
         <hr />

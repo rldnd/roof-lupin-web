@@ -94,7 +94,7 @@ export interface SpaceDetail
 
 export interface SpaceRentalType {
   /** 시간 대여타입 */
-  timeRentalTypes: TimeRentalType | null;
+  timeRentalType: TimeRentalType | null;
   /** 패키지 대여타입 */
   packageRentalType: PackageRentalType | null;
 }

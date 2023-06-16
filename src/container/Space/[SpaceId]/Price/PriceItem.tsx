@@ -1,16 +1,20 @@
-import type { RentalType, TimeRentalType } from "@/common/types/rentalType";
-
 import styles from "./priceItem.module.scss";
 
 interface Props {
-  rentalType: RentalType;
+  title: string;
+  minCost: number;
+  maxCost?: number;
 }
 
-const PriceItem: React.FC<Props> = ({ rentalType }) => {
-  const name = rentalType.name;
-  // const price = rentalType.rentalType === 'TIME' ? `${rentalType.}`
-
-  return <li className={styles.wrapper}></li>;
+const PriceItem: React.FC<Props> = ({ title, minCost, maxCost }) => {
+  return (
+    <li className={styles.wrapper}>
+      <span className={styles.title}>{title}</span>
+      <span className={styles.price}>
+        {minCost.toLocaleString("ko-KR")}원 ~ {maxCost && <>{maxCost.toLocaleString("ko-KR")}원</>}
+      </span>
+    </li>
+  );
 };
 
 export default PriceItem;

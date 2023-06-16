@@ -2,7 +2,18 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  @include m.flex(space-between);
   width: 100%;
   padding: 15px c.$S_PAGE_HORIZONTAL_PADDING;
   background-color: var(--c-orange-bg);
+
+  .title {
+    @include m.fontH4Regular;
+    color: var(--c-black);
+  }
+
+  .price {
+    @include m.fontH4SemiBold;
+    color: var(--c-roof-orange);
+  }
 }

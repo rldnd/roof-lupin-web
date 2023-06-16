@@ -3,6 +3,7 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
+  height: c.$S_BOTTOM_SHEET_MAX_HEIGHT;
 
   ul {
     @include m.flex(flex-start, flex-start);
