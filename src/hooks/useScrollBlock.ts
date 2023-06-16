@@ -8,18 +8,30 @@ interface ReturnUseScrollBlock {
 }
 
 const useScrollBlock = (): ReturnUseScrollBlock => {
+  const handler = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  };
+
   const block = useCallback(() => {
     if (!isClient) return;
 
     const body = document.getElementsByTagName("body")[0];
-    if (body) body.style.overflow = "hidden";
+    if (body) {
+      body.style.overflow = "hidden";
+      body.addEventListener("touchmove", handler);
+    }
   }, []);
 
   const unBlock = useCallback(() => {
     if (!isClient) return;
 
     const body = document.getElementsByTagName("body")[0];
-    if (body) body.style.overflow = "visible";
+    if (body) {
+      body.style.overflow = "visible";
+      body.removeEventListener("touchmove", handler);
+    }
   }, []);
 
   return {
