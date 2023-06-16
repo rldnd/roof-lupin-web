@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { type QueryObserverResult, useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { useAtom } from "jotai";
@@ -9,6 +9,8 @@ import { getMeApi } from "@/services/user";
 import { meState } from "@/states";
 import { removeTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
+
+import useClientEffect from "../useClientEffect";
 
 type Options = Omit<
   UseQueryOptions<CommonUser, unknown, CommonUser, string[]>,
@@ -40,9 +42,7 @@ const useMe = (options?: Options): UseMeReturn => {
   }, [setMe]);
 
   // TODO: migrate when alert completes
-  useEffect(() => {
-    if (!isClient) return;
-
+  useClientEffect(() => {
     window.addEventListener(LOGOUT_EVENT_NAME, onLogout);
     return () => {
       window.removeEventListener(LOGOUT_EVENT_NAME, onLogout);

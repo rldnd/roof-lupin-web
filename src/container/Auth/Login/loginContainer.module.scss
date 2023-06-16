@@ -20,7 +20,7 @@
     @include m.flex(flex-start, center, column);
     width: 100%;
     height: 100%;
-    padding: 25dvh c.$S_PAGE_HORIZONTAL_PADDING 10dvh;
+    padding: 25% c.$S_PAGE_HORIZONTAL_PADDING 10%;
 
     .backButton {
       @include m.absolute(56px 20px auto auto);

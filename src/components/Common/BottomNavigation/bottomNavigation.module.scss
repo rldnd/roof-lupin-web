@@ -10,7 +10,19 @@
   padding: 8px 0 22px;
   background-color: var(--c-white);
   filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 20%));
+  transition: bottom 0.4s ease-in-out;
   transform: translateX(-50%);
+
+  &:not(.isWebview) {
+    &.up {
+      bottom: 0;
+    }
+
+    &.down {
+      bottom: -100%;
+      filter: none;
+    }
+  }
 
   nav {
     @include m.flex(space-around);
@@ -28,8 +40,4 @@
       }
     }
   }
-
-  // &:not(.isWebview) {
-
-  // }
 }

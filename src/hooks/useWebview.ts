@@ -5,6 +5,8 @@ import { parseConverter, stringifyConverter } from "@/utils/json";
 import { isClient } from "@/utils/next";
 import { isWebview } from "@/utils/webview";
 
+import useClientEffect from "./useClientEffect";
+
 interface Listener {
   type: unknown;
   handler: (payload: unknown) => unknown;
@@ -42,8 +44,8 @@ const useWebview = (): ReturnUseWebview => {
     window.flutterWebview?.postMessage(stringifyConverter(payload));
   }, []);
 
-  useEffect(() => {
-    if (!checkHasWebviewConnected() || !isClient) return;
+  useClientEffect(() => {
+    if (!checkHasWebviewConnected()) return;
 
     const handleListener = (event: any) => {
       const payload = event.data;

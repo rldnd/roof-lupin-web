@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import cx from "clsx";
 
+import { useScrollDirection } from "@/hooks";
 import { isWebview } from "@/utils/webview";
 
 import { IconHome } from "public/icons";
@@ -16,10 +17,11 @@ const checkIsActive = (pathname: string, href: string): boolean => {
 };
 
 const BottomNavigation: React.FC = () => {
+  const scrollDirection = useScrollDirection();
   const pathname = usePathname();
 
   return (
-    <footer className={cx(styles.wrapper, { [styles.isWebview]: isWebview })}>
+    <footer className={cx(styles.wrapper, styles[scrollDirection], { [styles.isWebview]: isWebview })}>
       <nav>
         <Link className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/") })} href="/">
           <IconHome />

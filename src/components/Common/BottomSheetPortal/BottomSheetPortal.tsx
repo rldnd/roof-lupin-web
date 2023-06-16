@@ -1,13 +1,12 @@
 "use client";
 
-import { memo, type MouseEventHandler, type ReactNode, useEffect, useRef } from "react";
+import { memo, type MouseEventHandler, type ReactNode, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import cx from "classnames";
 import { CSSTransition } from "react-transition-group";
 
-import { useScrollBlock } from "@/hooks";
-import { isClient } from "@/utils/next";
+import { useClientEffect, useScrollBlock } from "@/hooks";
 
 import Overlay from "../Overlay";
 
@@ -41,8 +40,8 @@ const BottomSheetPortal: React.FC<Props> = ({
   const nodeRef = useRef(null);
   const { block, unBlock } = useScrollBlock();
 
-  useEffect(() => {
-    if (!blockWindowScroll || !isClient) return;
+  useClientEffect(() => {
+    if (!blockWindowScroll) return;
 
     if (isShow) block();
     if (!isShow) unBlock();
