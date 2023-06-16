@@ -14,12 +14,7 @@
   visibility: hidden;
   background-color: var(--c-white);
 
-  &.breakpoint {
+  &.isVisible {
     visibility: visible;
-    opacity: var(--opacity);
-  }
-
-  &.backgroundBreakpoint {
-    background-color: rgba(255, 255, 255, var(--background-opacity));
   }
 }

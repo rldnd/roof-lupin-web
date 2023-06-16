@@ -1,10 +1,10 @@
 "use client";
 
-import { type CSSProperties, memo, type MouseEventHandler, useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, type MouseEventHandler, useCallback, useEffect, useMemo, useRef } from "react";
 
 import cx from "clsx";
 
-import { useHeaderScrollOpacity, useWindowScroll } from "@/hooks";
+import { useWindowScroll } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
@@ -27,6 +27,12 @@ const initialPositions: Positions = {
   review: Infinity,
 };
 
+const getTabBarOffsetTop = (offsetTop: number) => {
+  return (
+    offsetTop - getNumberFromPixel(sizes.spaceDetailHeaderHeight) - getNumberFromPixel(sizes.spaceDetailTabBarHeight)
+  );
+};
+
 const getSectionOffsetTop = (offsetTop: number) => {
   return (
     offsetTop -
@@ -41,10 +47,10 @@ const TabBar: React.FC = () => {
   const tabBarPosition = useRef(Infinity);
   const positions = useRef(initialPositions);
 
-  const { backgroundBreakpoint, backgroundOpacity, breakpoint, opacity } = useHeaderScrollOpacity({
-    containerHeight: tabBarPosition.current - getNumberFromPixel(sizes.spaceDetailTabBarHeight),
-    headerHeight: getNumberFromPixel(sizes.spaceDetailTabBarHeight),
-  });
+  const isTabBarVisible = useMemo<boolean>(() => {
+    const containerHeight = tabBarPosition.current;
+    return y > containerHeight;
+  }, [y]);
 
   const currentPosition = useMemo<DataSection | "">(() => {
     if (!isClient) return "";
@@ -61,24 +67,15 @@ const TabBar: React.FC = () => {
 
   const onClickItem: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
     const section = e.currentTarget.dataset.section as DataSection;
-    const top =
-      section === "price"
-        ? positions.current[section] + getNumberFromPixel(sizes.spaceDetailHeaderHeight)
-        : positions.current[section];
+    const top = positions.current[section];
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
-
-  const style = {
-    "--opacity": opacity,
-    "--background-opacity": backgroundOpacity,
-    willChange: opacity !== 1 ? "opacity" : "auto",
-  } as CSSProperties;
 
   useEffect(() => {
     if (!isClient) return;
 
     const $tabBarHorizon = document.getElementById("tab-bar-horizon") as HTMLHRElement;
-    tabBarPosition.current = $tabBarHorizon.offsetTop;
+    tabBarPosition.current = getTabBarOffsetTop($tabBarHorizon.offsetTop);
 
     const $priceSection = document.getElementById("price-section") as HTMLDivElement;
     const $facilitySection = document.getElementById("facility-section") as HTMLDivElement;
@@ -96,10 +93,8 @@ const TabBar: React.FC = () => {
 
   return (
     <nav
-      style={style}
       className={cx(styles.wrapper, {
-        [styles.breakpoint]: breakpoint,
-        [styles.backgroundBreakpoint]: backgroundBreakpoint,
+        [styles.isVisible]: isTabBarVisible,
       })}
     >
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="price">
