@@ -1,0 +1,9 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontH4Regular;
+  margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+  color: var(--c-gray-700);
+  text-decoration: underline;
+}

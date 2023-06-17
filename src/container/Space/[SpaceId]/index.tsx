@@ -5,6 +5,7 @@ import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getBestReviewsApi } from "@/services/review";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
+import { MenuItem } from "./_shared";
 import BestPhoto, { LoadingBestPhoto } from "./BestPhoto";
 import Building from "./Building";
 import { Carousel, CarouselItem } from "./Carousel";
@@ -14,6 +15,7 @@ import Header from "./Header";
 import Introduction from "./Introduction";
 import Location from "./Location";
 import Price from "./Price";
+import ReportButton from "./ReportButton";
 import Review from "./Review";
 import TabBar from "./TabBar";
 
@@ -68,6 +70,16 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <Location />
         <hr />
         <Review />
+        <hr />
+        <MenuItem title="Q&A" href="/" />
+        <hr />
+        <section>
+          <h2>취소 및 환불 정책</h2>
+        </section>
+        <hr />
+        <MenuItem title="판매자 정보" href="/" />
+        <hr />
+        <ReportButton />
       </main>
     </SafeArea>
   );

@@ -9,3 +9,4 @@ export { default as IconShare } from "./share.svg";
 export { default as IconOrangeRightChevron } from "./orange-right-chevron.svg";
 export { default as IconOrangeDownChevron } from "./orange-down-chevron.svg";
 export { default as IconClose } from "./close.svg";
+export { default as IconGrayRightChevronLarge } from "./gray-right-chevron-large.svg";
