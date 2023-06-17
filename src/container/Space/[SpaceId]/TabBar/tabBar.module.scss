@@ -4,17 +4,16 @@
 .wrapper {
   @include m.sticky(c.$S_SPACE_DETAIL_HEADER_HEIGHT auto auto auto);
   z-index: c.$Z_SPACE_DETAIL_TAB_BAR;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(72px, 1fr));
+  display: none;
   width: 100%;
   height: c.$S_SPACE_DETAIL_TAB_BAR_HEIGHT;
   padding: 0 8px;
-  margin-top: -40px;
   overflow-x: scroll;
-  visibility: hidden;
   background-color: var(--c-white);
 
   &.isVisible {
-    visibility: visible;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(72px, 1fr));
+    margin-top: -40px;
   }
 }

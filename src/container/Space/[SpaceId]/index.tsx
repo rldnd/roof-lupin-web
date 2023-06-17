@@ -2,9 +2,10 @@ import { Suspense } from "react";
 
 import { SafeArea } from "@/components";
 import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
+import { getBestReviewsApi } from "@/services/review";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
-import BestPhoto from "./BestPhoto";
+import BestPhoto, { LoadingBestPhoto } from "./BestPhoto";
 import Building from "./Building";
 import { Carousel, CarouselItem } from "./Carousel";
 import Caution from "./Caution";
@@ -33,6 +34,7 @@ export async function generateStaticParams() {
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
+  const bestReviewsPromise = getBestReviewsApi(params.spaceId);
 
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
@@ -52,7 +54,10 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
         <Price rentalType={spaceRentalType} />
         <hr />
-        <BestPhoto />
+        <Suspense fallback={<LoadingBestPhoto />}>
+          {/* @ts-expect-error Server Component */}
+          <BestPhoto bestReviewsPromise={bestReviewsPromise} />
+        </Suspense>
         <hr />
         <Facility />
         <hr />

@@ -1,17 +1,19 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 
 import { SafeArea } from "@/components";
 import BottomNavigation from "@/components/Common/BottomNavigation";
 import SpaceCard from "@/components/SpaceCard/SpaceCard";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
-import Carousel, { LoadingCarousel } from "./Carousel";
+import { LoadingCarousel } from "./Carousel";
 import CarouselItem from "./CarouselItem";
 import Category from "./Category";
 import ContentList from "./ContentList";
 import Header from "./Header";
 
 import styles from "./homeContainer.module.scss";
+
+const Carousel = lazy(() => import("./Carousel"));
 
 export default async function HomeContainer() {
   const curationsPromise = getHomeCurationsApi();
