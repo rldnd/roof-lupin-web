@@ -1,0 +1,26 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  > h2 {
+    margin-bottom: 18px;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    li {
+      @include m.flex(flex-start);
+      @include m.fontCaption;
+      gap: 8px;
+      width: 100%;
+      min-height: 56px;
+      padding: 0 8px;
+      color: var(--c-gray-600);
+    }
+  }
+}

@@ -59,7 +59,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
           <BestPhoto bestReviewsPromise={bestReviewsPromise} />
         </Suspense>
         <hr />
-        <Facility />
+        <Facility facilities={space.facilities} services={space.services} />
         <hr />
         <Building />
         <hr />
