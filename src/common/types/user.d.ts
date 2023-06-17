@@ -1,6 +1,6 @@
 import type { DateDTO } from "./common";
 
-export type Gender = "남성" | "여성";
+export type Gender = "MALE" | "FEMALE";
 
 export interface CommonUser extends DateDTO {
   id: string;

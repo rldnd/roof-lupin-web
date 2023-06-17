@@ -10,9 +10,9 @@ import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
 
 import TabBarItem from "./TabBarItem";
+import pageStyles from "../../spaceDetailContainer.module.scss";
 
 import styles from "./tabBar.module.scss";
-import pageStyles from "../spaceDetailContainer.module.scss";
 
 export type DataSection = "price" | "facility" | "caution" | "location" | "review";
 type Positions = {

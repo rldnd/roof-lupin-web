@@ -5,19 +5,23 @@ import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getBestReviewsApi } from "@/services/review";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
-import { MenuItem } from "./_shared";
-import BestPhoto, { LoadingBestPhoto } from "./BestPhoto";
-import Building from "./Building";
-import { Carousel, CarouselItem } from "./Carousel";
-import Caution from "./Caution";
-import Facility from "./Facility";
-import Header from "./Header";
-import Introduction from "./Introduction";
-import Location from "./Location";
-import Price from "./Price";
-import ReportButton from "./ReportButton";
-import Review from "./Review";
-import TabBar from "./TabBar";
+import {
+  BestPhoto,
+  Building,
+  Carousel,
+  CarouselItem,
+  Caution,
+  Facility,
+  Header,
+  Introduction,
+  LoadingBestPhoto,
+  Location,
+  MenuItem,
+  Price,
+  ReportButton,
+  Review,
+  TabBar,
+} from "./Common";
 
 import styles from "./spaceDetailContainer.module.scss";
 

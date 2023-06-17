@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 
 import { SafeArea } from "@/components";
-import BottomNavigation from "@/components/Common/BottomNavigation";
+import { BottomNavigation } from "@/components/Layout";
 import SpaceCard from "@/components/SpaceCard/SpaceCard";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 

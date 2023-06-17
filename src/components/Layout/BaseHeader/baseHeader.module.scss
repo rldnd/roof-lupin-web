@@ -1,0 +1,22 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start);
+  @include m.fixed(0 auto auto 50%);
+  width: 100%;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 54px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
+  transform: translateX(-50%);
+
+  .backButton {
+    margin-right: 16px;
+  }
+
+  .title {
+    @include m.fontH3SemiBold;
+    @include m.makeEllipsis;
+    flex: 1;
+    color: var(--c-black);
+  }
+}

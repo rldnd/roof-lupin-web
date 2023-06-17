@@ -1,9 +1,9 @@
-import type { Caution } from "@/common/types/caution";
+import type { Caution as CautionType } from "@/common/types/caution";
 
 import styles from "./caution.module.scss";
 
 interface Props {
-  cautions: Caution[];
+  cautions: CautionType[];
 }
 
 const Caution: React.FC<Props> = ({ cautions }) => {

@@ -1,0 +1,13 @@
+export * from "./_shared";
+export { default as BestPhoto, LoadingBestPhoto } from "./BestPhoto";
+export { default as Building } from "./Building";
+export * from "./Carousel";
+export { default as Caution } from "./Caution";
+export { default as Facility } from "./Facility";
+export { default as Header } from "./Header";
+export { default as Introduction } from "./Introduction";
+export { default as Location } from "./Location";
+export { default as Price } from "./Price";
+export { default as ReportButton } from "./ReportButton";
+export { default as Review } from "./Review";
+export { default as TabBar } from "./TabBar";

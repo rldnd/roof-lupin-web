@@ -1,7 +1,9 @@
-// import styles from './review.module.scss'
+import { getSpaceIdsApi } from "@/services/space";
 
-const Review: React.FC = () => {
-  return <section id="review-section">리뷰</section>;
-};
+interface Props {
+  params: { spaceId: string };
+}
 
-export default Review;
+export default async function SpaceReviewContainer({ params }: Props) {
+  return <></>;
+}
