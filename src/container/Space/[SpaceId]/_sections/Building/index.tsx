@@ -12,19 +12,6 @@ interface Props {
   sizes: Size[];
 }
 
-const SIZE = [
-  {
-    id: "123",
-    size: 12,
-    floor: "1층",
-  },
-  {
-    id: "345",
-    size: 500,
-    floor: "2층",
-  },
-];
-
 const Building: React.FC<Props> = ({ buildings, sizes }) => {
   return (
     <section className={styles.wrapper}>
@@ -36,7 +23,7 @@ const Building: React.FC<Props> = ({ buildings, sizes }) => {
             <span>{building.name}</span>
           </li>
         ))}
-        <SizeRow sizes={SIZE} />
+        <SizeRow sizes={sizes} />
       </ul>
     </section>
   );

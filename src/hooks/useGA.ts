@@ -2,7 +2,6 @@ import "client-only";
 
 import { decamelizeKeys } from "humps";
 
-import "@/utils/ga";
 import useDebounceCallback from "./useDebounceCallback";
 
 interface UseGAReturn {

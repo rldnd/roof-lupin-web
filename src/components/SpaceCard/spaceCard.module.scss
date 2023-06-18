@@ -4,23 +4,28 @@
 $WIDTH: 256px;
 
 .wrapper {
+  @include m.flex(flex-start, center, column);
   position: relative;
   gap: 12px;
   width: $WIDTH;
   width: 100%;
   min-width: $WIDTH;
 
-  @include m.flex(flex-start, center, column);
-
   .imageWrapper {
-    position: relative;
     width: 100%;
     aspect-ratio: 256 / 172;
     border-radius: 4px;
 
-    > img {
-      object-fit: cover;
-      border-radius: 4px;
+    a {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+
+      img {
+        object-fit: cover;
+        border-radius: 4px;
+      }
     }
   }
 

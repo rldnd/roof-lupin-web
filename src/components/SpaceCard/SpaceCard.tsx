@@ -26,8 +26,8 @@ const SpaceCard: React.FC<Props> = ({ className, space, href }) => {
         <Link href={href}>
           <Image src={space.thumbnail} fill alt={`${space.title} 공간 이미지`} />
         </Link>
-        <Bookmark space={space} />
       </div>
+      <Bookmark space={space} />
 
       <Link href={href} className={styles.content}>
         {space.publicTransportation && <span className={styles.transport}>{space.publicTransportation.name}</span>}

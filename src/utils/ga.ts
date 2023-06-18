@@ -1,6 +1,6 @@
-import "client-only";
+import { isClient } from "./next";
 
-if (typeof window !== "undefined") {
+if (isClient) {
   const ga4 = document.createElement("script");
   ga4.type = "text/javascript";
   ga4.async = true;
