@@ -1,4 +1,4 @@
-export interface Facility {
+export interface Building {
   /** 시설 id */
   id: string;
   /** 시설 아이콘 경로 */

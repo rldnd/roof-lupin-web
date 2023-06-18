@@ -11,17 +11,18 @@ import {
   Carousel,
   CarouselItem,
   Caution,
-  Facility,
   Header,
   Introduction,
   LoadingBestPhoto,
   Location,
   MenuItem,
   Price,
+  Refund,
   ReportButton,
   Review,
+  Service,
   TabBar,
-} from "./Common";
+} from "./_sections";
 
 import styles from "./spaceDetailContainer.module.scss";
 
@@ -65,9 +66,9 @@ export default async function SpaceDetailContainer({ params }: Props) {
           <BestPhoto bestReviewsPromise={bestReviewsPromise} />
         </Suspense>
         <hr />
-        <Facility facilities={space.facilities} services={space.services} />
+        <Service services={space.services} />
         <hr />
-        <Building />
+        <Building buildings={space.buildings} sizes={space.sizes} />
         <hr />
         <Caution cautions={space.cautions} />
         <hr />
@@ -75,11 +76,9 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Review />
         <hr />
-        <MenuItem title="Q&A" href="/" />
+        <MenuItem title={`Q&A (${space.qnaCount})`} href="/" />
         <hr />
-        <section>
-          <h2>취소 및 환불 정책</h2>
-        </section>
+        <Refund refundPolicies={space.refundPolicies} />
         <hr />
         <MenuItem title="판매자 정보" href="/" />
         <hr />

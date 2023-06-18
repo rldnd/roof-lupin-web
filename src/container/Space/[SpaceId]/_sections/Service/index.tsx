@@ -1,21 +1,19 @@
 import Image from "next/image";
 
-import type { Facility as FacilityType } from "@/common/types/facility";
 import type { Service } from "@/common/types/service";
 
-import styles from "./facility.module.scss";
+import styles from "./service.module.scss";
 
 interface Props {
-  facilities: FacilityType[];
   services: Service[];
 }
 
-const Facility: React.FC<Props> = ({ facilities, services }) => {
+const service: React.FC<Props> = ({ services }) => {
   return (
-    <section id="facility-section" className={styles.wrapper}>
+    <section id="service-section" className={styles.wrapper}>
       <h2>시설 및 서비스</h2>
       <ul>
-        {[...facilities, ...services].map((item) => (
+        {services.map((item) => (
           <li key={item.id}>
             {<Image src={item.iconPath} width={30} height={30} alt="아이콘" />}
             <span>{item.name}</span>
@@ -26,4 +24,4 @@ const Facility: React.FC<Props> = ({ facilities, services }) => {
   );
 };
 
-export default Facility;
+export default service;

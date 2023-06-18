@@ -14,14 +14,14 @@ import pageStyles from "../../spaceDetailContainer.module.scss";
 
 import styles from "./tabBar.module.scss";
 
-export type DataSection = "price" | "facility" | "caution" | "location" | "review";
+export type DataSection = "price" | "service" | "caution" | "location" | "review";
 type Positions = {
   [K in DataSection]: number;
 };
 
 const initialPositions: Positions = {
   price: Infinity,
-  facility: Infinity,
+  service: Infinity,
   caution: Infinity,
   location: Infinity,
   review: Infinity,
@@ -55,10 +55,10 @@ const TabBar: React.FC = () => {
   const currentPosition = useMemo<DataSection | "">(() => {
     if (!isClient) return "";
 
-    const { price, facility, caution, location, review } = positions.current;
+    const { price, service, caution, location, review } = positions.current;
 
-    if (price <= y && y < facility) return "price";
-    if (facility <= y && y < caution) return "facility";
+    if (price <= y && y < service) return "price";
+    if (service <= y && y < caution) return "service";
     if (caution <= y && y < location) return "caution";
     if (location <= y && y < review) return "location";
     if (review <= y) return "review";
@@ -78,13 +78,13 @@ const TabBar: React.FC = () => {
     tabBarPosition.current = getTabBarOffsetTop($tabBarHorizon.offsetTop);
 
     const $priceSection = document.getElementById("price-section") as HTMLDivElement;
-    const $facilitySection = document.getElementById("facility-section") as HTMLDivElement;
+    const $serviceSection = document.getElementById("service-section") as HTMLDivElement;
     const $cautionSection = document.getElementById("caution-section") as HTMLDivElement;
     const $locationSection = document.getElementById("location-section") as HTMLDivElement;
     const $reviewSection = document.getElementById("review-section") as HTMLDivElement;
     positions.current = {
       price: getSectionOffsetTop($priceSection.offsetTop),
-      facility: getSectionOffsetTop($facilitySection.offsetTop),
+      service: getSectionOffsetTop($serviceSection.offsetTop),
       caution: getSectionOffsetTop($cautionSection.offsetTop),
       location: getSectionOffsetTop($locationSection.offsetTop),
       review: getSectionOffsetTop($reviewSection.offsetTop),
@@ -100,7 +100,7 @@ const TabBar: React.FC = () => {
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="price">
         상세요금
       </TabBarItem>
-      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="facility">
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="service">
         시설/건물
       </TabBarItem>
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="caution">

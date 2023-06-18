@@ -1,0 +1,48 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start);
+  @include m.fontBody1Regular;
+  width: 100%;
+  padding: 6px 8px;
+  color: var(--c-gray-600);
+
+  .multiFloor {
+    @include m.flex;
+
+    & + .multiFloor::before {
+      display: inline-block;
+      width: 1px;
+      height: 16px;
+      margin: 0 8px;
+      content: "";
+      background-color: var(--c-gray-500);
+    }
+
+    .floor {
+      @include m.flex;
+
+      &::after {
+        display: inline-block;
+        width: 2px;
+        height: 2px;
+        margin: 0 4px;
+        content: "";
+        background-color: var(--c-gray-400);
+        border-radius: 50%;
+      }
+    }
+  }
+
+  button {
+    @include m.flex;
+    @include m.fontBody1SemiBold;
+    gap: 4px;
+    padding: 6px 12px;
+    margin-left: auto;
+    color: var(--c-gray-400);
+    border: 1px solid var(--c-gray-300);
+    border-radius: 8px;
+  }
+}

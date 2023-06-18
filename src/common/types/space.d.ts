@@ -1,6 +1,6 @@
+import type { Building } from "./building";
 import type { Caution } from "./caution";
 import type { ImageDTO } from "./common";
-import type { Facility } from "./facility";
 import type { Hashtag } from "./hashtag";
 import type { Host } from "./host";
 import type { Location } from "./location";
@@ -8,6 +8,7 @@ import type { RefundPolicy } from "./refund";
 import type { PackageRentalType, TimeRentalType } from "./rentalType";
 import type { Review } from "./review";
 import type { Service } from "./service";
+import type { Size } from "./size";
 
 export interface Transportation {
   /** id */
@@ -70,6 +71,8 @@ export interface SpaceDetail
   overflowUserCost: number;
   /** 초과 인원 */
   overflowUserCount: number;
+  /** 공간 Q&A 개수 */
+  qnaCount: number;
   /** 호스트 정보 */
   host: Host;
   /** 리뷰 목록 */
@@ -81,7 +84,7 @@ export interface SpaceDetail
   /** 주의 사항 목록 */
   cautions: Caution[];
   /** 시설 목록 */
-  facilities: Facility[];
+  buildings: Building[];
   /** 서비스 목록 */
   services: Service[];
   /** 공간 카테고리 목록 */
@@ -90,6 +93,8 @@ export interface SpaceDetail
   hashtags: Hashtag[];
   /** 대중교통 목록 */
   publicTransportations: Transportation[];
+  /** 공간 크기 목록 */
+  sizes: Size[];
 }
 
 export interface SpaceRentalType {
