@@ -7,9 +7,9 @@ import cx from "clsx";
 
 import type { Space } from "@/common/types/space";
 import { BestTag, SpacePrice } from "@/components";
+import { StarRatingItem } from "@/components/Common/StarRating";
 
 import Bookmark from "./Bookmark";
-import { StarRatingItem } from "../Common/StarRating";
 
 import styles from "./spaceCard.module.scss";
 

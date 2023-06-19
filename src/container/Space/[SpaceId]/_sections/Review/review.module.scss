@@ -1,0 +1,29 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.flex(flex-start);
+
+    .starRatingItem > span {
+      @include m.fontH3SemiBold;
+    }
+
+    .reviewCount {
+      @include m.flex(flex-start);
+
+      &::before {
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        margin: 0 8px;
+        content: "";
+        background-color: var(--c-gray-600);
+        border-radius: 50%;
+      }
+    }
+  }
+}

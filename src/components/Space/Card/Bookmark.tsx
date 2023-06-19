@@ -1,13 +1,11 @@
 "use client";
 
 import type { Space } from "@/common/types/space";
+import { AuthChecker, DataToggleButton } from "@/components";
 import { getHomeSpacesInContentsApi } from "@/services/home";
 import { createSpaceInterestApi, deleteSpaceInterestApi } from "@/services/space";
 
 import { IconBookmarkActive, IconBookmarkInactive } from "public/icons";
-
-import AuthChecker from "../AuthChecker";
-import DataToggleButton from "../DataToggleButton";
 
 import styles from "./bookmark.module.scss";
 
