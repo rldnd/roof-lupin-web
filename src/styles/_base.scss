@@ -22,6 +22,7 @@ button {
 
 button {
   cursor: pointer;
+  user-select: none;
   background-color: transparent;
   border: 0;
   outline: none;
@@ -77,4 +78,9 @@ textarea {
   &::-webkit-scrollbar {
     display: none; // Chrome
   }
+}
+
+*::selection {
+  color: var(--c-white);
+  background-color: var(--c-roof-orange-65);
 }
