@@ -1,7 +1,5 @@
 import { useCallback } from "react";
 
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-
 import { isClient } from "@/utils/next";
 
 interface ReturnUseScrollBlock {
@@ -10,18 +8,30 @@ interface ReturnUseScrollBlock {
 }
 
 const useScrollBlock = (): ReturnUseScrollBlock => {
+  const handler = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  };
+
   const block = useCallback(() => {
     if (!isClient) return;
 
     const body = document.getElementsByTagName("body")[0];
-    disableBodyScroll(body);
+    if (body) {
+      body.style.overflow = "hidden";
+      body.addEventListener("touchmove", handler);
+    }
   }, []);
 
   const unBlock = useCallback(() => {
     if (!isClient) return;
 
     const body = document.getElementsByTagName("body")[0];
-    enableBodyScroll(body);
+    if (body) {
+      body.style.overflow = "visible";
+      body.removeEventListener("touchmove", handler);
+    }
   }, []);
 
   return {
