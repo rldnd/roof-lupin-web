@@ -1,0 +1,46 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+  padding: 20px 16px;
+  margin: 16px auto 0;
+  background-color: var(--c-gray-100);
+  border-radius: 12px;
+
+  .info {
+    @include m.flex(flex-start);
+    @include m.fontCaption;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    .name {
+      color: var(--c-gray-800);
+    }
+
+    time {
+      color: var(--c-gray-600);
+    }
+  }
+
+  .answer {
+    @include m.fontBody1Regular;
+    position: relative;
+    color: var(--c-gray-900);
+
+    &:not(.isClickedViewMore) {
+      @include m.makeEllipsis(3);
+    }
+
+    .moreButton {
+      @include m.absolute(auto 0 0 auto);
+      display: none;
+      padding: 0 8px 0 24px;
+      background: linear-gradient(270deg, #fafafa 81.18%, rgba(250, 250, 250, 0%) 100%);
+
+      &.isShow {
+        display: block;
+      }
+    }
+  }
+}

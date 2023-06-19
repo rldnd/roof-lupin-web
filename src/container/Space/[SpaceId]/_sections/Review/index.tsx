@@ -2,6 +2,8 @@ import type { Review as ReviewType } from "@/common/types/review";
 import { SpaceReview } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
+import MoreButton from "./MoreButton";
+
 import styles from "./review.module.scss";
 
 interface Props {
@@ -28,6 +30,7 @@ const Review: React.FC<Props> = ({ reviews, score, reviewCount }) => {
           <SpaceReview key={review.id} review={review} />
         ))}
       </ul>
+      {reviewCount > 3 && <MoreButton count={reviewCount - 3} />}
     </section>
   );
 };

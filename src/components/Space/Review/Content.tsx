@@ -11,12 +11,13 @@ import styles from "./content.module.scss";
 
 interface Props {
   content: string;
+  isShowAll: boolean;
 }
 
-const Content: React.FC<Props> = ({ content }) => {
+const Content: React.FC<Props> = ({ content, isShowAll }) => {
   const contentRef = useRef<HTMLParagraphElement>(null);
-  const [hasMoreButton, setHasMoreButton] = useState(false);
-  const [isClickedViewMore, setIsClickedViewMore] = useState(false);
+  const [hasMoreButton, setHasMoreButton] = useState(isShowAll);
+  const [isClickedViewMore, setIsClickedViewMore] = useState(isShowAll);
 
   useClientEffect(() => {
     if (!contentRef.current) return;
