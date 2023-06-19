@@ -19,9 +19,30 @@
     .title {
       @include m.flex(flex-start);
       gap: 10px;
+      margin-bottom: 16px;
 
       span {
         color: var(--c-roof-orange);
+      }
+    }
+  }
+
+  .imageList {
+    @include m.flex(flex-start);
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 24px;
+
+    .imageWrapper {
+      width: 200px;
+      height: 275px;
+
+      &:first-of-type {
+        margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+      }
+
+      &:last-of-type {
+        margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
       }
     }
   }

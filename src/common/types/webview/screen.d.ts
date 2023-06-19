@@ -1,4 +1,4 @@
-import type { GenerateWebviewPayload, WithoutData } from ".";
+import type { GenerateWebviewPayload } from ".";
 
 type BaseWebScreenPayload<T extends string, U = unknown> = GenerateWebviewPayload<"web", "screen", T, U>;
 

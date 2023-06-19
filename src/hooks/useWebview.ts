@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import type { BaseWebviewPayload, WithoutData } from "@/common/types/webview";
 import { parseConverter, stringifyConverter } from "@/utils/json";

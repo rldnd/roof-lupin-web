@@ -26,6 +26,11 @@ export interface SpaceCategory {
   name: string;
 }
 
+export interface BestPhoto {
+  id: string;
+  url: string;
+}
+
 export interface Space {
   /** 공간 id */
   id: string;
@@ -75,14 +80,14 @@ export interface SpaceDetail
   qnaCount: number;
   /** 호스트 정보 */
   host: Host;
-  /** 리뷰 목록 */
-  reviews: Review[];
   /** 공간 이미지 목록 */
   images: ImageDTO[];
   /** 환불 정책 목록 */
   refundPolicies: RefundPolicy[];
   /** 주의 사항 목록 */
   cautions: Caution[];
+  /** 리뷰 목록 */
+  reviews: Review[];
   /** 시설 목록 */
   buildings: Building[];
   /** 서비스 목록 */
@@ -95,6 +100,8 @@ export interface SpaceDetail
   publicTransportations: Transportation[];
   /** 공간 크기 목록 */
   sizes: Size[];
+  /** 베스트 포토 */
+  bestPhotos: BestPhoto[];
 }
 
 export interface SpaceRentalType {

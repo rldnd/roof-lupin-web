@@ -1,10 +1,13 @@
 "use client";
 
-import { memo, type ReactNode, useCallback, useMemo, useState } from "react";
+import { lazy, memo, type ReactNode, useCallback, useMemo, useState } from "react";
 
-import Slider, { type Settings } from "react-slick";
+import Skeleton from "react-loading-skeleton";
+import { type Settings } from "react-slick";
 
 import styles from "./carousel.module.scss";
+
+const Slider = lazy(() => import("react-slick"));
 
 const defaultSettings: Settings = {
   dots: false,
@@ -45,5 +48,5 @@ const Carousel: React.FC<Props> = ({ slideCount, children }) => {
 export default memo(Carousel);
 
 export const LoadingCarousel: React.FC = () => {
-  return <div className={styles.wrapper} />;
+  return <Skeleton className={styles.wrapper} />;
 };

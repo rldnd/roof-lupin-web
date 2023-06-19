@@ -2,7 +2,6 @@ import { Suspense } from "react";
 
 import { SafeArea } from "@/components";
 import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
-import { getBestReviewsApi } from "@/services/review";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
 import {
@@ -13,7 +12,7 @@ import {
   Caution,
   Header,
   Introduction,
-  LoadingBestPhoto,
+  LoadingCarousel,
   Location,
   MenuItem,
   Price,
@@ -38,10 +37,14 @@ export async function generateStaticParams() {
   }));
 }
 
+// TODO: 문의하기 구현
+// TODO: Q&A 구현
+// TODO: 지도 구현
+// TODO: 리뷰 페이지 구현
+// TODO: 판매자 정보 구현
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
-  const bestReviewsPromise = getBestReviewsApi(params.spaceId);
 
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
@@ -49,11 +52,13 @@ export default async function SpaceDetailContainer({ params }: Props) {
     <SafeArea top theme="dark">
       <main className={styles.wrapper}>
         <Header space={space} />
-        <Carousel slideCount={space.images.length}>
-          {space.images.map((image) => (
-            <CarouselItem key={image.url} image={image} />
-          ))}
-        </Carousel>
+        <Suspense fallback={<LoadingCarousel />}>
+          <Carousel slideCount={space.images.length}>
+            {space.images.map((image) => (
+              <CarouselItem key={image.url} image={image} />
+            ))}
+          </Carousel>
+        </Suspense>
         <Introduction space={space} />
         <Suspense fallback={null}>
           <TabBar />
@@ -61,10 +66,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
         <Price rentalType={spaceRentalType} />
         <hr />
-        <Suspense fallback={<LoadingBestPhoto />}>
-          {/* @ts-expect-error Server Component */}
-          <BestPhoto bestReviewsPromise={bestReviewsPromise} />
-        </Suspense>
+        <BestPhoto bestPhotos={space.bestPhotos} />
         <hr />
         <Service services={space.services} />
         <hr />
@@ -74,7 +76,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Location />
         <hr />
-        <Review reviews={space.reviews} reviewCount={space.reviewCount} score={space.averageScore} />
+        <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
         <hr />
         <MenuItem title={`Q&A (${space.qnaCount})`} href="/" />
         <hr />

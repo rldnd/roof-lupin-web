@@ -7,8 +7,8 @@
 }
 
 .react-loading-skeleton {
-  --base-color: #ebebeb;
-  --highlight-color: #f5f5f5;
+  --base-color: #f1f1f3;
+  --highlight-color: #b9b9b9;
   --animation-duration: 1.5s;
   --animation-direction: normal;
   --pseudo-element-display: block; /* Enable animation */
@@ -21,10 +21,6 @@
   user-select: none;
   background-color: var(--base-color);
   border-radius: 0.25rem;
-
-  & + br {
-    display: none;
-  }
 }
 
 .react-loading-skeleton::after {

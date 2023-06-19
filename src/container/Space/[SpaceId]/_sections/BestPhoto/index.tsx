@@ -1,40 +1,39 @@
-import Skeleton from "react-loading-skeleton";
+"use client";
 
-import type { Review } from "@/common/types/review";
+import Image from "next/image";
 
-import Carousel from "./Carousel";
+import { BestPhoto as BestPhotoType } from "@/common/types/space";
+import { HorizonDraggable } from "@/components";
+
+import ProgressBar from "./ProgressBar";
+import TotalButton from "./TotalButton";
 
 import styles from "./bestPhoto.module.scss";
 
 interface Props {
-  bestReviewsPromise: Promise<Review[]>;
+  bestPhotos: BestPhotoType[];
 }
 
-async function BestPhoto({ bestReviewsPromise }: Props) {
-  const bestReviews = await bestReviewsPromise;
-
+const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
   return (
     <section id="best-photo-section" className={styles.wrapper}>
       <div className={styles.top}>
         <small className={styles.small}>루프루팡 PICK!</small>
         <h2 className={styles.title}>
-          베스트 포토<span>{bestReviews.length}</span>
+          베스트 포토<span>{bestPhotos.length}</span>
         </h2>
       </div>
-      <Carousel bestReviews={bestReviews} />
-    </section>
-  );
-}
-
-export default BestPhoto;
-
-export const LoadingBestPhoto: React.FC = () => {
-  return (
-    <section id="best-photo-section" className={styles.wrapper}>
-      <div className={styles.top}>
-        <Skeleton className={styles.small} width={60} height={24} />
-        <Skeleton className={styles.title} width={100} height={20} />
-      </div>
+      <HorizonDraggable className={styles.imageList}>
+        {bestPhotos.map((image) => (
+          <li key={image.url} className={styles.imageWrapper}>
+            <Image src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
+          </li>
+        ))}
+      </HorizonDraggable>
+      <ProgressBar />
+      <TotalButton />
     </section>
   );
 };
+
+export default BestPhoto;

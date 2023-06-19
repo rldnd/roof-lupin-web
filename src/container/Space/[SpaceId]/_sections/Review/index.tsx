@@ -1,3 +1,5 @@
+"use client";
+
 import type { Review as ReviewType } from "@/common/types/review";
 import { SpaceReview } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
@@ -8,18 +10,18 @@ import styles from "./review.module.scss";
 
 interface Props {
   reviews: ReviewType[];
+  averageScore: number;
   reviewCount: number;
-  score: number;
 }
 
-const Review: React.FC<Props> = ({ reviews, score, reviewCount }) => {
+const Review: React.FC<Props> = ({ averageScore, reviewCount, reviews }) => {
   return (
     <section id="review-section" className={styles.wrapper}>
       <h2>
         <StarRatingItem
           starSize={24}
           className={styles.starRatingItem}
-          score={score}
+          score={averageScore}
           reviewCount={reviewCount}
           viewReviewCount={false}
         />
@@ -30,7 +32,7 @@ const Review: React.FC<Props> = ({ reviews, score, reviewCount }) => {
           <SpaceReview key={review.id} review={review} />
         ))}
       </ul>
-      {reviewCount > 3 && <MoreButton count={reviewCount - 3} />}
+      {reviewCount - reviews.length > 0 && <MoreButton count={reviewCount - reviews.length} />}
     </section>
   );
 };

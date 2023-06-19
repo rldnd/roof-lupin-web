@@ -1,5 +1,5 @@
 export * from "./_shared";
-export { default as BestPhoto, LoadingBestPhoto } from "./BestPhoto";
+export { default as BestPhoto } from "./BestPhoto";
 export { default as Building } from "./Building";
 export * from "./Carousel";
 export { default as Caution } from "./Caution";

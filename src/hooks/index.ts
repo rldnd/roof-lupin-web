@@ -12,3 +12,4 @@ export { default as useScrollBlock } from "./useScrollBlock";
 export { default as useScrollDirection } from "./useScrollDirection";
 
 export { default as useWebview } from "./useWebview";
+export { default as useSuspenseQuery } from "./useSuspenseQuery";

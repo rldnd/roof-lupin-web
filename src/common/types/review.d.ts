@@ -22,3 +22,10 @@ export interface ReviewAnswer {
   /** 답변자 */
   host: Host;
 }
+
+export interface ReviewSummary {
+  /** 평균 점수 */
+  averageScore: number;
+  /** 리뷰 개수 */
+  count: number;
+}

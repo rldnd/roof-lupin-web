@@ -1,0 +1,15 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.call {
+  @include m.flex;
+  @include m.fontCaptionSemiBold;
+  padding: 6px 12px;
+  color: var(--c-roof-orange);
+  background-color: var(--c-gray-100);
+  border-radius: 8px;
+
+  > svg {
+    margin-right: 6px;
+  }
+}

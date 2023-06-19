@@ -4,16 +4,18 @@ import type { SpaceDetail } from "@/common/types/space";
 import { ArrowButton, Tag } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
-const IntroductionMoreButton = dynamic(() => import("./IntroductionMoreButton"), { ssr: false });
+import CallButton from "./CallButton";
 
 import styles from "./introduction.module.scss";
+
+const IntroductionMoreButton = dynamic(() => import("./IntroductionMoreButton"), { ssr: false });
 
 interface Props {
   space: SpaceDetail;
 }
 
 const Introduction: React.FC<Props> = ({ space }) => {
-  const { title, hashtags, reviewCount, description, publicTransportations } = space;
+  const { title, hashtags, description, averageScore, reviewCount, publicTransportations } = space;
 
   return (
     <section className={styles.wrapper}>
@@ -24,12 +26,15 @@ const Introduction: React.FC<Props> = ({ space }) => {
       )}
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.info}>
-        <StarRatingItem score={space.averageScore} reviewCount={reviewCount} viewReviewCount={false} />
-        {reviewCount !== 0 && (
-          <ArrowButton direction="right" isBold color="primary">
-            리뷰 {reviewCount}개
-          </ArrowButton>
-        )}
+        <div className={styles.left}>
+          <StarRatingItem score={averageScore} reviewCount={reviewCount} viewReviewCount={false} />
+          {reviewCount !== 0 && (
+            <ArrowButton direction="right" isBold color="primary">
+              리뷰 {reviewCount}개
+            </ArrowButton>
+          )}
+        </div>
+        <CallButton />
       </div>
       <ul>
         {hashtags.map((tag) => (
