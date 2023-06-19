@@ -36,6 +36,12 @@
     .imageWrapper {
       width: 200px;
       height: 275px;
+      border-radius: 4px;
+
+      img {
+        object-fit: cover;
+        border-radius: 4px;
+      }
 
       &:first-of-type {
         margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
@@ -44,6 +50,13 @@
       &:last-of-type {
         margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
       }
+    }
+
+    .emptyImage {
+      width: 200px;
+      height: 275px;
+      background: rgba(0, 0, 0, 50%);
+      border-radius: 4px;
     }
   }
 }

@@ -15,6 +15,8 @@ interface Props {
 }
 
 const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
+  const isEmpty = bestPhotos.length === 0;
+
   return (
     <section id="best-photo-section" className={styles.wrapper}>
       <div className={styles.top}>
@@ -24,13 +26,15 @@ const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
         </h2>
       </div>
       <HorizonDraggable className={styles.imageList}>
-        {bestPhotos.map((image) => (
-          <li key={image.url} className={styles.imageWrapper}>
-            <Image src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
-          </li>
-        ))}
+        {isEmpty && <li className={styles.emptyImage} />}
+        {!isEmpty &&
+          bestPhotos.map((image) => (
+            <li key={image.url} className={styles.imageWrapper}>
+              <Image src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
+            </li>
+          ))}
       </HorizonDraggable>
-      <ProgressBar />
+      {!isEmpty && <ProgressBar />}
       <TotalButton />
     </section>
   );
