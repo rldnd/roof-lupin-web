@@ -5,9 +5,8 @@
   @include m.flex;
   gap: 2px;
 
-  .star {
-    @include m.fontH4SemiBold;
-    color: var(--c-roof-yellow);
+  svg {
+    transform: scale(var(--scale));
   }
 
   .score {

@@ -3,6 +3,7 @@ import type { Host } from "./host";
 import type { CommonUser } from "./user";
 
 export interface Review extends DateDTO {
+  id: string;
   content: string;
   score: number;
   images: ImageDTO[];

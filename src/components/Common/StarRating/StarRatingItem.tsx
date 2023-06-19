@@ -1,6 +1,8 @@
+import { CSSProperties, memo, useMemo } from "react";
+
 import cx from "clsx";
 
-import { FULL_STAR } from "@/common/constants";
+import { IconStar } from "public/icons";
 
 import styles from "./starRatingItem.module.scss";
 
@@ -9,16 +11,19 @@ interface Props {
   viewReviewCount: boolean;
   score: number;
   reviewCount: number;
+  starSize?: number;
 }
 
-const StarRatingItem: React.FC<Props> = ({ className, viewReviewCount, score, reviewCount }) => {
+const StarRatingItem: React.FC<Props> = ({ className, viewReviewCount, score, reviewCount, starSize = 18 }) => {
+  const style = useMemo(() => ({ "--scale": starSize / 18 } as CSSProperties), [starSize]);
+
   return (
-    <div className={cx(styles.wrapper, className)}>
-      <span className={styles.star}>{FULL_STAR}</span>
+    <div className={cx(styles.wrapper, className)} style={style}>
+      <IconStar />
       <span className={styles.score}>{reviewCount === 0 ? "리뷰 없음" : score}</span>
       {viewReviewCount && <span className={styles.reviewCount}>({reviewCount})</span>}
     </div>
   );
 };
 
-export default StarRatingItem;
+export default memo(StarRatingItem);

@@ -3,13 +3,14 @@
 
 .wrapper {
   width: 100%;
-  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
   h2 {
     @include m.flex(flex-start);
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
     .starRatingItem > span {
       @include m.fontH3SemiBold;
+      margin-left: 2px;
     }
 
     .reviewCount {
@@ -24,6 +25,24 @@
         background-color: var(--c-gray-600);
         border-radius: 50%;
       }
+    }
+  }
+
+  .reviewList {
+    width: 100%;
+
+    > li::before {
+      display: inline-block;
+      width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+      height: 2px;
+      margin: 24px 0;
+      margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+      content: "";
+      background-color: var(--c-gray-150);
+    }
+
+    > li:first-of-type::before {
+      margin-top: 16px;
     }
   }
 }

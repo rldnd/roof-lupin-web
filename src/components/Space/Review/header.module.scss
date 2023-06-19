@@ -1,0 +1,54 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  gap: 20px;
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+  margin-bottom: 16px;
+
+  .info {
+    display: grid;
+    flex: 1;
+    grid-template-rows: 24px 15px;
+    grid-template-columns: 40px 1fr;
+    column-gap: 8px;
+
+    .imageWrapper {
+      grid-area: 1 / 1 / 3 / 2;
+      width: 100%;
+      height: 40px;
+      background-color: var(--c-gray-250);
+      border-radius: 50%;
+
+      > img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .profile {
+      @include m.flex(flex-start);
+      grid-area: 1 / 2 / 2 / 3;
+      gap: 12px;
+      width: 100%;
+
+      .nickname {
+        @include m.fontBody1Regular;
+        display: inline-block;
+        width: max-content;
+        color: var(--c-gray-800);
+      }
+
+      time {
+        @include m.fontCaption;
+        color: var(--c-gray-600);
+      }
+    }
+
+    .star {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+  }
+}

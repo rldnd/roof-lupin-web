@@ -14,7 +14,7 @@ interface Props {
 
 const HorizonDraggable: React.FC<Props> = ({ children, className }) => {
   return (
-    <ScrollContainer className={cx(styles.wrapper, className)} component="ul">
+    <ScrollContainer vertical={false} className={cx(styles.wrapper, className)} component="ul">
       {children}
     </ScrollContainer>
   );

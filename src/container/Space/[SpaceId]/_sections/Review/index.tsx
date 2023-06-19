@@ -1,4 +1,5 @@
 import type { Review as ReviewType } from "@/common/types/review";
+import { SpaceReview } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
 import styles from "./review.module.scss";
@@ -14,6 +15,7 @@ const Review: React.FC<Props> = ({ reviews, score, reviewCount }) => {
     <section id="review-section" className={styles.wrapper}>
       <h2>
         <StarRatingItem
+          starSize={24}
           className={styles.starRatingItem}
           score={score}
           reviewCount={reviewCount}
@@ -21,6 +23,11 @@ const Review: React.FC<Props> = ({ reviews, score, reviewCount }) => {
         />
         <span className={styles.reviewCount}>{reviewCount}개 리뷰</span>
       </h2>
+      <ul className={styles.reviewList}>
+        {reviews.map((review) => (
+          <SpaceReview key={review.id} review={review} />
+        ))}
+      </ul>
     </section>
   );
 };

@@ -1,0 +1,25 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontBody1Regular;
+  position: relative;
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+  color: var(--c-gray-900);
+
+  &:not(.isClickedViewMore) {
+    @include m.makeEllipsis(3);
+  }
+
+  .moreButton {
+    @include m.absolute(auto c.$S_PAGE_HORIZONTAL_PADDING 0 auto);
+    display: none;
+    padding: 0 8px 0 24px;
+    background: linear-gradient(270deg, #ffffff 80%, rgba(255, 255, 255, 0%) 100%);
+
+    &.isShow {
+      display: block;
+    }
+  }
+}

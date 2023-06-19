@@ -2,6 +2,5 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(flex-start, flex-start, column);
-  width: 100%;
+  @include m.flex(flex-start);
 }

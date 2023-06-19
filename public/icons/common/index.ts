@@ -11,3 +11,6 @@ export { default as IconOrangeDownChevron } from "./orange-down-chevron.svg";
 export { default as IconClose } from "./close.svg";
 export { default as IconGrayRightChevronLarge } from "./gray-right-chevron-large.svg";
 export { default as IconBlackLeftChevronLarge } from "./black-left-chevron-large.svg";
+export { default as IconThreeDots } from "./three-dots.svg";
+export { default as IconStar } from "./star.svg";
+export { default as IconStarEmpty } from "./star-empty.svg";

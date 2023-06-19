@@ -29,7 +29,7 @@
   }
 
   .list {
-    @include m.flex(flex-start, center, row);
+    @include m.flex(flex-start);
     gap: 16px;
     width: 100%;
 
