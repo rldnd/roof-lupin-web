@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { HomeContent } from "@/common/types/home";
-import { ArrowLink } from "@/components";
+import { ArrowLink, HorizonDraggable } from "@/components";
 
 import styles from "./contentList.module.scss";
 
@@ -19,7 +19,7 @@ const ContentList: React.FC<Props> = ({ content, children }) => {
         </h2>
         <ArrowLink href="/">더보기</ArrowLink>
       </header>
-      <ul className={styles.list}>{children}</ul>
+      <HorizonDraggable className={styles.list}>{children}</HorizonDraggable>
     </section>
   );
 };

@@ -2,18 +2,21 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(flex-start, flex-start, column);
   height: c.$S_BOTTOM_SHEET_MAX_HEIGHT;
 
-  ul {
-    @include m.flex(flex-start, flex-start);
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
+  .content {
+    padding-top: 32px;
 
-  p {
-    @include m.fontBody1Regular;
-    color: var(--c-gray-900);
+    ul {
+      @include m.flex(flex-start, flex-start);
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      @include m.fontBody1Regular;
+      color: var(--c-gray-900);
+    }
   }
 }

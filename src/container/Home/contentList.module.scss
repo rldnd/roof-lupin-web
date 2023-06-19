@@ -32,7 +32,6 @@
     @include m.flex(flex-start, center, row);
     gap: 16px;
     width: 100%;
-    overflow-x: scroll;
 
     li:first-of-type {
       margin-left: c.$S_PAGE_HORIZONTAL_PADDING;

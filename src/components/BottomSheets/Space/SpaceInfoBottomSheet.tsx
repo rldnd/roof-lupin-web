@@ -15,7 +15,14 @@ interface Props {
 
 const SpaceInfoBottomSheet: React.FC<Props> = ({ isShow, onClose, space }) => {
   return (
-    <BaseBottomSheet isShow={isShow} className={styles.wrapper} onClose={onClose} blockWindowScroll title={space.title}>
+    <BaseBottomSheet
+      isShow={isShow}
+      wrapperClassName={styles.wrapper}
+      className={styles.content}
+      onClose={onClose}
+      blockWindowScroll
+      title={space.title}
+    >
       <ul>
         {space.hashtags.map((tag) => (
           <li key={tag.id}>
