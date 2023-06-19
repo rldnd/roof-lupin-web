@@ -21,6 +21,10 @@
   user-select: none;
   background-color: var(--base-color);
   border-radius: 0.25rem;
+
+  & + br {
+    display: none; /* Remove extra line breaks */
+  }
 }
 
 .react-loading-skeleton::after {

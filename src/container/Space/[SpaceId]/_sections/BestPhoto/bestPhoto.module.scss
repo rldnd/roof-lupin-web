@@ -55,6 +55,7 @@
     .emptyImage {
       width: 200px;
       height: 275px;
+      margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
       background: rgba(0, 0, 0, 50%);
       border-radius: 4px;
     }
