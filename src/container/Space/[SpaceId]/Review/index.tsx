@@ -1,28 +1,23 @@
 import { Suspense } from "react";
 
 import { SafeArea } from "@/components";
-import { BaseHeader } from "@/components/Layout";
 
-import Content from "./Content";
+import Content, { LoadingContent } from "./Content";
+import Header from "./Header";
 import Menu from "./Menu";
 
 import styles from "./spaceDetailReviewContainer.module.scss";
 
-interface Props {
-  params: { spaceId: string };
-}
-
-export default async function SpaceReviewContainer({ params }: Props) {
-  const { spaceId } = params;
-
+// TODO: intersection observer
+export default function SpaceReviewContainer() {
   return (
     <SafeArea theme="dark">
       <div className={styles.wrapper}>
+        <Header />
         <Suspense fallback={null}>
           <Menu />
         </Suspense>
-        <BaseHeader title="리뷰" replaceUrl={`/spaces/${spaceId}`} />
-        <Suspense>
+        <Suspense fallback={<LoadingContent />}>
           <Content />
         </Suspense>
       </div>

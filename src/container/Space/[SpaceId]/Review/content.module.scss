@@ -3,22 +3,23 @@
 
 .wrapper {
   width: 100%;
+  padding-bottom: 240px;
+}
 
-  .reviewList {
-    width: 100%;
+.reviewList {
+  width: 100%;
 
-    > li {
-      padding-bottom: 24px;
+  .review {
+    padding-bottom: 24px;
 
-      &::before {
-        display: block;
-        width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
-        height: 2px;
-        margin-bottom: 24px;
-        margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
-        content: "";
-        background-color: var(--c-gray-150);
-      }
+    &::before {
+      display: block;
+      width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+      height: 2px;
+      margin-bottom: 24px;
+      margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+      content: "";
+      background-color: var(--c-gray-150);
     }
   }
 }

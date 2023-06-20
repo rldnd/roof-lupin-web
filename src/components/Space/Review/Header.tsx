@@ -1,6 +1,11 @@
 "use client";
 
+import { memo } from "react";
+
 import Image from "next/image";
+
+import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { Review } from "@/common/types/review";
 import { Tag } from "@/components/Common";
@@ -42,4 +47,17 @@ const Header: React.FC<Props> = ({ review }) => {
   );
 };
 
-export default Header;
+export default memo(Header);
+
+export const LoadingHeader: React.FC = memo(() => {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.info}>
+        <Skeleton className={styles.imageWrapper} />
+        <Skeleton width={120} containerClassName={styles.profile} />
+        <Skeleton width={50} containerClassName={styles.star} />
+      </div>
+      <Skeleton width={40} />
+    </div>
+  );
+});

@@ -50,6 +50,6 @@ const Carousel: React.FC<Props> = ({ slideCount, children }) => {
 
 export default memo(Carousel);
 
-export const LoadingCarousel: React.FC = () => {
+export const LoadingCarousel: React.FC = memo(() => {
   return <Skeleton className={styles.wrapper} />;
-};
+});

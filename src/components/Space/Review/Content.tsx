@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import { ArrowButton } from "@/components/Common";
 import { useClientEffect } from "@/hooks";
@@ -36,4 +37,8 @@ const Content: React.FC<Props> = ({ content, isShowAll }) => {
   );
 };
 
-export default Content;
+export default memo(Content);
+
+export const LoadingContent: React.FC = memo(() => {
+  return <Skeleton width="100%" height="200px" containerClassName={styles.wrapper} />;
+});

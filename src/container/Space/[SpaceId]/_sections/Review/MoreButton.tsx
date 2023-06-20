@@ -12,14 +12,14 @@ interface Props {
 
 const MoreButton: React.FC<Props> = ({ count }) => {
   const { spaceId } = useParams();
-  const router = useRouter();
+  const { push } = useRouter();
 
   return (
     <Button
       type="button"
       color="secondary"
       className={styles.wrapper}
-      onClick={() => router.push(`/spaces/${spaceId}/reviews`)}
+      onClick={() => push(`/spaces/${spaceId}/reviews`)}
     >
       {count}개 리뷰 더보기
     </Button>

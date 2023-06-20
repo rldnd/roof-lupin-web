@@ -3,9 +3,11 @@
 import { useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
+import { range } from "lodash-es";
 
 import { Review } from "@/common/types/review";
 import { SpaceReview } from "@/components";
+import { LoadingSpaceReview } from "@/components/Space/Review";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateReviewsApi } from "@/services/review";
 import { reviewSortMenuState } from "@/states/review";
@@ -27,7 +29,7 @@ const Content: React.FC = () => {
     <main className={styles.wrapper}>
       <ul className={styles.reviewList}>
         {data.pages.map((review) => (
-          <SpaceReview key={review.id} isShowAll review={review} />
+          <SpaceReview className={styles.review} key={review.id} isShowAll review={review} />
         ))}
       </ul>
     </main>
@@ -37,5 +39,11 @@ const Content: React.FC = () => {
 export default Content;
 
 export const LoadingContent: React.FC = () => {
-  return <></>;
+  return (
+    <div className={styles.reviewList}>
+      {range(5).map((value) => (
+        <LoadingSpaceReview className={styles.review} key={value} />
+      ))}
+    </div>
+  );
 };
