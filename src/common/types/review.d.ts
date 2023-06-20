@@ -2,6 +2,8 @@ import type { DateDTO, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { CommonUser } from "./user";
 
+export type ReviewSort = "CREATED_AT" | "SCORE_HIGH" | "SCORE_LOW";
+
 export interface Review extends DateDTO {
   id: string;
   content: string;

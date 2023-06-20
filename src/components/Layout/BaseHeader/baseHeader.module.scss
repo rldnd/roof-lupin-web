@@ -5,6 +5,7 @@
   @include m.flex(flex-start);
   @include m.fixed(0 auto auto 50%);
   width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_BASE_HEADER_HEIGHT;
   padding: 54px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
   transform: translateX(-50%);

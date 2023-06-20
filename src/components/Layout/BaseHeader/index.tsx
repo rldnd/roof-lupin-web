@@ -15,12 +15,13 @@ interface Props {
   style?: CSSProperties;
   title: string;
   right?: ReactNode;
+  replaceUrl?: string;
 }
 
-const BaseHeader: React.FC<Props> = ({ className, style, title, right }) => {
+const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUrl }) => {
   return (
     <header className={cx(styles.wrapper, className)} style={style}>
-      <BackButton className={styles.backButton}>
+      <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
         <IconBlackLeftChevronLarge />
       </BackButton>
       <h1 className={styles.title}>{title}</h1>
