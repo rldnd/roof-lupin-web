@@ -1,0 +1,19 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex;
+  @include m.filterGray400;
+  width: 16px;
+  height: 16px;
+  margin: 4px;
+  cursor: pointer;
+  border: 1.3px solid var(--c-gray-400);
+  border-radius: 1.3px;
+
+  &:has(input:checked) {
+    background-color: var(--c-roof-orange);
+    filter: none;
+    border: 0;
+  }
+}

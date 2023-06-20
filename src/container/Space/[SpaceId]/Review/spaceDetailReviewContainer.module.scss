@@ -3,5 +3,5 @@
 
 .wrapper {
   width: 100%;
-  padding-top: c.$S_BASE_HEADER_HEIGHT;
+  padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_SPACE_DETAIL_REVIEW_MENU_HEIGHT);
 }

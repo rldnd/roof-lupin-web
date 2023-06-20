@@ -17,15 +17,15 @@ export default async function SpaceReviewContainer({ params }: Props) {
 
   return (
     <SafeArea theme="dark">
-      <main className={styles.wrapper}>
-        <BaseHeader title="리뷰" replaceUrl={`/spaces/${spaceId}`} />
+      <div className={styles.wrapper}>
         <Suspense fallback={null}>
           <Menu />
         </Suspense>
-        <Suspense fallback={<>LOADING</>}>
+        <BaseHeader title="리뷰" replaceUrl={`/spaces/${spaceId}`} />
+        <Suspense>
           <Content />
         </Suspense>
-      </main>
+      </div>
     </SafeArea>
   );
 }

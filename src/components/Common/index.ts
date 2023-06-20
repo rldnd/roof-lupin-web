@@ -7,3 +7,4 @@ export { default as ArrowButton } from "./ArrowButton";
 export { default as ArrowLink } from "./ArrowLink";
 export { default as Button } from "./Button";
 export { default as Tag } from "./Tag";
+export { default as Checkbox } from "./Checkbox";

@@ -14,3 +14,6 @@ export { default as IconBlackLeftChevronLarge } from "./black-left-chevron-large
 export { default as IconThreeDots } from "./three-dots.svg";
 export { default as IconStar } from "./star.svg";
 export { default as IconStarEmpty } from "./star-empty.svg";
+export { default as IconCheck } from "./check.svg";
+export { default as IconBottomCaret } from "./bottom-caret.svg";
+export { default as IconActiveCheckLarge } from "./active-check-large.svg";

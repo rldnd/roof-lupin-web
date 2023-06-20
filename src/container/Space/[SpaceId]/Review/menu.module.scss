@@ -2,7 +2,9 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.fixed(c.$S_BASE_HEADER_HEIGHT 0 0 50%);
+  @include m.fixed(c.$S_BASE_HEADER_HEIGHT - 2px 0 0 50%);
+  @include m.flex(space-between);
+  z-index: c.$Z_SPACE_DETAIL_REVIEW_MENU;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_SPACE_DETAIL_REVIEW_MENU_HEIGHT;
@@ -10,4 +12,26 @@
   background-color: var(--c-white);
   transition: top 0.4s ease-in-out;
   transform: translateX(-50%);
+
+  .photoReviewCheckbox {
+    @include m.flex(flex-start);
+    @include m.fontBody1Regular;
+    gap: 4px;
+    color: var(--c-gray-600);
+    cursor: pointer;
+  }
+
+  .sortButton {
+    @include m.flex(flex-start);
+    @include m.fontBody1Regular;
+    color: var(--c-gray-600);
+  }
+
+  &.top {
+    top: c.$S_BASE_HEADER_HEIGHT - 2px;
+  }
+
+  &.down {
+    top: 0;
+  }
 }
