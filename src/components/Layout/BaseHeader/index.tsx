@@ -24,7 +24,7 @@ const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUr
       <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
         <IconBlackLeftChevronLarge />
       </BackButton>
-      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.title}>{title}</p>
       {right}
     </header>
   );

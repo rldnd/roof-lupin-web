@@ -2,7 +2,9 @@ import type { DateDTO, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { CommonUser } from "./user";
 
-export type ReviewSort = "CREATED_AT" | "SCORE_HIGH" | "SCORE_LOW";
+import { REVIEW_SORT } from "../constants/review";
+
+export type ReviewSort = (typeof REVIEW_SORT)[number];
 
 export interface Review extends DateDTO {
   id: string;

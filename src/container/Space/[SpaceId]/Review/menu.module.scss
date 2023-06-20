@@ -1,0 +1,13 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(c.$S_BASE_HEADER_HEIGHT 0 0 50%);
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_SPACE_DETAIL_REVIEW_MENU_HEIGHT;
+  padding: 4px c.$S_PAGE_HORIZONTAL_PADDING 16px;
+  background-color: var(--c-white);
+  transition: top 0.4s ease-in-out;
+  transform: translateX(-50%);
+}
