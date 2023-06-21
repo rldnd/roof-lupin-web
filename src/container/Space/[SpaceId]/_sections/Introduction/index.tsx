@@ -1,10 +1,11 @@
 import dynamic from "next/dynamic";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { ArrowButton, Tag } from "@/components";
+import { Tag } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
 import CallButton from "./CallButton";
+import ReviewButton from "./ReviewButton";
 
 import styles from "./introduction.module.scss";
 
@@ -28,11 +29,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
       <div className={styles.info}>
         <div className={styles.left}>
           <StarRatingItem score={averageScore} reviewCount={reviewCount} viewReviewCount={false} />
-          {reviewCount !== 0 && (
-            <ArrowButton direction="right" isBold color="primary">
-              리뷰 {reviewCount}개
-            </ArrowButton>
-          )}
+          {reviewCount !== 0 && <ReviewButton reviewCount={reviewCount} />}
         </div>
         <CallButton />
       </div>

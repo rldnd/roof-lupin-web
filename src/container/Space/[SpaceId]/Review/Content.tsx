@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 import { range } from "lodash-es";
 
 import { Review } from "@/common/types/review";
-import { SpaceReview } from "@/components";
+import { InfiniteScroll, SpaceReview } from "@/components";
 import { LoadingSpaceReview } from "@/components/Space/Review";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateReviewsApi } from "@/services/review";
@@ -17,7 +17,7 @@ import styles from "./content.module.scss";
 const Content: React.FC = () => {
   const { spaceId } = useParams();
   const reviewSortMenu = useAtomValue(reviewSortMenuState);
-  const { data } = useSuspenseInfiniteQuery<Review>(
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
     ["paginateReviews", reviewSortMenu.hasPhoto, reviewSortMenu.sort],
     ({ pageParam = 1 }) => paginateReviewsApi({ page: pageParam, ...reviewSortMenu, spaceId, limit: 10 }),
     {
@@ -27,11 +27,18 @@ const Content: React.FC = () => {
 
   return (
     <main className={styles.wrapper}>
-      <ul className={styles.reviewList}>
+      <InfiniteScroll
+        className={styles.reviewList}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetching={isFetching}
+        isSuccess={isSuccess}
+        loadingComponent={<LoadingContent />}
+      >
         {data.pages.map((review) => (
           <SpaceReview className={styles.review} key={review.id} isShowAll review={review} />
         ))}
-      </ul>
+      </InfiniteScroll>
     </main>
   );
 };
