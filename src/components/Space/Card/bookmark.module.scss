@@ -6,17 +6,5 @@
 
   .bookmark {
     @include m.absolute(4px 4px auto auto);
-
-    &[data-active="true"] {
-      svg:last-of-type {
-        display: none;
-      }
-    }
-
-    &[data-active="false"] {
-      svg:first-of-type {
-        display: none;
-      }
-    }
   }
 }

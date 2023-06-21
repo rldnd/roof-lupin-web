@@ -12,5 +12,4 @@ export const createSpaceInterestApi = (spaceId: string) => apiClient.post(`/spac
 /** [CLIENT] 공간 찜 삭제하기 */
 export const deleteSpaceInterestApi = (spaceId: string) => apiClient.delete(`/spaces/${spaceId}/interest`);
 /** [CLIENT] 공간 찜 유무 조회하기 */
-export const getSpaceInterestedApi = (spaceId: string) =>
-  apiClient.get<Interested>(`/spaces/${spaceId}/is-interested`).then((res) => res.data);
+export const getSpaceInterestedApi = (spaceId: string) => apiClient.get<Interested>(`/spaces/${spaceId}/is-interested`);

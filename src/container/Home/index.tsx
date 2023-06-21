@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 
+import dynamic from "next/dynamic";
+
 import { SafeArea, SpaceCard } from "@/components";
 import { BottomNavigation } from "@/components/Layout";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
@@ -8,10 +10,10 @@ import { LoadingCarousel } from "./Carousel";
 import CarouselItem from "./CarouselItem";
 import Category from "./Category";
 import ContentList from "./ContentList";
-import Header from "./Header";
 
 import styles from "./homeContainer.module.scss";
 
+const Header = dynamic(() => import("./Header"), { ssr: false });
 const Carousel = lazy(() => import("./Carousel"));
 
 export default async function HomeContainer() {
@@ -24,9 +26,7 @@ export default async function HomeContainer() {
   return (
     <SafeArea>
       <main className={styles.wrapper}>
-        <Suspense fallback={null}>
-          <Header />
-        </Suspense>
+        <Header />
         <Suspense fallback={<LoadingCarousel />}>
           <Carousel slideCount={curations.length}>
             {curations.map((curation) => (

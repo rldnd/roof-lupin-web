@@ -1,5 +1,3 @@
-import { flatten } from "lodash-es";
-
 import type { Category } from "@/common/types/category";
 import type { Curation } from "@/common/types/curation";
 import type { HomeContent } from "@/common/types/home";
@@ -18,5 +16,4 @@ export const getHomeContentsApi = () =>
   fetchClient<HomeContent[]>("/home/contents", { tags: ["home", "/home/contents"] });
 
 /** [CLIENT] 홈 화면 컨텐츠를 가져와 spaces만을 가져옵니다. */
-export const getHomeSpacesInContentsApi = () =>
-  apiClient.get<HomeContent[]>("/home/contents").then((res) => flatten(res.data.map((content) => content.spaces)));
+export const getHomeSpacesInContentsApi = () => apiClient.get<HomeContent[]>("/home/contents");

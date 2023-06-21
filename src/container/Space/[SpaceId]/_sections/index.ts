@@ -4,7 +4,7 @@ export { default as Building } from "./Building";
 export * from "./Carousel";
 export { default as Caution } from "./Caution";
 export { default as Service } from "./Service";
-export { default as Header } from "./Header";
+export * from "./Header";
 export { default as Introduction } from "./Introduction";
 export { default as Location } from "./Location";
 export { default as Price } from "./Price";

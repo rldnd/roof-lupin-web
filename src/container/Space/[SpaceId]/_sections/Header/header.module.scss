@@ -17,7 +17,7 @@
   }
 
   &.breakpoint {
-    .bookmark[data-active="false"] path {
+    .bookmark .inactive path {
       fill-opacity: 0;
     }
 
@@ -42,19 +42,5 @@
 
   menu {
     @include m.flex;
-
-    .bookmark {
-      &[data-active="true"] {
-        svg:last-of-type {
-          display: none;
-        }
-      }
-
-      &[data-active="false"] {
-        svg:first-of-type {
-          display: none;
-        }
-      }
-    }
   }
 }
