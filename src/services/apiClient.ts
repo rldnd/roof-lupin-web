@@ -2,7 +2,13 @@ import { notFound } from "next/navigation";
 
 import axios, { type AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
 
-import { DEFAULT_REVALIDATE, LOGOUT_EVENT_NAME, TOKEN_EXPIRED_MESSAGE, UNAUTHORIZED_STATUS } from "@/common/constants";
+import {
+  DEFAULT_REVALIDATE,
+  LOGOUT_EVENT_NAME,
+  REQUEST_WITH_AUTH_URL,
+  TOKEN_EXPIRED_MESSAGE,
+  UNAUTHORIZED_STATUS,
+} from "@/common/constants";
 import type { Token } from "@/common/types/auth";
 import type { ErrorDTO } from "@/common/types/common";
 import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
@@ -49,7 +55,15 @@ apiClient.interceptors.request.use(async (config) => {
   const accessToken = getAccessToken();
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
-  return config;
+  const abortController = new AbortController();
+
+  if (!accessToken) {
+    REQUEST_WITH_AUTH_URL.forEach((url) => {
+      if (config.url?.includes(url)) abortController.abort();
+    });
+  }
+
+  return { ...config, signal: abortController.signal };
 });
 
 apiClient.interceptors.response.use(
