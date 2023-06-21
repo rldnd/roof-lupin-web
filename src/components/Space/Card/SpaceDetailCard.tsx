@@ -9,7 +9,7 @@ import type { Space } from "@/common/types/space";
 import { SpacePrice } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
-import styles from "./spaceCard.module.scss";
+import styles from "./spaceDetailCard.module.scss";
 
 interface Props {
   className?: string;
@@ -19,7 +19,7 @@ interface Props {
 }
 
 /** children => bookmark component */
-const SpaceCard: React.FC<Props> = ({ className, space, href, children }) => {
+const SpaceDetailCard: React.FC<Props> = ({ className, space, href, children }) => {
   return (
     <li className={cx(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
@@ -30,15 +30,19 @@ const SpaceCard: React.FC<Props> = ({ className, space, href, children }) => {
       {children}
 
       <Link href={href} className={styles.content}>
-        {space.publicTransportation && <span className={styles.transport}>{space.publicTransportation.name}</span>}
+        {space.publicTransportation && (
+          <span className={styles.transport}>
+            {space.publicTransportation.name} 도보 {space.publicTransportation.timeTaken}분
+          </span>
+        )}
         <p className={styles.title}>{space.title}</p>
         <div className={styles.info}>
           <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} viewReviewCount />
-          <SpacePrice packageCost={space.packageCost} timeCost={space.timeCost} rows={1} />
+          <SpacePrice packageCost={space.packageCost} timeCost={space.timeCost} rows={2} />
         </div>
       </Link>
     </li>
   );
 };
 
-export default memo(SpaceCard);
+export default memo(SpaceDetailCard);

@@ -6,6 +6,7 @@ import { SafeArea, SpaceCard } from "@/components";
 import { BottomNavigation } from "@/components/Layout";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
+import Bookmark from "./Bookmark";
 import { LoadingCarousel } from "./Carousel";
 import CarouselItem from "./CarouselItem";
 import Category from "./Category";
@@ -40,7 +41,9 @@ export default async function HomeContainer() {
           return (
             <ContentList key={content.id} content={{ id, name, highlight }}>
               {spaces.map((space) => (
-                <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`} />
+                <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`}>
+                  <Bookmark space={space} />
+                </SpaceCard>
               ))}
             </ContentList>
           );

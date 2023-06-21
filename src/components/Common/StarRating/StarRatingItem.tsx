@@ -21,7 +21,7 @@ const StarRatingItem: React.FC<Props> = ({ className, viewReviewCount, score, re
     <div className={cx(styles.wrapper, className)} style={style}>
       <IconStar />
       <span className={styles.score}>{reviewCount === 0 ? "리뷰 없음" : score.toFixed(1)}</span>
-      {viewReviewCount && <span className={styles.reviewCount}>({reviewCount})</span>}
+      {viewReviewCount && reviewCount !== 0 && <span className={styles.reviewCount}>({reviewCount})</span>}
     </div>
   );
 };
