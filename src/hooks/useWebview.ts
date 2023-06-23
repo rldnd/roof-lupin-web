@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import type { BaseWebviewPayload, WithoutData } from "@/common/types/webview";
 import { parseConverter, stringifyConverter } from "@/utils/json";
 import { isClient } from "@/utils/next";
-import { isWebview } from "@/utils/webview";
+import { isWebview } from "@/utils/userAgent";
 
 import useClientEffect from "./useClientEffect";
 

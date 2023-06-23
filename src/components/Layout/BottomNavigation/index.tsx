@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import cx from "clsx";
 
 import { useScrollDirection } from "@/hooks";
-import { isWebview } from "@/utils/webview";
+import { isWebview } from "@/utils/userAgent";
 
 import { IconHome } from "public/icons";
 
