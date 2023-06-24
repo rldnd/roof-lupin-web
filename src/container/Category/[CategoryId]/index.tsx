@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { SafeArea } from "@/components";
 import { getHomeCategoriesApi } from "@/services/home";
 
 import { Content } from "./Content";
@@ -21,12 +22,14 @@ export default async function CategoryDetailContainer() {
   const categories = await getHomeCategoriesApi();
 
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <TabBar categories={categories} />
-      <Suspense fallback={<LoadingContent />}>
-        <Content />
-      </Suspense>
-    </div>
+    <SafeArea theme="dark">
+      <div className={styles.wrapper}>
+        <Header />
+        <TabBar categories={categories} />
+        <Suspense fallback={<LoadingContent />}>
+          <Content />
+        </Suspense>
+      </div>
+    </SafeArea>
   );
 }
