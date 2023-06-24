@@ -69,7 +69,7 @@ const Header: React.FC<Props> = ({ space }) => {
       <BackButton>
         <IconBack />
       </BackButton>
-      {isClient && <p className={styles.title}>{space.title}</p>}
+      {isClient && breakpoint && <p className={styles.title}>{space.title}</p>}
       <menu>
         <li>
           <button type="button">

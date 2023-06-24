@@ -2,9 +2,13 @@
 
 import { memo, type MouseEventHandler, useCallback, useEffect, useMemo, useRef } from "react";
 
+import { useParams } from "next/navigation";
+
 import cx from "clsx";
 
-import { useWindowScroll } from "@/hooks";
+import type { ReviewSummary } from "@/common/types/review";
+import { useSuspenseQuery, useWindowScroll } from "@/hooks";
+import { getReviewsSummaryApi } from "@/services/review";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
@@ -14,17 +18,16 @@ import pageStyles from "../../spaceDetailContainer.module.scss";
 
 import styles from "./tabBar.module.scss";
 
-export type DataSection = "price" | "service" | "caution" | "location" | "review";
+export type DataSection = "intro" | "service" | "review" | "refund";
 type Positions = {
   [K in DataSection]: number;
 };
 
 const initialPositions: Positions = {
-  price: Infinity,
+  intro: Infinity,
   service: Infinity,
-  caution: Infinity,
-  location: Infinity,
   review: Infinity,
+  refund: Infinity,
 };
 
 const getTabBarOffsetTop = (offsetTop: number) => {
@@ -43,9 +46,18 @@ const getSectionOffsetTop = (offsetTop: number) => {
 };
 
 const TabBar: React.FC = () => {
+  const { spaceId } = useParams();
   const { y } = useWindowScroll();
   const tabBarPosition = useRef(Infinity);
   const positions = useRef(initialPositions);
+
+  const { data: summary } = useSuspenseQuery<ReviewSummary>(
+    ["getReviewsSummary", spaceId],
+    () => getReviewsSummaryApi(spaceId),
+    {
+      enabled: Boolean(spaceId),
+    },
+  );
 
   const isTabBarVisible = useMemo<boolean>(() => {
     const containerHeight = tabBarPosition.current;
@@ -55,13 +67,12 @@ const TabBar: React.FC = () => {
   const currentPosition = useMemo<DataSection | "">(() => {
     if (!isClient) return "";
 
-    const { price, service, caution, location, review } = positions.current;
+    const { intro, service, review, refund } = positions.current;
 
-    if (price <= y && y < service) return "price";
-    if (service <= y && y < caution) return "service";
-    if (caution <= y && y < location) return "caution";
-    if (location <= y && y < review) return "location";
-    if (review <= y) return "review";
+    if (intro <= y && y < service) return "intro";
+    if (service <= y && y < review) return "service";
+    if (review <= y && y < refund) return "review";
+    if (refund <= y) return "refund";
     else return "";
   }, [y]);
 
@@ -77,17 +88,14 @@ const TabBar: React.FC = () => {
     const $tabBarHorizon = document.getElementById("tab-bar-horizon") as HTMLHRElement;
     tabBarPosition.current = getTabBarOffsetTop($tabBarHorizon.offsetTop);
 
-    const $priceSection = document.getElementById("price-section") as HTMLDivElement;
     const $serviceSection = document.getElementById("service-section") as HTMLDivElement;
-    const $cautionSection = document.getElementById("caution-section") as HTMLDivElement;
-    const $locationSection = document.getElementById("location-section") as HTMLDivElement;
     const $reviewSection = document.getElementById("review-section") as HTMLDivElement;
+    const $refundSection = document.getElementById("refund-section") as HTMLDivElement;
     positions.current = {
-      price: getSectionOffsetTop($priceSection.offsetTop),
+      intro: 0,
       service: getSectionOffsetTop($serviceSection.offsetTop),
-      caution: getSectionOffsetTop($cautionSection.offsetTop),
-      location: getSectionOffsetTop($locationSection.offsetTop),
       review: getSectionOffsetTop($reviewSection.offsetTop),
+      refund: getSectionOffsetTop($refundSection.offsetTop),
     };
   }, []);
 
@@ -97,20 +105,17 @@ const TabBar: React.FC = () => {
         [styles.isVisible]: isTabBarVisible,
       })}
     >
-      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="price">
-        상세요금
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="intro">
+        공간소개
       </TabBarItem>
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="service">
         시설/건물
       </TabBarItem>
-      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="caution">
-        주의사항
-      </TabBarItem>
-      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="location">
-        위치
-      </TabBarItem>
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="review">
-        리뷰
+        리뷰{summary.count ? `(${summary.count})` : ""}
+      </TabBarItem>
+      <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="refund">
+        정책/정보
       </TabBarItem>
       <div className={styles.activeBar} />
     </nav>
