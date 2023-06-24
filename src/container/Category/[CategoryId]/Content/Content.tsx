@@ -1,9 +1,11 @@
 "use client";
 
 import { useAtomValue } from "jotai";
+import { range } from "lodash-es";
 
 import { Space } from "@/common/types/space";
 import { InfiniteScroll, SpaceDetailCard } from "@/components";
+import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { categorySortMenuState } from "@/states/category";
@@ -12,6 +14,7 @@ import Bookmark from "./Bookmark";
 
 import styles from "./content.module.scss";
 
+// TODO: space detail card suspense
 const Content: React.FC = () => {
   const categorySortMenu = useAtomValue(categorySortMenuState);
 
@@ -31,9 +34,10 @@ const Content: React.FC = () => {
         hasNextPage={hasNextPage}
         isFetching={isFetching}
         isSuccess={isSuccess}
+        loadingComponent={<LoadingContent />}
       >
         {data.pages.map((space) => (
-          <SpaceDetailCard key={space.id} space={space} href={`/spaces/${space.id}`}>
+          <SpaceDetailCard className={styles.space} key={space.id} space={space} href={`/spaces/${space.id}`}>
             <Bookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
           </SpaceDetailCard>
         ))}
@@ -43,3 +47,15 @@ const Content: React.FC = () => {
 };
 
 export default Content;
+
+export const LoadingContent: React.FC = () => {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.spaceList}>
+        {range(5).map((value) => (
+          <LoadingSpaceDetailCard key={value} className={styles.space} />
+        ))}
+      </div>
+    </div>
+  );
+};

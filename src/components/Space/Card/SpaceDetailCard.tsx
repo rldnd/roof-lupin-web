@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { Space } from "@/common/types/space";
 import { SpacePrice } from "@/components";
@@ -46,3 +47,22 @@ const SpaceDetailCard: React.FC<Props> = ({ className, space, href, children }) 
 };
 
 export default memo(SpaceDetailCard);
+
+export const LoadingSpaceDetailCard: React.FC<{ className?: string }> = memo(({ className }) => {
+  return (
+    <div className={cx(styles.wrapper, className)}>
+      <Skeleton containerClassName={styles.imageWrapper} height="100%" />
+      <div className={styles.content}>
+        <Skeleton containerClassName={styles.transport} width={120} />
+        <Skeleton containerClassName={styles.title} width={150} />
+        <div className={styles.info}>
+          <Skeleton width={60} />
+          <div className={styles.loadingPrice}>
+            <Skeleton width={80} />
+            <Skeleton width={120} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});

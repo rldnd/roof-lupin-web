@@ -19,6 +19,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "i.pinimg.com",
       },
+      {
+        protocol: "https",
+        hostname: "dev-image.cumuco.net",
+      },
+      {
+        protocol: "https",
+        hostname: "prod-image.cumuco.net",
+      },
     ],
   },
   webpack(config) {

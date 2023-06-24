@@ -3,6 +3,5 @@
 
 .wrapper {
   width: 100%;
-  padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_DETAIL_TAB_BAR_HEIGHT);
-  padding-bottom: 160px;
+  padding: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_DETAIL_TAB_BAR_HEIGHT) c.$S_PAGE_HORIZONTAL_PADDING 160px;
 }
