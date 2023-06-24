@@ -8,7 +8,6 @@ import Menu from "./Menu";
 
 import styles from "./spaceDetailReviewContainer.module.scss";
 
-// TODO: intersection observer
 export default function SpaceReviewContainer() {
   return (
     <SafeArea theme="dark">

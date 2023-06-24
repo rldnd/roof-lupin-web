@@ -10,6 +10,10 @@ import type { Review } from "./review";
 import type { Service } from "./service";
 import type { Size } from "./size";
 
+import { SPACE_SORT } from "../constants/space";
+
+export type SpaceSort = (typeof SPACE_SORT)[number];
+
 export interface Transportation {
   /** id */
   id: string;

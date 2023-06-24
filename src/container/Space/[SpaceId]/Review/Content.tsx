@@ -18,8 +18,8 @@ const Content: React.FC = () => {
   const { spaceId } = useParams();
   const reviewSortMenu = useAtomValue(reviewSortMenuState);
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
-    ["paginateReviews", reviewSortMenu.hasPhoto, reviewSortMenu.sort],
-    ({ pageParam = 1 }) => paginateReviewsApi({ page: pageParam, ...reviewSortMenu, spaceId, limit: 10 }),
+    ["paginateReviews", reviewSortMenu],
+    ({ pageParam = 1 }) => paginateReviewsApi({ page: pageParam, limit: 10, ...reviewSortMenu, spaceId }),
     {
       enabled: Boolean(spaceId),
     },

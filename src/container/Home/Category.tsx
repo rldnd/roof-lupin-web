@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Category as CategoryType } from "@/common/types/category";
 import { getNumberFromPixel } from "@/utils/styles";
@@ -11,9 +12,9 @@ interface Props {
 
 const Category: React.FC<Props> = ({ categories }) => {
   return (
-    <ul className={styles.wrapper}>
+    <nav className={styles.wrapper}>
       {categories.map((category) => (
-        <li key={category.id} className={styles.item}>
+        <Link key={category.id} className={styles.item} href={`/categories/${category.id}`}>
           <Image
             src={category.iconPath as string}
             width={getNumberFromPixel(styles.categoryWidth)}
@@ -22,9 +23,9 @@ const Category: React.FC<Props> = ({ categories }) => {
           />
           <span className={styles.name}>{category.name}</span>
           {category.isRecommended && <span className={styles.recommend}>추천</span>}
-        </li>
+        </Link>
       ))}
-    </ul>
+    </nav>
   );
 };
 

@@ -30,7 +30,6 @@ export const fetchClient = async <T>(url?: string, options?: FetchOptions): Prom
     cache: options?.cache,
   });
 
-  // TODO: 존재하지 않는 데이터에 대해서 어떻게 처리할 것인지.
   if (response.status === 404) return notFound();
 
   const data = (await response.json()) as T;

@@ -1,0 +1,12 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  .spaceList {
+    @include m.flex(flex-start, flex-start, column);
+    gap: 24px;
+  }
+}

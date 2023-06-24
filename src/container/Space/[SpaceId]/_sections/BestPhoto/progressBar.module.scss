@@ -6,6 +6,7 @@
   width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
   height: 4px;
   margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
+  overflow: hidden;
   background-color: var(--c-gray-250);
 
   .progress {
