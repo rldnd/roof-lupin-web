@@ -9,14 +9,6 @@ import { TabBar } from "./TabBar";
 
 import styles from "./categoryContainer.module.scss";
 
-export async function generateStaticParams() {
-  const categories = await getHomeCategoriesApi();
-
-  return categories.map((category) => ({
-    categoryId: category.id,
-  }));
-}
-
 export default async function CategoryContainer() {
   const categories = await getHomeCategoriesApi();
 

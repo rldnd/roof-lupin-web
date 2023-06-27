@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, Suspense } from "react";
 
 import cx from "clsx";
 
@@ -22,7 +22,9 @@ const TabBar: React.FC<Props> = ({ categories }) => {
   return (
     <HorizonDraggable component="nav" className={cx(styles.wrapper, styles[scrollDirection])}>
       {categories.map((category) => (
-        <TabBarItem key={category.id} category={category} />
+        <Suspense key={category.id} fallback={null}>
+          <TabBarItem category={category} />
+        </Suspense>
       ))}
     </HorizonDraggable>
   );
