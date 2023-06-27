@@ -3,7 +3,7 @@
 
 import { type ChangeEventHandler, memo, startTransition, useCallback, useEffect, useState } from "react";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import cx from "clsx";
 import { useAtom } from "jotai";
@@ -13,7 +13,7 @@ import type { ReviewSort } from "@/common/types/review";
 import { Checkbox } from "@/components";
 import { ReviewSortBottomSheet } from "@/components/BottomSheets/Review";
 import { useScrollDirection } from "@/hooks";
-import { initialReviewSortMenu, reviewSortMenuState } from "@/states/review";
+import { initialReviewSortMenu, reviewSortMenuState } from "@/states";
 import { getBoolean } from "@/utils/json";
 
 import { IconBottomCaret } from "public/icons";

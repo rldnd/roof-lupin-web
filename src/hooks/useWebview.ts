@@ -52,7 +52,7 @@ const useWebview = (): ReturnUseWebview => {
       const parsedPayload = parseConverter<BaseWebviewPayload>(payload);
 
       const handler = listeners.find((listener) => listener.type === parsedPayload.type)?.handler;
-      if (handler) handler(parsedPayload.data);
+      if (handler) handler(parseConverter(parsedPayload.data));
     };
 
     window.addEventListener("message", handleListener);

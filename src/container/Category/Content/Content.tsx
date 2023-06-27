@@ -8,7 +8,7 @@ import { InfiniteScroll, SpaceDetailCard } from "@/components";
 import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { categorySortMenuState } from "@/states/category";
+import { categorySortMenuState } from "@/states";
 
 import Bookmark from "./Bookmark";
 

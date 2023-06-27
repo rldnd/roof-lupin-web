@@ -13,3 +13,7 @@ export interface CommonUser extends DateDTO {
   gender: Gender | null;
   profileImage: string | null;
 }
+
+export interface PushToken {
+  pushToken: string | null;
+}

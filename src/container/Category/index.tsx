@@ -3,12 +3,11 @@ import { Suspense } from "react";
 import { SafeArea } from "@/components";
 import { getHomeCategoriesApi } from "@/services/home";
 
-import { Content } from "./Content";
-import { LoadingContent } from "./Content/Content";
+import { Content, LoadingContent } from "./Content";
 import { Header } from "./Header";
 import { TabBar } from "./TabBar";
 
-import styles from "./categoryDetailContainer.module.scss";
+import styles from "./categoryContainer.module.scss";
 
 export async function generateStaticParams() {
   const categories = await getHomeCategoriesApi();
@@ -18,7 +17,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CategoryDetailContainer() {
+export default async function CategoryContainer() {
   const categories = await getHomeCategoriesApi();
 
   return (

@@ -8,6 +8,7 @@ import "@/utils/naverMap";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
 import Providers from "./providers";
+import PushTokenHandler from "./PushTokenHandler";
 
 import styles from "./layout.module.scss";
 
@@ -26,8 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className={styles.wrapper}>{children}</div>
           <div id="modal" />
           <div id="bottom-sheet" />
+          <Suspense fallback={null}>
+            <PushTokenHandler />
+          </Suspense>
         </Providers>
-
         <Suspense fallback={null}>
           <NavigationStore />
         </Suspense>

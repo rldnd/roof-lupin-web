@@ -14,7 +14,7 @@ const Category: React.FC<Props> = ({ categories }) => {
   return (
     <nav className={styles.wrapper}>
       {categories.map((category) => (
-        <Link key={category.id} className={styles.item} href={`/categories/${category.id}`}>
+        <Link key={category.id} className={styles.item} href={`/categories?categoryId=${category.id}`}>
           <Image
             src={category.iconPath as string}
             width={getNumberFromPixel(styles.categoryWidth)}

@@ -10,7 +10,7 @@ import { InfiniteScroll, SpaceReview } from "@/components";
 import { LoadingSpaceReview } from "@/components/Space/Review";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateReviewsApi } from "@/services/review";
-import { reviewSortMenuState } from "@/states/review";
+import { reviewSortMenuState } from "@/states";
 
 import styles from "./content.module.scss";
 

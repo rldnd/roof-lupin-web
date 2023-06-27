@@ -8,7 +8,7 @@ import { useAtom } from "jotai";
 import { REVIEW_SORT_MAPPER } from "@/common/constants/review";
 import { ReviewSort } from "@/common/types/review";
 import { BaseBottomSheet } from "@/components/Common";
-import { reviewSortMenuState } from "@/states/review";
+import { reviewSortMenuState } from "@/states";
 
 import { IconActiveCheckLarge } from "public/icons";
 
