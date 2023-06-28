@@ -96,7 +96,6 @@ apiClient.interceptors.response.use(
         } catch {
           holder.failRelease();
           removeTokens();
-          removeSocialType();
           window.dispatchEvent(new CustomEvent(LOGOUT_EVENT_NAME));
         }
       }
