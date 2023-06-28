@@ -11,7 +11,7 @@ import {
 } from "@/common/constants";
 import type { Token } from "@/common/types/auth";
 import type { ErrorDTO } from "@/common/types/common";
-import { getAccessToken, getTokens, removeSocialType, removeTokens, setTokens } from "@/utils/auth";
+import { getAccessToken, getTokens, removeTokens, setTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
 import { PromiseHolder } from "@/utils/promiseHolder";
 

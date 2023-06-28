@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, startTransition, useCallback, useRef } from "react";
+import { memo, useCallback, useRef } from "react";
 
 import cx from "clsx";
 import { useAtom } from "jotai";
@@ -26,9 +26,7 @@ const TabBarItem: React.FC<Props> = ({ category }) => {
     history.replaceState(null, "", getQueryStringWithPath(append({ categoryId: category.id })));
     window.scrollTo({ top: 0, behavior: "smooth" });
     buttonRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
-    startTransition(() => {
-      setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
-    });
+    setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
   }, [append, category.id, getQueryStringWithPath, setCategorySortMenu]);
 
   return (
