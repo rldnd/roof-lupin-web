@@ -5,6 +5,7 @@ import type { PaginateSpacesQueryParams } from "@/services/space";
 export type CategorySortMenu = Omit<PaginateSpacesQueryParams, "page" | "limit">;
 
 export const initialCategorySortMenu: CategorySortMenu = {
+  categoryIds: null,
   category: null,
   day: null,
   distance: null,

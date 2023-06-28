@@ -1,13 +1,14 @@
 "use client";
 
-import { memo, useCallback } from "react";
-
-import { useRouter, useSearchParams } from "next/navigation";
+import { memo, startTransition, useCallback, useRef } from "react";
 
 import cx from "clsx";
+import { useAtom } from "jotai";
+import Skeleton from "react-loading-skeleton";
 
 import type { Category } from "@/common/types/category";
 import { useQueryString } from "@/hooks";
+import { categorySortMenuState } from "@/states";
 
 import styles from "./tabBarItem.module.scss";
 
@@ -16,19 +17,33 @@ interface Props {
 }
 
 const TabBarItem: React.FC<Props> = ({ category }) => {
-  const { replace } = useRouter();
-  const { get } = useSearchParams();
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const { append, getQueryStringWithPath } = useQueryString();
 
+  const [categoryMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
+
   const onClick = useCallback(() => {
-    replace(getQueryStringWithPath(append({ categoryId: category.id })));
-  }, [append, category.id, getQueryStringWithPath, replace]);
+    history.replaceState(null, "", getQueryStringWithPath(append({ categoryId: category.id })));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    buttonRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
+    startTransition(() => {
+      setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
+    });
+  }, [append, category.id, getQueryStringWithPath, setCategorySortMenu]);
 
   return (
-    <button className={cx(styles.wrapper, { [styles.active]: category.id === get("categoryId") })} onClick={onClick}>
+    <button
+      className={cx(styles.wrapper, { [styles.active]: category.id === categoryMenu.categoryIds })}
+      onClick={onClick}
+      ref={buttonRef}
+    >
       {category.name}
     </button>
   );
 };
 
 export default memo(TabBarItem);
+
+export const LoadingTabBarItem: React.FC = () => {
+  return <Skeleton containerClassName={styles.wrapper} width={60} />;
+};

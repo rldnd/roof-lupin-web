@@ -1,0 +1,19 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex;
+  @include m.fontBody1SemiBold;
+  width: max-content;
+  height: 32px;
+  padding: 4px 8px;
+  color: var(--c-gray-800);
+  white-space: nowrap;
+  background-color: var(--c-white);
+  border: 1px solid var(--c-gray-300);
+  border-radius: 8px;
+
+  > svg {
+    margin-right: 4px;
+  }
+}

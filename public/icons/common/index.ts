@@ -18,3 +18,4 @@ export { default as IconCheck } from "./check.svg";
 export { default as IconBottomCaret } from "./bottom-caret.svg";
 export { default as IconActiveCheckLarge } from "./active-check-large.svg";
 export { default as IconGrayHome } from "./gray-home.svg";
+export { default as IconFilter } from "./filter.svg";

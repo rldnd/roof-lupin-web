@@ -5,20 +5,22 @@
   @include m.fixed(c.$S_BASE_HEADER_HEIGHT auto auto 50%);
   @include m.flex(flex-start);
   z-index: c.$Z_SPACE_DETAIL_TAB_BAR;
-  z-index: c.$Z_CATEGORY_DETAIL_TAB_BAR;
+  z-index: c.$Z_CATEGORY_TAB_BAR;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
-  height: c.$S_CATEGORY_DETAIL_TAB_BAR_HEIGHT;
+  height: c.$S_CATEGORY_TAB_BAR_HEIGHT;
   background-color: var(--c-white);
   border-bottom: 2px solid var(--c-gray-250);
   transition: top 0.4s ease-in-out;
   transform: translateX(-50%);
 
-  button:first-of-type {
+  button:first-of-type,
+  > span:first-of-type {
     margin-left: 24px;
   }
 
-  button:last-of-type {
+  button:last-of-type,
+  > span:last-of-type {
     margin-right: 24px;
   }
 

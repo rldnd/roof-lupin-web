@@ -7,5 +7,12 @@
   .spaceList {
     @include m.flex(flex-start, flex-start, column);
     gap: 24px;
+
+    /* stylelint-disable-next-line media-feature-name-no-unknown */
+    @media screen and (width >= c.$S_CATEGORY_GRID_BREAK_POINT) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
   }
 }

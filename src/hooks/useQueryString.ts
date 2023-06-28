@@ -19,7 +19,7 @@ interface ReturnUseQueryString {
 }
 
 const useQueryString = (): ReturnUseQueryString => {
-  const searchParams = useSearchParams()!;
+  const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const getCurrentParams: GetCurrentParams = useCallback(() => {

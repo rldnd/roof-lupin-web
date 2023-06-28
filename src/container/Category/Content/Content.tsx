@@ -1,6 +1,10 @@
 "use client";
 
-import { useAtomValue } from "jotai";
+import { startTransition, useEffect } from "react";
+
+import { notFound, useSearchParams } from "next/navigation";
+
+import { useAtom } from "jotai";
 import { range } from "lodash-es";
 
 import { Space } from "@/common/types/space";
@@ -14,17 +18,28 @@ import Bookmark from "./Bookmark";
 
 import styles from "./content.module.scss";
 
-// TODO: space detail card suspense
-const Content: React.FC = () => {
-  const categorySortMenu = useAtomValue(categorySortMenuState);
+interface Props {
+  ids: string[];
+}
+
+const Content: React.FC<Props> = ({ ids }) => {
+  const searchParams = useSearchParams();
+  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
 
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
     ["paginateSpaces", categorySortMenu],
     ({ pageParam = 1 }) => paginateSpacesApi({ page: pageParam, limit: 10, ...categorySortMenu }),
     {
-      // enabled: Boolean(categorySortMenu.category),
+      enabled: Boolean(categorySortMenu.categoryIds),
     },
   );
+
+  useEffect(() => {
+    if (!searchParams.get("categoryId") || !ids.includes(searchParams.get("categoryId")!)) notFound();
+    startTransition(() => {
+      setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
+    });
+  }, [ids, searchParams, setCategorySortMenu]);
 
   return (
     <main className={styles.wrapper}>
@@ -32,11 +47,11 @@ const Content: React.FC = () => {
         className={styles.spaceList}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
-        isFetching={isFetching}
+        isFetching={isFetching || !categorySortMenu.categoryIds}
         isSuccess={isSuccess}
         loadingComponent={<LoadingContent />}
       >
-        {data.pages.map((space) => (
+        {data?.pages.map((space) => (
           <SpaceDetailCard className={styles.space} key={space.id} space={space} href={`/spaces/${space.id}`}>
             <Bookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
           </SpaceDetailCard>
