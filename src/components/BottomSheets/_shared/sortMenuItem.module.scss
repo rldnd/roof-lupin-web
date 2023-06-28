@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  button {
+    @include m.flex(space-between);
+    @include m.fontH4Regular;
+    width: 100%;
+    height: 48px;
+    color: var(--c-gray-600);
+
+    svg {
+      display: none;
+    }
+
+    &.active {
+      color: var(--c-roof-orange);
+
+      svg {
+        @include m.filterRoofOrange;
+        display: block;
+      }
+    }
+  }
+}
