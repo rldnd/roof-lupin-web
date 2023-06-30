@@ -27,6 +27,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "prod-image.cumuco.net",
       },
+      {
+        protocol: "https",
+        hostname: "dev-image.rooflupin.com",
+      },
+      {
+        protocol: "https",
+        hostname: "image.rooflupin.com",
+      },
     ],
   },
   webpack(config) {
