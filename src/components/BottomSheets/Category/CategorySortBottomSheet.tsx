@@ -35,9 +35,6 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
         <SortMenuItem isActive={categorySortMenu.sort === "POPULARITY"} onClick={onClick} data-sort="POPULARITY">
           {SPACE_SORT_MAPPER["POPULARITY"]}
         </SortMenuItem>
-        <SortMenuItem isActive={categorySortMenu.sort === "DISTANCE"} onClick={onClick} data-sort="DISTANCE">
-          {SPACE_SORT_MAPPER["DISTANCE"]}
-        </SortMenuItem>
         <SortMenuItem isActive={categorySortMenu.sort === "PRICE_HIGH"} onClick={onClick} data-sort="PRICE_HIGH">
           {SPACE_SORT_MAPPER["PRICE_HIGH"]}
         </SortMenuItem>

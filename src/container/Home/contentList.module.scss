@@ -32,13 +32,10 @@
     @include m.flex(flex-start);
     gap: 16px;
     width: 100%;
+    padding-right: c.$S_PAGE_HORIZONTAL_PADDING;
 
     li:first-of-type {
       margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
-    }
-
-    li:last-of-type {
-      margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
     }
   }
 }

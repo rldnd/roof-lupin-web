@@ -67,7 +67,7 @@ export const LoadingContent: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.spaceList}>
-        {range(5).map((value) => (
+        {range(10).map((value) => (
           <LoadingSpaceDetailCard key={value} className={styles.space} />
         ))}
       </div>

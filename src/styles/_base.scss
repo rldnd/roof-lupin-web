@@ -32,6 +32,10 @@ button {
   }
 }
 
+img {
+  user-select: none;
+}
+
 *:focus {
   outline: none;
 }

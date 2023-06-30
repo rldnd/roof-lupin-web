@@ -4,14 +4,13 @@ import type { PaginateSpacesQueryParams } from "@/services/space";
 
 export type CategorySortMenu = Omit<PaginateSpacesQueryParams, "page" | "limit">;
 
-// TODO: lat, lng 어떻게 할 것인지
 export const initialCategorySortMenu: CategorySortMenu = {
   categoryIds: null,
   category: null,
   day: null,
   distance: null,
-  lat: "37",
-  lng: "127",
+  lat: null,
+  lng: null,
   locationName: null,
   month: null,
   sort: "RECENT",

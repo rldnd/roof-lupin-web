@@ -31,6 +31,7 @@
     @include m.flex(flex-start);
     gap: 8px;
     width: 100%;
+    padding-right: c.$S_PAGE_HORIZONTAL_PADDING;
     margin-bottom: 24px;
 
     .imageWrapper {
@@ -45,10 +46,6 @@
 
       &:first-of-type {
         margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
-      }
-
-      &:last-of-type {
-        margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
       }
     }
 
