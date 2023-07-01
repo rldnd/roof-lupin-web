@@ -26,4 +26,9 @@
   .title + * {
     margin-left: auto;
   }
+
+  &.backHidden {
+    padding-right: c.$S_PAGE_HORIZONTAL_PADDING;
+    padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
+  }
 }

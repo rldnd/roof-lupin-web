@@ -21,7 +21,7 @@ interface Props {
 
 const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUrl, backHidden = false }) => {
   return (
-    <header className={cx(styles.wrapper, className)} style={style}>
+    <header className={cx(styles.wrapper, className, { [styles.backHidden]: backHidden })} style={style}>
       {!backHidden && (
         <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
           <IconBlackLeftChevronLarge />

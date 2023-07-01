@@ -9,6 +9,8 @@
   padding: 4px 12px;
   color: var(--c-gray-500);
   white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
   background-color: var(--c-white);
   border: 1px solid var(--c-gray-300);
   border-radius: 12px;
