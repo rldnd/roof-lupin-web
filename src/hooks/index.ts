@@ -16,3 +16,5 @@ export { default as useWebview } from "./useWebview";
 export { default as useSuspenseQuery } from "./useSuspenseQuery";
 export { default as useSuspenseInfiniteQuery } from "./useSuspenseInfiniteQuery";
 export { default as useQueryString } from "./useQueryString";
+
+export { useNaverMap } from "@/components/NaverMap";
