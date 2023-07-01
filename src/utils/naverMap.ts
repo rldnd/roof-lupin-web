@@ -1,6 +1,4 @@
-import { isClient } from "./next";
-
-if (isClient) {
+export const loadNaverMapScript = (): HTMLScriptElement => {
   const naverMap = document.createElement("script");
   naverMap.type = "text/javascript";
   naverMap.async = true;
@@ -8,4 +6,6 @@ if (isClient) {
 
   const s4 = document.getElementsByTagName("script")[0];
   s4.parentNode?.insertBefore(naverMap, s4);
-}
+
+  return naverMap;
+};

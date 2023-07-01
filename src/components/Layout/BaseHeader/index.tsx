@@ -16,14 +16,17 @@ interface Props {
   title: string;
   right?: ReactNode;
   replaceUrl?: string;
+  backHidden?: boolean;
 }
 
-const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUrl }) => {
+const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUrl, backHidden = false }) => {
   return (
     <header className={cx(styles.wrapper, className)} style={style}>
-      <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
-        <IconBlackLeftChevronLarge />
-      </BackButton>
+      {!backHidden && (
+        <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
+          <IconBlackLeftChevronLarge />
+        </BackButton>
+      )}
       <p className={styles.title}>{title}</p>
       {right}
     </header>

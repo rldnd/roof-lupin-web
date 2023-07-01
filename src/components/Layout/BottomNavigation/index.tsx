@@ -13,15 +13,24 @@ import { IconHome } from "public/icons";
 import styles from "./bottomNavigation.module.scss";
 
 const checkIsActive = (pathname: string, href: string): boolean => {
-  return pathname.includes(href);
+  return pathname === href;
 };
 
-const BottomNavigation: React.FC = () => {
+interface Props {
+  blockScrollInteraction?: boolean;
+}
+
+const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) => {
   const scrollDirection = useScrollDirection();
   const pathname = usePathname();
 
   return (
-    <footer className={cx(styles.wrapper, styles[scrollDirection], { [styles.isWebview]: isWebview })}>
+    <footer
+      className={cx(styles.wrapper, styles[scrollDirection], {
+        [styles.isWebview]: isWebview,
+        [styles.blockScrollInteraction]: blockScrollInteraction,
+      })}
+    >
       <nav>
         <Link className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/") })} href="/">
           <IconHome />

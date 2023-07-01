@@ -1,0 +1,10 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start);
+  gap: 4px;
+  width: 100%;
+  height: c.$S_LOCATION_CATEGORY_HEIGHT;
+  padding: 12px c.$S_PAGE_HORIZONTAL_PADDING 16px;
+}

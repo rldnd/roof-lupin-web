@@ -22,4 +22,8 @@
     flex: 1;
     color: var(--c-black);
   }
+
+  .title + * {
+    margin-left: auto;
+  }
 }

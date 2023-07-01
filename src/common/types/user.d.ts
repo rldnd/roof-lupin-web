@@ -9,7 +9,8 @@ export interface CommonUser extends DateDTO {
   email: string | null;
   /** 000 XXXX XXXX (-을 제외한 11자리) */
   phoneNumber: string | null;
-  birth: string | null;
+  birthYear: string | null;
+  birthDay: string | null;
   gender: Gender | null;
   profileImage: string | null;
 }
