@@ -28,25 +28,30 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const mapController = useRef<naver.maps.Map>();
 
-  const load = useCallback((info: BaseNaverMapEventParameter<LoadParameter>) => {
-    mapInfo.current = info;
-    naverMapScript.current = loadNaverMapScript();
-    naverMapScript.current.onload = () => {
-      window.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
-    };
-  }, []);
+  const load = useCallback(
+    (info: BaseNaverMapEventParameter<LoadParameter>) => {
+      if (info.mapId !== id) return;
+      mapInfo.current = info;
+      naverMapScript.current = loadNaverMapScript();
+      naverMapScript.current.onload = () => {
+        window.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
+      };
+    },
+    [id],
+  );
 
-  const moveCenter = useCallback((position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
-    if (!checkMapLoaded(mapController)) return;
-
-    mapController.current.setCenter(new naver.maps.LatLng(Number(position.lat), Number(position.lng)));
-  }, []);
+  const moveCenter = useCallback(
+    (position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(mapInfo, id)) return;
+      mapController.current.setCenter(new naver.maps.LatLng(Number(position.lat), Number(position.lng)));
+    },
+    [id],
+  );
 
   const addMarker = useCallback((position: AddMarkerParameter) => {}, []);
 
   useClientEffect(() => {
     const initMap = () => {
-      if (mapInfo.current?.mapId !== id) return;
       mapController.current = new naver.maps.Map(id, mapInfo.current?.options);
     };
 
@@ -76,4 +81,11 @@ const checkMapLoaded = (
   mapController: MutableRefObject<naver.maps.Map | undefined>,
 ): mapController is MutableRefObject<naver.maps.Map> => {
   return mapController.current !== undefined;
+};
+
+const checkIsTargetMap = (
+  mapInfo: MutableRefObject<BaseNaverMapEventParameter<LoadParameter> | undefined>,
+  id: string,
+) => {
+  return mapInfo.current?.mapId === id;
 };
