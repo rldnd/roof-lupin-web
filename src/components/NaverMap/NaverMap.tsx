@@ -35,6 +35,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
         window.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
+        document.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
       };
     },
     [id],
