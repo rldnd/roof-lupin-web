@@ -1,13 +1,14 @@
 "use client";
 
-import { type CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useCallback, useEffect, useState } from "react";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import cx from "clsx";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { AuthChecker, BackButton } from "@/components";
-import { useDataToggle, useHeaderScrollOpacity } from "@/hooks";
+import { WebScreenSharePayload } from "@/common/types/webview/screen";
+import { AuthChecker, BackButton, PlatformButton } from "@/components";
+import { useDataToggle, useHeaderScrollOpacity, useWebview } from "@/hooks";
 import { createSpaceInterestApi, deleteSpaceInterestApi, getSpaceInterestedApi } from "@/services/space";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ space }) => {
+  const { sendMessage } = useWebview();
+
   const [isActive, setIsActive] = useState(false);
   const { data: isInterested, refetch } = useQuery(
     ["getSpaceInterested", space.id],
@@ -54,6 +57,10 @@ const Header: React.FC<Props> = ({ space }) => {
     willChange: opacity !== 1 ? "opacity" : "auto",
   } as CSSProperties;
 
+  const onClickShareWebview = useCallback(() => {
+    sendMessage<WebScreenSharePayload>({ type: "web-screen/share", data: { path: `/space/${space.id}` } });
+  }, [sendMessage, space.id]);
+
   useEffect(() => {
     if (typeof isInterested === "boolean") setIsActive(isInterested);
   }, [isInterested]);
@@ -72,9 +79,9 @@ const Header: React.FC<Props> = ({ space }) => {
       {isClient && breakpoint && <p className={styles.title}>{space.title}</p>}
       <menu>
         <li>
-          <button type="button">
+          <PlatformButton desktop={() => {}} mobile={() => {}} webview={onClickShareWebview}>
             <IconShare />
-          </button>
+          </PlatformButton>
         </li>
         <li>
           <AuthChecker>
