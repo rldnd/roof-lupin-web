@@ -58,8 +58,16 @@ const Header: React.FC<Props> = ({ space }) => {
   } as CSSProperties;
 
   const onClickShareWebview = useCallback(() => {
-    sendMessage<WebScreenSharePayload>({ type: "web-screen/share", data: { path: `/space/${space.id}` } });
-  }, [sendMessage, space.id]);
+    sendMessage<WebScreenSharePayload>({
+      type: "web-screen/share",
+      data: {
+        path: `/spaces/${space.id}`,
+        title: space.title,
+        description: space.description,
+        imageUrl: space.images?.[0].url,
+      },
+    });
+  }, [sendMessage, space]);
 
   useEffect(() => {
     if (typeof isInterested === "boolean") setIsActive(isInterested);

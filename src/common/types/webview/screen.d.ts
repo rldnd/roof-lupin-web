@@ -15,6 +15,9 @@ export interface WebScreenStatusBarThemeData {
 
 export interface WebScreenShareData {
   path: string;
+  title: string;
+  description: string;
+  imageUrl: string;
 }
 
 /** 웹에서 앱의 safeArea를 컨트롤 */
