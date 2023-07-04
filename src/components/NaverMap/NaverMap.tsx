@@ -9,7 +9,6 @@ import type {
   MoveCenterParameter,
   NaverMapEventCallback,
 } from "./types";
-import { MAP_LOADED_EVENT_NAME } from "@/common/constants";
 import { useClientEffect } from "@/hooks";
 import { loadNaverMapScript } from "@/utils/naverMap";
 
@@ -23,19 +22,15 @@ interface Props {
 }
 
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
-  const mapInfo = useRef<BaseNaverMapEventParameter<LoadParameter>>();
   const naverMapScript = useRef<HTMLScriptElement>();
-
   const mapController = useRef<naver.maps.Map>();
 
   const load = useCallback(
     (info: BaseNaverMapEventParameter<LoadParameter>) => {
-      if (info.mapId !== id) return;
-      mapInfo.current = info;
+      if (!checkIsTargetMap(info.mapId, id)) return;
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
-        window.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
-        document.dispatchEvent(new CustomEvent(MAP_LOADED_EVENT_NAME));
+        mapController.current = new naver.maps.Map(id, info.options);
       };
     },
     [id],
@@ -43,7 +38,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const moveCenter = useCallback(
     (position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
-      if (!checkMapLoaded(mapController) || !checkIsTargetMap(mapInfo, id)) return;
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(position.mapId, id)) return;
       mapController.current.setCenter(new naver.maps.LatLng(Number(position.lat), Number(position.lng)));
     },
     [id],
@@ -51,25 +46,22 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const addMarker = useCallback((position: AddMarkerParameter) => {}, []);
 
-  useClientEffect(() => {
-    const initMap = () => {
-      mapController.current = new naver.maps.Map(id, mapInfo.current?.options);
-    };
+  const destroy = useCallback(() => {
+    mapController.current?.destroy();
+    naverMapScript.current?.remove();
+  }, []);
 
+  useClientEffect(() => {
     const callback: NaverMapEventCallback = (event) => {
       if (event.action === "load") load(event);
       if (event.action === "moveCenter") moveCenter(event);
       if (event.action === "addMarker") addMarker(event);
+      if (event.action === "destroy") destroy();
     };
 
-    window.addEventListener(MAP_LOADED_EVENT_NAME, initMap);
-    document.addEventListener(MAP_LOADED_EVENT_NAME, initMap);
     naverMapEventEmitter.addEventListener(callback);
     return () => {
-      window.removeEventListener(MAP_LOADED_EVENT_NAME, initMap);
-      document.removeEventListener(MAP_LOADED_EVENT_NAME, initMap);
       naverMapEventEmitter.removeEventListener(callback);
-      naverMapScript.current?.remove();
     };
   }, [id]);
 
@@ -84,9 +76,6 @@ const checkMapLoaded = (
   return mapController.current !== undefined;
 };
 
-const checkIsTargetMap = (
-  mapInfo: MutableRefObject<BaseNaverMapEventParameter<LoadParameter> | undefined>,
-  id: string,
-) => {
-  return mapInfo.current?.mapId === id;
+const checkIsTargetMap = (mapId: string, id: string) => {
+  return mapId === id;
 };

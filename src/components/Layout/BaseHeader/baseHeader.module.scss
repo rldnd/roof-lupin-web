@@ -17,6 +17,7 @@
   }
 
   .title {
+    @include m.flex(flex-start);
     @include m.fontH3SemiBold;
     @include m.makeEllipsis;
     flex: 1;

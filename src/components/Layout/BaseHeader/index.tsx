@@ -13,7 +13,7 @@ import styles from "./baseHeader.module.scss";
 interface Props {
   className?: string;
   style?: CSSProperties;
-  title: string;
+  title: ReactNode;
   right?: ReactNode;
   replaceUrl?: string;
   backHidden?: boolean;

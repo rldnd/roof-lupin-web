@@ -8,12 +8,13 @@ type ReturnUseNaverMap = {
   load(options?: naver.maps.MapOptions): void;
   moveCenter(position: ActionOmitter<MoveCenterParameter>): void;
   addMarker(position: ActionOmitter<AddMarkerParameter>): void;
+  destroy(): void;
 };
 
 const useNaverMap = (mapId: string): ReturnUseNaverMap => {
   const load = useCallback(
     (options?: naver.maps.MapOptions) => {
-      naverMapEventEmitter.loadMap({ action: "load", mapId, options });
+      naverMapEventEmitter.load({ action: "load", mapId, options });
     },
     [mapId],
   );
@@ -32,10 +33,15 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
     [mapId],
   );
 
+  const destroy = useCallback(() => {
+    naverMapEventEmitter.destroy({ action: "destroy", mapId });
+  }, [mapId]);
+
   return {
     load,
     moveCenter,
     addMarker,
+    destroy,
   };
 };
 

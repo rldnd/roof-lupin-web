@@ -5,11 +5,15 @@ import { useClientEffect } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 const Map: React.FC = () => {
-  const { load } = useNaverMap("location-page-naver-map");
+  const { load, destroy } = useNaverMap("location-page-naver-map");
 
   useClientEffect(() => {
     load({ center: { lat: 37.3595704, lng: 127.105399 } });
-  }, [load]);
+
+    return () => {
+      destroy();
+    };
+  }, [load, destroy]);
 
   return (
     <NaverMap

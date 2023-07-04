@@ -2,6 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  position: relative;
   width: 100%;
   height: 100dvh;
   padding-top: c.$S_BASE_HEADER_HEIGHT;

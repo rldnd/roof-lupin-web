@@ -1,10 +1,21 @@
 import type { Location } from "@/common/types/location";
 
-export type NaverMapEventAction = "load" | "moveCenter" | "addMarker" | "addMarkers" | "removeMarker" | "clearMarkers";
+export type NaverMapEventAction =
+  | "load"
+  | "moveCenter"
+  | "addMarker"
+  | "addMarkers"
+  | "removeMarker"
+  | "clearMarkers"
+  | "destroy";
 
 export interface LoadParameter {
   action: "load";
   options?: naver.maps.MapOptions;
+}
+
+export interface DestroyParameter {
+  action: "destroy";
 }
 
 export interface MoveCenterParameter extends Pick<Location, "lat" | "lng"> {
@@ -34,6 +45,7 @@ export type BaseNaverMapEventParameter<T> = T & {
 
 export type NaverMapEventParameter = BaseNaverMapEventParameter<
   | LoadParameter
+  | DestroyParameter
   | MoveCenterParameter
   | AddMarkerParameter
   | AddMarkersParameter

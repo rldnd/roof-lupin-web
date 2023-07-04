@@ -1,9 +1,21 @@
 import { BaseHeader } from "@/components/Layout";
 
-import PositionButton from "./PositionButton";
+import { IconPosition } from "public/icons";
+
+import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
-  return <BaseHeader title="내 주변 옥상" backHidden right={<PositionButton />} />;
+  return (
+    <BaseHeader
+      title={
+        <>
+          <IconPosition />
+          <span className={styles.title}>강동구 성내동</span>
+        </>
+      }
+      backHidden
+    />
+  );
 };
 
 export default Header;
