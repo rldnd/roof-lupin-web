@@ -4,21 +4,3 @@
 .wrapper {
   width: 100%;
 }
-
-.currentPositionButton {
-  @include m.absolute(auto c.$S_PAGE_HORIZONTAL_PADDING calc(100% + c.$S_PAGE_HORIZONTAL_PADDING) auto);
-  @include m.flex;
-  z-index: c.$Z_BOTTOM_DRAWER;
-  width: 40px;
-  height: 40px;
-  visibility: hidden;
-  background-color: var(--c-white);
-  border-radius: 8px;
-  opacity: 0;
-  transition: all 0.4s ease-in-out;
-
-  &.visible {
-    visibility: visible;
-    opacity: 1;
-  }
-}

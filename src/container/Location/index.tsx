@@ -3,6 +3,7 @@ import { getHomeCategoriesApi } from "@/services/home";
 
 import { BottomDrawer } from "./BottomDrawer";
 import Category from "./Category";
+import CurrentPositionButton from "./CurrentPositionButton";
 import Header from "./Header";
 import Map from "./Map";
 
@@ -17,9 +18,9 @@ export default async function LocationContainer() {
         <Header />
         <Category categories={categories} />
         <Map />
+        <CurrentPositionButton />
         <BottomNavigation blockScrollInteraction />
       </main>
-
       <BottomDrawer />
     </>
   );

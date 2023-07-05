@@ -1,0 +1,14 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.absolute(
+    auto c.$S_PAGE_HORIZONTAL_PADDING calc(c.$S_LOCATION_BOTTOM_DRAWER_MIN_HEIGHT + c.$S_PAGE_HORIZONTAL_PADDING) auto
+  );
+  @include m.flex;
+  z-index: calc(c.$Z_BOTTOM_DRAWER - 1);
+  width: 40px;
+  height: 40px;
+  background-color: var(--c-white);
+  border-radius: 8px;
+}

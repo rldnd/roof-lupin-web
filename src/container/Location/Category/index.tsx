@@ -11,13 +11,13 @@ interface Props {
 
 const Category: React.FC<Props> = ({ categories }) => {
   return (
-    <ul className={styles.wrapper}>
+    <HorizonDraggable className={styles.wrapper}>
       {categories.map((category) => (
         <li key={category.id}>
           <CategoryItem category={category}>{category.name}</CategoryItem>
         </li>
       ))}
-    </ul>
+    </HorizonDraggable>
   );
 };
 
