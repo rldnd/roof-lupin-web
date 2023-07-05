@@ -41,5 +41,5 @@ export const deleteSpaceInterestApi = (spaceId: string) => apiClient.delete(`/sp
 /** [CLIENT] 공간 찜 유무 조회하기 */
 export const getSpaceInterestedApi = (spaceId: string) => apiClient.get<Interested>(`/spaces/${spaceId}/is-interested`);
 /** [CLIENT] 공간 목록 조회하기 */
-export const paginateSpacesApi = (params: PaginateSpacesQueryParams) =>
+export const paginateSpacesApi = (params: Partial<PaginateSpacesQueryParams>) =>
   apiClient.get<PagingDTO<Space>>("/spaces/paging", { params });

@@ -1,0 +1,8 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  gap: c.$S_PAGE_HORIZONTAL_PADDING;
+  width: 100%;
+  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING calc(c.$S_BOTTOM_NAVIGATION_HEIGHT + c.$S_PAGE_HORIZONTAL_PADDING);
+}

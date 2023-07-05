@@ -14,7 +14,9 @@ const Category: React.FC<Props> = ({ categories }) => {
     <HorizonDraggable className={styles.wrapper}>
       {categories.map((category) => (
         <li key={category.id}>
-          <CategoryItem category={category}>{category.name}</CategoryItem>
+          <CategoryItem totalCount={categories.length} category={category}>
+            {category.name}
+          </CategoryItem>
         </li>
       ))}
     </HorizonDraggable>

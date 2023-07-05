@@ -6,5 +6,7 @@ import type { Location } from "@/common/types/location";
 export type MapCenter = Record<string, Pick<Location, "lat" | "lng">>;
 
 export const initialMapCenter: MapCenter = {};
-
 export const mapCenterState = atom<MapCenter>(initialMapCenter);
+
+export const initialLocationCategoryIds: string[] = [];
+export const locationCategoryIdsState = atom<string[]>(initialLocationCategoryIds);
