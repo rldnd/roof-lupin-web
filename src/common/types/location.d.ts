@@ -36,7 +36,7 @@ export interface NaverAddress {
   englishAddress: string;
   /** 경도 (x) */
   longitude: string;
-  /** 위도(y) */
+  /** 위도 (y) */
   latitude: string;
   /** 거리 */
   distance: number;
@@ -50,4 +50,13 @@ export interface NaverLocation {
   meta: NaverMeta;
   /** 주소 데이터 */
   addresses: NaverAddress[];
+}
+
+export interface NaverCoordinateLocation {
+  /** 경도 (x) */
+  longitude: string;
+  /** 위도 (y) */
+  latitude: string;
+  /** 주소 */
+  address: string | null;
 }

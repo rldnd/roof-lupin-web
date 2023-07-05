@@ -2,6 +2,8 @@
 
 import { memo, MutableRefObject, useCallback, useRef } from "react";
 
+import { useSetAtom } from "jotai";
+
 import type {
   AddMarkerParameter,
   BaseNaverMapEventParameter,
@@ -10,6 +12,7 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { useClientEffect } from "@/hooks";
+import { mapCenterState } from "@/states/location";
 import { loadNaverMapScript } from "@/utils/naverMap";
 
 import naverMapEventEmitter from "./NaverMapEventEmitter";
@@ -22,8 +25,21 @@ interface Props {
 }
 
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
+  const listeners = useRef<naver.maps.MapEventListener[]>([]);
   const naverMapScript = useRef<HTMLScriptElement>();
   const mapController = useRef<naver.maps.Map>();
+
+  const setMapCenter = useSetAtom(mapCenterState);
+
+  const addCenterChangedListener = useCallback(() => {
+    if (!checkMapLoaded(mapController)) return;
+
+    const centerChangedListener = mapController.current.addListener("center_changed", () => {
+      const center = mapController.current.getCenter();
+      setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
+    });
+    listeners.current.push(centerChangedListener);
+  }, [id, setMapCenter]);
 
   const load = useCallback(
     async (info: BaseNaverMapEventParameter<LoadParameter>) => {
@@ -31,15 +47,18 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       naverMapScript.current = await loadNaverMapScript();
       naverMapScript.current.onload = () => {
         mapController.current = new naver.maps.Map(id, info.options);
+        const center = mapController.current.getCenter();
+        setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
+        addCenterChangedListener();
       };
     },
-    [id],
+    [addCenterChangedListener, id, setMapCenter],
   );
 
   const moveCenter = useCallback(
     (position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(position.mapId, id)) return;
-      mapController.current.setCenter(new naver.maps.LatLng(Number(position.lat), Number(position.lng)));
+      mapController.current.setCenter({ lat: Number(position.lat), lng: Number(position.lng) });
     },
     [id],
   );
@@ -47,6 +66,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const addMarker = useCallback((position: AddMarkerParameter) => {}, []);
 
   const destroy = useCallback(() => {
+    mapController.current?.removeListener(listeners.current);
     mapController.current?.destroy();
     naverMapScript.current?.remove();
   }, []);
