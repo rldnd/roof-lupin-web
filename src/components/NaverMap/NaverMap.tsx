@@ -26,9 +26,9 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const mapController = useRef<naver.maps.Map>();
 
   const load = useCallback(
-    (info: BaseNaverMapEventParameter<LoadParameter>) => {
+    async (info: BaseNaverMapEventParameter<LoadParameter>) => {
       if (!checkIsTargetMap(info.mapId, id)) return;
-      naverMapScript.current = loadNaverMapScript();
+      naverMapScript.current = await loadNaverMapScript();
       naverMapScript.current.onload = () => {
         mapController.current = new naver.maps.Map(id, info.options);
       };
