@@ -1,6 +1,8 @@
+import type { MapScale } from "@/common/types/map";
+
 export const LOCATION_PAGE_MAP_ID = "location-page-naver-map";
 
-export const NAVER_MAP_EVENT_NAME = {
+export const NAVER_MAP_EVENT_NAME_MAPPER = {
   /** 지도 레이어가 추가되면 이벤트가 발생합니다. */
   ADD_LAYER: "addLayer",
   /** 지도 좌표 경계가 변경되면 이벤트가 발생합니다. */
@@ -82,3 +84,86 @@ export const NAVER_MAP_EVENT_NAME = {
   /** 지도 줌 효과가 시작되면 이벤트가 발생합니다. */
   ZOOM_START: "zoomstart",
 } as const;
+
+// zoom 6: 100km (51px)
+// zoom 7: 50km (51px)
+// zoom 8: 30km (62px)
+// zoom 9: 20km (82px)
+// zoom 10: 10km (82px)
+// zoom 11: 5km (82px)
+// zoom 12: 3km (99px)
+// zoom 13: 1km (66px)
+// zoom 14: 500m (66px)
+// zoom 15: 300m (79px)
+// zoom 16: 100m (53px)
+// zoom 17: 50m (53px)
+// zoom 18: 30m (63px)
+// zoom 19: 20m (84px)
+// zoom 20: 10m (84px)
+// zoom 21: 5m (84px)
+export const MAP_SCALE_MAPPER: Record<number, MapScale> = {
+  6: {
+    unitPixel: 51,
+    realDistancePerUnit: 100_000,
+  },
+  7: {
+    unitPixel: 51,
+    realDistancePerUnit: 50_000,
+  },
+  8: {
+    unitPixel: 62,
+    realDistancePerUnit: 30_000,
+  },
+  9: {
+    unitPixel: 82,
+    realDistancePerUnit: 20_000,
+  },
+  10: {
+    unitPixel: 82,
+    realDistancePerUnit: 10_000,
+  },
+  11: {
+    unitPixel: 82,
+    realDistancePerUnit: 5_000,
+  },
+  12: {
+    unitPixel: 99,
+    realDistancePerUnit: 3_000,
+  },
+  13: {
+    unitPixel: 66,
+    realDistancePerUnit: 1_000,
+  },
+  14: {
+    unitPixel: 66,
+    realDistancePerUnit: 500,
+  },
+  15: {
+    unitPixel: 79,
+    realDistancePerUnit: 300,
+  },
+  16: {
+    unitPixel: 53,
+    realDistancePerUnit: 100,
+  },
+  17: {
+    unitPixel: 53,
+    realDistancePerUnit: 50,
+  },
+  18: {
+    unitPixel: 63,
+    realDistancePerUnit: 30,
+  },
+  19: {
+    unitPixel: 84,
+    realDistancePerUnit: 20,
+  },
+  20: {
+    unitPixel: 84,
+    realDistancePerUnit: 10,
+  },
+  21: {
+    unitPixel: 84,
+    realDistancePerUnit: 5,
+  },
+};
