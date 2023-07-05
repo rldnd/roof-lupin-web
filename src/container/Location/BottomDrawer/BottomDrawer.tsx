@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, Suspense, useRef } from "react";
+import { lazy, useRef } from "react";
 
 import { type BottomSheetRef } from "react-spring-bottom-sheet";
 
@@ -32,9 +32,7 @@ const BottomDrawer: React.FC = () => {
       blocking={false}
       className={styles.wrapper}
     >
-      <Suspense fallback={null}>
-        <SpaceList />
-      </Suspense>
+      <SpaceList />
     </BottomSheet>
   );
 };

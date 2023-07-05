@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
@@ -47,4 +47,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

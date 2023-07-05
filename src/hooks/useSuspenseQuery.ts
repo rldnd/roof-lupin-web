@@ -25,11 +25,11 @@ const useSuspenseQuery = <
   options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, "queryKey" | "queryFn">,
 ): UseSuspenseQueryResult<TData, TError> => {
   return useQuery(queryKey, queryFn, {
+    suspense: true,
     ...options,
     select: (data) => {
       return data.data as TData;
     },
-    suspense: true,
   }) as unknown as UseSuspenseQueryResult<TData, TError>;
 };
 

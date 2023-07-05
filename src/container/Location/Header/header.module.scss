@@ -2,5 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .title {
+  @include m.makeEllipsis;
+  flex: 1;
   margin-left: 12px;
 }

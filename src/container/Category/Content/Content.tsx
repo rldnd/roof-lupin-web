@@ -8,13 +8,11 @@ import { useAtom } from "jotai";
 import { range } from "lodash-es";
 
 import { Space } from "@/common/types/space";
-import { InfiniteScroll, SpaceDetailCard } from "@/components";
+import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
 import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { categorySortMenuState } from "@/states";
-
-import Bookmark from "./Bookmark";
 
 import styles from "./content.module.scss";
 
@@ -53,7 +51,7 @@ const Content: React.FC<Props> = ({ ids }) => {
       >
         {data?.pages.map((space) => (
           <SpaceDetailCard className={styles.space} key={space.id} space={space} href={`/spaces/${space.id}`}>
-            <Bookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
+            <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
           </SpaceDetailCard>
         ))}
       </InfiniteScroll>

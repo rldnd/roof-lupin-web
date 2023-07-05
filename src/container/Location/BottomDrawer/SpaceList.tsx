@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { useAtomValue } from "jotai";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
-import { InfiniteScroll, SpaceDetailCard } from "@/components";
+import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState } from "@/states/location";
@@ -12,9 +14,11 @@ import { locationCategoryIdsState, mapCenterState } from "@/states/location";
 import styles from "./spaceList.module.scss";
 
 const SpaceList: React.FC = () => {
+  const [spaces, setSpaces] = useState<Space[]>([]);
   const mapCenter = useAtomValue(mapCenterState);
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
-  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Space>(
+
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
     ["paginateSpaces", mapCenter[LOCATION_PAGE_MAP_ID], locationCategoryIds],
     ({ pageParam = 1 }) =>
       paginateSpacesApi({
@@ -25,8 +29,15 @@ const SpaceList: React.FC = () => {
       }),
     {
       enabled: LOCATION_PAGE_MAP_ID in mapCenter,
+      suspense: false,
     },
   );
+
+  useEffect(() => {
+    if (!data?.pages) return;
+
+    setSpaces(data.pages);
+  }, [data?.pages]);
 
   return (
     <InfiniteScroll
@@ -36,9 +47,9 @@ const SpaceList: React.FC = () => {
       isFetching={isFetching}
       isSuccess={isSuccess}
     >
-      {data.pages.map((space) => (
+      {spaces.map((space) => (
         <SpaceDetailCard key={space.id} href={`/spaces/${space.id}`} space={space}>
-          <></>
+          <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
         </SpaceDetailCard>
       ))}
     </InfiniteScroll>

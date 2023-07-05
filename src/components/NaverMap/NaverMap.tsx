@@ -11,6 +11,7 @@ import type {
   MoveCenterParameter,
   NaverMapEventCallback,
 } from "./types";
+import { NAVER_MAP_EVENT_NAME } from "@/common/constants";
 import { useClientEffect } from "@/hooks";
 import { mapCenterState } from "@/states/location";
 import { loadNaverMapScript } from "@/utils/naverMap";
@@ -34,7 +35,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const addCenterChangedListener = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
-    const centerChangedListener = mapController.current.addListener("center_changed", () => {
+    const centerChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME.CENTER_CHANGED, () => {
       const center = mapController.current.getCenter();
       setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
     });

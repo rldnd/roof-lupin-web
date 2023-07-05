@@ -1,13 +1,13 @@
 "use client";
 
-import { memo, type MouseEventHandler, useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, type MouseEventHandler, useCallback, useMemo, useRef } from "react";
 
 import { useParams } from "next/navigation";
 
 import cx from "clsx";
 
 import type { ReviewSummary } from "@/common/types/review";
-import { useSuspenseQuery, useWindowScroll } from "@/hooks";
+import { useClientEffect, useSuspenseQuery, useWindowScroll } from "@/hooks";
 import { getReviewsSummaryApi } from "@/services/review";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
@@ -56,6 +56,7 @@ const TabBar: React.FC = () => {
     () => getReviewsSummaryApi(spaceId),
     {
       enabled: Boolean(spaceId),
+      suspense: false,
     },
   );
 
@@ -82,9 +83,7 @@ const TabBar: React.FC = () => {
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    if (!isClient) return;
-
+  useClientEffect(() => {
     const $tabBarHorizon = document.getElementById("tab-bar-horizon") as HTMLHRElement;
     tabBarPosition.current = getTabBarOffsetTop($tabBarHorizon.offsetTop);
 
@@ -112,7 +111,7 @@ const TabBar: React.FC = () => {
         시설/건물
       </TabBarItem>
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="review">
-        리뷰{summary.count ? `(${summary.count})` : ""}
+        리뷰{summary?.count ? `(${summary.count})` : ""}
       </TabBarItem>
       <TabBarItem currentPosition={currentPosition} onClickItem={onClickItem} sectionName="refund">
         정책/정보

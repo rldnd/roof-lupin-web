@@ -10,7 +10,7 @@ import { createSpaceInterestApi, deleteSpaceInterestApi } from "@/services/space
 
 import { IconBookmarkActive, IconBookmarkInactive } from "public/icons";
 
-import styles from "./bookmark.module.scss";
+import styles from "./spaceBookmark.module.scss";
 
 interface Props {
   id: string;
@@ -18,7 +18,7 @@ interface Props {
   refetch: () => Promise<unknown>;
 }
 
-const Bookmark: React.FC<Props> = ({ id, initialIsInterested, refetch }) => {
+const SpaceBookmark: React.FC<Props> = ({ id, initialIsInterested, refetch }) => {
   const [isActive, setIsActive] = useState(initialIsInterested);
 
   const { mutate: onCreate } = useMutation(createSpaceInterestApi, { onSuccess: () => refetch() });
@@ -47,4 +47,4 @@ const Bookmark: React.FC<Props> = ({ id, initialIsInterested, refetch }) => {
   );
 };
 
-export default Bookmark;
+export default SpaceBookmark;

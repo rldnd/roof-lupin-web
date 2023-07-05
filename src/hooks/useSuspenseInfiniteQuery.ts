@@ -33,6 +33,7 @@ const useSuspenseInfiniteQuery = <
   options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>, "queryKey" | "queryFn">,
 ): UseSuspenseInfiniteQueryResult<TData, TError> => {
   return useInfiniteQuery<TQueryFnData, TError, TData, TQueryKey>(queryKey, queryFn, {
+    suspense: true,
     ...options,
     select: (data) =>
       ({
@@ -40,7 +41,6 @@ const useSuspenseInfiniteQuery = <
         pageParams: data.pageParams,
       } as InfiniteData<TData>),
     getNextPageParam: (lastPage) => (lastPage.data.paging.hasNext ? lastPage.data.paging.page + 1 : undefined),
-    suspense: true,
   }) as unknown as UseSuspenseInfiniteQueryResult<TData, TError>;
 };
 
