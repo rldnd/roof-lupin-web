@@ -15,14 +15,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "dev-image.rooflupin.com",
       },
-      {
-        protocol: "https",
-        hostname: "dev-image.cumuco.net",
-      },
-      {
-        protocol: "https",
-        hostname: "kyoongdev-blog.sgp1.vultrobjects.com",
-      },
     ],
   },
   webpack(config) {
