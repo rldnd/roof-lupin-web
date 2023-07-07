@@ -17,6 +17,7 @@
     p {
       @include m.fontBody1Regular;
       color: var(--c-gray-900);
+      white-space: pre-wrap;
     }
   }
 }

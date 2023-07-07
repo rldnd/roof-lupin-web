@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import { SafeArea, SpaceCard } from "@/components";
-import { BottomNavigation } from "@/components/Layout";
+import { BottomNavigation, Footer } from "@/components/Layout";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
 import Bookmark from "./Bookmark";
@@ -48,6 +48,7 @@ export default async function HomeContainer() {
             </ContentList>
           );
         })}
+        <Footer />
         <BottomNavigation />
       </main>
     </SafeArea>
