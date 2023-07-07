@@ -1,5 +1,7 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import type { Review as ReviewType } from "@/common/types/review";
 import { SpaceReview } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
@@ -15,6 +17,8 @@ interface Props {
 }
 
 const Review: React.FC<Props> = ({ averageScore, reviewCount, reviews }) => {
+  const { spaceId } = useParams();
+
   return (
     <section id="review-section" className={styles.wrapper}>
       <h2>
@@ -29,7 +33,7 @@ const Review: React.FC<Props> = ({ averageScore, reviewCount, reviews }) => {
       </h2>
       <ul className={styles.reviewList}>
         {reviews.map((review) => (
-          <SpaceReview key={review.id} review={review} />
+          <SpaceReview spaceId={spaceId} key={review.id} review={review} />
         ))}
       </ul>
       {reviewCount - reviews.length > 0 && <MoreButton count={reviewCount - reviews.length} />}

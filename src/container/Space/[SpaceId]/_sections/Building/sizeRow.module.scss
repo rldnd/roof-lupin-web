@@ -8,6 +8,10 @@
   padding: 6px 8px;
   color: var(--c-gray-600);
 
+  .icon {
+    margin-right: 16px;
+  }
+
   .multiFloor {
     @include m.flex;
 

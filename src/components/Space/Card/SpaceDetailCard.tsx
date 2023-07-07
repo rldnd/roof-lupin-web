@@ -31,9 +31,9 @@ const SpaceDetailCard: React.FC<Props> = ({ className, space, href, children }) 
       {children}
 
       <Link href={href} className={styles.content}>
-        {space.publicTransportation && (
+        {space.publicTransportations.length > 0 && (
           <span className={styles.transport}>
-            {space.publicTransportation.name} 도보 {space.publicTransportation.timeTaken}분
+            {space.publicTransportations[0].name} 도보 {space.publicTransportations[0].timeTaken}분
           </span>
         )}
         <p className={styles.title}>{space.title}</p>

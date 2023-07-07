@@ -54,8 +54,8 @@ export interface Space {
   isInterested: boolean;
   /** 공간 썸네일 */
   thumbnail: string;
-  /** 공간 대중 교통 */
-  publicTransportation: Transportation | null;
+  /** 대중교통 목록 */
+  publicTransportations: Transportation[];
   /** 공간 위치 */
   location: Location | null;
 }

@@ -1,20 +1,17 @@
 "use client";
 
-import { useAtomValue } from "jotai";
 import { useUnmount } from "react-use";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
 import { useClientEffect } from "@/hooks";
-import { mapZoomState } from "@/states/location";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 const Map: React.FC = () => {
-  const mapZoom = useAtomValue(mapZoomState);
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useClientEffect(() => {
-    load({ center: { lat: 37.3595704, lng: 127.105399 }, zoom: 6, zoomControl: true });
+    load({ center: { lat: 37.3595704, lng: 127.105399 }, zoom: 16 });
   }, [load]);
 
   useUnmount(() => {

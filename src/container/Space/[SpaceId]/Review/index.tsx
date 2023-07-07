@@ -2,9 +2,7 @@ import { Suspense } from "react";
 
 import { SafeArea } from "@/components";
 
-import Content, { LoadingContent } from "./Content";
-import Header from "./Header";
-import Menu from "./Menu";
+import { Content, Header, LoadingContent, Menu } from "./_sections";
 
 import styles from "./spaceDetailReviewContainer.module.scss";
 

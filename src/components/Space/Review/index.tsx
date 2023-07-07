@@ -15,15 +15,16 @@ import styles from "./spaceReview.module.scss";
 
 interface Props {
   review: Review;
+  spaceId: string;
   className?: string;
   isShowAll?: boolean;
 }
 
-const SpaceReview: React.FC<Props> = ({ review, className, isShowAll = false }) => {
+const SpaceReview: React.FC<Props> = ({ spaceId, review, className, isShowAll = false }) => {
   return (
     <li className={cx(styles.wrapper, className)}>
       <Header review={review} />
-      {review.images.length > 0 && <Images images={review.images} />}
+      {review.images.length > 0 && <Images spaceId={spaceId} reviewId={review.id} images={review.images} />}
       <Content content={review.content} isShowAll={isShowAll} />
       {review.reviewAnswers.length > 0 && <Answer answer={review.reviewAnswers[0]} isShowAll={isShowAll} />}
     </li>

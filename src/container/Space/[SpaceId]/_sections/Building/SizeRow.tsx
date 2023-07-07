@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { Size } from "@/common/types/size";
 import { getSquareMeterFromSquareFeet } from "@/utils/size";
 
-import { IconRepeat } from "public/icons";
+import { IconRepeat, IconSpaceSize } from "public/icons";
 
 import styles from "./sizeRow.module.scss";
 
@@ -28,14 +28,23 @@ const SizeRow: React.FC<Props> = ({ sizes }) => {
 
   return (
     <li className={styles.wrapper}>
-      {hasOneSize && <span>{getSize(sizes[0].size, isSquareFeet)}</span>}
-      {!hasOneSize &&
-        floorAndSize.map(([floor, size]) => (
-          <span key={floor} className={styles.multiFloor}>
-            <span className={styles.floor}>{floor}</span>
-            <span className={styles.size}>{getSize(size, isSquareFeet)}</span>
-          </span>
-        ))}
+      {hasOneSize && (
+        <>
+          <IconSpaceSize className={styles.icon} />
+          <span>{getSize(sizes[0].size, isSquareFeet)}</span>
+        </>
+      )}
+      {!hasOneSize && (
+        <>
+          <IconSpaceSize className={styles.icon} />
+          {floorAndSize.map(([floor, size]) => (
+            <span key={floor} className={styles.multiFloor}>
+              <span className={styles.floor}>{floor}</span>
+              <span className={styles.size}>{getSize(size, isSquareFeet)}</span>
+            </span>
+          ))}
+        </>
+      )}
       <button type="button" onClick={() => setIsSquareFeet((prev) => !prev)}>
         <IconRepeat />
         {isSquareFeet ? "m²" : "평"}

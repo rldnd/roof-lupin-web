@@ -36,7 +36,7 @@ const Content: React.FC = () => {
         loadingComponent={<LoadingContent />}
       >
         {data.pages.map((review) => (
-          <SpaceReview className={styles.review} key={review.id} isShowAll review={review} />
+          <SpaceReview spaceId={spaceId} className={styles.review} key={review.id} isShowAll review={review} />
         ))}
       </InfiniteScroll>
     </main>
