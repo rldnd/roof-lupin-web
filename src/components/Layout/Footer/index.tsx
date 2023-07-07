@@ -9,7 +9,7 @@ import { IconFooterLogo, IconGrayBottomChevron } from "public/icons";
 import styles from "./footer.module.scss";
 
 const Footer: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <footer className={styles.wrapper}>

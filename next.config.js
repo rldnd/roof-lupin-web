@@ -13,31 +13,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "kyoongdev-blog.sgp1.vultrobjects.com",
-      },
-      {
-        protocol: "https",
-        hostname: "i.pinimg.com",
-      },
-      {
-        protocol: "https",
-        hostname: "dev-image.cumuco.net",
-      },
-      {
-        protocol: "https",
-        hostname: "prod-image.cumuco.net",
-      },
-      {
-        protocol: "https",
         hostname: "dev-image.rooflupin.com",
       },
       {
         protocol: "https",
-        hostname: "image.rooflupin.com",
+        hostname: "dev-image.cumuco.net",
       },
       {
         protocol: "https",
-        hostname: "dev-image.cumuco.net",
+        hostname: "kyoongdev-blog.sgp1.vultrobjects.com",
       },
     ],
   },
