@@ -3,7 +3,8 @@
 import { lazy, memo, type ReactNode, useCallback, useMemo, useState } from "react";
 
 import Skeleton from "react-loading-skeleton";
-import { type Settings } from "react-slick";
+
+import type { Settings } from "react-slick";
 
 import styles from "./carousel.module.scss";
 

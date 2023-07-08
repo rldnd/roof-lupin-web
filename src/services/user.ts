@@ -14,6 +14,7 @@ export interface UpdateUserBody {
 
 /** [CLIENT] 내 정보 불러오기 */
 export const getMeApi = () => apiClient.get<CommonUser>("/users/me");
+
 /** [CLIENT] 나의 푸시토큰 불러오기 */
 export const getMyPushTokenApi = () => apiClient.get<PushToken>("/users/me/push-token");
 

@@ -14,3 +14,6 @@ export const getReviewsSummaryApi = (spaceId: string) => apiClient.get<ReviewSum
 /** [CLIENT] 공간의 리뷰 목록을 불러옵니다. */
 export const paginateReviewsApi = ({ spaceId, ...params }: PaginateReviewsParams) =>
   apiClient.get<PagingDTO<Review>>(`/reviews/${spaceId}/paging`, { params });
+
+/** [CLIENT] 리뷰 자세히 불러오기 */
+export const getReviewApi = (reviewId: string) => apiClient.get<Review>(`/reviews/${reviewId}/detail`);

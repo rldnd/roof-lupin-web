@@ -10,3 +10,8 @@ export const initialReviewSortMenu: ReviewSortMenu = {
 };
 
 export const reviewSortMenuState = atom<ReviewSortMenu>(initialReviewSortMenu);
+
+export type ReviewImageIndex = number;
+export type ReviewImageTotalCount = number | null;
+export const reviewImageIndexState = atom<ReviewImageIndex>(1);
+export const reviewImageTotalCountState = atom<ReviewImageTotalCount>(null);

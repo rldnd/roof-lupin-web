@@ -30,7 +30,9 @@ const SpaceCard: React.FC<Props> = ({ className, space, href, children }) => {
       {children}
 
       <Link href={href} className={styles.content}>
-        {space.publicTransportation && <span className={styles.transport}>{space.publicTransportation.name}</span>}
+        {space.publicTransportations.length > 0 && (
+          <span className={styles.transport}>{space.publicTransportations[0].name}</span>
+        )}
         <p className={styles.title}>{space.title}</p>
         <div className={styles.info}>
           <StarRatingItem score={space.averageScore} reviewCount={space.reviewCount} viewReviewCount />
