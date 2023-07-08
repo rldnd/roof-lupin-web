@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 
-import { SafeArea } from "@/components";
 import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
@@ -49,41 +48,39 @@ export default async function SpaceDetailContainer({ params }: Props) {
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
   return (
-    <SafeArea top theme="dark">
-      <main className={styles.wrapper}>
-        <Header space={space} />
-        <Suspense fallback={<LoadingCarousel />}>
-          <Carousel slideCount={space.images.length}>
-            {space.images.map((image) => (
-              <CarouselItem key={image.url} image={image} />
-            ))}
-          </Carousel>
-        </Suspense>
-        <Introduction space={space} />
-        <TabBar />
-        <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
-        <Price rentalType={spaceRentalType} />
-        <hr />
-        <BestPhoto bestPhotos={space.bestPhotos} />
-        <hr />
-        <Service services={space.services} />
-        <hr />
-        <Building buildings={space.buildings} sizes={space.sizes} />
-        <hr />
-        <Caution cautions={space.cautions} />
-        <hr />
-        <Location />
-        <hr />
-        <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
-        <hr />
-        <MenuItem title={`Q&A (${space.qnaCount})`} href="/" />
-        <hr />
-        <Refund refundPolicies={space.refundPolicies} />
-        <hr />
-        <MenuItem title="판매자 정보" href="/" />
-        <hr />
-        <ReportButton />
-      </main>
-    </SafeArea>
+    <main className={styles.wrapper}>
+      <Header space={space} />
+      <Suspense fallback={<LoadingCarousel />}>
+        <Carousel slideCount={space.images.length}>
+          {space.images.map((image) => (
+            <CarouselItem key={image.url} image={image} />
+          ))}
+        </Carousel>
+      </Suspense>
+      <Introduction space={space} />
+      <TabBar />
+      <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
+      <Price rentalType={spaceRentalType} />
+      <hr />
+      <BestPhoto bestPhotos={space.bestPhotos} />
+      <hr />
+      <Service services={space.services} />
+      <hr />
+      <Building buildings={space.buildings} sizes={space.sizes} />
+      <hr />
+      <Caution cautions={space.cautions} />
+      <hr />
+      <Location />
+      <hr />
+      <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
+      <hr />
+      <MenuItem title={`Q&A (${space.qnaCount})`} href="/" />
+      <hr />
+      <Refund refundPolicies={space.refundPolicies} />
+      <hr />
+      <MenuItem title="판매자 정보" href="/" />
+      <hr />
+      <ReportButton />
+    </main>
   );
 }

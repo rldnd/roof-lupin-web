@@ -5,7 +5,7 @@
   @include m.flex(space-between);
   width: 100%;
   height: c.$S_BASE_HEADER_HEIGHT;
-  padding: 50px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
+  padding: 10px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
   background-color: var(--c-white);
 
   h2 {

@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
         <p className={styles.row}>
           <span>쿠무코</span>
           <span>호스팅서비스 제공자 : 쿠무코</span>
-          <span>대표: 강동현</span>
+          대표: 강동현
         </p>
         <p>사업자등록번호 : 383-26-01563</p>
         <p>주소 : 서울특별시 광진구 광나루로 436, 1층 101호</p>

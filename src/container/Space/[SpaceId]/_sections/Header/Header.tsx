@@ -48,7 +48,7 @@ const Header: React.FC<Props> = ({ space }) => {
 
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
     containerHeight: getNumberFromPixel(sizes.spaceDetailCarouselHeight),
-    headerHeight: getNumberFromPixel(sizes.mainHeaderHeight),
+    headerHeight: getNumberFromPixel(sizes.baseHeaderHeight),
   });
 
   const style = {
