@@ -1,18 +1,16 @@
 "use client";
 
-import { type MouseEventHandler, type ReactNode, useCallback } from "react";
+import { ComponentProps, type MouseEventHandler, useCallback } from "react";
 
 import { isMobile, isWebview } from "@/utils/userAgent";
 
-interface Props {
+interface Props extends Omit<ComponentProps<"button">, "onClick"> {
   mobile: MouseEventHandler<HTMLButtonElement>;
   desktop: MouseEventHandler<HTMLButtonElement>;
   webview: MouseEventHandler<HTMLButtonElement>;
-  children: ReactNode;
-  className?: string;
 }
 
-const PlatformButton: React.FC<Props> = ({ desktop, mobile, webview, children, className }) => {
+const PlatformButton: React.FC<Props> = ({ desktop, mobile, webview, children, ...props }) => {
   const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       if (isWebview) webview(e);
@@ -23,7 +21,7 @@ const PlatformButton: React.FC<Props> = ({ desktop, mobile, webview, children, c
   );
 
   return (
-    <button type="button" className={className} onClick={onClick}>
+    <button type="button" onClick={onClick} {...props}>
       {children}
     </button>
   );

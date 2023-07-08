@@ -7,6 +7,8 @@ export interface AppAuthPushTokenData {
   pushToken: string;
 }
 
+/** 웹뷰 카카오 로그인 */
+export type WebAuthKakaoLoginPayload = BaseWebAuthPayload<"kakaoLogin", WithoutData>;
 /** 앱에서 pushToken을 보내도록 요청 */
 export type WebAuthRequestPushTokenPayload = BaseWebAuthPayload<"requestPushToken", WithoutData>;
 /** 앱에서 보내는 pushToken을 받음 */
