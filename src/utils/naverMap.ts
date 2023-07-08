@@ -23,5 +23,5 @@ export const getDistance = ({ zoom, width, height }: { zoom?: number; width?: nu
   if (!zoom || !width || !height) return 0;
 
   const scale = MAP_SCALE_MAPPER[zoom];
-  return ((Math.max(width, height) / scale.unitPixel) * scale.realDistancePerUnit) / 2;
+  return ((Math.min(width, height) / scale.unitPixel) * scale.realDistancePerUnit) / 2;
 };

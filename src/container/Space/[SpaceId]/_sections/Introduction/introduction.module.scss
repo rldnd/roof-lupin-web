@@ -41,5 +41,6 @@
     @include m.makeEllipsis(4);
     position: relative;
     color: var(--c-gray-900);
+    white-space: normal;
   }
 }
