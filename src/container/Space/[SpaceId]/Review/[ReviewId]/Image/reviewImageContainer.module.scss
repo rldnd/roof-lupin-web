@@ -2,5 +2,6 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  position: relative;
   width: 100%;
 }

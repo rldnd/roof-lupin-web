@@ -18,11 +18,13 @@ import styles from "./header.module.scss";
 
 interface Props {
   review: Review;
+  menuHidden?: boolean;
+  className?: string;
 }
 
-const Header: React.FC<Props> = ({ review }) => {
+const Header: React.FC<Props> = ({ review, className, menuHidden = false }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={cx(styles.wrapper, className)}>
       <div className={styles.info}>
         <div className={styles.imageWrapper}>
           {review.user.profileImage && (
@@ -40,16 +42,22 @@ const Header: React.FC<Props> = ({ review }) => {
         </p>
         <StarRating className={styles.star} score={review.score} />
       </div>
-      <button type="button">
-        <IconThreeDots />
-      </button>
+      {!menuHidden && (
+        <button type="button">
+          <IconThreeDots />
+        </button>
+      )}
     </div>
   );
 };
 
 export default memo(Header);
 
-export const LoadingHeader: React.FC = memo(() => {
+interface LoadingHeaderProps {
+  menuHidden?: boolean;
+}
+
+export const LoadingHeader: React.FC<LoadingHeaderProps> = memo(({ menuHidden = false }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.info}>
@@ -57,7 +65,7 @@ export const LoadingHeader: React.FC = memo(() => {
         <Skeleton width={120} containerClassName={styles.profile} />
         <Skeleton width={50} containerClassName={styles.star} />
       </div>
-      <Skeleton width={40} />
+      {!menuHidden && <Skeleton width={40} />}
     </div>
   );
 });
