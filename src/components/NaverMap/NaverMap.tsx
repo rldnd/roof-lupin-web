@@ -12,8 +12,8 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
-import { useClientEffect } from "@/hooks";
-import { mapCenterState, mapZoomState } from "@/states/location";
+import { useClientEffect, useThrottleSetAtom } from "@/hooks";
+import { mapCenterState, mapSizeState, mapZoomState } from "@/states/location";
 import { deletePropertyInObject } from "@/utils/function";
 import { loadNaverMapScript } from "@/utils/naverMap";
 
@@ -31,7 +31,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const naverMapScript = useRef<HTMLScriptElement>();
   const mapController = useRef<naver.maps.Map>();
 
-  const setMapCenter = useSetAtom(mapCenterState);
+  const setMapCenter = useThrottleSetAtom(mapCenterState);
+  const setMapSize = useThrottleSetAtom(mapSizeState);
   const setMapZoom = useSetAtom(mapZoomState);
 
   const addCenterChangedListener = useCallback(() => {
@@ -41,6 +42,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const center = mapController.current.getCenter();
       setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
     });
+
     listeners.current.push(centerChangedListener);
   }, [id, setMapCenter]);
 
@@ -54,6 +56,17 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     listeners.current.push(zoomChangedListener);
   }, [id, setMapZoom]);
 
+  const addResizeListener = useCallback(() => {
+    if (!checkMapLoaded(mapController)) return;
+
+    const resizeListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.RESIZE, () => {
+      const size = mapController.current.getSize();
+      setMapSize((prev) => ({ ...prev, [id]: { width: size.width, height: size.height } }));
+    });
+
+    listeners.current.push(resizeListener);
+  }, [id, setMapSize]);
+
   const load = useCallback(
     async (info: BaseNaverMapEventParameter<LoadParameter>) => {
       if (!checkIsTargetMap(info.mapId, id)) return;
@@ -61,13 +74,17 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       naverMapScript.current.onload = () => {
         mapController.current = new naver.maps.Map(id, info.options);
         const center = mapController.current.getCenter();
+        const zoom = mapController.current.getZoom();
+        const size = mapController.current.getSize();
         setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
-        setMapZoom((prev) => ({ ...prev, [id]: mapController.current!.getZoom() }));
+        setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+        setMapSize((prev) => ({ ...prev, [id]: { width: size.width, height: size.height } }));
         addCenterChangedListener();
         addZoomChangedListener();
+        addResizeListener();
       };
     },
-    [addCenterChangedListener, addZoomChangedListener, id, setMapCenter, setMapZoom],
+    [addCenterChangedListener, addResizeListener, addZoomChangedListener, id, setMapCenter, setMapSize, setMapZoom],
   );
 
   const moveCenter = useCallback(

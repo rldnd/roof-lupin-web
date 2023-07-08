@@ -85,22 +85,6 @@ export const NAVER_MAP_EVENT_NAME_MAPPER = {
   ZOOM_START: "zoomstart",
 } as const;
 
-// zoom 6: 100km (51px)
-// zoom 7: 50km (51px)
-// zoom 8: 30km (62px)
-// zoom 9: 20km (82px)
-// zoom 10: 10km (82px)
-// zoom 11: 5km (82px)
-// zoom 12: 3km (99px)
-// zoom 13: 1km (66px)
-// zoom 14: 500m (66px)
-// zoom 15: 300m (79px)
-// zoom 16: 100m (53px)
-// zoom 17: 50m (53px)
-// zoom 18: 30m (63px)
-// zoom 19: 20m (84px)
-// zoom 20: 10m (84px)
-// zoom 21: 5m (84px)
 export const MAP_SCALE_MAPPER: Record<number, MapScale> = {
   6: {
     unitPixel: 51,

@@ -22,7 +22,10 @@
     }
 
     .arrow {
-      @include m.absolute(50% c.$S_PAGE_HORIZONTAL_PADDING auto auto);
+      @include m.absolute(
+        calc(50% + c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT) c.$S_PAGE_HORIZONTAL_PADDING auto
+          auto
+      );
       @include m.flex;
       z-index: 1;
       width: 40px;
@@ -33,7 +36,10 @@
       &.left {
         right: auto;
         left: c.$S_PAGE_HORIZONTAL_PADDING;
-        transform: translateY(-50%) rotate(180deg);
+
+        svg {
+          transform: rotate(180deg);
+        }
       }
     }
   }

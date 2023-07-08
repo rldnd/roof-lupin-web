@@ -1,3 +1,5 @@
+import { MAP_SCALE_MAPPER } from "@/common/constants";
+
 export const loadNaverMapScript = () => {
   const scripts = Array.from(document.getElementsByTagName("script"));
   const naverScripts = scripts.filter((script) => script.src.includes("map.naver"));
@@ -15,4 +17,11 @@ export const loadNaverMapScript = () => {
   }
 
   return naverMap;
+};
+
+export const getDistance = ({ zoom, width, height }: { zoom?: number; width?: number; height?: number }): number => {
+  if (!zoom || !width || !height) return 0;
+
+  const scale = MAP_SCALE_MAPPER[zoom];
+  return ((Math.max(width, height) / scale.unitPixel) * scale.realDistancePerUnit) / 2;
 };
