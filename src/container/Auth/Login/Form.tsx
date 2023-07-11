@@ -5,12 +5,14 @@ import React, { type MouseEventHandler } from "react";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
 import { PlatformButton } from "@/components";
 import { useWebview } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 
 import { IconApple, IconKakao, IconNaver } from "public/icons";
 
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
+  const { me } = useMe();
   const { sendMessage } = useWebview();
 
   const onLoginKakaoWebview = () => {
@@ -24,6 +26,7 @@ const Form: React.FC = () => {
 
   return (
     <section className={styles.wrapper} aria-label="소셜 로그인 폼">
+      {JSON.stringify(me)}
       <PlatformButton
         type="button"
         desktop={onClickSocial}
