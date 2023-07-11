@@ -1,15 +1,15 @@
-import "@/styles/global.scss";
-
 import { Suspense } from "react";
 
 import "@/utils/ga";
 import "@/utils/naverMap";
 
+import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
 import Providers from "./providers";
 import PushTokenHandler from "./PushTokenHandler";
 
+import "@/styles/global.scss";
 import styles from "./layout.module.scss";
 
 export const metadata = {
@@ -33,6 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />
+        </Suspense>
+        <Suspense fallback={null}>
+          <AppSocialLoginHandler />
         </Suspense>
       </body>
     </html>

@@ -1,4 +1,5 @@
 import type { GenerateWebviewPayload, WithoutData } from ".";
+import type { Token } from "../auth";
 
 type BaseWebAuthPayload<T extends string, U = unknown> = GenerateWebviewPayload<"web", "auth", T, U>;
 type BaseAppAuthPayload<T extends string, U = unknown> = GenerateWebviewPayload<"app", "auth", T, U>;
@@ -15,3 +16,5 @@ export type WebAuthRequestPushTokenPayload = BaseWebAuthPayload<"requestPushToke
 export type AppAuthPushTokenPayload = BaseAppAuthPayload<"pushToken", AppAuthPushTokenData>;
 /** 앱 측에서 pushToken의 값이 변경되었을 때 */
 export type AppAuthPushTokenChangedPayload = BaseAppAuthPayload<"pushTokenChanged", AppAuthPushTokenData>;
+/** 앱에서 카카오 로그인 완료했을 시 */
+export type AppAuthKakaoLoginPayload = BaseAppAuthPayload<"kakaoLogin", Token>;
