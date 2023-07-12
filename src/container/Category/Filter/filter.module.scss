@@ -13,7 +13,7 @@ $TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
   max-width: c.$S_CONTENT_WIDTH;
   padding: 16px c.$S_PAGE_HORIZONTAL_PADDING 27px;
   background-color: var(--c-white);
-  transition: top 0.4s ease-in-out;
+  transition: top 0.5s ease-in-out;
   transform: translateX(-50%);
 
   .menu {
@@ -52,7 +52,7 @@ $TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
   }
 
   &.down {
-    top: 0;
+    top: -100%;
   }
 
   @media screen and (width >= c.$S_CATEGORY_GRID_BREAK_POINT) {

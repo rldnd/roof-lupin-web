@@ -46,7 +46,6 @@ const SpaceList: React.FC = () => {
 
   useEffect(() => {
     if (!data?.pages) return;
-
     setSpaces(data.pages);
   }, [data?.pages]);
 

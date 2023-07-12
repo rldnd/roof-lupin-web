@@ -29,7 +29,7 @@
   }
 
   .list {
-    @include m.flex(flex-start);
+    @include m.flex(flex-start, flex-start);
     gap: 16px;
     width: 100%;
     padding-right: c.$S_PAGE_HORIZONTAL_PADDING;

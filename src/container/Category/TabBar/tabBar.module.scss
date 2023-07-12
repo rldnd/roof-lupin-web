@@ -4,7 +4,6 @@
 .wrapper {
   @include m.fixed(c.$S_BASE_HEADER_HEIGHT auto auto 50%);
   @include m.flex(flex-start);
-  z-index: c.$Z_SPACE_DETAIL_TAB_BAR;
   z-index: c.$Z_CATEGORY_TAB_BAR;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
@@ -12,7 +11,7 @@
   padding-right: c.$S_PAGE_HORIZONTAL_PADDING;
   background-color: var(--c-white);
   border-bottom: 2px solid var(--c-gray-250);
-  transition: top 0.4s ease-in-out;
+  transition: top 0.5s ease-in-out;
   transform: translateX(-50%);
 
   button:first-of-type,
@@ -25,6 +24,6 @@
   }
 
   &.down {
-    top: 0;
+    top: -100%;
   }
 }
