@@ -6,7 +6,7 @@ import "@/utils/naverMap";
 import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
-import Providers from "./providers";
+import Providers from "./Providers";
 import PushTokenHandler from "./PushTokenHandler";
 
 import "@/styles/global.scss";
