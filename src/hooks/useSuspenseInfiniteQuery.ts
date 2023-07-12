@@ -39,7 +39,7 @@ const useSuspenseInfiniteQuery = <
       ({
         pages: data.pages.flatMap((page) => page.data.data),
         pageParams: data.pageParams,
-      } as InfiniteData<TData>),
+      }) as InfiniteData<TData>,
     getNextPageParam: (lastPage) => (lastPage.data.paging.hasNext ? lastPage.data.paging.page + 1 : undefined),
   }) as unknown as UseSuspenseInfiniteQueryResult<TData, TError>;
 };

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const StarRatingItem: React.FC<Props> = ({ className, viewReviewCount, score, reviewCount, starSize = 18 }) => {
-  const style = useMemo(() => ({ "--scale": starSize / 18 } as CSSProperties), [starSize]);
+  const style = useMemo(() => ({ "--scale": starSize / 18 }) as CSSProperties, [starSize]);
 
   return (
     <div className={cx(styles.wrapper, className)} style={style}>

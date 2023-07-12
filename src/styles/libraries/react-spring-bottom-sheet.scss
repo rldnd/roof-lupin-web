@@ -148,8 +148,12 @@
   z-index: 1;
   padding-bottom: calc(16px + env(safe-area-inset-bottom));
   overflow: hidden;
-  box-shadow: 0 -1px 0 rgba(46, 59, 66, calc(1 * 0.125)), 0 2px 0 #ffffff;
-  box-shadow: 0 -1px 0 rgba(46, 59, 66, calc(var(--rsbs-content-opacity, 1) * 0.125)), 0 2px 0 var(--rsbs-bg, #ffffff);
+  box-shadow:
+    0 -1px 0 rgba(46, 59, 66, calc(1 * 0.125)),
+    0 2px 0 #ffffff;
+  box-shadow:
+    0 -1px 0 rgba(46, 59, 66, calc(var(--rsbs-content-opacity, 1) * 0.125)),
+    0 2px 0 var(--rsbs-bg, #ffffff);
 }
 
 [data-rsbs-is-dismissable="true"] [data-rsbs-header] > *,

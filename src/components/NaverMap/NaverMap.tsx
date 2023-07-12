@@ -5,7 +5,7 @@ import { memo, MutableRefObject, useCallback, useRef } from "react";
 import { useSetAtom } from "jotai";
 
 import type {
-  AddMarkerParameter,
+  // AddMarkerParameter,
   BaseNaverMapEventParameter,
   LoadParameter,
   MoveCenterParameter,
@@ -95,7 +95,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [id],
   );
 
-  const addMarker = useCallback((position: AddMarkerParameter) => {}, []);
+  // const addMarker = useCallback((position: AddMarkerParameter) => {}, []);
 
   const destroy = useCallback(() => {
     mapController.current?.removeListener(listeners.current);
@@ -109,7 +109,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     const callback: NaverMapEventCallback = (event) => {
       if (event.action === "load") load(event);
       if (event.action === "moveCenter") moveCenter(event);
-      if (event.action === "addMarker") addMarker(event);
+      // if (event.action === "addMarker") addMarker(event);
       if (event.action === "destroy") destroy();
     };
 
