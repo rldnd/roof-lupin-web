@@ -45,9 +45,9 @@ const SpaceList: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!data?.pages) return;
-    setSpaces(data.pages);
-  }, [data?.pages]);
+    if (!isSuccess) return;
+    setSpaces(data?.pages);
+  }, [data?.pages, isSuccess]);
 
   return (
     <InfiniteScroll

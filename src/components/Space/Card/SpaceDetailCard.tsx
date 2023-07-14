@@ -25,7 +25,12 @@ const SpaceDetailCard: React.FC<Props> = ({ className, space, href, children }) 
     <li className={cx(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
         <Link href={href}>
-          <Image src={space.thumbnail} fill alt={`${space.title} 공간 이미지`} />
+          <Image
+            src={space.thumbnail}
+            fill
+            alt={`${space.title} 공간 이미지`}
+            sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
+          />
         </Link>
       </div>
       {children}
