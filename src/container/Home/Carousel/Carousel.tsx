@@ -1,14 +1,11 @@
 "use client";
 
-import { lazy, memo, type ReactNode, useCallback, useMemo, useState } from "react";
+import { memo, type ReactNode, useCallback, useMemo, useState } from "react";
 
 import Skeleton from "react-loading-skeleton";
-
-import type { Settings } from "react-slick";
+import Slider, { type Settings } from "react-slick";
 
 import styles from "./carousel.module.scss";
-
-const Slider = lazy(() => import("react-slick"));
 
 const defaultSettings: Settings = {
   dots: false,

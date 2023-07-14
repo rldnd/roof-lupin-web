@@ -13,7 +13,13 @@ interface Props {
 const CarouselItem: React.FC<Props> = ({ image }) => {
   return (
     <div className={styles.wrapper}>
-      <Image src={image.url} alt="공간 이미지" fill priority />
+      <Image
+        src={image.url}
+        alt="공간 이미지"
+        fill
+        priority
+        sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
+      />
     </div>
   );
 };

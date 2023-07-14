@@ -1,10 +1,11 @@
-import { Suspense } from "react";
-
 import { SpaceCard } from "@/components";
 import { BottomNavigation, Footer } from "@/components/Layout";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
-import { Carousel, CarouselItem, Category, ContentBookmark, ContentList, Header, LoadingCarousel } from "./_sections";
+import { Carousel, CarouselItem } from "./Carousel";
+import Category from "./Category";
+import { ContentBookmark, ContentList } from "./Content";
+import { Header } from "./Header";
 
 import styles from "./homeContainer.module.scss";
 
@@ -18,13 +19,11 @@ export default async function HomeContainer() {
   return (
     <main className={styles.wrapper}>
       <Header />
-      <Suspense fallback={<LoadingCarousel />}>
-        <Carousel slideCount={curations.length}>
-          {curations.map((curation) => (
-            <CarouselItem key={curation.id} curation={curation} />
-          ))}
-        </Carousel>
-      </Suspense>
+      <Carousel slideCount={curations.length}>
+        {curations.map((curation) => (
+          <CarouselItem key={curation.id} curation={curation} />
+        ))}
+      </Carousel>
       <Category categories={categories} />
       {contents.map((content) => {
         if (content.type === "CONTENTS") {

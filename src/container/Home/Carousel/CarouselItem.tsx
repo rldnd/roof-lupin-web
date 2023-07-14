@@ -11,7 +11,14 @@ interface Props {
 const CarouselItem: React.FC<Props> = ({ curation }) => {
   return (
     <article className={styles.wrapper}>
-      <Image className={styles.image} src={curation.thumbnail} fill alt="큐레이션 이미지" priority />
+      <Image
+        className={styles.image}
+        src={curation.thumbnail}
+        fill
+        alt="큐레이션 이미지"
+        priority
+        sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
+      />
       <div className={styles.textWrapper}>
         <h2>{curation.title}</h2>
         <p>{curation.subTitle}</p>

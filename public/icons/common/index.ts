@@ -22,4 +22,3 @@ export { default as IconFilter } from "./filter.svg";
 export { default as IconGrayBottomChevron } from "./gray-bottom-chevron.svg";
 export { default as IconThreeDotsLarge } from "./three-dots-large.svg";
 export { default as IconWhiteRightChevron } from "./white-right-chevron.svg";
-export { default as IconRepeat } from "./repeat.svg";

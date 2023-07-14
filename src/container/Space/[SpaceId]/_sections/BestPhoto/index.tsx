@@ -30,7 +30,7 @@ const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
         {!isEmpty &&
           bestPhotos.map((image) => (
             <li key={image.url} className={styles.imageWrapper}>
-              <Image src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
+              <Image src={image.url} alt="베스트 포토 이미지" width={200} height={275} priority />
             </li>
           ))}
       </HorizonDraggable>
