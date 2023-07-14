@@ -12,7 +12,7 @@ import { createSpaceInterestApi, deleteSpaceInterestApi } from "@/services/space
 
 import { IconBookmarkActive, IconBookmarkInactive } from "public/icons";
 
-import styles from "./bookmark.module.scss";
+import styles from "./contentBookmark.module.scss";
 
 interface Props {
   space: Space;
@@ -22,7 +22,13 @@ const Bookmark: React.FC<Props> = ({ space }) => {
   const [isActive, setIsActive] = useState(false);
   const { data: isInterested, refetch } = useQuery(
     ["getHomeSpacesInContents"],
-    () => getHomeSpacesInContentsApi().then((res) => res.data.flatMap((content) => content.spaces)),
+    () =>
+      getHomeSpacesInContentsApi().then((res) =>
+        res.data.reduce<Space[]>((acc, cur) => {
+          if (cur.type === "CONTENTS") return [...acc, ...cur.contentCategory.spaces];
+          else return acc;
+        }, []),
+      ),
     {
       select: (res) => res.find((item) => item.id === space.id)?.isInterested ?? false,
     },

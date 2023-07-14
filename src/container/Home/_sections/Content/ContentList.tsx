@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
-import type { HomeContent } from "@/common/types/home";
+import type { ContentCategory } from "@/common/types/category";
 import { ArrowLink, HorizonDraggable } from "@/components";
 
 import styles from "./contentList.module.scss";
 
 interface Props {
-  content: Omit<HomeContent, "spaces">;
+  content: Omit<ContentCategory, "spaces">;
   children: ReactNode;
 }
 

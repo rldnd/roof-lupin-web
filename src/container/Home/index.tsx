@@ -1,21 +1,12 @@
-import { lazy, Suspense } from "react";
-
-import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 import { SpaceCard } from "@/components";
 import { BottomNavigation, Footer } from "@/components/Layout";
 import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@/services/home";
 
-import Bookmark from "./Bookmark";
-import { LoadingCarousel } from "./Carousel";
-import CarouselItem from "./CarouselItem";
-import Category from "./Category";
-import ContentList from "./ContentList";
+import { Carousel, CarouselItem, Category, ContentBookmark, ContentList, Header, LoadingCarousel } from "./_sections";
 
 import styles from "./homeContainer.module.scss";
-
-const Header = dynamic(() => import("./Header"), { ssr: false });
-const Carousel = lazy(() => import("./Carousel"));
 
 export default async function HomeContainer() {
   const curationsPromise = getHomeCurationsApi();
@@ -36,16 +27,28 @@ export default async function HomeContainer() {
       </Suspense>
       <Category categories={categories} />
       {contents.map((content) => {
-        const { id, name, highlight, spaces } = content;
-        return (
-          <ContentList key={content.id} content={{ id, name, highlight }}>
-            {spaces.map((space) => (
-              <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`}>
-                <Bookmark space={space} />
-              </SpaceCard>
-            ))}
-          </ContentList>
-        );
+        if (content.type === "CONTENTS") {
+          const { id, highlight, name, spaces } = content.contentCategory;
+          return (
+            <ContentList key={content.id} content={{ id, name, highlight }}>
+              {spaces.map((space) => (
+                <SpaceCard key={space.id} space={space} href={`/spaces/${space.id}`}>
+                  <ContentBookmark space={space} />
+                </SpaceCard>
+              ))}
+            </ContentList>
+          );
+        }
+
+        if (content.type === "EXHIBITION") {
+          const { title } = content.exhibition;
+          return <h1 key={content.id}>기획전 개발 필요:{title}</h1>;
+        }
+
+        if (content.type === "RANKING") {
+          const { name } = content.ranking;
+          return <h1 key={content.id}>랭킹 개발 필요:{name}</h1>;
+        }
       })}
       <Footer />
       <BottomNavigation />

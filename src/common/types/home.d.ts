@@ -1,12 +1,34 @@
-import type { Space } from "./space";
+import type { ContentCategory } from "./category";
+import type { Exhibition } from "./exhibition";
 
-export interface HomeContent {
-  /** 홈 컨텐츠 ID */
+import { Ranking } from "./ranking";
+
+export type HomeContentType = "CONTENTS" | "EXHIBITION" | "RANKING";
+
+interface BaseHomeContent {
+  /** 홈 컨텐츠 id */
   id: string;
-  /** 홈 컨텐츠 이름 */
-  name: string;
-  /** 홈 컨텐츠 하이라이트 */
-  highlight: string | null;
-  /** 홈 컨텐츠 공간 */
-  spaces: Space[];
 }
+
+export interface HomeContentCategory extends BaseHomeContent {
+  /** 홈 컨텐츠 종류 */
+  type: Extract<HomeContentType, "CONTENTS">;
+  /** 컨텐츠 */
+  contentCategory: ContentCategory;
+}
+
+export interface HomeContentExhibition extends BaseHomeContent {
+  /** 홈 컨텐츠 종류 */
+  type: Extract<HomeContentType, "EXHIBITION">;
+  /** 기획전 */
+  exhibition: Exhibition;
+}
+
+export interface HomeContentRanking extends BaseHomeContent {
+  /** 홈 컨텐츠 종류 */
+  type: Extract<HomeContentType, "RANKING">;
+  /** 랭킹 */
+  ranking: Ranking;
+}
+
+export type HomeContent = HomeContentCategory | HomeContentExhibition | HomeContentRanking;
