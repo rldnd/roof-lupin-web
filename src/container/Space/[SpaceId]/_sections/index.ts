@@ -12,3 +12,4 @@ export { default as ReportButton } from "./ReportButton";
 export { default as Review } from "./Review";
 export { default as TabBar } from "./TabBar";
 export { default as Refund } from "./Refund";
+export { default as Footer } from "./Footer";

@@ -21,6 +21,7 @@ import {
   Service,
   TabBar,
 } from "./_sections";
+import Footer from "./_sections/Footer";
 
 import styles from "./spaceDetailContainer.module.scss";
 
@@ -81,6 +82,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
       <MenuItem title="판매자 정보" href="/" />
       <hr />
       <ReportButton />
+      <Footer />
     </main>
   );
 }

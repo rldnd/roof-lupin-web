@@ -1,0 +1,13 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  @include m.fixed(auto auto 0 50%);
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  padding: 16px 24px;
+  background-color: var(--c-white);
+  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 25%);
+  transform: translateX(-50%);
+}
