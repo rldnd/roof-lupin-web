@@ -1,6 +1,6 @@
-import { atom } from "jotai";
-
+import { CATEGORY_SORT_MENU } from "@/common/constants";
 import type { PaginateSpacesQueryParams } from "@/services/space";
+import { sessionPersistenceAtom } from "@/utils/jotai";
 
 export type CategorySortMenu = Omit<PaginateSpacesQueryParams, "page" | "limit">;
 
@@ -19,4 +19,7 @@ export const initialCategorySortMenu: CategorySortMenu = {
   year: null,
 };
 
-export const categorySortMenuState = atom<CategorySortMenu>(initialCategorySortMenu);
+export const categorySortMenuState = sessionPersistenceAtom<CategorySortMenu>(
+  CATEGORY_SORT_MENU,
+  initialCategorySortMenu,
+);

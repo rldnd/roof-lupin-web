@@ -1,9 +1,7 @@
-import { Suspense } from "react";
-
 import { getHomeCategoriesApi } from "@/services/home";
 
-import { Content, LoadingContent } from "./Content";
-import Filter from "./Filter";
+import { Content } from "./Content";
+import { Filter } from "./Filter";
 import { Header } from "./Header";
 import { TabBar } from "./TabBar";
 
@@ -18,9 +16,7 @@ export default async function CategoryContainer() {
       <Header />
       <TabBar categories={categories} />
       <Filter />
-      <Suspense fallback={<LoadingContent />}>
-        <Content ids={ids} />
-      </Suspense>
+      <Content ids={ids} />
     </div>
   );
 }

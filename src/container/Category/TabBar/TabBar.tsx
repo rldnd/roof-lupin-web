@@ -14,7 +14,7 @@ import { LoadingTabBarItem } from "./TabBarItem";
 
 import styles from "./tabBar.module.scss";
 
-const TabBarItem = dynamic(() => import("./TabBarItem"), { ssr: false, loading: LoadingTabBarItem });
+const TabBarItem = dynamic(() => import("./TabBarItem"), { ssr: false, loading: () => <LoadingTabBarItem /> });
 
 interface Props {
   categories: Category[];

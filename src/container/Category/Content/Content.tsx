@@ -12,7 +12,7 @@ import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
 import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { categorySortMenuState } from "@/states";
+import { type CategorySortMenu, categorySortMenuState } from "@/states";
 
 import styles from "./content.module.scss";
 
@@ -35,7 +35,7 @@ const Content: React.FC<Props> = ({ ids }) => {
   useEffect(() => {
     if (!searchParams.get("categoryId") || !ids.includes(searchParams.get("categoryId")!)) notFound();
     startTransition(() => {
-      setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
+      setCategorySortMenu((prev: CategorySortMenu) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
     });
   }, [ids, searchParams, setCategorySortMenu]);
 
