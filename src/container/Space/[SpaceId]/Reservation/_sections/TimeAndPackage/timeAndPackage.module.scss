@@ -1,0 +1,45 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 40px;
+
+  h2 {
+    @include m.flex(flex-start);
+    @include m.fontH4SemiBold;
+    gap: 8px;
+    color: var(--c-gray-900);
+
+    small {
+      @include m.fontCaptionSemiBold;
+      color: var(--c-gray-500);
+    }
+  }
+
+  .titleWrapper {
+    @include m.flex(space-between);
+    margin-bottom: 12px;
+
+    .reset {
+      @include m.fontCaptionSemiBold;
+      display: inline-block;
+      padding: 6px 12px;
+      color: var(--c-roof-orange);
+      background-color: var(--c-orange-bg);
+      border-radius: 8px;
+    }
+  }
+
+  .timePicker {
+    margin-bottom: 40px;
+  }
+
+  .packageMenu {
+    margin-top: 16px;
+
+    li + li {
+      margin-top: 8px;
+    }
+  }
+}

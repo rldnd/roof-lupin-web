@@ -1,3 +1,5 @@
+import type { Day } from "./common";
+
 export interface TimeCostInfo {
   /** 시간별 가격 */
   cost: number;
@@ -61,4 +63,26 @@ export interface PackageRentalType {
   minPrice: number;
   /** 상세 요금 (더보기) */
   rentalTypes: RentalType[];
+}
+
+export interface PossibleTimeCostInfo extends TimeCostInfo {
+  isPossible: boolean;
+}
+
+export interface PossibleTime extends Omit<BaseTimeRentalType, "timeCostInfos"> {
+  day: Day;
+  timeCostInfos: PossibleTimeCostInfo[];
+}
+
+export interface PossiblePackage extends BasePackageRentalType {
+  /** 기본 시간 */
+  baseHour: number | null;
+  day: Day;
+}
+
+export interface PossibleRentalTypes {
+  /** 시간대여타입 */
+  time: PossibleTime | null;
+  /** 패키지대여타입 */
+  package: PossiblePackage[];
 }

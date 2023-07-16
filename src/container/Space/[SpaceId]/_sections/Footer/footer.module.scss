@@ -10,4 +10,34 @@
   background-color: var(--c-white);
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 25%);
   transform: translateX(-50%);
+
+  .left {
+    @include m.flex(flex-start);
+    gap: 12px;
+
+    svg {
+      @include m.filterGray800;
+    }
+
+    > u {
+      @include m.flex(flex-start);
+      @include m.fontH4Regular;
+      color: var(--c-gray-800);
+      text-decoration: none;
+      border-bottom: 1px solid var(--c-gray-600);
+
+      time {
+        @include m.flex(flex-start);
+      }
+
+      .dot {
+        display: inline-block;
+        width: 2px;
+        height: 2px;
+        margin: 0 8px;
+        text-decoration: underline;
+        background-color: var(--c-gray-800);
+      }
+    }
+  }
 }

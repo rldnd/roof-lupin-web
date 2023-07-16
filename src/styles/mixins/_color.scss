@@ -8,6 +8,11 @@
     contrast(90%);
 }
 
+@mixin filterGray800 {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(11%) saturate(4%) hue-rotate(97deg) brightness(96%)
+    contrast(92%);
+}
+
 @mixin filterGray700 {
   filter: brightness(0) saturate(100%) invert(41%) sepia(3%) saturate(91%) hue-rotate(98deg) brightness(90%)
     contrast(91%);

@@ -35,3 +35,5 @@ export interface ErrorDTO {
   statusCode: number;
   timestamp: Date;
 }
+
+export type Day = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";

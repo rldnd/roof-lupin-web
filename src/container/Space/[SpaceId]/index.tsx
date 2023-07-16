@@ -40,8 +40,8 @@ export async function generateStaticParams() {
 // TODO: 문의하기 구현
 // TODO: Q&A 구현
 // TODO: 지도 구현
-// TODO: 리뷰 페이지 구현
 // TODO: 판매자 정보 구현
+// TODO: 카테고리 필터와 싱크 맞추기
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
@@ -82,7 +82,9 @@ export default async function SpaceDetailContainer({ params }: Props) {
       <MenuItem title="판매자 정보" href="/" />
       <hr />
       <ReportButton />
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </main>
   );
 }
