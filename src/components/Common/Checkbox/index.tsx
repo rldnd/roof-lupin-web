@@ -8,13 +8,16 @@ import { IconCheck } from "public/icons";
 
 import styles from "./checkbox.module.scss";
 
-interface Props extends ComponentProps<"input"> {}
+interface Props extends Omit<ComponentProps<"input">, "hidden"> {}
 
-const Checkbox: React.FC<Props> = ({ className, ...props }) => {
+const Checkbox: React.FC<Props> = ({ className, children, ...props }) => {
   return (
     <label className={cx(styles.wrapper, className)}>
       <input {...props} type="checkbox" hidden />
-      <IconCheck />
+      <span className={styles.checkbox}>
+        <IconCheck />
+      </span>
+      {children && <span className={styles.children}>{children}</span>}
     </label>
   );
 };

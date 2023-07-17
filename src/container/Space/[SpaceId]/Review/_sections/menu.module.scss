@@ -13,14 +13,6 @@
   transition: top 0.4s ease-in-out;
   transform: translateX(-50%);
 
-  .photoReviewCheckbox {
-    @include m.flex(flex-start);
-    @include m.fontBody1Regular;
-    gap: 4px;
-    color: var(--c-gray-600);
-    cursor: pointer;
-  }
-
   .sortButton {
     @include m.flex(flex-start);
     @include m.fontBody1Regular;

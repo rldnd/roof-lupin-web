@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 "use client";
 
 import { type ChangeEventHandler, memo, startTransition, useCallback, useEffect, useState } from "react";
@@ -59,10 +58,9 @@ const Menu: React.FC = () => {
   return (
     <>
       <menu className={cx(styles.wrapper, styles[scrollDirection])}>
-        <label className={styles.photoReviewCheckbox}>
-          <Checkbox checked={checked} onChange={onChangeReviewCheckbox} />
-          <span>사진 리뷰만</span>
-        </label>
+        <Checkbox checked={checked} onChange={onChangeReviewCheckbox}>
+          사진 리뷰만
+        </Checkbox>
         <button type="button" className={styles.sortButton} onClick={onClickSortButton}>
           <span>{REVIEW_SORT_MAPPER[reviewSortMenu.sort]}</span>
           <IconBottomCaret />
