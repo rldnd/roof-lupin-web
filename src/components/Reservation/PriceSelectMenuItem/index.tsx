@@ -2,6 +2,9 @@
 
 import { useId } from "react";
 
+import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
+
 import { Checkbox } from "@/components";
 
 import styles from "./priceSelectMenuItem.module.scss";
@@ -32,3 +35,7 @@ const PriceSelectMenuItem: React.FC<Props> = ({ checked, disabled, price, name, 
 };
 
 export default PriceSelectMenuItem;
+
+export const LoadingPriceSelectMenuItem: React.FC<{ className?: string }> = ({ className }) => {
+  return <Skeleton className={cx(styles.loading, className)} />;
+};

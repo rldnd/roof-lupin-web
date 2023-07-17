@@ -16,7 +16,9 @@ export const initialReservation: Reservation = {
   userCount: null,
   year: null,
   additionalServices: null,
-  reservationId: null,
+  userName: null,
+  userPhoneNumber: null,
+  userCouponIds: null,
 };
 
 export const reservationState = atom<Reservation>(initialReservation);

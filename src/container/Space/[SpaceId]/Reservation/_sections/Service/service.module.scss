@@ -23,5 +23,10 @@
     li + li {
       margin-top: 8px;
     }
+
+    > span + span {
+      display: block;
+      margin-top: 8px;
+    }
   }
 }

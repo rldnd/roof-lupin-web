@@ -41,5 +41,14 @@
     li + li {
       margin-top: 8px;
     }
+
+    .loadingPriceSelectMenu {
+      height: 65px;
+    }
+
+    > span + span {
+      display: block;
+      margin-top: 8px;
+    }
   }
 }

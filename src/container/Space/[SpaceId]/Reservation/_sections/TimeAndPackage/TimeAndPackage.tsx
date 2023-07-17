@@ -1,11 +1,14 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
+import { range } from "lodash-es";
+import Skeleton from "react-loading-skeleton";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
-import { PriceSelectMenuItem, TimePicker } from "@/components";
+import { LoadingPriceSelectMenuItem, PriceSelectMenuItem, TimePicker } from "@/components";
+import { LoadingTimePicker } from "@/components/TimePicker";
 import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
@@ -23,6 +26,9 @@ const TimeAndPackage: React.FC = () => {
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
+      onSuccess: (data) => {
+        if (!data.time && data.package.length === 0) notFound();
+      },
     },
   );
 
@@ -67,4 +73,25 @@ const TimeAndPackage: React.FC = () => {
 
 export default TimeAndPackage;
 
-// TODO: loading component
+export const LoadingTimeAndPackage: React.FC = () => {
+  return (
+    <section className={styles.wrapper}>
+      <div className={styles.titleWrapper}>
+        <h2>
+          시간 단위 <Skeleton width={100} />
+        </h2>
+        <span className={styles.reset}>초기화</span>
+      </div>
+      <LoadingTimePicker className={styles.timePicker} />
+      <h2>
+        패키지
+        <Skeleton width={100} />
+      </h2>
+      <div className={styles.packageMenu}>
+        {range(3).map((value) => (
+          <LoadingPriceSelectMenuItem key={value} className={styles.loadingPriceSelectMenu} />
+        ))}
+      </div>
+    </section>
+  );
+};

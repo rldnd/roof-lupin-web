@@ -10,7 +10,7 @@ $PRICE_DISABLE_CROSS_WIDTH: math.sqrt(calc(math.pow(44, 2) + math.pow(64, 2))) +
   max-width: 64px;
   height: 64px;
 
-  > button {
+  .button {
     @include m.flex(flex-start, flex-start, column);
     gap: 4px;
     width: 100%;

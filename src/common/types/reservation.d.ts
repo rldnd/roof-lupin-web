@@ -1,3 +1,5 @@
+import type { AdditionalServiceReservation } from "./service";
+
 export interface CreateReservationRentalType {
   /** 대여 id */
   rentalTypeId: string;
@@ -7,13 +9,6 @@ export interface CreateReservationRentalType {
   endAt: number;
 }
 
-export interface AdditionalServiceReservation {
-  /** 추가 서비스 아이디 */
-  id: string;
-  /** 추가 서비스 개수 */
-  count: number;
-}
-
 export interface CreateReservation {
   /** 예약 연도 */
   year: string;
@@ -21,6 +16,10 @@ export interface CreateReservation {
   month: string;
   /** 예약 일 */
   day: string;
+  /** 대표 이용자 이름 */
+  userName: string;
+  /** 대표 이용자 전화번호 */
+  userPhoneNumber: string;
   /** 이용 인원 */
   userCount: number;
   /** 예약 비용 */
@@ -33,8 +32,10 @@ export interface CreateReservation {
   rentalTypes: CreateReservationRentalType[];
   /** 공간 아이디 */
   spaceId: string;
+  /** 유저가 가지고 있는 쿠폰 IDs */
+  userCouponIds?: string[];
   /** 추가 서비스들 */
   additionalServices?: AdditionalServiceReservation[];
-  /** 승인결제 예약 id */
-  reservationId?: string;
+  /** 공간 id */
+  spaceId: string;
 }

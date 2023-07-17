@@ -30,14 +30,14 @@ export default async function SpaceReservationContainer({ params }: Props) {
           <SpaceInfo title={space.title} />
         </Suspense>
         <hr />
-        <Suspense fallback={null}>
-          <TimeAndPackage />
-        </Suspense>
+        <TimeAndPackage />
         <hr />
-        <Suspense fallback={null}>
-          <Service />
-        </Suspense>
-        <hr />
+        {space.additionalServices.length > 0 && (
+          <>
+            <Service additionalServices={space.additionalServices} />
+            <hr />
+          </>
+        )}
         <History />
         <ReservationButton />
       </main>

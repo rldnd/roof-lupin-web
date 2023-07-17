@@ -7,7 +7,7 @@ import type { Location } from "./location";
 import type { RefundPolicy } from "./refund";
 import type { PackageRentalType, TimeRentalType } from "./rentalType";
 import type { Review } from "./review";
-import type { Service } from "./service";
+import type { AdditionalService, Service } from "./service";
 import type { Size } from "./size";
 
 import { SPACE_SORT } from "../constants/space";
@@ -100,12 +100,14 @@ export interface SpaceDetail
   categories: SpaceCategory[];
   /** 해시태그 목록 */
   hashtags: Hashtag[];
-  /** 대중교통 목록 */
+  /** 대중교통 목록 */ s;
   publicTransportations: Transportation[];
   /** 공간 크기 목록 */
   sizes: Size[];
   /** 베스트 포토 */
   bestPhotos: BestPhoto[];
+  /** 추가 서비스 목록 */
+  additionalServices: AdditionalService[];
 }
 
 export interface SpaceRentalType {
