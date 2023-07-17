@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  width: 100%;
+
+  .totalDd {
+    @include m.fontButton1;
+    padding-top: 16px;
+    border-top: 1px solid var(--c-gray-200);
+  }
+
+  .totalDt {
+    padding-top: 16px;
+    border-top: 1px solid var(--c-gray-200);
+  }
+
+  :is(dt, dd):not(:first-of-type, :last-of-type) {
+    margin-top: 12px;
+  }
+
+  :is(dt, dd):nth-last-of-type(2) {
+    margin-bottom: 24px;
+  }
+}

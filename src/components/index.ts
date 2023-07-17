@@ -1,5 +1,6 @@
 export * from "./Common";
 export * from "./Space";
+export * from "./Reservation";
 
 export { default as AuthChecker } from "./AuthChecker";
 export { default as BackButton } from "./BackButton";

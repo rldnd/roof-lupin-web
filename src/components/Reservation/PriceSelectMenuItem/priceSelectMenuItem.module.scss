@@ -1,0 +1,66 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  > label {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    cursor: pointer;
+    background-color: var(--c-gray-100);
+    border-radius: 8px;
+
+    &:has(label > input:checked) {
+      background-color: var(--c-orange-bg);
+      border: 1px solid var(--c-roof-orange);
+    }
+
+    .name {
+      @include m.fontH4SemiBold;
+      @include m.makeEllipsis(2);
+      width: 100%;
+      color: var(--c-gray-900);
+      text-align: start;
+
+      .description {
+        @include m.fontBody1SemiBold;
+        margin-left: 8px;
+        color: var(--c-gray-500);
+      }
+    }
+
+    .price {
+      @include m.fontH4SemiBold;
+      width: 100%;
+      margin-left: auto;
+      overflow: visible;
+      color: var(--c-roof-orange);
+      white-space: nowrap;
+    }
+  }
+
+  &:disabled {
+    > label {
+      cursor: not-allowed;
+    }
+
+    label {
+      .name {
+        color: var(--c-gray-300);
+
+        .description {
+          color: var(--c-gray-300);
+        }
+      }
+
+      .price {
+        color: var(--c-gray-300);
+      }
+    }
+  }
+}

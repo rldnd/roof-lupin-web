@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  > h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 6px;
+    color: var(--c-black);
+  }
+
+  .description {
+    @include m.fontCaption;
+    color: var(--c-gray-500);
+  }
+
+  .list {
+    width: 100%;
+    padding-top: 24px;
+
+    li + li {
+      margin-top: 8px;
+    }
+  }
+}

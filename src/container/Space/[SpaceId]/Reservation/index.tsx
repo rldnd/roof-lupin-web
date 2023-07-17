@@ -2,7 +2,8 @@ import { Suspense } from "react";
 
 import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
 
-import { DataHandler, Header, SpaceInfo, TimeAndPackage } from "./_sections";
+import { DataHandler, Header, History, Service, SpaceInfo, TimeAndPackage } from "./_sections";
+import ReservationButton from "./_sections/ReservationButton";
 
 import styles from "./spaceReservationContainer.module.scss";
 
@@ -33,6 +34,12 @@ export default async function SpaceReservationContainer({ params }: Props) {
           <TimeAndPackage />
         </Suspense>
         <hr />
+        <Suspense fallback={null}>
+          <Service />
+        </Suspense>
+        <hr />
+        <History />
+        <ReservationButton />
       </main>
       <Suspense fallback={null}>
         <DataHandler />

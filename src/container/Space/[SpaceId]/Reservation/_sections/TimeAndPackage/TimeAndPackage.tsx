@@ -5,8 +5,7 @@ import { useParams } from "next/navigation";
 import { useAtomValue } from "jotai";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
-import { TimePicker } from "@/components";
-import MenuItem from "@/components/MenuItem";
+import { PriceSelectMenuItem, TimePicker } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
@@ -50,7 +49,13 @@ const TimeAndPackage: React.FC = () => {
           <menu className={styles.packageMenu}>
             {rentalTypes.package.map((item) => (
               <li key={item.id}>
-                <MenuItem checked={false} disabled={false} />
+                <PriceSelectMenuItem
+                  price={item.baseCost}
+                  checked={true}
+                  disabled={false}
+                  name={item.name}
+                  description={`${item.startAt}시~${item.endAt}시`}
+                />
               </li>
             ))}
           </menu>

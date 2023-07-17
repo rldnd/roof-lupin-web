@@ -46,6 +46,12 @@
   line-height: 170%;
 }
 
+@mixin fontBody1Medium {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 170%;
+}
+
 @mixin fontBody1Regular {
   font-size: 14px;
   font-weight: 400;

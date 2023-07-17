@@ -1,0 +1,14 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.dt {
+  @include m.fontBody1Regular;
+  width: 100%;
+  color: var(--c-gray-600);
+}
+
+.dd {
+  @include m.fontBody1Medium;
+  width: 100%;
+  text-align: right;
+}

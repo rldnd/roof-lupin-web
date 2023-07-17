@@ -2,36 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  position: relative;
+  @include m.flex(flex-start);
+  gap: 1px;
   width: 100%;
-
-  .left {
-    @include m.flex;
-    @include m.absolute(16px auto auto -2px);
-    width: 14px;
-    height: 14px;
-    border: 0.875px solid var(--c-gray-300);
-    border-radius: 50%;
-    transform: translateX(-100%);
-  }
-
-  .menu {
-    @include m.flex(flex-start);
-    gap: 1px;
-    width: 100%;
-  }
-
-  .right {
-    @include m.flex;
-    @include m.absolute(16px -2px auto auto);
-    width: 14px;
-    height: 14px;
-    border: 0.875px solid var(--c-gray-300);
-    border-radius: 50%;
-    transform: translateX(100%);
-
-    > svg {
-      transform: rotate(180deg);
-    }
-  }
 }
