@@ -19,6 +19,7 @@ export async function generateStaticParams() {
   }));
 }
 
+// TODO: spaceInfo => 날짜 변경
 export default async function SpaceReservationContainer({ params }: Props) {
   const space = await getSpaceApi(params.spaceId);
 

@@ -2,7 +2,7 @@
 
 import { notFound, useParams } from "next/navigation";
 
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
@@ -16,10 +16,13 @@ import { reservationState } from "@/states/reservation";
 
 import styles from "./timeAndPackage.module.scss";
 
+// TODO: enabled에서 isLogined 제외하고, 추후 errorBoundary로 대체
 const TimeAndPackage: React.FC = () => {
   const { spaceId } = useParams();
   const { isLogined } = useMe();
-  const { year, month, day } = useAtomValue(reservationState);
+
+  const [reservation, setReservation] = useAtom(reservationState);
+  const { year, month, day } = reservation;
 
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
     ["getSpaceRentalTypePossible", year, month, day],
