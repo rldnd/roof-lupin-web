@@ -37,6 +37,7 @@ export interface AddMarkersParameter {
 
 export interface DeleteMarkerParameter {
   action: "deleteMarker";
+  location: Pick<Location, "lat" | "lng">;
 }
 
 export interface ClearMarkersParameter {
@@ -44,7 +45,7 @@ export interface ClearMarkersParameter {
 }
 
 export type ActionOmitter<T> = Omit<T, "action">;
-export type BaseNaverMapEventParameter<T> = T & {
+export type BaseNaverMapEventParameter<T = object> = T & {
   mapId: string;
 };
 

@@ -1,6 +1,13 @@
 import { useCallback } from "react";
 
-import type { ActionOmitter, AddMarkerParameter, AddMarkersParameter, MoveCenterParameter } from "./types";
+import type {
+  ActionOmitter,
+  AddMarkerParameter,
+  AddMarkersParameter,
+  ClearMarkersParameter,
+  DeleteMarkerParameter,
+  MoveCenterParameter,
+} from "./types";
 
 import naverMapEventEmitter from "./NaverMapEventEmitter";
 
@@ -9,6 +16,8 @@ type ReturnUseNaverMap = {
   moveCenter(position: ActionOmitter<MoveCenterParameter>): void;
   addMarker(data: ActionOmitter<AddMarkerParameter>): void;
   addMarkers(data: ActionOmitter<AddMarkersParameter>): void;
+  deleteMarker(data: ActionOmitter<DeleteMarkerParameter>): void;
+  clearMarkers(): void;
   destroy(): void;
 };
 
@@ -41,6 +50,17 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
     [mapId],
   );
 
+  const deleteMarker = useCallback(
+    (data: ActionOmitter<DeleteMarkerParameter>) => {
+      naverMapEventEmitter.deleteMarker({ ...data, mapId, action: "deleteMarker" });
+    },
+    [mapId],
+  );
+
+  const clearMarkers = useCallback(() => {
+    naverMapEventEmitter.clearMarkers({ mapId, action: "clearMarkers" });
+  }, [mapId]);
+
   const destroy = useCallback(() => {
     naverMapEventEmitter.destroy({ action: "destroy", mapId });
   }, [mapId]);
@@ -50,6 +70,8 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
     moveCenter,
     addMarker,
     addMarkers,
+    deleteMarker,
+    clearMarkers,
     destroy,
   };
 };

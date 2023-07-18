@@ -4,6 +4,8 @@ import type {
   AddMarkerParameter,
   AddMarkersParameter,
   BaseNaverMapEventParameter,
+  ClearMarkersParameter,
+  DeleteMarkerParameter,
   DestroyParameter,
   LoadParameter,
   MoveCenterParameter,
@@ -34,6 +36,14 @@ export class NaverMapEventEmitter extends EventEmitter {
   }
 
   addMarkers(data: BaseNaverMapEventParameter<AddMarkersParameter>) {
+    this.emit(this.eventName, data);
+  }
+
+  deleteMarker(data: BaseNaverMapEventParameter<DeleteMarkerParameter>) {
+    this.emit(this.eventName, data);
+  }
+
+  clearMarkers(data: BaseNaverMapEventParameter<ClearMarkersParameter>) {
     this.emit(this.eventName, data);
   }
 

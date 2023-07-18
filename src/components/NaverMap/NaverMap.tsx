@@ -8,6 +8,7 @@ import type {
   AddMarkerParameter,
   AddMarkersParameter,
   BaseNaverMapEventParameter,
+  DeleteMarkerParameter,
   LoadParameter,
   MarkerClickedCustomEvent,
   MarkerValue,
@@ -110,11 +111,11 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     if (!checkMapLoaded(mapController)) return;
 
     const mouseDownListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
-      window.dispatchEvent(new CustomEvent(MAP_CLICKED_EVENT_NAME));
+      window.dispatchEvent(new CustomEvent(`${MAP_CLICKED_EVENT_NAME}-${id}`));
     });
 
     listeners.current.push(mouseDownListener);
-  }, []);
+  }, [id]);
 
   // MEMO: 지도를 load하기 위한 emit 함수
   // MEMO: load가 되면 mapController.current에 지도의 controller가 할당된다.
@@ -166,7 +167,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
       const listener = marker.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
         window.dispatchEvent(
-          new CustomEvent<MarkerClickedCustomEvent>(MARKER_CLICKED_EVENT_NAME, {
+          new CustomEvent<MarkerClickedCustomEvent>(`${MARKER_CLICKED_EVENT_NAME}-${id}`, {
             detail: { location: { lat, lng }, spaceId: data.spaceId },
           }),
         );
@@ -177,17 +178,37 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [id],
   );
 
-  // TODO:
-  const deleteMarker = useCallback(() => {}, []);
+  const deleteMarker = useCallback(
+    (data: BaseNaverMapEventParameter<DeleteMarkerParameter>) => {
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
+      const { lat, lng } = data.location;
+      const marker = markers.current?.[getMarkerLocationObjectToString({ lat, lng })];
+      if (!marker) return;
 
-  // TODO:
-  const clearMarkers = useCallback(() => {}, []);
+      marker.marker.removeListener(marker.listener);
+      marker.marker.setMap(null);
+      delete markers.current[getMarkerLocationObjectToString({ lat, lng })];
+    },
+    [id],
+  );
+
+  const clearMarkers = useCallback(
+    (data: BaseNaverMapEventParameter) => {
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
+      Object.values(markers.current).forEach((item) => {
+        item.marker.removeListener(item.listener);
+        item.marker.setMap(null);
+      });
+      markers.current = {};
+    },
+    [id],
+  );
 
   // MEMO: 지도에 마커들을 추가하기 위한 emit 함수
   const addMarkers = useCallback(
     (data: BaseNaverMapEventParameter<AddMarkersParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
-      if (data.clearBeforeMarkers) clearMarkers();
+      if (data.clearBeforeMarkers) clearMarkers({ mapId: id });
       data.markers.forEach((item) => addMarker({ ...item, action: "addMarker", mapId: data.mapId }));
     },
     [addMarker, clearMarkers, id],
@@ -196,24 +217,28 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: 지도를 destroy 하기 위한 emit 함수
   // MEMO: mapController.current를 초기화한다.
   // MEMO: listeners를 모두 제거하며, atom에 해당 mapId를 키로 갖고 있는 값들을 모두 제거한다.
-  const destroy = useCallback(() => {
-    mapController.current?.removeListener(listeners.current);
-    mapController.current?.destroy();
-    mapController.current = undefined;
-    listeners.current = [];
+  const destroy = useCallback(
+    (data: BaseNaverMapEventParameter) => {
+      if (!checkIsTargetMap(data.mapId, id)) return;
+      mapController.current?.removeListener(listeners.current);
+      mapController.current?.destroy();
+      mapController.current = undefined;
+      listeners.current = [];
 
-    Object.values(markers.current).forEach(({ marker, listener }) => {
-      marker.removeListener(listener);
-      marker.setMap(null);
-    });
-    markers.current = {};
+      Object.values(markers.current).forEach(({ marker, listener }) => {
+        marker.removeListener(listener);
+        marker.setMap(null);
+      });
+      markers.current = {};
 
-    naverMapScript.current?.remove();
-    setMapCenter((prev) => deletePropertyInObject(prev, id));
-    setMapZoom((prev) => deletePropertyInObject(prev, id));
-    setMapSize((prev) => deletePropertyInObject(prev, id));
-    setClickedMapMarker((prev) => deletePropertyInObject(prev, id));
-  }, [id, setClickedMapMarker, setMapCenter, setMapSize, setMapZoom]);
+      naverMapScript.current?.remove();
+      setMapCenter((prev) => deletePropertyInObject(prev, id));
+      setMapZoom((prev) => deletePropertyInObject(prev, id));
+      setMapSize((prev) => deletePropertyInObject(prev, id));
+      setClickedMapMarker((prev) => deletePropertyInObject(prev, id));
+    },
+    [id, setClickedMapMarker, setMapCenter, setMapSize, setMapZoom],
+  );
 
   // MEMO: event emitter listener
   useClientEffect(() => {
@@ -222,7 +247,9 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (event.action === "moveCenter") moveCenter(event);
       if (event.action === "addMarker") addMarker(event);
       if (event.action === "addMarkers") addMarkers(event);
-      if (event.action === "destroy") destroy();
+      if (event.action === "destroy") destroy(event);
+      if (event.action === "deleteMarker") deleteMarker(event);
+      if (event.action === "clearMarkers") clearMarkers(event);
     };
 
     naverMapEventEmitter.addEventListener(callback);
@@ -272,12 +299,12 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     };
 
-    window.addEventListener(MARKER_CLICKED_EVENT_NAME, markerClickedHandler as EventListener);
-    window.addEventListener(MAP_CLICKED_EVENT_NAME, mapClickedHandler);
+    window.addEventListener(`${MARKER_CLICKED_EVENT_NAME}-${id}`, markerClickedHandler as EventListener);
+    window.addEventListener(`${MAP_CLICKED_EVENT_NAME}-${id}`, mapClickedHandler);
 
     return () => {
-      window.removeEventListener(MARKER_CLICKED_EVENT_NAME, markerClickedHandler as EventListener);
-      window.removeEventListener(MAP_CLICKED_EVENT_NAME, mapClickedHandler);
+      window.removeEventListener(`${MARKER_CLICKED_EVENT_NAME}-${id}`, markerClickedHandler as EventListener);
+      window.removeEventListener(`${MAP_CLICKED_EVENT_NAME}-${id}`, mapClickedHandler);
     };
   }, [clickedMapMarker, id, setClickedMapMarker]);
 
