@@ -2,10 +2,16 @@ import { atom } from "jotai";
 
 import type { Location } from "@/common/types/location";
 
+interface ClickedMapMarkerValue {
+  spaceId: string;
+  location: Pick<Location, "lat" | "lng">;
+}
+
 /** Record<mapId, Location> */
 export type MapCenter = Record<string, Pick<Location, "lat" | "lng">>;
 export type MapZoom = Record<string, number>;
 export type MapSize = Record<string, { width: number; height: number }>;
+export type ClickedMapMarker = Record<string, ClickedMapMarkerValue | null>;
 
 export const initialMapZoom: MapZoom = {};
 export const mapZoomState = atom<MapZoom>(initialMapZoom);
@@ -18,3 +24,6 @@ export const locationCategoryIdsState = atom<string[]>(initialLocationCategoryId
 
 export const initialMapSize: MapSize = {};
 export const mapSizeState = atom<MapSize>(initialMapSize);
+
+export const initialClickedMapMarker: ClickedMapMarker = {};
+export const clickedMapMarkerState = atom<ClickedMapMarker>(initialClickedMapMarker);

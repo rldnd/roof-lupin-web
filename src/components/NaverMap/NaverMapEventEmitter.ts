@@ -2,6 +2,7 @@ import EventEmitter from "events";
 
 import type {
   AddMarkerParameter,
+  AddMarkersParameter,
   BaseNaverMapEventParameter,
   DestroyParameter,
   LoadParameter,
@@ -28,8 +29,12 @@ export class NaverMapEventEmitter extends EventEmitter {
     this.emit(this.eventName, position);
   }
 
-  addMarker(position: BaseNaverMapEventParameter<AddMarkerParameter>) {
-    this.emit(this.eventName, position);
+  addMarker(data: BaseNaverMapEventParameter<AddMarkerParameter>) {
+    this.emit(this.eventName, data);
+  }
+
+  addMarkers(data: BaseNaverMapEventParameter<AddMarkersParameter>) {
+    this.emit(this.eventName, data);
   }
 
   destroy(info: BaseNaverMapEventParameter<DestroyParameter>) {

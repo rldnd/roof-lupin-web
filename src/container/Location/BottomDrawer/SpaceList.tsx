@@ -1,20 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useAtomValue } from "jotai";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
 import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
-import { useSuspenseInfiniteQuery } from "@/hooks";
+import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states/location";
 import { getDistance } from "@/utils/naverMap";
 
 import styles from "./spaceList.module.scss";
 
+const LIMIT = 10;
+
 const SpaceList: React.FC = () => {
+  // const {} = useNaverMap(LOCATION_PAGE_MAP_ID);
+
+  const spaceListRef = useRef<HTMLUListElement>(null);
   const [spaces, setSpaces] = useState<Space[]>([]);
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
@@ -33,7 +38,7 @@ const SpaceList: React.FC = () => {
     ({ pageParam = 1 }) =>
       paginateSpacesApi({
         page: pageParam,
-        limit: 10,
+        limit: LIMIT,
         categoryIds: locationCategoryIds.join(","),
         distance,
         ...mapCenter[LOCATION_PAGE_MAP_ID],
@@ -56,6 +61,7 @@ const SpaceList: React.FC = () => {
       hasNextPage={hasNextPage}
       isFetching={isFetching}
       isSuccess={isSuccess}
+      ref={spaceListRef}
     >
       {spaces.map((space) => (
         <SpaceDetailCard key={space.id} href={`/spaces/${space.id}`} space={space}>
