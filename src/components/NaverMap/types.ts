@@ -6,7 +6,7 @@ export type NaverMapEventAction =
   | "moveCenter"
   | "addMarker"
   | "addMarkers"
-  | "removeMarker"
+  | "deleteMarker"
   | "clearMarkers"
   | "destroy";
 
@@ -32,11 +32,11 @@ export interface AddMarkerParameter extends Pick<Location, "lat" | "lng"> {
 export interface AddMarkersParameter {
   action: "addMarkers";
   markers: Array<Omit<AddMarkerParameter, "action">>;
-  replaceDuplicateLocation: boolean;
+  clearBeforeMarkers?: boolean;
 }
 
-export interface RemoveMarkerParameter {
-  action: "removeMarker";
+export interface DeleteMarkerParameter {
+  action: "deleteMarker";
 }
 
 export interface ClearMarkersParameter {
@@ -54,7 +54,7 @@ export type NaverMapEventParameter = BaseNaverMapEventParameter<
   | MoveCenterParameter
   | AddMarkerParameter
   | AddMarkersParameter
-  | RemoveMarkerParameter
+  | DeleteMarkerParameter
   | ClearMarkersParameter
 >;
 

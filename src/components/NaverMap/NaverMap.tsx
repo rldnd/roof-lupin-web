@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useRef } from "react";
 
 import { useAtom, useSetAtom } from "jotai";
 
@@ -48,7 +48,6 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   // MEMO: Record<'${lat},${lng}', value>
   const markers = useRef<Record<string, MarkerValue>>({});
-  // const markerListeners = useRef<Record<string, naver.maps.MapEventListener>>({});
 
   // MEMO: 하단 3개의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
@@ -110,7 +109,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const addMouseDownListener = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
-    const mouseDownListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.MOUSE_DOWN, () => {
+    const mouseDownListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
       window.dispatchEvent(new CustomEvent(MAP_CLICKED_EVENT_NAME));
     });
 
@@ -165,7 +164,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         zIndex: MARKER_Z_INDEX,
       });
 
-      const listener = marker.addListener(NAVER_MAP_EVENT_NAME_MAPPER.MOUSE_DOWN, () => {
+      const listener = marker.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
         window.dispatchEvent(
           new CustomEvent<MarkerClickedCustomEvent>(MARKER_CLICKED_EVENT_NAME, {
             detail: { location: { lat, lng }, spaceId: data.spaceId },
@@ -178,20 +177,20 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [id],
   );
 
+  // TODO:
+  const deleteMarker = useCallback(() => {}, []);
+
+  // TODO:
+  const clearMarkers = useCallback(() => {}, []);
+
   // MEMO: 지도에 마커들을 추가하기 위한 emit 함수
   const addMarkers = useCallback(
     (data: BaseNaverMapEventParameter<AddMarkersParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
-      const markerList = data.markers.map(
-        (marker) =>
-          new naver.maps.Marker({
-            position: { lat: Number(marker.lat), lng: Number(marker.lng) },
-            map: mapController.current,
-            clickable: true,
-          }),
-      );
+      if (data.clearBeforeMarkers) clearMarkers();
+      data.markers.forEach((item) => addMarker({ ...item, action: "addMarker", mapId: data.mapId }));
     },
-    [id],
+    [addMarker, clearMarkers, id],
   );
 
   // MEMO: 지도를 destroy 하기 위한 emit 함수
@@ -233,6 +232,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   }, [addMarker, addMarkers, destroy, id, load, moveCenter]);
 
   useClientEffect(() => {
+    // MEMO: 마커를 클릭할 시 이미 활성화 되어있는 마커가 있는 경우 해당 마커를 원복시키고, 클릭한 마커를 활성화 시킨다.
     const markerClickedHandler = (event: CustomEvent<MarkerClickedCustomEvent>) => {
       const { location, spaceId } = event.detail;
       const { lat, lng } = location;
@@ -260,6 +260,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       }));
     };
 
+    // MEMO: 마커가 아닌 지도를 클릭 시 활성화 되어있는 마커를 원복시킨다.
     const mapClickedHandler = () => {
       const prevClickedMapMarker = clickedMapMarker?.[id];
       if (!prevClickedMapMarker) return;
@@ -279,8 +280,6 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       window.removeEventListener(MAP_CLICKED_EVENT_NAME, mapClickedHandler);
     };
   }, [clickedMapMarker, id, setClickedMapMarker]);
-
-  useEffect(() => {}, [clickedMapMarker, id, setClickedMapMarker]);
 
   return <div id={id} style={{ width, height }} className={className} />;
 };
