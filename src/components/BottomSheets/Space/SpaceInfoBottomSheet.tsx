@@ -23,15 +23,6 @@ const SpaceInfoBottomSheet: React.FC<Props> = ({ isShow, onClose, space }) => {
       blockWindowScroll
       title={space.title}
     >
-      <ul>
-        {space.hashtags.map((tag) => (
-          <li key={tag.id}>
-            <Tag size="big" type="bw">
-              {tag.name}
-            </Tag>
-          </li>
-        ))}
-      </ul>
       <p>{space.description}</p>
     </BaseBottomSheet>
   );

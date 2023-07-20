@@ -14,6 +14,12 @@ export interface AdditionalService {
   name: string;
   /** 추가 서비스 가격 */
   cost: number;
+  /** 추가 서비스 설명 */
+  description: string | null;
+  /** 추가 서비스 툴팁 */
+  tooltip: string | null;
+  /** 추가 서비스 최대 개수 */
+  maxCount: number | null;
 }
 
 export interface AdditionalServiceReservation {

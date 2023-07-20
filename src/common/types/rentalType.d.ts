@@ -61,6 +61,8 @@ export interface TimeRentalType {
 export interface PackageRentalType {
   /** 최소가격 */
   minPrice: number;
+  /** 최대가격 */
+  maxPrice: number;
   /** 상세 요금 (더보기) */
   rentalTypes: RentalType[];
 }

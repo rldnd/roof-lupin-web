@@ -1,7 +1,6 @@
 import type { Building } from "./building";
 import type { Caution } from "./caution";
 import type { ImageDTO } from "./common";
-import type { Hashtag } from "./hashtag";
 import type { Host } from "./host";
 import type { Location } from "./location";
 import type { RefundPolicy } from "./refund";
@@ -98,9 +97,7 @@ export interface SpaceDetail
   services: Service[];
   /** 공간 카테고리 목록 */
   categories: SpaceCategory[];
-  /** 해시태그 목록 */
-  hashtags: Hashtag[];
-  /** 대중교통 목록 */ s;
+  /** 대중교통 목록 */
   publicTransportations: Transportation[];
   /** 공간 크기 목록 */
   sizes: Size[];

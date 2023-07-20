@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Introduction: React.FC<Props> = ({ space }) => {
-  const { title, hashtags, description, averageScore, reviewCount, publicTransportations } = space;
+  const { title, description, averageScore, reviewCount, publicTransportations } = space;
 
   return (
     <section className={styles.wrapper}>
@@ -33,15 +33,6 @@ const Introduction: React.FC<Props> = ({ space }) => {
         </div>
         <CallButton />
       </div>
-      <ul>
-        {hashtags.map((tag) => (
-          <li key={tag.id}>
-            <Tag size="big" type="bw">
-              {tag.name}
-            </Tag>
-          </li>
-        ))}
-      </ul>
       <p className={styles.desc} id="space-detail-description">
         {description}
         <IntroductionMoreButton space={space} />

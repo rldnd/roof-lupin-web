@@ -29,9 +29,9 @@ const TimeAndPackage: React.FC = () => {
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
-      onSuccess: (data) => {
-        if (!data.time && data.package.length === 0) notFound();
-      },
+      // onSuccess: (data) => {
+      //   if (!data.time && data.package.length === 0) notFound();
+      // },
     },
   );
 
