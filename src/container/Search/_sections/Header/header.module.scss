@@ -1,0 +1,19 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex;
+  width: 100%;
+  height: c.$S_SEARCH_HEADER_HEIGHT;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 0 calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
+
+  .backButton {
+    @include m.flex;
+    width: 40px;
+    height: 40px;
+  }
+
+  .searchInput {
+    flex: 1;
+  }
+}

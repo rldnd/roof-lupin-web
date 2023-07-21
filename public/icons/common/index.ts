@@ -23,3 +23,5 @@ export { default as IconGrayBottomChevron } from "./gray-bottom-chevron.svg";
 export { default as IconThreeDotsLarge } from "./three-dots-large.svg";
 export { default as IconWhiteRightChevron } from "./white-right-chevron.svg";
 export { default as IconLeftChevronSmall } from "./left-chevron-small.svg";
+export { default as IconBlackLeftChevronExtraLarge } from "./black-left-chevron-extra-large.svg";
+export { default as IconGraySearch } from "./gray-search.svg";

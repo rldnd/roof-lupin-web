@@ -1,0 +1,39 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$SEARCH_BUTTON_WIDTH: 36px;
+$SEARCH_BUTTON_HEIGHT: 36px;
+
+.wrapper {
+  @include m.flex(space-between);
+  position: relative;
+  padding: 8px calc(8px + $SEARCH_BUTTON_WIDTH + 8px) 8px 16px;
+  background-color: var(--c-gray-150);
+  border-radius: 16px;
+
+  > input {
+    @include m.fontBody1SemiBold;
+    @include m.makeEllipsis;
+    width: 100%;
+    color: var(--c-gray-900);
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    caret-color: var(--c-roof-orange);
+
+    &::placeholder {
+      color: var(--c-gray-500);
+    }
+
+    &[placeholder] {
+      @include m.makeEllipsis;
+    }
+  }
+
+  .searchButton {
+    @include m.absolute(50% 8px auto auto);
+    width: $SEARCH_BUTTON_WIDTH;
+    height: $SEARCH_BUTTON_HEIGHT;
+    transform: translateY(-50%);
+  }
+}
