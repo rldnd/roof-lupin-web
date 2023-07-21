@@ -57,6 +57,17 @@ $PRICE_DISABLE_CROSS_WIDTH: math.sqrt(calc(math.pow(44, 2) + math.pow(64, 2))) +
       }
     }
 
+    &.active {
+      .priceWrapper {
+        color: var(--c-white);
+        background-color: var(--c-roof-orange);
+      }
+
+      time {
+        color: var(--c-roof-orange);
+      }
+    }
+
     time {
       @include m.fontCaptionSemiBold;
       color: var(--c-gray-400);

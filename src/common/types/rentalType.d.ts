@@ -1,4 +1,5 @@
 import type { Day } from "./common";
+import type { AdditionalService } from "./service";
 
 export interface TimeCostInfo {
   /** 시간별 가격 */
@@ -74,12 +75,15 @@ export interface PossibleTimeCostInfo extends TimeCostInfo {
 export interface PossibleTime extends Omit<BaseTimeRentalType, "timeCostInfos"> {
   day: Day;
   timeCostInfos: PossibleTimeCostInfo[];
+  additionalServices: AdditionalService[];
 }
 
 export interface PossiblePackage extends BasePackageRentalType {
   /** 기본 시간 */
   baseHour: number | null;
   day: Day;
+  isPossible: boolean;
+  additionalServices: AdditionalService[];
 }
 
 export interface PossibleRentalTypes {

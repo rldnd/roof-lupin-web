@@ -7,6 +7,8 @@ export interface CreateReservationRentalType {
   startAt: number;
   /** 대여 종료 시간 */
   endAt: number;
+  /** 추가 서비스들 */
+  additionalServices?: AdditionalServiceReservation[];
 }
 
 export interface CreateReservation {
@@ -34,8 +36,6 @@ export interface CreateReservation {
   spaceId: string;
   /** 유저가 가지고 있는 쿠폰 IDs */
   userCouponIds?: string[];
-  /** 추가 서비스들 */
-  additionalServices?: AdditionalServiceReservation[];
   /** 공간 id */
   spaceId: string;
 }
