@@ -1,4 +1,4 @@
-import { Header, RecentSearch } from "./_sections";
+import { Header, RecentSearch, RecentSpace, RecommendSearch } from "./_sections";
 
 import styles from "./searchContainer.module.scss";
 
@@ -7,8 +7,8 @@ const SearchContainer: React.FC = () => {
     <main className={styles.wrapper}>
       <Header />
       <RecentSearch />
-      <section className={styles.recommendSearch}></section>
-      <section className={styles.recentSpace}></section>
+      <RecommendSearch />
+      <RecentSpace />
     </main>
   );
 };

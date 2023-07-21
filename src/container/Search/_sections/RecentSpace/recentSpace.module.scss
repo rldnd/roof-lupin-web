@@ -1,0 +1,12 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.fontH4SemiBold;
+    color: var(--c-gray-900);
+  }
+}
