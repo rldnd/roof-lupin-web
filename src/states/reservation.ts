@@ -19,8 +19,9 @@ export interface ReservationTime extends Nullable<Omit<CreateReservationRentalTy
   cost: number | null;
 }
 
-export interface ReservationPackage extends Nullable<Omit<CreateReservationRentalType, "additionalServices">> {
-  name: string | null;
+export interface ReservationPackage extends Omit<CreateReservationRentalType, "additionalServices"> {
+  name: string;
+  baseCost: number;
 }
 
 export const initialReservation: Reservation = {
@@ -43,13 +44,6 @@ export const initialReservationTime: ReservationTime = {
   startAt: null,
   endAt: null,
   cost: null,
-};
-
-export const initialReservationPackage: ReservationPackage = {
-  name: null,
-  endAt: null,
-  rentalTypeId: null,
-  startAt: null,
 };
 
 /** 예약 및 결제에서 쓰이는 정보 */

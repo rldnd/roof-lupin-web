@@ -4,7 +4,7 @@ import { ChangeEventHandler, MouseEventHandler } from "react";
 
 import { useParams } from "next/navigation";
 
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
@@ -35,10 +35,10 @@ const TimeAndPackage: React.FC = () => {
   const { spaceId } = useParams();
   const { isLogined } = useMe();
 
-  const [reservation, setReservation] = useAtom(reservationState);
+  const reservation = useAtomValue(reservationState);
   const [reservationTime, setReservationTime] = useAtom(reservationTimeState);
   const [reservationPackage, setReservationPackage] = useAtom(reservationPackageState);
-  const [reservationAdditionalServices, setReservationAdditionalServices] = useAtom(reservationAdditionalServicesState);
+  const setReservationAdditionalServices = useSetAtom(reservationAdditionalServicesState);
 
   const { year, month, day } = reservation;
 
@@ -92,7 +92,7 @@ const TimeAndPackage: React.FC = () => {
         (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
         0,
       );
-      setReservationTime((prev) => ({ ...prev, endAt: hour, cost }));
+      setReservationTime((prev) => ({ ...prev, endAt: hour + 1, cost }));
       setReservationAdditionalServices({
         [reservationTime.rentalTypeId as string]:
           rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>((item) => ({ ...item, count: 0 })),
@@ -109,8 +109,8 @@ const TimeAndPackage: React.FC = () => {
     if (checked) {
       const checkedItem = rentalTypes.package.find((item) => item.id === value);
       if (checkedItem) {
-        const { id, name, startAt, endAt } = checkedItem;
-        setReservationPackage((prev) => [...prev, { rentalTypeId: id, name, startAt, endAt }]);
+        const { id, name, startAt, endAt, baseCost } = checkedItem;
+        setReservationPackage((prev) => [...prev, { rentalTypeId: id, name, startAt, endAt, baseCost }]);
         setReservationAdditionalServices((prev) => ({
           ...prev,
           [id]: checkedItem.additionalServices.map((item) => ({ ...item, count: 0 })),

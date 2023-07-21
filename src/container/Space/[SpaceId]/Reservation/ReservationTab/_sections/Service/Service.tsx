@@ -19,7 +19,7 @@ const Service: React.FC = () => {
       Object.entries(prev).reduce(
         (acc, [id, services]) => ({
           ...acc,
-          [id]: services.map((service) => (service.id === value ? { ...service, count: checked } : service)),
+          [id]: services.map((service) => (service.id === value ? { ...service, count: checked ? 1 : 0 } : service)),
         }),
         {},
       ),
@@ -34,7 +34,7 @@ const Service: React.FC = () => {
         <h2>부가 서비스</h2>
         <span className={styles.description}>상품 이용 조건을 잘 확인해주세요!</span>
         <menu className={styles.list}>
-          {Object.entries(reservationAdditionalServices).map(([id, services]) =>
+          {Object.values(reservationAdditionalServices).map((services) =>
             services.map((service) => (
               <li key={service.id}>
                 <PriceSelectMenuItem
