@@ -18,6 +18,11 @@
     contrast(91%);
 }
 
+@mixin filterGray500 {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(7%) saturate(6%) hue-rotate(333deg) brightness(92%)
+    contrast(93%);
+}
+
 @mixin filterGray400 {
   filter: brightness(0) saturate(100%) invert(89%) sepia(0%) saturate(1992%) hue-rotate(57deg) brightness(85%)
     contrast(94%);

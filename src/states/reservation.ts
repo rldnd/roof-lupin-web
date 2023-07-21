@@ -4,6 +4,8 @@ import type { CreateReservation, CreateReservationRentalType } from "@/common/ty
 import type { AdditionalService } from "@/common/types/service";
 import type { Nullable } from "@/utils/types";
 
+type Tab = "reservation" | "payment";
+
 export interface Reservation extends Nullable<CreateReservation> {}
 
 export interface BaseReservationAdditionalService extends AdditionalService {
@@ -46,6 +48,8 @@ export const initialReservationTime: ReservationTime = {
   cost: null,
 };
 
+export const reservationTabState = atom<Tab>("reservation");
+
 /** 예약 및 결제에서 쓰이는 정보 */
 export const reservationState = atom<Reservation>(initialReservation);
 /** 추가 가능한 부가 서비스들 리스트 + count를 여기에 적용 */
@@ -54,3 +58,5 @@ export const reservationAdditionalServicesState = atom<ReservationAdditionalServ
 export const reservationTimeState = atom<ReservationTime>(initialReservationTime);
 /** 선택한 패키지 리스트 */
 export const reservationPackageState = atom<ReservationPackage[]>([]);
+/** 보증금 내용 확인 여부 */
+export const reservationDepositConfirmState = atom<boolean>(false);

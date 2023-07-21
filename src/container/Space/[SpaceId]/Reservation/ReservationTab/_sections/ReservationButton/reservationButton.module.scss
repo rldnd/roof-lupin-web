@@ -3,5 +3,6 @@
 
 .wrapper {
   width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
-  margin: 56px 0 100px c.$S_PAGE_HORIZONTAL_PADDING;
+  margin-bottom: 120px;
+  margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
 }

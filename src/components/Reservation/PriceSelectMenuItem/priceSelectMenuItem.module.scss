@@ -23,12 +23,13 @@
 
     .info {
       @include m.flex(flex-start, flex-start, column);
+      @include m.makeEllipsis;
       gap: 4px;
       width: 100%;
 
       .name {
         @include m.fontH4SemiBold;
-        @include m.makeEllipsis(2);
+        @include m.makeEllipsis;
         width: 100%;
         color: var(--c-gray-900);
         text-align: start;
@@ -36,7 +37,10 @@
 
       .description {
         @include m.fontCaptionSemiBold;
+        @include m.makeEllipsis;
+        width: 100%;
         color: var(--c-gray-500);
+        text-align: start;
       }
     }
 

@@ -1,6 +1,15 @@
 import { Suspense } from "react";
 
-import { DataHandler, Header, History, LoadingSpaceInfo, Service, SpaceInfo, TimeAndPackage } from "./_sections";
+import {
+  DataHandler,
+  Deposit,
+  Header,
+  History,
+  LoadingSpaceInfo,
+  Service,
+  SpaceInfo,
+  TimeAndPackage,
+} from "./_sections";
 import ReservationButton from "./_sections/ReservationButton";
 
 import styles from "./reservationTab.module.scss";
@@ -19,6 +28,7 @@ const ReservationTab: React.FC = () => {
         <hr />
         <Service />
         <History />
+        <Deposit />
         <ReservationButton />
       </main>
       <Suspense fallback={null}>

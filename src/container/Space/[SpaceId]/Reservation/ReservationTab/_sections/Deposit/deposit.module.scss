@@ -1,0 +1,56 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 24px;
+  margin: 72px 0 46px;
+  background-color: var(--c-gray-100);
+
+  .titleWrapper {
+    @include m.flex(flex-start);
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+
+    h2 {
+      @include m.fontH3SemiBold;
+      color: gray-900;
+
+      strong {
+        color: var(--c-roof-orange);
+      }
+    }
+
+    button {
+      @include m.flex;
+
+      svg {
+        @include m.filterGray500;
+      }
+    }
+  }
+
+  p {
+    @include m.fontCaption;
+    margin-bottom: 16px;
+    color: var(--c-gray-700);
+  }
+
+  .checkbox {
+    &:has(input:not(:checked)) {
+      span:first-of-type > span > svg {
+        @include m.filterGray500;
+      }
+    }
+
+    span:first-of-type > span {
+      border-color: var(--c-gray-500);
+    }
+
+    span:last-of-type {
+      @include m.fontBody1SemiBold;
+      color: var(--c-gray-500);
+    }
+  }
+}

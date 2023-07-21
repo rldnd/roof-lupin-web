@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useAtomValue } from "jotai";
+
+import { reservationTabState } from "@/states/reservation";
 
 import ReservationTab from "./ReservationTab";
 
-type Tab = "reservation" | "payment";
-
 const SpaceReservationContainer: React.FC = () => {
-  const [tab, setTab] = useState<Tab>("reservation");
+  const tab = useAtomValue(reservationTabState);
 
   return <>{tab === "reservation" && <ReservationTab />}</>;
 };
