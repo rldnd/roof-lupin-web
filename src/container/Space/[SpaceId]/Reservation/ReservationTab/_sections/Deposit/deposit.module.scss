@@ -52,5 +52,9 @@
       @include m.fontBody1SemiBold;
       color: var(--c-gray-500);
     }
+
+    &:has(input:checked) span:last-of-type {
+      color: var(--c-roof-orange);
+    }
   }
 }
