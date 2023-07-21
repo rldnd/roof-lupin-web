@@ -1,50 +1,15 @@
-import { Suspense } from "react";
+"use client";
 
-import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
+import { useState } from "react";
 
-import { DataHandler, Header, History, Service, SpaceInfo, TimeAndPackage } from "./_sections";
-import ReservationButton from "./_sections/ReservationButton";
+import ReservationTab from "./ReservationTab";
 
-import styles from "./spaceReservationContainer.module.scss";
+type Tab = "reservation" | "payment";
 
-interface Props {
-  params: { spaceId: string };
-}
+const SpaceReservationContainer: React.FC = () => {
+  const [tab, setTab] = useState<Tab>("reservation");
 
-export async function generateStaticParams() {
-  const { ids } = await getSpaceIdsApi();
+  return <>{tab === "reservation" && <ReservationTab />}</>;
+};
 
-  return ids.map((id) => ({
-    spaceId: id,
-  }));
-}
-
-// TODO: spaceInfo => 날짜 변경
-export default async function SpaceReservationContainer({ params }: Props) {
-  const space = await getSpaceApi(params.spaceId);
-
-  return (
-    <>
-      <main className={styles.wrapper}>
-        <Header />
-        <Suspense fallback={null}>
-          <SpaceInfo title={space.title} />
-        </Suspense>
-        <hr />
-        <TimeAndPackage />
-        <hr />
-        {space.additionalServices.length > 0 && (
-          <>
-            <Service additionalServices={space.additionalServices} />
-            <hr />
-          </>
-        )}
-        <History />
-        <ReservationButton />
-      </main>
-      <Suspense fallback={null}>
-        <DataHandler />
-      </Suspense>
-    </>
-  );
-}
+export default SpaceReservationContainer;

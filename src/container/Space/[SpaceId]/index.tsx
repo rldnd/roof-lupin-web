@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
-import { getSpaceApi, getSpaceIdsApi } from "@/services/space";
+import { getServerSpaceApi, getSpaceIdsApi } from "@/services/space";
 
 import {
   BestPhoto,
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 // TODO: 판매자 정보 구현
 // TODO: 카테고리 필터와 싱크 맞추기
 export default async function SpaceDetailContainer({ params }: Props) {
-  const spacePromise = getSpaceApi(params.spaceId);
+  const spacePromise = getServerSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
 
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);

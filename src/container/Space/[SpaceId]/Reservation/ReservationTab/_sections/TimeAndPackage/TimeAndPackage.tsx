@@ -1,18 +1,23 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import { useAtom } from "jotai";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
-import { LoadingPriceSelectMenuItem, PriceSelectMenuItem, TimePicker } from "@/components";
-import { LoadingTimePicker } from "@/components/TimePicker";
+import {
+  LoadingPriceSelectMenuItem,
+  LoadingReservationTimePicker,
+  PriceSelectMenuItem,
+  ReservationTimePicker,
+} from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { reservationState } from "@/states/reservation";
+import { formatHourToAHHMM } from "@/utils/date";
 
 import styles from "./timeAndPackage.module.scss";
 
@@ -29,11 +34,13 @@ const TimeAndPackage: React.FC = () => {
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
-      // onSuccess: (data) => {
-      //   if (!data.time && data.package.length === 0) notFound();
-      // },
+      onSuccess: (data) => {
+        if (!data.time && data.package.length === 0) throw Error("예약 가능한 날짜가 아닙니다.");
+      },
     },
   );
+
+  if (!year || !month || !day) return <LoadingTimeAndPackage />;
 
   return (
     <section className={styles.wrapper}>
@@ -47,7 +54,7 @@ const TimeAndPackage: React.FC = () => {
               초기화
             </button>
           </div>
-          <TimePicker infos={rentalTypes.time?.timeCostInfos} className={styles.timePicker} />
+          <ReservationTimePicker infos={rentalTypes.time?.timeCostInfos} className={styles.timePicker} />
         </>
       )}
       {rentalTypes?.package?.length > 0 && (
@@ -63,7 +70,7 @@ const TimeAndPackage: React.FC = () => {
                   checked={true}
                   disabled={false}
                   name={item.name}
-                  description={`${item.startAt}시~${item.endAt}시`}
+                  description={`${formatHourToAHHMM(item.startAt)}시~${formatHourToAHHMM(item.endAt)}시`}
                 />
               </li>
             ))}
@@ -85,7 +92,7 @@ export const LoadingTimeAndPackage: React.FC = () => {
         </h2>
         <span className={styles.reset}>초기화</span>
       </div>
-      <LoadingTimePicker className={styles.timePicker} />
+      <LoadingReservationTimePicker className={styles.timePicker} />
       <h2>
         패키지
         <Skeleton width={100} />

@@ -4,13 +4,13 @@ import Skeleton from "react-loading-skeleton";
 
 import type { PossibleTimeCostInfo } from "@/common/types/rentalType";
 
-import styles from "./timePickerItem.module.scss";
+import styles from "./reservationTimePickerItem.module.scss";
 
 interface Props {
   info: PossibleTimeCostInfo;
 }
 
-const TimePickerItem: React.FC<Props> = ({ info }) => {
+const ReservationTimePickerItem: React.FC<Props> = ({ info }) => {
   return (
     <li className={styles.wrapper}>
       <button type="button" disabled={!info.isPossible} className={styles.button}>
@@ -21,9 +21,9 @@ const TimePickerItem: React.FC<Props> = ({ info }) => {
   );
 };
 
-export default TimePickerItem;
+export default ReservationTimePickerItem;
 
-export const LoadingTimePickerItem: React.FC<{ time: number }> = ({ time }) => {
+export const LoadingReservationTimePickerItem: React.FC<{ time: number }> = ({ time }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.button}>

@@ -14,8 +14,10 @@ const Checkbox: React.FC<Props> = ({ className, children, ...props }) => {
   return (
     <label className={cx(styles.wrapper, className)}>
       <input {...props} type="checkbox" hidden />
-      <span className={styles.checkbox}>
-        <IconCheck />
+      <span className={styles.checkboxWrapper}>
+        <span className={styles.checkbox}>
+          <IconCheck />
+        </span>
       </span>
       {children && <span className={styles.children}>{children}</span>}
     </label>

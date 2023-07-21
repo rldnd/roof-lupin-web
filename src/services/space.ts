@@ -33,8 +33,11 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
 export const getSpaceIdsApi = () => fetchClient<{ ids: string[] }>("/spaces/ids", { tags: ["spaces", "/spaces/ids"] });
 
 /** [SERVER ISR] 공간 상세 조회하기 */
-export const getSpaceApi = (spaceId: string) =>
+export const getServerSpaceApi = (spaceId: string) =>
   fetchClient<SpaceDetail>(`/spaces/${spaceId}/detail`, { tags: ["spaces", `/spaces/${spaceId}/detail`] });
+
+/** [CLIENT] 공간 상세 조회하기 */
+export const getClientSpaceApi = (spaceId: string) => apiClient.get<SpaceDetail>(`/spaces/${spaceId}/detail`);
 
 /** [CLIENT] 공간 찜 생성하기 */
 export const createSpaceInterestApi = (spaceId: string) => apiClient.post(`/spaces/${spaceId}/interest`);

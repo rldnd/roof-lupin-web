@@ -8,4 +8,3 @@ export { default as SafeArea } from "./SafeArea";
 export { default as HorizonDraggable } from "./HorizonDraggable";
 export { default as InfiniteScroll } from "./InfiniteScroll";
 export { default as PlatformButton } from "./PlatformButton";
-export { default as TimePicker } from "./TimePicker";

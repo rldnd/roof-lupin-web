@@ -20,16 +20,21 @@
       border: 1px solid var(--c-roof-orange);
     }
 
-    .name {
-      @include m.fontH4SemiBold;
-      @include m.makeEllipsis(2);
+    .info {
+      @include m.flex(flex-start, flex-start, column);
+      gap: 4px;
       width: 100%;
-      color: var(--c-gray-900);
-      text-align: start;
+
+      .name {
+        @include m.fontH4SemiBold;
+        @include m.makeEllipsis(2);
+        width: 100%;
+        color: var(--c-gray-900);
+        text-align: start;
+      }
 
       .description {
-        @include m.fontBody1SemiBold;
-        margin-left: 8px;
+        @include m.fontCaptionSemiBold;
         color: var(--c-gray-500);
       }
     }
@@ -50,8 +55,10 @@
     }
 
     label {
-      .name {
-        color: var(--c-gray-300);
+      .info {
+        .name {
+          color: var(--c-gray-300);
+        }
 
         .description {
           color: var(--c-gray-300);

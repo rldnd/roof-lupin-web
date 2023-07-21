@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { notFound, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { useSetAtom } from "jotai";
 
@@ -19,7 +19,7 @@ const DataHandler: React.FC = () => {
   const userCount = searchParams.get("userCount");
 
   useEffect(() => {
-    if (!year || !month || !day || !userCount) notFound();
+    if (!year || !month || !day || !userCount) throw Error("잘못된 접근입니다.");
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount) }));
   }, [year, month, day, userCount, setReservation]);
 
