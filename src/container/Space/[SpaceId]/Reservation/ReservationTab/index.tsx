@@ -17,12 +17,7 @@ const ReservationTab: React.FC = () => {
         <hr />
         <TimeAndPackage />
         <hr />
-        {/* {space.additionalServices.length > 0 && (
-          <>
-            <Service />
-            <hr />
-          </>
-        )} */}
+        <Service />
         <History />
         <ReservationButton />
       </main>

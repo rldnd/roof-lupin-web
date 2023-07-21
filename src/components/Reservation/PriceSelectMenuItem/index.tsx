@@ -11,7 +11,7 @@ import styles from "./priceSelectMenuItem.module.scss";
 
 interface Props {
   checked: boolean;
-  disabled: boolean;
+  disabled?: boolean;
   price: number;
   name: string;
   value: string;
