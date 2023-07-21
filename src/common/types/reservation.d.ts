@@ -8,7 +8,7 @@ export interface CreateReservationRentalType {
   /** 대여 종료 시간 */
   endAt: number;
   /** 추가 서비스들 */
-  additionalServices?: AdditionalServiceReservation[];
+  additionalServices: AdditionalServiceReservation[];
 }
 
 export interface CreateReservation {

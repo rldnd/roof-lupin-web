@@ -13,6 +13,7 @@
     padding: 16px;
     cursor: pointer;
     background-color: var(--c-gray-100);
+    border: 1px solid transparent;
     border-radius: 8px;
 
     &:has(label > input:checked) {

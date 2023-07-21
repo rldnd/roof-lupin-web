@@ -6,15 +6,20 @@ import type { Nullable } from "@/utils/types";
 
 export interface Reservation extends Nullable<CreateReservation> {}
 
-export interface ReservationAdditionalService extends AdditionalService {
+export interface BaseReservationAdditionalService extends AdditionalService {
   count: number;
 }
 
-export interface ReservationTime extends Nullable<CreateReservationRentalType> {
+/** [rentalTypeKey]: BaseReservationAdditionalService[] */
+export interface ReservationAdditionalService {
+  [key: string]: BaseReservationAdditionalService[];
+}
+
+export interface ReservationTime extends Nullable<Omit<CreateReservationRentalType, "additionalServices">> {
   cost: number | null;
 }
 
-export interface ReservationPackage extends Nullable<CreateReservationRentalType> {
+export interface ReservationPackage extends Nullable<Omit<CreateReservationRentalType, "additionalServices">> {
   name: string | null;
 }
 
@@ -38,7 +43,6 @@ export const initialReservationTime: ReservationTime = {
   startAt: null,
   endAt: null,
   cost: null,
-  additionalServices: [],
 };
 
 export const initialReservationPackage: ReservationPackage = {
@@ -46,13 +50,12 @@ export const initialReservationPackage: ReservationPackage = {
   endAt: null,
   rentalTypeId: null,
   startAt: null,
-  additionalServices: [],
 };
 
 /** 예약 및 결제에서 쓰이는 정보 */
 export const reservationState = atom<Reservation>(initialReservation);
-/** 추가 가능한 부가 서비스들 리스트 */
-export const reservationAdditionalServicesState = atom<ReservationAdditionalService[]>([]);
+/** 추가 가능한 부가 서비스들 리스트 + count를 여기에 적용 */
+export const reservationAdditionalServicesState = atom<ReservationAdditionalService>({});
 /** 선택한 시간 */
 export const reservationTimeState = atom<ReservationTime>(initialReservationTime);
 /** 선택한 패키지 리스트 */

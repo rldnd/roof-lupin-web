@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEventHandler, useState } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -18,8 +18,15 @@ import {
 import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
-import { reservationPackageState, reservationState, reservationTimeState } from "@/states/reservation";
+import {
+  BaseReservationAdditionalService,
+  reservationAdditionalServicesState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states/reservation";
 import { formatHourToAHHMM } from "@/utils/date";
+import { deletePropertyInObject } from "@/utils/function";
 
 import styles from "./timeAndPackage.module.scss";
 
@@ -31,6 +38,7 @@ const TimeAndPackage: React.FC = () => {
   const [reservation, setReservation] = useAtom(reservationState);
   const [reservationTime, setReservationTime] = useAtom(reservationTimeState);
   const [reservationPackage, setReservationPackage] = useAtom(reservationPackageState);
+  const [reservationAdditionalServices, setReservationAdditionalServices] = useAtom(reservationAdditionalServicesState);
 
   const { year, month, day } = reservation;
 
@@ -46,8 +54,19 @@ const TimeAndPackage: React.FC = () => {
     },
   );
 
+  const handleResetTime = () => {
+    setReservationTime((prev) => ({ ...prev, startAt: null, endAt: null, cost: null }));
+    setReservationAdditionalServices((prev) => deletePropertyInObject(prev, reservationTime.rentalTypeId as string));
+  };
+
+  const handleResetPackage = () => {
+    setReservationPackage([]);
+    setReservationAdditionalServices({});
+  };
+
   const onClickTime: MouseEventHandler<HTMLButtonElement> = (e) => {
     if (!rentalTypes.time?.timeCostInfos) return;
+    handleResetPackage();
 
     const hour = Number(e.currentTarget.value);
     const [startIndex, clickedIndex] = [
@@ -64,14 +83,42 @@ const TimeAndPackage: React.FC = () => {
         (item, index) => index > startIndex && index < clickedIndex && !item.isPossible,
       );
 
+    // MEMO: 시작 시간을 선택하게 되는 경우
     if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd) || hasDisabledBetween) {
       setReservationTime((prev) => ({ ...prev, startAt: hour, endAt: null, cost: null }));
     } else {
+      //MEMO: 끝 시간을 선택하게 되는 경우
       const cost = rentalTypes.time.timeCostInfos.reduce<number>(
         (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
         0,
       );
       setReservationTime((prev) => ({ ...prev, endAt: hour, cost }));
+      setReservationAdditionalServices({
+        [reservationTime.rentalTypeId as string]:
+          rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>((item) => ({ ...item, count: 0 })),
+      });
+    }
+  };
+
+  const onChangePackage: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (!rentalTypes?.package) return;
+    handleResetTime();
+
+    const { checked, value } = e.currentTarget;
+
+    if (checked) {
+      const checkedItem = rentalTypes.package.find((item) => item.id === value);
+      if (checkedItem) {
+        const { id, name, startAt, endAt } = checkedItem;
+        setReservationPackage((prev) => [...prev, { rentalTypeId: id, name, startAt, endAt }]);
+        setReservationAdditionalServices((prev) => ({
+          ...prev,
+          [id]: checkedItem.additionalServices.map((item) => ({ ...item, count: 0 })),
+        }));
+      }
+    } else {
+      setReservationPackage((prev) => prev.filter((item) => item.rentalTypeId !== value));
+      setReservationAdditionalServices((prev) => deletePropertyInObject(prev, value));
     }
   };
 
@@ -85,11 +132,7 @@ const TimeAndPackage: React.FC = () => {
             <h2>
               시간 단위<small>최소 {rentalTypes?.time?.baseHour}시간 부터</small>
             </h2>
-            <button
-              type="button"
-              className={styles.reset}
-              onClick={() => setReservationTime((prev) => ({ ...prev, startAt: null, endAt: null }))}
-            >
+            <button type="button" className={styles.reset} onClick={handleResetTime}>
               초기화
             </button>
           </div>
@@ -112,9 +155,11 @@ const TimeAndPackage: React.FC = () => {
               <li key={item.id}>
                 <PriceSelectMenuItem
                   price={item.baseCost}
-                  checked={false}
+                  value={item.id}
+                  checked={Boolean(reservationPackage.find((packageItem) => packageItem.rentalTypeId === item.id))}
                   disabled={!item.isPossible}
                   name={item.name}
+                  onChange={onChangePackage}
                   description={`${formatHourToAHHMM(item.startAt)}시~${formatHourToAHHMM(item.endAt)}시`}
                 />
               </li>

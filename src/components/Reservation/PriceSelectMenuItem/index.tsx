@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { ChangeEventHandler, useId } from "react";
 
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
@@ -14,16 +14,18 @@ interface Props {
   disabled: boolean;
   price: number;
   name: string;
+  value: string;
   description?: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const PriceSelectMenuItem: React.FC<Props> = ({ checked, disabled, price, name, description }) => {
+const PriceSelectMenuItem: React.FC<Props> = ({ checked, disabled, price, name, description, onChange, value }) => {
   const id = useId();
 
   return (
     <button type="button" aria-describedby={id} className={styles.wrapper} disabled={disabled}>
       <label htmlFor={id}>
-        <Checkbox id={id} checked={checked} disabled={disabled} />
+        <Checkbox id={id} checked={checked} disabled={disabled} onChange={onChange} value={value} />
         <div className={styles.info}>
           <span className={styles.name}>{name}</span>
           {description && <span className={styles.description}>{description}</span>}
