@@ -1,13 +1,13 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
-$SEARCH_BUTTON_WIDTH: 36px;
-$SEARCH_BUTTON_HEIGHT: 36px;
+$BUTTON_WIDTH: 36px;
+$BUTTON_HEIGHT: 36px;
 
 .wrapper {
   @include m.flex(space-between);
   position: relative;
-  padding: 8px calc(8px + $SEARCH_BUTTON_WIDTH + 8px) 8px 16px;
+  padding: 8px calc(8px + $BUTTON_WIDTH + 8px) 8px 16px;
   background-color: var(--c-gray-150);
   border-radius: 16px;
 
@@ -30,10 +30,31 @@ $SEARCH_BUTTON_HEIGHT: 36px;
     }
   }
 
-  .searchButton {
+  &:has(input:placeholder-shown) {
+    .searchButton {
+      display: flex;
+    }
+
+    .clearButton {
+      display: none;
+    }
+  }
+
+  &:not(:has(input:placeholder-shown)) {
+    .searchButton {
+      display: none;
+    }
+
+    .clearButton {
+      display: flex;
+    }
+  }
+
+  > button {
     @include m.absolute(50% 8px auto auto);
-    width: $SEARCH_BUTTON_WIDTH;
-    height: $SEARCH_BUTTON_HEIGHT;
+    @include m.flex;
+    width: $BUTTON_WIDTH;
+    height: $BUTTON_HEIGHT;
     transform: translateY(-50%);
   }
 }
