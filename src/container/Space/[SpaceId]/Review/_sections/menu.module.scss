@@ -15,8 +15,8 @@
 
   .sortButton {
     @include m.flex(flex-start);
-    @include m.fontBody1Regular;
-    color: var(--c-gray-600);
+    @include m.fontBody1SemiBold;
+    color: var(--c-gray-500);
   }
 
   &.top {

@@ -36,21 +36,4 @@
     margin-bottom: 16px;
     color: var(--c-gray-700);
   }
-
-  .checkbox {
-    &:has(input:not(:checked)) {
-      span:first-of-type > span > svg {
-        @include m.filterGray500;
-      }
-    }
-
-    span:first-of-type > span {
-      border-color: var(--c-gray-500);
-    }
-
-    span:last-of-type {
-      @include m.fontBody1SemiBold;
-      color: var(--c-gray-500);
-    }
-  }
 }

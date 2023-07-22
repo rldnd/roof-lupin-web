@@ -15,7 +15,7 @@ import { useScrollDirection } from "@/hooks";
 import { initialReviewSortMenu, reviewSortMenuState } from "@/states";
 import { getBoolean } from "@/utils/json";
 
-import { IconBottomCaret } from "public/icons";
+import { IconGrayBottomCaret } from "public/icons";
 
 import styles from "./menu.module.scss";
 
@@ -63,7 +63,7 @@ const Menu: React.FC = () => {
         </Checkbox>
         <button type="button" className={styles.sortButton} onClick={onClickSortButton}>
           <span>{REVIEW_SORT_MAPPER[reviewSortMenu.sort]}</span>
-          <IconBottomCaret />
+          <IconGrayBottomCaret />
         </button>
       </menu>
       <ReviewSortBottomSheet isShow={isShowBottomSheet} onClose={() => setIsShowBottomSheet(false)} />

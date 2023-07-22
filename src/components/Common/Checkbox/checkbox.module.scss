@@ -16,18 +16,18 @@
       width: 16px;
       height: 16px;
       background-color: var(--c-white);
-      border: 1.3px solid var(--c-gray-400);
+      border: 1.3px solid var(--c-gray-500);
       border-radius: 1.3px;
 
       > svg {
-        @include m.filterGray400;
+        @include m.filterGray500;
       }
     }
   }
 
   .children {
-    @include m.fontBody1Regular;
-    color: var(--c-gray-600);
+    @include m.fontBody1SemiBold;
+    color: var(--c-gray-500);
   }
 
   &:has(.children) {
@@ -45,7 +45,6 @@
     }
 
     .children {
-      @include m.fontBody1SemiBold;
       color: var(--c-roof-orange);
     }
   }
