@@ -4,7 +4,7 @@ import type { CreateReservation, CreateReservationRentalType } from "@/common/ty
 import type { AdditionalService } from "@/common/types/service";
 import type { Nullable } from "@/utils/types";
 
-type Tab = "reservation" | "payment";
+type Tab = "reservation" | "payment" | "requestReservation";
 
 export interface Reservation extends Nullable<CreateReservation> {}
 

@@ -3,7 +3,7 @@
 import type { MouseEventHandler } from "react";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { BaseBottomSheet, Tag } from "@/components/Common";
+import { BaseBottomSheet } from "@/components/Common";
 
 import styles from "./spaceInfoBottomSheet.module.scss";
 

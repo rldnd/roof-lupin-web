@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEventHandler } from "react";
+import { type ChangeEventHandler } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -20,11 +20,7 @@ const Deposit: React.FC = () => {
   const { spaceId } = useParams();
 
   const [checked, setChecked] = useAtom(reservationDepositConfirmState);
-  const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId), {
-    onSuccess: (data) => {
-      if (!data.deposit) setChecked(true);
-    },
-  });
+  const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(e.currentTarget.checked);

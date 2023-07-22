@@ -2,17 +2,24 @@
 
 import { useParams } from "next/navigation";
 
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 
 import { SpaceDetail } from "@/common/types/space";
 import { Button } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
-import { reservationDepositConfirmState, reservationPackageState, reservationTimeState } from "@/states/reservation";
+import {
+  reservationDepositConfirmState,
+  reservationPackageState,
+  reservationTabState,
+  reservationTimeState,
+} from "@/states/reservation";
 
 import styles from "./reservationButton.module.scss";
 
 const ReservationButton: React.FC = () => {
+  const setTab = useSetAtom(reservationTabState);
+
   const { spaceId } = useParams();
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
@@ -20,11 +27,18 @@ const ReservationButton: React.FC = () => {
   const reservationPackage = useAtomValue(reservationPackageState);
   const reservationDepositConfirm = useAtomValue(reservationDepositConfirmState);
 
-  const enabled = ((timeStartAt && timeEndAt) || reservationPackage.length > 0) && reservationDepositConfirm;
+  const enabled =
+    ((timeStartAt && timeEndAt) || reservationPackage.length > 0) &&
+    (!data.deposit || (data.deposit && reservationDepositConfirm));
+
+  const onClick = () => {
+    if (data.isImmediateReservation) setTab("payment");
+    else setTab("requestReservation");
+  };
 
   return (
-    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper}>
-      {data.isImmediateReservation ? "예약하기" : "얘약 요청하기"}
+    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper} onClick={onClick}>
+      {data.isImmediateReservation ? "예약하기" : "예약 요청하기"}
     </Button>
   );
 };

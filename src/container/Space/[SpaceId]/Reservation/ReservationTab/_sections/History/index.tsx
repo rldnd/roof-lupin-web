@@ -17,6 +17,7 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states/reservation";
+import { getDiffHour } from "@/utils/time";
 
 import styles from "./history.module.scss";
 
@@ -34,8 +35,7 @@ const History: React.FC = () => {
   const timeHistory = useMemo<Item[]>(() => {
     const { cost, startAt, endAt } = reservationTime;
     if (!endAt || !startAt || !cost) return [];
-    const diffTime = endAt <= 9 ? 24 - startAt + endAt : endAt - startAt;
-    return [{ title: `시간 단위 예약 (${diffTime}시간)`, price: cost }];
+    return [{ title: `시간 단위 예약 (${getDiffHour(startAt, endAt)}시간)`, price: cost }];
   }, [reservationTime]);
 
   const packageHistory = useMemo<Item[]>(() => {
