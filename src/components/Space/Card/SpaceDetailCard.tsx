@@ -16,7 +16,7 @@ interface Props {
   className?: string;
   space: Space;
   href: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 /** children => bookmark component */

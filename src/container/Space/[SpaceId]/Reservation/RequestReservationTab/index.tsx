@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 
-import { Header, SelectedReservationInfo } from "../_shared";
+import { Header, ReservationClerkInfo, SelectedReservationInfo } from "../_shared";
 
 import styles from "./requestReservationTab.module.scss";
 
@@ -13,6 +13,10 @@ const RequestReservationTab: React.FC = () => {
       <Suspense fallback={<></>}>
         <SelectedReservationInfo />
       </Suspense>
+      <hr />
+      <ReservationClerkInfo />
+      <hr />
+
       <hr />
     </main>
   );

@@ -49,7 +49,7 @@ img {
   outline: none;
 }
 
-*:not(div):focus-visible {
+*:not(div, input):focus-visible {
   outline: 1px solid var(--c-roof-orange);
 }
 

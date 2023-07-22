@@ -46,14 +46,18 @@ export const sessionPersistenceAtom = <T>(key: string, initialValue: T) => {
 
   const baseAtom = atom(getInitialValue());
 
-  const derivedAtom = atom(
+  const derivedAtom = atom<T, [((arg: T) => T) | T], void>(
     (get) => get(baseAtom),
     (get, set, update) => {
-      const nextValue = typeof update === "function" ? update(get(baseAtom)) : update;
+      const nextValue = checkIsCallbackType(update) ? update(get(baseAtom)) : update;
       set(baseAtom, nextValue);
       sessionStorage.setItem(key, JSON.stringify(nextValue));
     },
   );
 
   return derivedAtom;
+};
+
+const checkIsCallbackType = <T>(arg: T | ((arg: T) => T)): arg is (arg: T) => T => {
+  return typeof arg === "function";
 };

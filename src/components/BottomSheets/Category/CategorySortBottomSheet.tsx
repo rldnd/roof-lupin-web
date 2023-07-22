@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { SPACE_SORT_MAPPER } from "@/common/constants/space";
 import type { SpaceSort } from "@/common/types/space";
 import { BaseBottomSheet } from "@/components/Common";
-import { type CategorySortMenu, categorySortMenuState } from "@/states";
+import { categorySortMenuState } from "@/states";
 
 import { SortMenu, SortMenuItem } from "../_shared";
 
@@ -23,7 +23,7 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
     const sort = e.currentTarget.dataset.sort as SpaceSort;
 
     startTransition(() => {
-      setCategorySortMenu((prev: CategorySortMenu) => ({ ...prev, sort }));
+      setCategorySortMenu((prev) => ({ ...prev, sort }));
     });
 
     onClose(e);

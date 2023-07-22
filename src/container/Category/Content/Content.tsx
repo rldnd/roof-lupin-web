@@ -35,7 +35,7 @@ const Content: React.FC<Props> = ({ ids }) => {
   useEffect(() => {
     if (!searchParams.get("categoryId") || !ids.includes(searchParams.get("categoryId")!)) notFound();
     startTransition(() => {
-      setCategorySortMenu((prev: CategorySortMenu) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
+      setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
     });
   }, [ids, searchParams, setCategorySortMenu]);
 

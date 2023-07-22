@@ -18,9 +18,9 @@ export const getSpaceRentalTypeDetailApi = (spaceId: string) =>
     tags: ["rental-types", `/rental-types/${spaceId}/detail`],
   });
 
-/** [CLIENT] 공간 및 날짜별 가능한 대여 타입 조회하기 */
-export const getSpaceRentalTypePossibleMonthApi = ({ spaceId, ...params }: GetSpaceRentalTypePossibleMonthParams) =>
-  apiClient.get<PossibleRentalTypes>(`/rental-types/${spaceId}/possible/month`, { params });
+// /** [CLIENT] 공간 및 날짜별 가능한 대여 타입 조회하기 */
+// export const getSpaceRentalTypePossibleMonthApi = ({ spaceId, ...params }: GetSpaceRentalTypePossibleMonthParams) =>
+//   apiClient.get<PossibleRentalTypes>(`/rental-types/${spaceId}/possible/month`, { params });
 
 /** [CLIENT] 공간 및 날짜별 가능한 대여 타입 조회하기 */
 export const getSpaceRentalTypePossibleApi = ({ spaceId, ...params }: GetSpaceRentalTypePossibleParams) =>

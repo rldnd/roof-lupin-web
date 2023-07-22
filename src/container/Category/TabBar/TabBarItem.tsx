@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton";
 
 import type { Category } from "@/common/types/category";
 import { useQueryString } from "@/hooks";
-import { type CategorySortMenu, categorySortMenuState } from "@/states";
+import { categorySortMenuState } from "@/states";
 
 import styles from "./tabBarItem.module.scss";
 
@@ -26,7 +26,7 @@ const TabBarItem: React.FC<Props> = ({ category }) => {
     history.replaceState(null, "", getQueryStringWithPath(append({ categoryId: category.id })));
     window.scrollTo({ top: 0, behavior: "smooth" });
     buttonRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
-    setCategorySortMenu((prev: CategorySortMenu) => ({ ...prev, categoryIds: category.id }));
+    setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
   }, [append, category.id, getQueryStringWithPath, setCategorySortMenu]);
 
   return (

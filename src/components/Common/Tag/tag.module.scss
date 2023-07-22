@@ -1,0 +1,13 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontCaption2;
+  display: inline-block;
+  width: max-content;
+  padding: 4px 12px;
+  color: var(--c-roof-orange);
+  white-space: nowrap;
+  background-color: var(--c-orange-bg);
+  border-radius: 8px;
+}

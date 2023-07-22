@@ -15,7 +15,7 @@ interface Props {
   className?: string;
   space: Space;
   href: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 /** children => bookmark component */
@@ -34,7 +34,6 @@ const SpaceCard: React.FC<Props> = ({ className, space, href, children }) => {
         </Link>
       </div>
       {children}
-
       <Link href={href} className={styles.content}>
         {space.publicTransportations.length > 0 && (
           <span className={styles.transport}>{space.publicTransportations[0].name}</span>

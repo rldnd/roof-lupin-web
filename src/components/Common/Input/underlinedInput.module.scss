@@ -1,0 +1,25 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  @include m.fontBody1Regular;
+  gap: 4px;
+  color: var(--c-gray-500);
+
+  .input {
+    @include m.fontH4Regular;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid var(--c-gray-500);
+    caret-color: var(--c-roof-orange);
+
+    &:is(:active, :hover, :focus) {
+      border-bottom: 1px solid var(--c-gray-900);
+    }
+
+    &::placeholder {
+      color: var(--c-gray-500);
+    }
+  }
+}

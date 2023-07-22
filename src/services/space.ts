@@ -24,8 +24,10 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   month: string | null;
   /** 예약 가능 일 */
   day: string | null;
-  /** 예약 가능 시간 */
-  time: number | null;
+  /** 예약 가능 시작 시간 */
+  startAt: number | null;
+  /** 예약 가능 종료 시간 */
+  endAt: number | null;
   sort: SpaceSort;
 }
 

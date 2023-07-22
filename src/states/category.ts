@@ -14,7 +14,8 @@ export const initialCategorySortMenu: CategorySortMenu = {
   locationName: null,
   month: null,
   sort: "RECENT",
-  time: null,
+  startAt: null,
+  endAt: null,
   userCount: null,
   year: null,
 };
