@@ -43,5 +43,10 @@
         filter: none;
       }
     }
+
+    .children {
+      @include m.fontBody1SemiBold;
+      color: var(--c-roof-orange);
+    }
   }
 }

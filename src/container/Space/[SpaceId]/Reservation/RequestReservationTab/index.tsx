@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 
-import { Header, ReservationClerkInfo, SelectedReservationInfo } from "../_shared";
+import { Header, ReservationClerkInfo, SelectedReservationInfo, UserInfo } from "../_shared";
 
 import styles from "./requestReservationTab.module.scss";
 
@@ -16,7 +16,7 @@ const RequestReservationTab: React.FC = () => {
       <hr />
       <ReservationClerkInfo />
       <hr />
-
+      <UserInfo />
       <hr />
     </main>
   );
