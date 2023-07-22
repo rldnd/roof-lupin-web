@@ -2,22 +2,9 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.fontBody1SemiBold;
-  display: inline-block;
-  width: max-content;
-  height: 32px;
-  padding: 4px 12px;
-  color: var(--c-gray-500);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-  background-color: var(--c-white);
-  border: 1px solid var(--c-gray-300);
-  border-radius: 12px;
+  @include m.chipOutlined;
 
   &:has(input:checked) {
-    color: var(--c-roof-orange);
-    background-color: var(--c-orange-bg);
-    border-color: var(--c-orange-bg);
+    @include m.chipPrimary;
   }
 }

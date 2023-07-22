@@ -64,6 +64,12 @@
   line-height: 130%;
 }
 
+@mixin fontCaptionLh170 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 170%;
+}
+
 @mixin fontCaptionSemiBold {
   font-size: 12px;
   font-weight: 600;

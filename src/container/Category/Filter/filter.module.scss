@@ -21,29 +21,11 @@ $TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
     width: 100%;
 
     .filterButton {
-      @include m.fontBody1SemiBold;
-      @include m.flex;
-      padding: 4px 8px;
-      color: var(--c-gray-800);
-      background-color: var(--c-gray-150);
-      border-radius: 8px;
-
-      > svg {
-        margin-right: 4px;
-      }
+      @include m.chipFilter;
     }
 
     .sortButton {
-      @include m.fontBody1SemiBold;
-      @include m.flex;
-      padding: 4px 8px;
-      color: var(--c-gray-800);
-      background-color: var(--c-gray-150);
-      border-radius: 8px;
-
-      > svg {
-        margin-left: 4px;
-      }
+      @include m.chipFilter;
     }
   }
 

@@ -17,16 +17,12 @@
     padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
 
     li {
-      @include m.flex;
-      gap: 8px;
-      width: max-content;
-      padding: 6px 12px;
-      background-color: var(--c-gray-150);
-      border-radius: 24px;
+      @include m.chipBw;
 
       .tagButton {
-        width: max-content;
-        white-space: nowrap;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
       }
 
       .deleteButton {

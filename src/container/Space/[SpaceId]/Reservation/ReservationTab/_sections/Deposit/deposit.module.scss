@@ -32,7 +32,7 @@
   }
 
   p {
-    @include m.fontCaption;
+    @include m.fontCaptionLh170;
     margin-bottom: 16px;
     color: var(--c-gray-700);
   }

@@ -25,13 +25,7 @@
     padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
 
     li button {
-      @include m.flex;
-      @include m.fontBody1SemiBold;
-      padding: 8px 16px;
-      color: var(--c-roof-orange);
-      white-space: nowrap;
-      background-color: var(--c-orange-bg);
-      border-radius: 24px;
+      @include m.chipSecondary;
     }
   }
 }

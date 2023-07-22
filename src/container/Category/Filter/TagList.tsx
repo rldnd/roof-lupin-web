@@ -2,15 +2,13 @@
 
 import { HorizonDraggable } from "@/components";
 
-import Tag from "./Tag";
-
 import styles from "./tagList.module.scss";
 
 const TagList: React.FC = () => {
   return (
     <HorizonDraggable className={styles.wrapper}>
-      <Tag>전체 지역</Tag>
-      <Tag>2명</Tag>
+      <li>전체 지역</li>
+      <li>2명</li>
     </HorizonDraggable>
   );
 };

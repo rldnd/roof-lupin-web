@@ -7,6 +7,10 @@
   gap: 4px;
   width: 100%;
 
+  > li {
+    @include m.chipIcon;
+  }
+
   @media screen and (width >= c.$S_CATEGORY_GRID_BREAK_POINT) {
     gap: 8px;
   }
