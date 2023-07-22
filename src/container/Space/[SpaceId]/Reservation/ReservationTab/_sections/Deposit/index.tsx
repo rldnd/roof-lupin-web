@@ -2,9 +2,14 @@
 
 import type { ChangeEventHandler } from "react";
 
+import { useParams } from "next/navigation";
+
 import { useAtom } from "jotai";
 
+import type { SpaceDetail } from "@/common/types/space";
 import { Checkbox } from "@/components";
+import { useSuspenseQuery } from "@/hooks";
+import { getClientSpaceApi } from "@/services/space";
 import { reservationDepositConfirmState } from "@/states/reservation";
 
 import { IconInfo } from "public/icons";
@@ -12,17 +17,26 @@ import { IconInfo } from "public/icons";
 import styles from "./deposit.module.scss";
 
 const Deposit: React.FC = () => {
+  const { spaceId } = useParams();
+
   const [checked, setChecked] = useAtom(reservationDepositConfirmState);
+  const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId), {
+    onSuccess: (data) => {
+      if (!data.deposit) setChecked(true);
+    },
+  });
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(e.currentTarget.checked);
   };
 
+  if (!data.deposit) return null;
+
   return (
     <section className={styles.wrapper}>
       <div className={styles.titleWrapper}>
         <h2>
-          보증금 <strong>100,000원</strong>
+          보증금 <strong>{data.deposit.toLocaleString("ko-KR")}원</strong>
         </h2>
         <button type="button">
           <IconInfo />

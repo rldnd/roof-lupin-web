@@ -6,7 +6,7 @@ import type { Location } from "./location";
 import type { RefundPolicy } from "./refund";
 import type { PackageRentalType, TimeRentalType } from "./rentalType";
 import type { Review } from "./review";
-import type { AdditionalService, Service } from "./service";
+import type { Service } from "./service";
 import type { Size } from "./size";
 
 import { SPACE_SORT } from "../constants/space";
@@ -47,10 +47,10 @@ export interface Space {
   timeCost: number | null;
   /** 공간 패키지 최소 가격 */
   packageCost: number | null;
-  /** 공간 베스트 여부 */
-  isBest: boolean;
   /** 찜 여부 */
   isInterested: boolean;
+  /** 즉각 예약 여부 */
+  isImmediateReservation: boolean;
   /** 공간 썸네일 */
   thumbnail: string;
   /** 대중교통 목록 */
@@ -59,8 +59,9 @@ export interface Space {
   location: Location | null;
 }
 
-export interface SpaceDetail
-  extends Omit<Space, "publicTransportation" | "isBest" | "isInterested" | "timeCost" | "packageCost"> {
+export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "timeCost" | "packageCost"> {
+  /** 보증금 */
+  deposit: number | null;
   /** 공간 베스트 여부 */
   isBest: boolean;
   /** 찜 여부 */
@@ -97,14 +98,10 @@ export interface SpaceDetail
   services: Service[];
   /** 공간 카테고리 목록 */
   categories: SpaceCategory[];
-  /** 대중교통 목록 */
-  publicTransportations: Transportation[];
   /** 공간 크기 목록 */
   sizes: Size[];
   /** 베스트 포토 */
   bestPhotos: BestPhoto[];
-  /** 추가 서비스 목록 */
-  additionalServices: AdditionalService[];
 }
 
 export interface SpaceRentalType {

@@ -45,7 +45,6 @@ export const LoadingSpaceInfo: React.FC = () => {
       <Skeleton width={150} />
       <span className={styles.reservationInfo}>
         <Skeleton width={130} />
-        {/* <span>{userCount}명</span> */}
       </span>
       <button type="button" className={styles.edit}>
         수정

@@ -10,7 +10,7 @@ import {
   SpaceInfo,
   TimeAndPackage,
 } from "./_sections";
-import ReservationButton from "./_sections/ReservationButton";
+import ReservationButton, { LoadingReservationButton } from "./_sections/ReservationButton";
 
 import styles from "./reservationTab.module.scss";
 
@@ -28,10 +28,14 @@ const ReservationTab: React.FC = () => {
         <hr />
         <Service />
         <History />
-        <Deposit />
-        <ReservationButton />
+        <Suspense fallback={null}>
+          <Deposit />
+        </Suspense>
+        <Suspense fallback>
+          <ReservationButton />
+        </Suspense>
       </main>
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingReservationButton />}>
         <DataHandler />
       </Suspense>
     </>
