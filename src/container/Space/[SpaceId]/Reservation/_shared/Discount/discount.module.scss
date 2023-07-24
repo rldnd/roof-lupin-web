@@ -1,0 +1,28 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 16px;
+    color: var(--c-black);
+  }
+
+  .couponButton {
+    @include m.flex(space-between);
+    @include m.fontH4SemiBold;
+    width: 100%;
+    padding: 16px;
+    color: var(--c-gray-900);
+    background-color: var(--c-gray-100);
+    border-radius: 8px;
+
+    .currentCoupons {
+      @include m.fontBody1SemiBold;
+      color: var(--c-gray-500);
+    }
+  }
+}
