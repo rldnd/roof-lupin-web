@@ -27,7 +27,7 @@ const BackButton: React.FC<Props> = ({ className, onClick: onClickProps, replace
     [onClickProps, handleRoute],
   );
 
-  return <button className={className} onClick={onClick} {...props} />;
+  return <button className={className} onClick={onClick} aria-label="뒤로가기 버튼" {...props} />;
 };
 
 export default memo(BackButton);

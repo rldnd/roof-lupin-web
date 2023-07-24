@@ -92,3 +92,16 @@ export interface PossibleRentalTypes {
   /** 패키지대여타입 */
   package: PossiblePackage[];
 }
+
+export interface PossibleRentalTypeByMonth {
+  day: string;
+  isHoliday: boolean;
+  isPossible: boolean;
+  rentalTypes: PossibleRentalTypes;
+}
+
+export interface PossibleRentalTypesByMonth {
+  year: string;
+  month: string;
+  days: PossibleRentalTypesByMonth[];
+}

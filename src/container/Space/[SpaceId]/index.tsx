@@ -86,7 +86,11 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <ReportButton />
         <Suspense fallback={null}>
-          <Footer />
+          <Footer
+            maxUser={space.maxUser}
+            overflowUserCount={space.overflowUserCount}
+            overflowUserCost={space.overflowUserCost}
+          />
         </Suspense>
       </main>
     </ToastPositioner>
