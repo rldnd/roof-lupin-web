@@ -1,0 +1,34 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  > h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 6px;
+    color: var(--c-black);
+  }
+
+  .description {
+    @include m.fontCaption;
+    color: var(--c-gray-500);
+  }
+
+  .remainNotice {
+    @include m.flex;
+    @include m.fontCaptionSemiBold;
+    width: 100%;
+    padding: 12px 8px;
+    margin: 16px 0 32px;
+    color: var(--c-roof-orange);
+    background-color: var(--c-orange-bg);
+    border-radius: 4px;
+  }
+
+  .couponPrice {
+    @include m.fontBody1SemiBold;
+    color: var(--c-roof-orange);
+  }
+}

@@ -9,7 +9,9 @@ const Discount: React.FC = () => {
     <section className={styles.wrapper}>
       <h2>할인</h2>
       <button type="button" className={styles.couponButton}>
-        쿠폰 할인<span className={styles.currentCoupons}>(전체 1장, 적용가능 1장)</span>
+        <span>
+          쿠폰 할인<span className={styles.currentCoupons}>(전체 1장, 적용가능 1장)</span>
+        </span>
         <IconGrayRightChevronLarge />
       </button>
     </section>

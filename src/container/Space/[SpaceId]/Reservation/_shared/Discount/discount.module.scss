@@ -22,6 +22,7 @@
 
     .currentCoupons {
       @include m.fontBody1SemiBold;
+      margin-left: 8px;
       color: var(--c-gray-500);
     }
   }
