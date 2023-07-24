@@ -2,7 +2,11 @@
 
 import { Suspense } from "react";
 
-import { RequestInfo } from "./_sections";
+import { useSetAtom } from "jotai";
+
+import { reservationTabState } from "@/states/reservation";
+
+import { HostApprove } from "./_sections";
 import {
   Discount,
   FreeCancelTerm,
@@ -10,15 +14,18 @@ import {
   PriceInfo,
   ReservationClerkInfo,
   SelectedReservationInfo,
+  Submit,
   UserInfo,
 } from "../_shared";
 
 import styles from "./requestReservationTab.module.scss";
 
 const RequestReservationTab: React.FC = () => {
+  const setTab = useSetAtom(reservationTabState);
+
   return (
     <main className={styles.wrapper}>
-      <Header title="예약 요청" />
+      <Header title="예약 요청" onClickBack={() => setTab("reservation")} />
       <Suspense fallback={null}>
         <SelectedReservationInfo />
       </Suspense>
@@ -33,7 +40,9 @@ const RequestReservationTab: React.FC = () => {
       <hr />
       <FreeCancelTerm />
       <hr />
-      <RequestInfo />
+      <HostApprove />
+      <hr />
+      <Submit buttonText="지금 예약 요청하기" />
     </main>
   );
 };

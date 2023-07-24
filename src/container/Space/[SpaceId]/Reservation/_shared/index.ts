@@ -5,3 +5,4 @@ export { default as UserInfo } from "./UserInfo";
 export { default as Discount } from "./Discount";
 export { default as PriceInfo } from "./PriceInfo";
 export { default as FreeCancelTerm } from "./FreeCancelTerm";
+export { default as Submit } from "./Submit";

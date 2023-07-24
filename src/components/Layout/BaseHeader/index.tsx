@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
 
 import cx from "clsx";
 
@@ -16,16 +16,30 @@ interface Props {
   title: ReactNode;
   right?: ReactNode;
   replaceUrl?: string;
+  onClickBack?: MouseEventHandler<HTMLButtonElement>;
   backHidden?: boolean;
 }
 
-const BaseHeader: React.FC<Props> = ({ className, style, title, right, replaceUrl, backHidden = false }) => {
+const BaseHeader: React.FC<Props> = ({
+  className,
+  style,
+  title,
+  right,
+  replaceUrl,
+  backHidden = false,
+  onClickBack,
+}) => {
   return (
     <header className={cx(styles.wrapper, className, { [styles.backHidden]: backHidden })} style={style}>
-      {!backHidden && (
+      {!backHidden && !onClickBack && (
         <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
           <IconBlackLeftChevronLarge />
         </BackButton>
+      )}
+      {!backHidden && onClickBack && (
+        <button className={styles.backButton} onClick={onClickBack}>
+          <IconBlackLeftChevronLarge />
+        </button>
       )}
       <p className={styles.title}>{title}</p>
       {right}

@@ -1,1 +1,1 @@
-export { default as RequestInfo } from "./RequestInfo";
+export { default as HostApprove } from "./HostApprove";

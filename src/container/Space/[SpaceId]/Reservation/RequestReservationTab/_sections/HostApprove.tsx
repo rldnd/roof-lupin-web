@@ -1,8 +1,8 @@
 "use client";
 
-import styles from "./requestInfo.module.scss";
+import styles from "./hostApprove.module.scss";
 
-const RequestInfo: React.FC = () => {
+const HostApprove: React.FC = () => {
   return (
     <section className={styles.wrapper}>
       <h2>호스트 승인 후 예약이 완료됩니다</h2>
@@ -11,4 +11,4 @@ const RequestInfo: React.FC = () => {
   );
 };
 
-export default RequestInfo;
+export default HostApprove;
