@@ -14,6 +14,7 @@ import Providers from "./Providers";
 import PushTokenHandler from "./PushTokenHandler";
 
 import "@/styles/global.scss";
+
 import styles from "./layout.module.scss";
 
 export const metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className={suit.className} suppressHydrationWarning>
-        <NextTopLoader showSpinner={false} color="#eb4824" crawl />
+        <NextTopLoader showSpinner={false} height={4} color="#eb4824" crawl />
         <Providers>
           <div className={styles.background} />
           <div className={styles.wrapper}>{children}</div>

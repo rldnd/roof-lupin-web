@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 export type ToastType = "toast" | "snackbar";
 
 export const toastAction = {
@@ -15,12 +13,10 @@ export interface ToastItemInterface {
   action: ToastActionType;
   message: string;
   visible: boolean;
-  icon: ReactNode;
-  type: ToastType;
   buttonText?: string;
-  onClickButton(): void | Promise<void>;
+  onClickButton?(): void | Promise<void>;
   hasClose?: boolean;
-  autoCloseTime: number;
+  autoCloseTime?: number;
 }
 
 export interface ToastPositionInterface {
@@ -28,8 +24,8 @@ export interface ToastPositionInterface {
   bottom: string;
 }
 
-export type ToastAddType = Pick<ToastItemInterface, "message" | "type" | "hasClose"> &
-  Partial<Pick<ToastItemInterface, "autoCloseTime" | "icon" | "buttonText" | "onClickButton">>;
+export type ToastAddType = Pick<ToastItemInterface, "message" | "hasClose"> &
+  Partial<Pick<ToastItemInterface, "autoCloseTime" | "buttonText" | "onClickButton">>;
 
 export type ChangeToastPositionType = Partial<Omit<ToastPositionInterface, "action">>;
 

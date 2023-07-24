@@ -19,10 +19,10 @@ export const persistenceAtom = <T>(key: string, initialValue: T) => {
 
   const baseAtom = atom(getInitialValue());
 
-  const derivedAtom = atom(
+  const derivedAtom = atom<T, [((arg: T) => T) | T], void>(
     (get) => get(baseAtom),
     (get, set, update) => {
-      const nextValue = typeof update === "function" ? update(get(baseAtom)) : update;
+      const nextValue = checkIsCallbackType(update) ? update(get(baseAtom)) : update;
       set(baseAtom, nextValue);
       localStorage.setItem(key, JSON.stringify(nextValue));
     },

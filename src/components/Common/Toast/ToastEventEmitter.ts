@@ -24,14 +24,12 @@ class ToastEventEmitter extends EventEmitter {
     });
   }
 
-  add({ message, autoCloseTime, type, icon, buttonText, onClickButton, hasClose }: ToastAddType) {
+  add({ message, autoCloseTime, buttonText, onClickButton, hasClose }: ToastAddType) {
     this.emit(this.CHANGE_EVENT_NAME, {
       id: generateID("toast-message-"),
       action: toastAction.ADD,
       visible: true,
       autoCloseTime: autoCloseTime ?? 3000,
-      icon,
-      type,
       message,
       buttonText,
       onClickButton,

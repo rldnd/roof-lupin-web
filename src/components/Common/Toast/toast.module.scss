@@ -17,7 +17,8 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
   .wrapper {
     .toast {
       @include m.fontBody1Regular;
-      @include m.flex;
+      @include m.flex(space-between);
+      gap: 8px;
       width: calc(100dvw - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
       max-width: calc(c.$S_CONTENT_WIDTH - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
       padding: 8px 16px;
@@ -30,15 +31,12 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
       & + .toast {
         margin-top: $SPACE;
       }
-
-      &.snackbar {
-        @include m.flex(space-between);
-      }
     }
 
     .button {
       @include m.fontBody1SemiBold;
       color: var(--c-white);
+      white-space: nowrap;
     }
 
     .enterDone,

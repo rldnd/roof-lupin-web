@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import cx from "clsx";
 
-import { useHeaderScrollOpacity, useToast } from "@/hooks";
+import { useHeaderScrollOpacity } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { getNumberFromPixel } from "@/utils/styles";
 
@@ -15,7 +15,6 @@ import { IconBell, IconMainLogo, IconSearch } from "public/icons";
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
-  const { addToast } = useToast();
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
     containerHeight:
       getNumberFromPixel(sizes.mainCarouselHeight) + getNumberFromPixel(sizes.mainCarouselProgressHeight),
@@ -36,7 +35,7 @@ const Header: React.FC = () => {
         [styles.backgroundBreakpoint]: backgroundBreakpoint,
       })}
     >
-      <IconMainLogo onClick={() => addToast({ message: "토스트토스트", type: "toast" })} />
+      <IconMainLogo />
       <nav>
         <Link href="/" title="검색 페이지">
           <IconSearch />
