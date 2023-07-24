@@ -1,0 +1,54 @@
+/* stylelint-disable declaration-colon-newline-after */
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$SPACE: 16px;
+$BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
+
+.toastWrapper {
+  @include m.flex(flex-start, flex-start, column);
+  @include m.fixed(auto auto calc(c.$S_BOTTOM_NAVIGATION_HEIGHT + $SPACE) 50%);
+  z-index: c.$Z_TOAST;
+  max-height: 360px;
+  overflow-y: scroll;
+  transition: all 0.2s;
+  transform: translateX(-50%);
+
+  .wrapper {
+    .toast {
+      @include m.fontBody1Regular;
+      @include m.flex;
+      width: calc(100dvw - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+      max-width: calc(c.$S_CONTENT_WIDTH - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+      padding: 8px 16px;
+      color: var(--c-white);
+      background-color: $BACKGROUND_COLOR;
+      border-radius: 4px;
+      opacity: 0;
+      transition: all 0.2s;
+
+      & + .toast {
+        margin-top: $SPACE;
+      }
+
+      &.snackbar {
+        @include m.flex(space-between);
+      }
+    }
+
+    .button {
+      @include m.fontBody1SemiBold;
+      color: var(--c-white);
+    }
+
+    .enterDone,
+    .exit {
+      opacity: 1;
+    }
+
+    .enter,
+    .exitActive {
+      opacity: 0;
+    }
+  }
+}

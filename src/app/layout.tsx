@@ -3,6 +3,10 @@ import { Suspense } from "react";
 import "@/utils/ga";
 import "@/utils/naverMap";
 
+import NextTopLoader from "nextjs-toploader";
+
+import { Toast } from "@/components";
+
 import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
@@ -22,14 +26,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className={suit.className} suppressHydrationWarning>
+        <NextTopLoader showSpinner={false} color="#eb4824" crawl />
         <Providers>
           <div className={styles.background} />
           <div className={styles.wrapper}>{children}</div>
           <div id="modal" />
+          <div id="toast" />
           <div id="bottom-sheet" />
           <Suspense fallback={null}>
             <PushTokenHandler />
           </Suspense>
+          <Toast />
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />
