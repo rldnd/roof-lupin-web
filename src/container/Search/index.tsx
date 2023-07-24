@@ -1,15 +1,20 @@
+import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
+import { ToastPositioner } from "@/components";
+
 import { Header, RecentSearch, RecentSpace, RecommendSearch } from "./_sections";
 
 import styles from "./searchContainer.module.scss";
 
 const SearchContainer: React.FC = () => {
   return (
-    <main className={styles.wrapper}>
-      <Header />
-      <RecentSearch />
-      <RecommendSearch />
-      <RecentSpace />
-    </main>
+    <ToastPositioner position={TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION}>
+      <main className={styles.wrapper}>
+        <Header />
+        <RecentSearch />
+        <RecommendSearch />
+        <RecentSpace />
+      </main>
+    </ToastPositioner>
   );
 };
 

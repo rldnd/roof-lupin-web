@@ -1,3 +1,5 @@
+import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
+import { ToastPositioner } from "@/components";
 import { getHomeCategoriesApi } from "@/services/home";
 
 import { Content } from "./Content";
@@ -12,11 +14,13 @@ export default async function CategoryContainer() {
   const ids = categories.map((category) => category.id);
 
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <TabBar categories={categories} />
-      <Filter />
-      <Content ids={ids} />
-    </div>
+    <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
+      <div className={styles.wrapper}>
+        <Header />
+        <TabBar categories={categories} />
+        <Filter />
+        <Content ids={ids} />
+      </div>
+    </ToastPositioner>
   );
 }

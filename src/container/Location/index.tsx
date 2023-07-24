@@ -1,3 +1,5 @@
+import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
+import { ToastPositioner } from "@/components";
 import { BottomNavigation } from "@/components/Layout";
 import { getHomeCategoriesApi } from "@/services/home";
 
@@ -13,7 +15,7 @@ export default async function LocationContainer() {
   const categories = await getHomeCategoriesApi();
 
   return (
-    <>
+    <ToastPositioner position={TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION}>
       <main className={styles.wrapper}>
         <Header />
         <Category categories={categories} />
@@ -22,6 +24,6 @@ export default async function LocationContainer() {
         <BottomNavigation blockScrollInteraction />
       </main>
       <BottomDrawer />
-    </>
+    </ToastPositioner>
   );
 }
