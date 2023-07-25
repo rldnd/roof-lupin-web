@@ -12,9 +12,7 @@ const Caution: React.FC<Props> = ({ cautions }) => {
       <h2>예약 시 주의사항</h2>
       <ol>
         {cautions.map((caution) => (
-          <>
-            <li key={caution.id}>{caution.content}</li>
-          </>
+          <li key={caution.id}>{caution.content}</li>
         ))}
       </ol>
     </section>

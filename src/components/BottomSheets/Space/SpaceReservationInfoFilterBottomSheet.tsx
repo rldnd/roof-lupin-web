@@ -1,18 +1,18 @@
 "use client";
 
-import { FormEventHandler, type MouseEventHandler, useEffect, useState } from "react";
+import { FormEventHandler, type MouseEventHandler, useCallback, useEffect, useState } from "react";
 
+import cx from "clsx";
 import { useAtom } from "jotai";
 
-import { BottomSheetPortal } from "@/components/Common";
+import { BottomSheetPortal, Button } from "@/components/Common";
 import { useToast } from "@/hooks";
 import { SpaceReservationInfo, spaceReservationInfoState } from "@/states/space";
 import { NotNullable } from "@/utils/types";
 
 import { IconClose } from "public/icons";
 
-import { UserStepper } from "../_shared";
-import { DayBar } from "../_shared/CalendarList";
+import { DayBar, MonthCalendar, UserStepper } from "../_shared";
 
 import styles from "./spaceReservationInfoFilterBottomSheet.module.scss";
 
@@ -43,10 +43,17 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
     setInfo(localInfo);
   };
 
+  const onReset = useCallback(() => {
+    const { day, month, userCount, year } = info;
+    if (!day || !month || !userCount || !year) return;
+
+    setLocalInfo({ day, month, userCount, year });
+  }, [info]);
+
   const onClickPlus = () => {
     if (!localInfo) return;
 
-    if (localInfo.userCount >= maxUser) {
+    if (localInfo.userCount === maxUser) {
       addToast({ message: "인원을 더 추가할 수 없습니다." });
     } else {
       setLocalInfo((prev) => ({ ...prev!, userCount: prev!.userCount + 1 }));
@@ -59,11 +66,8 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    const { day, month, userCount, year } = info;
-    if (!day || !month || !userCount || !year) return;
-
-    setLocalInfo({ day, month, userCount, year });
-  }, [info]);
+    onReset();
+  }, [onReset]);
 
   return (
     <BottomSheetPortal
@@ -73,7 +77,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
       blockWindowScroll
       className={styles.wrapper}
     >
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} onReset={onReset}>
         <header>
           <button type="reset" className={styles.reset}>
             초기화
@@ -94,6 +98,15 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
           <h2 className={styles.dateTitle}>날짜 및 시간</h2>
         </div>
         <DayBar />
+        {/* // TODO: infinity scroll */}
+        <div className={cx(styles.content, styles.calendarWrapper)}>
+          <MonthCalendar year="2023" month="7" onClickDay={() => {}} />
+          <MonthCalendar year="2023" month="8" onClickDay={() => {}} />
+          <MonthCalendar year="2023" month="9" onClickDay={() => {}} />
+        </div>
+        <Button type="submit" color="primary" full className={styles.submitButton}>
+          저장저장 바꿔야한다
+        </Button>
       </form>
     </BottomSheetPortal>
   );
