@@ -7,8 +7,10 @@
 
   button {
     @include m.flex;
+    @include m.fontH4SemiBold;
     width: 40px;
     height: 40px;
+    color: var(--c-gray-900);
     border-radius: 50%;
 
     &.active {
@@ -31,7 +33,7 @@
 
     .time {
       @include m.fontH4SemiBold;
-      color: var(--c-gray-900);
+      color: inherit;
     }
   }
 }

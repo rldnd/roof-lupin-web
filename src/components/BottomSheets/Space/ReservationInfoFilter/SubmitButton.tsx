@@ -54,7 +54,7 @@ const SubmitButton: React.FC<Props> = ({ year, month, day, userCount }) => {
   );
 
   return (
-    <Button type="submit" color="primary" full className={styles.wrapper} disabled={disabled}>
+    <Button type="submit" color="primary" className={styles.wrapper} disabled={disabled}>
       {year}년 {month}월 {day}일, {userCount}명
     </Button>
   );
