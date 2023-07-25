@@ -1,5 +1,7 @@
 "use client";
 
+import type { MouseEventHandler } from "react";
+
 import { useParams } from "next/navigation";
 
 import cx from "clsx";
@@ -20,7 +22,7 @@ const $root = document.getElementById(CALENDAR_ID) as HTMLUListElement;
 
 interface Props {
   activeDate: ActiveDate;
-  onClickDay: (year: string, month: string, day: string) => () => void;
+  onClickDay: (year: string, month: string, day: string) => MouseEventHandler<HTMLButtonElement>;
 }
 
 const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
@@ -57,7 +59,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
           year={page.year}
           activeDate={activeDate}
           infos={page.days}
-          onClickDay={(year, month, day) => () => {}}
+          onClickDay={onClickDay}
         />
       ))}
       {isFetching && <LoadingMonthCalendar />}

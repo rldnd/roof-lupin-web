@@ -27,7 +27,7 @@ const ReservationButton: React.FC = () => {
 
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
-    ["getSpaceRentalTypePossible", year, month, day],
+    ["getSpaceRentalTypePossible", spaceId, year, month, day],
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,

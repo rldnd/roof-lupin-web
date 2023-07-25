@@ -11,6 +11,7 @@ import { NotNullable } from "@/utils/types";
 
 import CalendarList from "./CalendarList";
 import Header from "./Header";
+import SubmitButton from "./SubmitButton";
 import { DayBar, UserStepper } from "../../_shared";
 import { LoadingMonthCalendar } from "../../_shared/Calendar/MonthCalendar";
 
@@ -18,7 +19,7 @@ import styles from "./spaceReservationInfoFilterBottomSheet.module.scss";
 
 interface Props {
   isShow: boolean;
-  onClose: MouseEventHandler<HTMLElement>;
+  onClose: () => void;
   maxUser: number;
   overflowUserCount: number;
   overflowUserCost: number;
@@ -41,6 +42,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
 
     if (!localInfo) return;
     setInfo(localInfo);
+    onClose();
   };
 
   const onReset = useCallback(() => {
@@ -65,9 +67,24 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
     setLocalInfo((prev) => ({ ...prev!, userCount: prev!.userCount! - 1 }));
   };
 
+  const onClickDay = useCallback(
+    (year: string, month: string, day: string): MouseEventHandler<HTMLButtonElement> =>
+      (e) => {
+        if (!localInfo) return;
+
+        const { userCount } = localInfo;
+        setLocalInfo({ userCount, year, month, day });
+      },
+    [localInfo],
+  );
+
   useEffect(() => {
     onReset();
   }, [onReset]);
+
+  useEffect(() => {
+    if (!isShow) onReset();
+  }, [isShow, onReset]);
 
   return (
     <BottomSheetPortal
@@ -98,12 +115,12 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
               month: localInfo?.month ?? info.month!,
               year: localInfo?.year ?? info.year!,
             }}
-            onClickDay={(year, month, day) => () => {}}
+            onClickDay={onClickDay}
           />
         </Suspense>
-        <Button type="submit" color="primary" full className={styles.submitButton}>
-          저장저장 바꿔야한다
-        </Button>
+        <Suspense fallback={null}>
+          <SubmitButton {...localInfo} />
+        </Suspense>
       </form>
     </BottomSheetPortal>
   );

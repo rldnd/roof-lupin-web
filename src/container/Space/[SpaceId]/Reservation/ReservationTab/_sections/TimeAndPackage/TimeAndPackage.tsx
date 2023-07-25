@@ -43,7 +43,7 @@ const TimeAndPackage: React.FC = () => {
   const { year, month, day } = reservation;
 
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
-    ["getSpaceRentalTypePossible", year, month, day],
+    ["getSpaceRentalTypePossible", spaceId, year, month, day],
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
