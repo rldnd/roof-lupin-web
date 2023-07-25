@@ -85,13 +85,11 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <MenuItem title="판매자 정보" href="/" />
         <hr />
         <ReportButton />
-        <Suspense fallback={null}>
-          <Footer
-            maxUser={space.maxUser}
-            overflowUserCount={space.overflowUserCount}
-            overflowUserCost={space.overflowUserCost}
-          />
-        </Suspense>
+        <Footer
+          maxUser={space.maxUser}
+          overflowUserCount={space.overflowUserCount}
+          overflowUserCost={space.overflowUserCost}
+        />
       </main>
     </ToastPositioner>
   );

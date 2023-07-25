@@ -1,8 +1,7 @@
 "use client";
 
-import { FormEventHandler, type MouseEventHandler, useCallback, useEffect, useState } from "react";
+import { FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
 
-import cx from "clsx";
 import { useAtom } from "jotai";
 
 import { BottomSheetPortal, Button } from "@/components/Common";
@@ -10,9 +9,10 @@ import { useToast } from "@/hooks";
 import { SpaceReservationInfo, spaceReservationInfoState } from "@/states/space";
 import { NotNullable } from "@/utils/types";
 
-import { IconClose } from "public/icons";
-
-import { DayBar, MonthCalendar, UserStepper } from "../_shared";
+import CalendarList from "./CalendarList";
+import Header from "./Header";
+import { DayBar, UserStepper } from "../../_shared";
+import { LoadingMonthCalendar } from "../../_shared/Calendar/MonthCalendar";
 
 import styles from "./spaceReservationInfoFilterBottomSheet.module.scss";
 
@@ -78,14 +78,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
       className={styles.wrapper}
     >
       <form onSubmit={onSubmit} onReset={onReset}>
-        <header>
-          <button type="reset" className={styles.reset}>
-            초기화
-          </button>
-          <button type="button" aria-label="종료" className={styles.close} onClick={onClose}>
-            <IconClose />
-          </button>
-        </header>
+        <Header onClose={onClose} />
         <div className={styles.content}>
           <UserStepper
             title="인원"
@@ -98,12 +91,16 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
           <h2 className={styles.dateTitle}>날짜 및 시간</h2>
         </div>
         <DayBar />
-        {/* // TODO: infinity scroll */}
-        <div className={cx(styles.content, styles.calendarWrapper)}>
-          <MonthCalendar year="2023" month="7" onClickDay={() => {}} />
-          <MonthCalendar year="2023" month="8" onClickDay={() => {}} />
-          <MonthCalendar year="2023" month="9" onClickDay={() => {}} />
-        </div>
+        <Suspense fallback={<LoadingMonthCalendar />}>
+          <CalendarList
+            activeDate={{
+              day: localInfo?.day ?? info.day!,
+              month: localInfo?.month ?? info.month!,
+              year: localInfo?.year ?? info.year!,
+            }}
+            onClickDay={(year, month, day) => () => {}}
+          />
+        </Suspense>
         <Button type="submit" color="primary" full className={styles.submitButton}>
           저장저장 바꿔야한다
         </Button>

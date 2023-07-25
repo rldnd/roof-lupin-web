@@ -4,7 +4,7 @@
 @mixin _size($size: "default") {
   @if $size == "default" {
     @include m.fontH4SemiBold;
-    padding: 11.5px 25px;
+    padding: 12px 24px;
     border-radius: 4px;
   }
 }

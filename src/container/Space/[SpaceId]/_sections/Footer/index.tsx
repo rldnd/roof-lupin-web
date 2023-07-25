@@ -1,19 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { usePathname, useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 import { useAtom, useAtomValue } from "jotai";
 
-import { AuthChecker, Button } from "@/components";
+import { AuthChecker } from "@/components";
 import { SpaceReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
-import { useQueryString } from "@/hooks";
 import { categorySortMenuState } from "@/states";
 import { spaceReservationInfoState } from "@/states/space";
 import { dayjs } from "@/utils/date";
 
 import { IconRepeat } from "public/icons";
+
+import ReservationButton from "./ReservationButton";
 
 import styles from "./footer.module.scss";
 
@@ -24,10 +23,6 @@ interface Props {
 }
 
 const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount }) => {
-  const { push } = useRouter();
-  const pathname = usePathname();
-  const { append, getQueryStringWithPath } = useQueryString();
-
   const [spaceReservationInfo, setSpaceReservationInfo] = useAtom(spaceReservationInfoState);
   const categorySortMenu = useAtomValue(categorySortMenuState);
 
@@ -35,13 +30,6 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
 
   const { year, month, day, userCount } = spaceReservationInfo;
   const time = dayjs(`${year}-${month}-${day}`).format("MM월 DD일 (ddd)");
-
-  const onClickButton = () => {
-    if (!year || !month || !day || !userCount) return;
-
-    const query = append({ year, month, day, userCount });
-    push(getQueryStringWithPath(query, `${pathname}/reservations`));
-  };
 
   useEffect(() => {
     const today = dayjs();
@@ -58,21 +46,21 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   return (
     <>
       <footer className={styles.wrapper}>
-        <button type="button" className={styles.left} onClick={() => setIsShowBottomSheet(true)}>
-          <IconRepeat />
-          {year && month && day && userCount && (
-            <u>
-              <time dateTime={time}>{time}</time>
-              <div className={styles.dot} />
-              <span>{spaceReservationInfo.userCount}명</span>
-            </u>
-          )}
-        </button>
         <AuthChecker>
-          <Button color="primary" onClick={onClickButton}>
-            요금 확인하기
-          </Button>
+          <button type="button" className={styles.left} onClick={() => setIsShowBottomSheet(true)}>
+            <IconRepeat />
+            {year && month && day && userCount && (
+              <u>
+                <time dateTime={time}>{time}</time>
+                <div className={styles.dot} />
+                <span>{spaceReservationInfo.userCount}명</span>
+              </u>
+            )}
+          </button>
         </AuthChecker>
+        <Suspense fallback={null}>
+          <ReservationButton />
+        </Suspense>
       </footer>
       <SpaceReservationInfoFilterBottomSheet
         isShow={isShowBottomSheet}

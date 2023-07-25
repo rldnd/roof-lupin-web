@@ -5,7 +5,7 @@ import "@/utils/naverMap";
 
 import NextTopLoader from "nextjs-toploader";
 
-import { Toast } from "@/components";
+import { Toast } from "@/components/Common/Toast";
 
 import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
@@ -26,7 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className={suit.className} suppressHydrationWarning>
+      <body className={suit.className}>
         <NextTopLoader showSpinner={false} height={4} color="#eb4824" crawl />
         <Providers>
           <div className={styles.background} />

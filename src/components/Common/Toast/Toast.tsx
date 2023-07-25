@@ -94,7 +94,7 @@ const Toast = () => {
         {toasts.map((toast) => (
           <CSSTransition
             key={toast.id}
-            timeout={200}
+            timeout={300}
             classNames={{
               enterDone: styles.enterDone,
               exitActive: styles.exitActive,

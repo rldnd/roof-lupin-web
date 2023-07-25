@@ -11,6 +11,24 @@
     height: 40px;
     border-radius: 50%;
 
+    &.active {
+      color: var(--c-white);
+      background-color: var(--c-roof-orange);
+    }
+
+    &.isHoliday {
+      color: var(--c-roof-orange);
+    }
+
+    &:disabled {
+      color: var(--c-gray-400);
+      text-decoration: line-through;
+    }
+
+    &.isBeforeToday {
+      color: var(--c-gray-400);
+    }
+
     .time {
       @include m.fontH4SemiBold;
       color: var(--c-gray-900);

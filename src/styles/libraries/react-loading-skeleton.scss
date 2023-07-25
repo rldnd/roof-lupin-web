@@ -45,8 +45,8 @@
   animation-direction: var(--animation-direction);
 }
 
-@media (prefers-reduced-motion) {
-  .react-loading-skeleton {
-    --pseudo-element-display: none; /* Disable animation */
-  }
-}
+// @media (prefers-reduced-motion) {
+//   .react-loading-skeleton {
+//     --pseudo-element-display: none; /* Disable animation */
+//   }
+// }

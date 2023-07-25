@@ -11,7 +11,7 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
   z-index: c.$Z_TOAST;
   max-height: 360px;
   overflow-y: scroll;
-  transition: all 0.2s;
+  transition: all 0.3s;
   transform: translateX(-50%);
 
   .wrapper {

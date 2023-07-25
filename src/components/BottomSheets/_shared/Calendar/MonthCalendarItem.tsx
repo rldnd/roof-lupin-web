@@ -1,8 +1,8 @@
 "use client";
 
-import { memo } from "react";
+import { memo, MouseEventHandler } from "react";
 
-import { dayjs, getFirstDayOfWeek } from "@/utils/date";
+import cx from "clsx";
 
 import styles from "./monthCalendarItem.module.scss";
 
@@ -10,18 +10,35 @@ export interface Props {
   year: string;
   month: string;
   day: string;
+  isBeforeToday: boolean;
+  active: boolean;
+  isPossible: boolean;
+  isHoliday: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const MonthCalendarItem: React.FC<Props> = ({ year, month, day }) => {
-  // const isBeforeTodayWeek = dayjs(`${year}-${month}-${day}`);
-  // // const (dayjs().set("date", getFirstDayOfWeek()));
-  // const isBeforeToday = dayjs(`${year}-${month}-${day}`).isBefore(
-  //   `${dayjs().year()}-${dayjs().month() + 1}-${dayjs().date()}`,
-  // );
-
+const MonthCalendarItem: React.FC<Props> = ({
+  year,
+  month,
+  day,
+  active,
+  isBeforeToday,
+  isPossible,
+  isHoliday,
+  onClick,
+}) => {
   return (
     <li className={styles.wrapper}>
-      <button type="button">
+      <button
+        type="button"
+        disabled={!isPossible}
+        onClick={onClick}
+        className={cx({
+          [styles.isBeforeToday]: isBeforeToday,
+          [styles.active]: active,
+          [styles.isHoliday]: isHoliday,
+        })}
+      >
         <time dateTime={`${year}년 ${month}월 ${day}일`}>{day}</time>
       </button>
     </li>

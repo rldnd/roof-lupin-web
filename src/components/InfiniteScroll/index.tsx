@@ -12,11 +12,12 @@ interface Props {
   hasNextPage?: boolean;
   children: ReactNode;
   loadingComponent?: ReactNode;
+  id?: string;
   fetchNextPage: () => unknown | Promise<unknown>;
 }
 
 const InfiniteScroll = forwardRef<HTMLUListElement, Props>(
-  ({ className, root, children, fetchNextPage, loadingComponent, hasNextPage, isFetching, isSuccess }, ref) => {
+  ({ className, root, children, fetchNextPage, loadingComponent, hasNextPage, isFetching, isSuccess, id }, ref) => {
     const [inViewRef, inView] = useInView({
       root,
     });
@@ -27,7 +28,7 @@ const InfiniteScroll = forwardRef<HTMLUListElement, Props>(
 
     return (
       <>
-        <ul className={className} ref={ref}>
+        <ul className={className} ref={ref} id={id}>
           {children}
         </ul>
         {isFetching && loadingComponent}

@@ -4,8 +4,10 @@
 .wrapper {
   @include m.flex(space-between);
   @include m.fixed(auto auto 0 50%);
+  flex-wrap: wrap;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_SPACE_DETAIL_FOOTER_HEIGHT;
   padding: 16px 24px;
   background-color: var(--c-white);
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 25%);

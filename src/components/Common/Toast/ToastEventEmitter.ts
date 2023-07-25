@@ -29,7 +29,7 @@ class ToastEventEmitter extends EventEmitter {
       id: generateID("toast-message-"),
       action: toastAction.ADD,
       visible: true,
-      autoCloseTime: autoCloseTime ?? 3000,
+      autoCloseTime: autoCloseTime ?? 4000,
       message,
       buttonText,
       onClickButton,
