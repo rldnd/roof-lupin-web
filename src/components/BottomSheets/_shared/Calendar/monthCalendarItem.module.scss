@@ -13,16 +13,16 @@
     color: var(--c-gray-900);
     border-radius: 50%;
 
+    &.isHoliday {
+      color: var(--c-roof-orange);
+    }
+
     &.active {
       color: var(--c-white);
       background-color: var(--c-roof-orange);
     }
 
-    &.isHoliday {
-      color: var(--c-roof-orange);
-    }
-
-    &:disabled {
+    &:disabled:not(.isBeforeToday) {
       color: var(--c-gray-400);
       text-decoration: line-through;
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom, useSetAtom } from "jotai";
-import { useUnmount } from "react-use";
+import { useUnmount, useUpdateEffect } from "react-use";
 
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
@@ -27,6 +27,10 @@ const SpaceReservationContainer: React.FC = () => {
   const setTime = useSetAtom(reservationTimeState);
   const setPackage = useSetAtom(reservationPackageState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+
+  useUpdateEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [tab]);
 
   useUnmount(() => {
     setTab("reservation");

@@ -31,7 +31,7 @@ const MonthCalendarItem: React.FC<Props> = ({
     <li className={styles.wrapper}>
       <button
         type="button"
-        disabled={!isPossible}
+        disabled={!isPossible || isBeforeToday}
         onClick={onClick}
         className={cx({
           [styles.isBeforeToday]: isBeforeToday,

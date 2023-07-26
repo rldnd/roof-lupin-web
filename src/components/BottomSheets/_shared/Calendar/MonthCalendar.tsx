@@ -48,10 +48,11 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
           const info = infos.find((info) => info.day === day.toString());
 
           if (isCurrentMonth && day < getFirstDayOfWeek()) return null;
+
           return (
             <MonthCalendarItem
               active={active}
-              isBeforeToday={isCurrentMonth && day > getFirstDayOfWeek() && day < dayjs().date()}
+              isBeforeToday={isCurrentMonth && day >= getFirstDayOfWeek() && day < dayjs().date()}
               isHoliday={info?.isHoliday ?? false}
               isPossible={info?.isPossible ?? true}
               key={`${year}-${month}-${day}`}

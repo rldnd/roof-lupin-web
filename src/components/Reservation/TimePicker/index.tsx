@@ -39,7 +39,7 @@ const ReservationTimePicker: React.FC<Props> = ({ infos, className, startAt, end
       {infos.map((info, index) => {
         return (
           <ReservationTimePickerItem
-            key={info.time}
+            key={`${info.time}-${index}`}
             info={info}
             onClick={onClickTime}
             active={checkIsActive(startIndex, endIndex, index)}

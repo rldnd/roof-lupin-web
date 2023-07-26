@@ -3,11 +3,12 @@
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { useAtomValue } from "jotai";
+import queryString from "query-string";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
 import type { SpaceDetail } from "@/common/types/space";
 import { AuthChecker, Button } from "@/components";
-import { useQueryString, useSuspenseQuery } from "@/hooks";
+import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { getClientSpaceApi } from "@/services/space";
@@ -23,7 +24,6 @@ const ReservationButton: React.FC = () => {
   const { year, month, day, userCount } = spaceReservationInfo;
 
   const { isLogined } = useMe();
-  const { append, getQueryStringWithPath } = useQueryString();
 
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
@@ -37,8 +37,7 @@ const ReservationButton: React.FC = () => {
   const onClickButton = () => {
     if (!year || !month || !day || !userCount) return;
 
-    const query = append({ year, month, day, userCount });
-    push(getQueryStringWithPath(query, `${pathname}/reservations`));
+    push(`${pathname}/reservations?${queryString.stringify({ year, month, day, userCount })}`);
   };
 
   return (
