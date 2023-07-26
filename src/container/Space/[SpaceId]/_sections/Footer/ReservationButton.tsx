@@ -54,3 +54,11 @@ const ReservationButton: React.FC = () => {
 };
 
 export default ReservationButton;
+
+export const LoadingReservationButton: React.FC = () => {
+  return (
+    <Button color="primary" disabled>
+      예약 확인 중
+    </Button>
+  );
+};

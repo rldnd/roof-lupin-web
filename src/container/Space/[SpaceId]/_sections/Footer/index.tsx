@@ -9,10 +9,11 @@ import { SpaceReservationInfoFilterBottomSheet } from "@/components/BottomSheets
 import { categorySortMenuState } from "@/states";
 import { spaceReservationInfoState } from "@/states/space";
 import { dayjs } from "@/utils/date";
+import { getBeforeNavigationUrl } from "@/utils/navigation";
 
 import { IconRepeat } from "public/icons";
 
-import ReservationButton from "./ReservationButton";
+import ReservationButton, { LoadingReservationButton } from "./ReservationButton";
 
 import styles from "./footer.module.scss";
 
@@ -33,22 +34,17 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
 
   useEffect(() => {
     const today = dayjs();
-    const {
-      year: categoryYear,
-      month: categoryMonth,
-      day: categoryDay,
-      userCount: categoryUserCount,
-    } = categorySortMenu;
+    const { year, month, day, userCount } = categorySortMenu;
+    const hasBeforeUrl = getBeforeNavigationUrl();
 
-    setSpaceReservationInfo((prev) => {
-      const { year, month, day, userCount } = prev;
-      if (year && month && day && userCount) return prev;
+    if (hasBeforeUrl?.includes("spaces")) return;
 
+    setSpaceReservationInfo(() => {
       return {
-        year: categoryYear ?? today.year().toString(),
-        month: categoryMonth ?? (today.month() + 1).toString(),
-        day: categoryDay ?? today.date().toString(),
-        userCount: categoryUserCount ?? 2,
+        year: year ?? today.year().toString(),
+        month: month ?? (today.month() + 1).toString(),
+        day: day ?? today.date().toString(),
+        userCount: userCount ?? 2,
       };
     });
   }, [categorySortMenu, setSpaceReservationInfo]);
@@ -68,7 +64,7 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
             )}
           </button>
         </AuthChecker>
-        <Suspense fallback={null}>
+        <Suspense fallback={<LoadingReservationButton />}>
           <ReservationButton />
         </Suspense>
       </footer>

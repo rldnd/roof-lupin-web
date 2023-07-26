@@ -9,7 +9,7 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
   @include m.flex(flex-start, flex-start, column);
   @include m.fixed(auto auto calc(c.$S_BOTTOM_NAVIGATION_HEIGHT + $SPACE) 50%);
   z-index: c.$Z_TOAST;
-  max-height: 360px;
+  max-height: 160px;
   overflow-y: scroll;
   transition: all 0.3s;
   transform: translateX(-50%);

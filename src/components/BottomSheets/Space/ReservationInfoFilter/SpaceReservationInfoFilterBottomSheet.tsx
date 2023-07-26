@@ -34,52 +34,38 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
   const { addToast } = useToast();
 
   const [info, setInfo] = useAtom(spaceReservationInfoState);
-  const [localInfo, setLocalInfo] = useState<NotNullable<SpaceReservationInfo>>();
+  const [localInfo, setLocalInfo] = useState<NotNullable<SpaceReservationInfo>>(info);
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    if (!localInfo) return;
     setInfo(localInfo);
     onClose();
   };
 
   const onReset = useCallback(() => {
-    const { day, month, userCount, year } = info;
-    if (!day || !month || !userCount || !year) return;
-
-    setLocalInfo({ day, month, userCount, year });
+    setLocalInfo(info);
   }, [info]);
 
   const onClickPlus = () => {
-    if (!localInfo) return;
-
     if (localInfo.userCount === maxUser) {
       addToast({ message: "인원을 더 추가할 수 없습니다." });
     } else {
-      setLocalInfo((prev) => ({ ...prev!, userCount: prev!.userCount + 1 }));
+      setLocalInfo((prev) => ({ ...prev, userCount: prev.userCount + 1 }));
     }
   };
 
   const onClickMinus = () => {
-    if (!localInfo) return;
-    setLocalInfo((prev) => ({ ...prev!, userCount: prev!.userCount! - 1 }));
+    setLocalInfo((prev) => ({ ...prev!, userCount: prev.userCount - 1 }));
   };
 
   const onClickDay = useCallback(
     (year: string, month: string, day: string): MouseEventHandler<HTMLButtonElement> =>
       (e) => {
-        if (!localInfo) return;
-
-        const { userCount } = localInfo;
-        setLocalInfo({ userCount, year, month, day });
+        setLocalInfo((prev) => ({ ...prev, year, month, day }));
       },
-    [localInfo],
+    [],
   );
-
-  useEffect(() => {
-    onReset();
-  }, [onReset]);
 
   useEffect(() => {
     if (!isShow) onReset();
@@ -101,7 +87,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
             onClickMinus={onClickMinus}
             onClickPlus={onClickPlus}
             description={`${overflowUserCount}명 초과시 인당 ${overflowUserCost.toLocaleString("ko-KR")}원 추가돼요.`}
-            value={localInfo?.userCount}
+            value={localInfo.userCount}
           />
           <hr />
           <h2 className={styles.dateTitle}>날짜 및 시간</h2>
@@ -110,9 +96,9 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
         <Suspense fallback={<LoadingCalendarList />}>
           <CalendarList
             activeDate={{
-              day: localInfo?.day ?? info.day!,
-              month: localInfo?.month ?? info.month!,
-              year: localInfo?.year ?? info.year!,
+              day: localInfo.day,
+              month: localInfo.month,
+              year: localInfo.year,
             }}
             onClickDay={onClickDay}
           />

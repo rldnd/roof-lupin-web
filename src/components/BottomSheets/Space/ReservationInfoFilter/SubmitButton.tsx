@@ -14,10 +14,10 @@ import { dayjs } from "@/utils/date";
 import styles from "./submitButton.module.scss";
 
 interface Props {
-  year?: string;
-  month?: string;
-  day?: string;
-  userCount?: number;
+  year: string;
+  month: string;
+  day: string;
+  userCount: number;
 }
 
 const SubmitButton: React.FC<Props> = ({ year, month, day, userCount }) => {
