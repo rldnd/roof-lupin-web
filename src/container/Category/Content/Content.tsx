@@ -8,11 +8,11 @@ import { useAtom } from "jotai";
 import { range } from "lodash-es";
 
 import { Space } from "@/common/types/space";
-import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
+import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/components";
 import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { type CategorySortMenu, categorySortMenuState } from "@/states";
+import { categorySortMenuState } from "@/states";
 
 import styles from "./content.module.scss";
 
@@ -41,7 +41,7 @@ const Content: React.FC<Props> = ({ ids }) => {
 
   return (
     <main className={styles.wrapper}>
-      <InfiniteScroll
+      <UnorderedInfiniteScroll
         className={styles.spaceList}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
@@ -54,7 +54,7 @@ const Content: React.FC<Props> = ({ ids }) => {
             <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
           </SpaceDetailCard>
         ))}
-      </InfiniteScroll>
+      </UnorderedInfiniteScroll>
     </main>
   );
 };

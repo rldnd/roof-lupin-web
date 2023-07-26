@@ -10,6 +10,14 @@
     margin-left: 4px;
     color: var(--c-roof-orange);
   }
+
+  &.small {
+    @include m.fontBody1Regular;
+
+    > span {
+      @include m.fontBody1SemiBold;
+    }
+  }
 }
 
 .twoRowsWrapper {
@@ -32,6 +40,16 @@
 
     > span {
       margin-left: 4px;
+    }
+  }
+
+  &.small {
+    .firstRow {
+      @include m.fontBody1SemiBold;
+    }
+
+    .secondRow {
+      @include m.fontBody1Regular;
     }
   }
 }

@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 import { range } from "lodash-es";
 
 import { Review } from "@/common/types/review";
-import { InfiniteScroll, SpaceReview } from "@/components";
+import { SpaceReview, UnorderedInfiniteScroll } from "@/components";
 import { LoadingSpaceReview } from "@/components/Space/Review";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateReviewsApi } from "@/services/review";
@@ -27,7 +27,7 @@ const Content: React.FC = () => {
 
   return (
     <main className={styles.wrapper}>
-      <InfiniteScroll
+      <UnorderedInfiniteScroll
         className={styles.reviewList}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
@@ -38,7 +38,7 @@ const Content: React.FC = () => {
         {data.pages.map((review) => (
           <SpaceReview spaceId={spaceId} className={styles.review} key={review.id} isShowAll review={review} />
         ))}
-      </InfiniteScroll>
+      </UnorderedInfiniteScroll>
     </main>
   );
 };

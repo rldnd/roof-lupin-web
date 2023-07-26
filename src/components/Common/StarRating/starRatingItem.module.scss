@@ -2,7 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex;
+  @include m.flex(flex-start);
   gap: 2px;
 
   svg {
@@ -17,5 +17,15 @@
   .reviewCount {
     @include m.fontH4Regular;
     color: var(--c-gray-600);
+  }
+
+  &.small {
+    .score {
+      @include m.fontBody1SemiBold;
+    }
+
+    .reviewCount {
+      @include m.fontBody1Regular;
+    }
   }
 }

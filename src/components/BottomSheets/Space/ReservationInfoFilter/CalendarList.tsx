@@ -5,7 +5,7 @@ import type { MouseEventHandler } from "react";
 import { useParams } from "next/navigation";
 
 import type { PossibleRentalTypesByMonth } from "@/common/types/rentalType";
-import InfiniteScroll from "@/components/InfiniteScroll";
+import { OrderedInfiniteScroll } from "@/components/InfiniteScroll";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceRentalTypePossibleMonthApi } from "@/services/rentalType";
 import { dayjs } from "@/utils/date";
@@ -41,7 +41,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
     );
 
   return (
-    <InfiniteScroll
+    <OrderedInfiniteScroll
       fetchNextPage={fetchNextPage}
       isFetching={isFetching}
       isSuccess={isSuccess}
@@ -61,7 +61,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
         />
       ))}
       {isFetching && <LoadingMonthCalendar />}
-    </InfiniteScroll>
+    </OrderedInfiniteScroll>
   );
 };
 
@@ -69,8 +69,8 @@ export default CalendarList;
 
 export const LoadingCalendarList: React.FC = () => {
   return (
-    <ul className={styles.calendarWrapper}>
+    <ol className={styles.calendarWrapper}>
       <LoadingMonthCalendar />
-    </ul>
+    </ol>
   );
 };

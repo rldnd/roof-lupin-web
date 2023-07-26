@@ -1,0 +1,60 @@
+/* stylelint-disable property-no-unknown */
+/* stylelint-disable selector-pseudo-class-no-unknown */
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$IMAGE_WIDTH: 132px;
+$IMAGE_HEIGHT: 132px;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: $IMAGE_WIDTH minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+
+  .imageWrapper {
+    position: relative;
+    width: $IMAGE_WIDTH;
+    height: $IMAGE_HEIGHT;
+    border-radius: 4px;
+
+    .rank {
+      @include m.absolute(0 auto auto 0);
+      @include m.flex;
+      @include m.fontBody1SemiBold;
+      width: 24px;
+      height: 24px;
+      color: var(--c-white);
+      background-color: var(--c-black);
+      border-radius: 4px;
+    }
+  }
+
+  .content {
+    @include m.flex(flex-start, flex-start, column);
+    width: 100%;
+
+    .transport {
+      @include m.fontCaption;
+      margin-bottom: 2px;
+      color: var(--c-gray-500);
+    }
+
+    .title {
+      @include m.makeEllipsis(2);
+      @include m.fontH4SemiBold;
+      width: 100%;
+      margin-bottom: 2px;
+      color: var(--c-black);
+    }
+
+    .starRating {
+      margin-bottom: 12px;
+    }
+  }
+}
+
+:export {
+  imageWidth: $IMAGE_WIDTH;
+  imageHeight: $IMAGE_HEIGHT;
+}

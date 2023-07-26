@@ -6,8 +6,8 @@ import { useAtomValue } from "jotai";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
-import { InfiniteScroll, SpaceBookmark, SpaceDetailCard } from "@/components";
-import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
+import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/components";
+import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states/location";
 import { getDistance } from "@/utils/naverMap";
@@ -55,7 +55,7 @@ const SpaceList: React.FC = () => {
   }, [data?.pages, isSuccess]);
 
   return (
-    <InfiniteScroll
+    <UnorderedInfiniteScroll
       className={styles.wrapper}
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
@@ -68,7 +68,7 @@ const SpaceList: React.FC = () => {
           <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
         </SpaceDetailCard>
       ))}
-    </InfiniteScroll>
+    </UnorderedInfiniteScroll>
   );
 };
 
