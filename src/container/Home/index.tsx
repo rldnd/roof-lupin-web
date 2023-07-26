@@ -7,6 +7,7 @@ import { Carousel, CarouselItem } from "./Carousel";
 import Category from "./Category";
 import { ContentBookmark, ContentList } from "./Content";
 import { Header } from "./Header";
+import Ranking from "./Ranking";
 
 import styles from "./homeContainer.module.scss";
 
@@ -47,8 +48,7 @@ export default async function HomeContainer() {
           }
 
           if (content.type === "RANKING") {
-            const { name } = content.ranking;
-            return <h1 key={content.id}>랭킹 개발 필요:{name}</h1>;
+            return <Ranking key={content.id} ranking={content.ranking} />;
           }
         })}
         <Footer />
