@@ -1,3 +1,3 @@
 export { default as SpaceCard } from "./SpaceCard";
-export { default as SpaceDetailCard } from "./SpaceDetailCard";
-export { default as SpaceRankCard } from "./SpaceRankCard";
+export { default as SpaceDetailCard, LoadingSpaceDetailCard } from "./SpaceDetailCard";
+export { default as SpaceRankCard, LoadingSpaceRankCard } from "./SpaceRankCard";

@@ -1,7 +1,10 @@
+import { memo } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { Space } from "@/common/types/space";
 import { StarRatingItem } from "@/components/Common/StarRating";
@@ -54,4 +57,18 @@ const SpaceRankCard: React.FC<Props> = ({ rank, space, className, href }) => {
   );
 };
 
-export default SpaceRankCard;
+export default memo(SpaceRankCard);
+
+export const LoadingSpaceRankCard: React.FC = () => {
+  return (
+    <li className={styles.wrapper}>
+      <Skeleton className={styles.imageWrapper} />
+      <div className={styles.content}>
+        <Skeleton className={styles.address} width={80} height={12} />
+        <Skeleton className={styles.title} width={120} />
+        <Skeleton className={styles.starRating} width={60} />
+        <Skeleton width={100} />
+      </div>
+    </li>
+  );
+};

@@ -16,7 +16,7 @@ interface Props {
   fetchNextPage: () => unknown | Promise<unknown>;
 }
 
-const OrderedInfiniteList = forwardRef<HTMLOListElement, Props>(
+const OrderedInfiniteScroll = forwardRef<HTMLOListElement, Props>(
   ({ className, root, children, fetchNextPage, loadingComponent, hasNextPage, isFetching, isSuccess, id }, ref) => {
     const [inViewRef, inView] = useInView({
       root,
@@ -38,4 +38,4 @@ const OrderedInfiniteList = forwardRef<HTMLOListElement, Props>(
   },
 );
 
-export default OrderedInfiniteList;
+export default OrderedInfiniteScroll;

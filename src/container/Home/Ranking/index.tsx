@@ -12,7 +12,7 @@ const Ranking: React.FC<Props> = ({ ranking }) => {
     <section className={styles.wrapper}>
       <div className={styles.titleWrapper}>
         <h2>{ranking.name}</h2>
-        <ArrowLink href={"/"}>전체보기</ArrowLink>
+        <ArrowLink href={`/rankings/${ranking.id}`}>전체보기</ArrowLink>
       </div>
       <span className={styles.desc}>{ranking.description}</span>
       <ol className={styles.list}>

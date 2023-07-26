@@ -2,8 +2,8 @@ import { Suspense } from "react";
 
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
-import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
-import { getServerSpaceApi, getSpaceIdsApi } from "@/services/space";
+import { getSpaceRentalTypeApi } from "@/services/rentalType";
+import { getServerSpaceApi } from "@/services/space";
 
 import {
   BestPhoto,
@@ -31,14 +31,6 @@ interface Props {
   params: { spaceId: string };
 }
 
-export async function generateStaticParams() {
-  const { ids } = await getSpaceIdsApi();
-
-  return ids.map((id) => ({
-    spaceId: id,
-  }));
-}
-
 // TODO: 문의하기 구현
 // TODO: Q&A 구현
 // TODO: 지도 구현
@@ -46,7 +38,7 @@ export async function generateStaticParams() {
 // TODO: 카테고리 필터와 싱크 맞추기
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getServerSpaceApi(params.spaceId);
-  const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
+  const spaceRentalTypePromise = getSpaceRentalTypeApi(params.spaceId);
 
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
