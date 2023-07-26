@@ -35,7 +35,7 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
   const isCurrentMonth = dayjs().year() === Number(year) && dayjs().month() + 1 === Number(month);
 
   return (
-    <section className={styles.wrapper}>
+    <li className={styles.wrapper}>
       <h2 className={styles.yearMonth}>
         {year}년 {month}월
       </h2>
@@ -63,7 +63,7 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
           );
         })}
       </ol>
-    </section>
+    </li>
   );
 };
 

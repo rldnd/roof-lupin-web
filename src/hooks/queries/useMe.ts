@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { type QueryObserverResult, useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import { type QueryObserverResult, useQuery, useQueryClient, type UseQueryOptions } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
 import { LOGOUT_EVENT_NAME } from "@/common/constants";
@@ -27,10 +27,17 @@ interface UseMeReturn {
 }
 
 const useMe = (options?: Options): UseMeReturn => {
+  const queryClient = useQueryClient();
+
   const [me, setMe] = useAtom(meState);
   const { refetch } = useQuery(["getMe"], () => getMeApi().then((res) => res.data), {
     staleTime: Infinity,
-    onSuccess: (data) => setMe(data),
+    onSuccess: (data) => {
+      setMe(data);
+      queryClient.invalidateQueries({
+        predicate: (query) => !["getMe", "getMyPushToken"].includes(query.queryKey[0] as string),
+      });
+    },
     onError: () => onLogout(),
     ...options,
     enabled: isClient && options?.enabled,

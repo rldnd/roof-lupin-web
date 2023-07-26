@@ -4,16 +4,15 @@ import { FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEff
 
 import { useAtom } from "jotai";
 
-import { BottomSheetPortal, Button } from "@/components/Common";
+import { BottomSheetPortal } from "@/components/Common";
 import { useToast } from "@/hooks";
 import { SpaceReservationInfo, spaceReservationInfoState } from "@/states/space";
 import { NotNullable } from "@/utils/types";
 
-import CalendarList from "./CalendarList";
+import CalendarList, { LoadingCalendarList } from "./CalendarList";
 import Header from "./Header";
 import SubmitButton from "./SubmitButton";
 import { DayBar, UserStepper } from "../../_shared";
-import { LoadingMonthCalendar } from "../../_shared/Calendar/MonthCalendar";
 
 import styles from "./spaceReservationInfoFilterBottomSheet.module.scss";
 
@@ -108,7 +107,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
           <h2 className={styles.dateTitle}>날짜 및 시간</h2>
         </div>
         <DayBar />
-        <Suspense fallback={<LoadingMonthCalendar />}>
+        <Suspense fallback={<LoadingCalendarList />}>
           <CalendarList
             activeDate={{
               day: localInfo?.day ?? info.day!,

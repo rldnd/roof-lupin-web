@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import type { Space } from "@/common/types/space";
 import { AuthChecker } from "@/components";
 import { useDataToggle } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { getHomeSpacesInContentsApi } from "@/services/home";
 import { createSpaceInterestApi, deleteSpaceInterestApi } from "@/services/space";
 
@@ -19,9 +20,10 @@ interface Props {
 }
 
 const Bookmark: React.FC<Props> = ({ space }) => {
+  const { me } = useMe();
   const [isActive, setIsActive] = useState(false);
   const { data: isInterested, refetch } = useQuery(
-    ["getHomeSpacesInContents"],
+    ["getHomeSpacesInContents", me],
     () =>
       getHomeSpacesInContentsApi().then((res) =>
         res.data.reduce<Space[]>((acc, cur) => {
@@ -31,6 +33,7 @@ const Bookmark: React.FC<Props> = ({ space }) => {
       ),
     {
       select: (res) => res.find((item) => item.id === space.id)?.isInterested ?? false,
+      enabled: Boolean(me),
     },
   );
 

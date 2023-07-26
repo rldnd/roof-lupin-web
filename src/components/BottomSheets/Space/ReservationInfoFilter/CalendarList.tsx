@@ -4,8 +4,6 @@ import type { MouseEventHandler } from "react";
 
 import { useParams } from "next/navigation";
 
-import cx from "clsx";
-
 import type { PossibleRentalTypesByMonth } from "@/common/types/rentalType";
 import InfiniteScroll from "@/components/InfiniteScroll";
 import { useSuspenseInfiniteQuery } from "@/hooks";
@@ -48,7 +46,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
       isFetching={isFetching}
       isSuccess={isSuccess}
       hasNextPage={hasNextPage}
-      className={cx(styles.content, styles.calendarWrapper)}
+      className={styles.calendarWrapper}
       id={CALENDAR_ID}
       root={$root}
     >
@@ -68,3 +66,11 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
 };
 
 export default CalendarList;
+
+export const LoadingCalendarList: React.FC = () => {
+  return (
+    <ul className={styles.calendarWrapper}>
+      <LoadingMonthCalendar />
+    </ul>
+  );
+};
