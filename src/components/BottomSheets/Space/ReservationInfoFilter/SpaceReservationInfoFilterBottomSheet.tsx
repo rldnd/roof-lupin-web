@@ -61,7 +61,7 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
 
   const onClickDay = useCallback(
     (year: string, month: string, day: string): MouseEventHandler<HTMLButtonElement> =>
-      (e) => {
+      () => {
         setLocalInfo((prev) => ({ ...prev, year, month, day }));
       },
     [],

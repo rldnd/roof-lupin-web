@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { Tag } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
 
 import CallButton from "./CallButton";

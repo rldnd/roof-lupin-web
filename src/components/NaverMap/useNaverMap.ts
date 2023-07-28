@@ -4,7 +4,6 @@ import type {
   ActionOmitter,
   AddMarkerParameter,
   AddMarkersParameter,
-  ClearMarkersParameter,
   DeleteMarkerParameter,
   MoveCenterParameter,
 } from "./types";

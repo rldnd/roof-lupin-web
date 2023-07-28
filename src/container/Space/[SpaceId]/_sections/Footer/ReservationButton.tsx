@@ -12,6 +12,7 @@ import { useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { getClientSpaceApi } from "@/services/space";
+import { RESERVATION_TAB_MAPPER } from "@/states/reservation";
 import { spaceReservationInfoState } from "@/states/space";
 
 const ReservationButton: React.FC = () => {
@@ -36,8 +37,11 @@ const ReservationButton: React.FC = () => {
 
   const onClickButton = () => {
     if (!year || !month || !day || !userCount) return;
+    const tab = space.isImmediateReservation
+      ? RESERVATION_TAB_MAPPER.RESERVATION
+      : RESERVATION_TAB_MAPPER.REQUEST_RESERVATION;
 
-    push(`${pathname}/reservations?${queryString.stringify({ year, month, day, userCount })}`);
+    push(`${pathname}/reservations?${queryString.stringify({ year, month, day, userCount, tab })}`);
   };
 
   return (

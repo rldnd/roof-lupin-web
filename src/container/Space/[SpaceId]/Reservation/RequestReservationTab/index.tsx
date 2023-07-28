@@ -1,48 +1,40 @@
-"use client";
-
 import { Suspense } from "react";
 
-import { useSetAtom } from "jotai";
-
-import { reservationTabState } from "@/states/reservation";
-
 import { HostApprove } from "./_sections";
+import { Header } from "../_shared";
 import {
-  Discount,
-  FreeCancelTerm,
-  Header,
-  PriceInfo,
-  ReservationClerkInfo,
-  SelectedReservationInfo,
-  Submit,
-  UserInfo,
-} from "../_shared";
+  Deposit,
+  History,
+  LoadingReservationButton,
+  LoadingSpaceInfo,
+  ReservationButton,
+  Service,
+  SpaceInfo,
+  TimeAndPackage,
+} from "../_shared/_reservation";
 
 import styles from "./requestReservationTab.module.scss";
 
+// TODO: spaceInfo => 날짜 변경
 const RequestReservationTab: React.FC = () => {
-  const setTab = useSetAtom(reservationTabState);
-
   return (
     <main className={styles.wrapper}>
-      <Header title="예약 요청" onClickBack={() => setTab("reservation")} />
-      <Suspense fallback={null}>
-        <SelectedReservationInfo />
+      <Header title="예약 요청" />
+      <HostApprove />
+      <Suspense fallback={<LoadingSpaceInfo />}>
+        <SpaceInfo />
       </Suspense>
       <hr />
-      <ReservationClerkInfo />
+      <TimeAndPackage />
       <hr />
-      <UserInfo />
-      <hr />
-      <Discount />
-      <hr />
-      <PriceInfo />
-      <hr />
-      <FreeCancelTerm />
-      <hr />
-      <HostApprove />
-      <hr />
-      <Submit buttonText="지금 예약 요청하기" />
+      <Service />
+      <History />
+      <Suspense fallback={null}>
+        <Deposit />
+      </Suspense>
+      <Suspense fallback={<LoadingReservationButton />}>
+        <ReservationButton />
+      </Suspense>
     </main>
   );
 };

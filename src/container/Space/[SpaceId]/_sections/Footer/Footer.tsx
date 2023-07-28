@@ -35,9 +35,9 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   useEffect(() => {
     const today = dayjs();
     const { year, month, day, userCount } = categorySortMenu;
-    const hasBeforeUrl = getBeforeNavigationUrl();
+    const beforeUrl = getBeforeNavigationUrl();
 
-    if (hasBeforeUrl?.includes("spaces")) return;
+    if (beforeUrl?.includes("spaces")) return;
 
     setSpaceReservationInfo(() => {
       return {

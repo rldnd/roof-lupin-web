@@ -3,12 +3,11 @@
 
 .wrapper {
   width: 100%;
-  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING;
-  background-color: var(--c-gray-100);
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
   h2 {
-    @include m.fontH4SemiBold;
-    margin-bottom: 8px;
+    @include m.fontH3SemiBold;
+    margin-bottom: 24px;
     color: var(--c-black);
   }
 

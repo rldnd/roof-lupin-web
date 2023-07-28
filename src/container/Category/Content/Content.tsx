@@ -6,6 +6,7 @@ import { notFound, useSearchParams } from "next/navigation";
 
 import { useAtom } from "jotai";
 import { range } from "lodash-es";
+import { useUpdateEffect } from "react-use";
 
 import { Space } from "@/common/types/space";
 import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/components";
@@ -38,6 +39,10 @@ const Content: React.FC<Props> = ({ ids }) => {
       setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
     });
   }, [ids, searchParams, setCategorySortMenu]);
+
+  useUpdateEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [categorySortMenu]);
 
   return (
     <main className={styles.wrapper}>

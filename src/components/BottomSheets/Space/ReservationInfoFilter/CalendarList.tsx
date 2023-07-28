@@ -28,7 +28,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
 
   const { fetchNextPage, isFetching, isSuccess, data, hasNextPage } =
     useSuspenseInfiniteQuery<PossibleRentalTypesByMonth>(
-      ["paginateSpaceRentalTypePossibleMonth"],
+      ["paginateSpaceRentalTypePossibleMonth", spaceId],
       ({ pageParam = 1 }) =>
         paginateSpaceRentalTypePossibleMonthApi({
           limit: 1,

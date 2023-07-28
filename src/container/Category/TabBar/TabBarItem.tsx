@@ -24,7 +24,6 @@ const TabBarItem: React.FC<Props> = ({ category }) => {
 
   const onClick = useCallback(() => {
     history.replaceState(null, "", getQueryStringWithPath(append({ categoryId: category.id })));
-    window.scrollTo({ top: 0, behavior: "smooth" });
     buttonRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
     setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
   }, [append, category.id, getQueryStringWithPath, setCategorySortMenu]);

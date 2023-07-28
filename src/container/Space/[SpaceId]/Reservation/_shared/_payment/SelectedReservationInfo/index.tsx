@@ -16,7 +16,7 @@ import {
 import { dayjs } from "@/utils/date";
 import { getDiffHour } from "@/utils/time";
 
-import { DataItem, DataList } from "../Data";
+import { DataItem, DataList } from "../../Data";
 
 import styles from "./selectedReservationInfo.module.scss";
 

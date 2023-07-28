@@ -11,6 +11,7 @@ import {
   Carousel,
   CarouselItem,
   Caution,
+  Footer,
   Header,
   Introduction,
   LoadingCarousel,
@@ -23,7 +24,6 @@ import {
   Service,
   TabBar,
 } from "./_sections";
-import Footer from "./_sections/Footer";
 
 import styles from "./spaceDetailContainer.module.scss";
 

@@ -1,7 +1,7 @@
-import { atom } from "jotai";
-
+import { RESERVATION_INFO } from "@/common/constants";
 import { PaginateSpacesQueryParams } from "@/services/space";
 import { dayjs } from "@/utils/date";
+import { sessionPersistenceAtom } from "@/utils/jotai";
 import type { NotNullable } from "@/utils/types";
 
 export interface SpaceReservationInfo
@@ -14,4 +14,7 @@ export const initialSpaceReservationInfo: SpaceReservationInfo = {
   userCount: 2,
 };
 
-export const spaceReservationInfoState = atom<SpaceReservationInfo>(initialSpaceReservationInfo);
+export const spaceReservationInfoState = sessionPersistenceAtom<SpaceReservationInfo>(
+  RESERVATION_INFO,
+  initialSpaceReservationInfo,
+);

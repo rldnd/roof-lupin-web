@@ -2,6 +2,7 @@
 
 import { Suspense } from "react";
 
+import { HostApprove } from "./_sections";
 import { Header } from "../_shared";
 import {
   Discount,
@@ -13,12 +14,12 @@ import {
   UserInfo,
 } from "../_shared/_payment";
 
-import styles from "./paymentTab.module.scss";
+import styles from "./requestPaymentTab.module.scss";
 
-const PaymentTab: React.FC = () => {
+const RequestPaymentTab: React.FC = () => {
   return (
     <main className={styles.wrapper}>
-      <Header title="결제" />
+      <Header title="예약 요청" />
       <Suspense fallback={null}>
         <SelectedReservationInfo />
       </Suspense>
@@ -33,9 +34,11 @@ const PaymentTab: React.FC = () => {
       <hr />
       <FreeCancelTerm />
       <hr />
-      <Submit buttonText="얼마 결제하기" />
+      <HostApprove />
+      <hr />
+      <Submit buttonText="지금 예약 요청하기" />
     </main>
   );
 };
 
-export default PaymentTab;
+export default RequestPaymentTab;

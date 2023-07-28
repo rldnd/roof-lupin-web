@@ -21,7 +21,7 @@ const StarRatingItem: React.FC<Props> = ({
   score,
   reviewCount,
   starSize = 18,
-  size = "small",
+  size = "medium",
 }) => {
   const style = useMemo(() => ({ "--scale": starSize / 18 }) as CSSProperties, [starSize]);
 
