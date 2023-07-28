@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 
 import { HostApprove, LoadingRequestReservationButton, RequestReservationButton } from "./_sections";
