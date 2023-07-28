@@ -17,6 +17,7 @@ import {
   LoadingCarousel,
   Location,
   MenuItem,
+  OpenHourAndHoliday,
   Price,
   Refund,
   ReportButton,
@@ -74,7 +75,9 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Refund refundPolicies={space.refundPolicies} />
         <hr />
-        <MenuItem title="판매자 정보" href="/" />
+        <OpenHourAndHoliday openHours={space.openHours} holidays={space.holidays} />
+        <hr />
+        <MenuItem title="호스트 정보" href="/" />
         <hr />
         <ReportButton />
         <Footer

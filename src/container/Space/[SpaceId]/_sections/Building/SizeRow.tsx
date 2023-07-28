@@ -22,7 +22,7 @@ const SizeRow: React.FC<Props> = ({ sizes }) => {
   const [isSquareFeet, setIsSquareFeet] = useState(true);
 
   const hasOneSize = sizes.length === 1;
-  const floorAndSize = sizes.reduce<Array<[string, number]>>((acc, cur) => {
+  const floorAndSize = sizes.reduce<Array<[number, number]>>((acc, cur) => {
     return [...acc, [cur.floor, cur.size]];
   }, []);
 

@@ -2,7 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.absolute(auto 0 0 auto);
+  @include m.absolute(auto c.$S_PAGE_HORIZONTAL_PADDING 0 auto);
   display: none;
   padding: 0 8px 0 24px;
   background: linear-gradient(270deg, #ffffff 80%, rgba(255, 255, 255, 0%) 100%);

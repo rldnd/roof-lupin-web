@@ -3,44 +3,52 @@
 
 .wrapper {
   width: 100%;
-  padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 0;
+  padding-top: 20px;
 
-  .transport {
-    @include m.fontCaption;
-    display: block;
-    margin-bottom: 4px;
-    color: var(--c-gray-500);
-  }
-
-  .title {
-    @include m.fontH1;
-    margin-bottom: 4px;
-    color: var(--c-black);
-  }
-
-  .info {
-    @include m.flex(space-between);
+  .top {
     width: 100%;
-    margin-bottom: 20px;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
-    .left {
-      @include m.flex(flex-start);
-      gap: 4px;
+    .transport {
+      @include m.fontCaption;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--c-gray-500);
+    }
+
+    .title {
+      @include m.fontH1;
+      margin-bottom: 4px;
+      color: var(--c-black);
+    }
+
+    .info {
+      @include m.flex(space-between);
+      width: 100%;
+
+      .left {
+        @include m.flex(flex-start);
+        gap: 4px;
+      }
     }
   }
 
-  ul {
-    @include m.flex(flex-start, flex-start);
-    flex-wrap: wrap;
+  .tagList {
+    @include m.flex(flex-start);
     gap: 8px;
-    margin-bottom: 8px;
+    padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 24px;
   }
 
-  .desc {
-    @include m.fontBody1Regular;
-    @include m.makeEllipsis(4);
+  .bottom {
     position: relative;
-    color: var(--c-gray-900);
-    white-space: normal;
+    width: 100%;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+    .desc {
+      @include m.fontBody1Regular;
+      @include m.makeEllipsis(4);
+      color: var(--c-gray-900);
+      white-space: normal;
+    }
   }
 }

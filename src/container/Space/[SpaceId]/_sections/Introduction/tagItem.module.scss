@@ -1,0 +1,33 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+/* stylelint-disable property-no-unknown */
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$TAG_IMAGE_SIZE: 24px;
+
+.wrapper {
+  @include m.flex(center, center, column);
+  gap: 8px;
+  width: 72px;
+  min-width: 72px;
+  height: 72px;
+  background-color: var(--c-gray-100);
+  border-radius: 8px;
+
+  svg,
+  img {
+    width: $TAG_IMAGE_SIZE;
+    height: $TAG_IMAGE_SIZE;
+    object-fit: contain;
+  }
+
+  .name {
+    @include m.fontCaptionSemiBold;
+    color: var(--c-gray-700);
+    white-space: nowrap;
+  }
+}
+
+:export {
+  tagImageSize: $TAG_IMAGE_SIZE;
+}

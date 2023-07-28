@@ -12,5 +12,6 @@ export { default as ReportButton } from "./ReportButton";
 export { default as Review } from "./Review";
 export { default as TabBar } from "./TabBar";
 export { default as Refund } from "./Refund";
+export { default as OpenHourAndHoliday } from "./OpenHourAndHoliday";
 
 export { Footer } from "./Footer";

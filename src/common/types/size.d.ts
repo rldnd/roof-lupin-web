@@ -4,5 +4,7 @@ export interface Size {
   /** 면적 */
   size: number;
   /** 층수 */
-  floor: string;
+  floor: number;
+  /** 옥탑 여부 */
+  isRoof: boolean;
 }

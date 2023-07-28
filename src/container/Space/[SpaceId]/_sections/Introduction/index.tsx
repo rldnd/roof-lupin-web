@@ -1,12 +1,19 @@
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 import type { SpaceDetail } from "@/common/types/space";
+import { HorizonDraggable } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
+import { getNumberFromPixel } from "@/utils/styles";
+
+import { IconApprove, IconMaximum, IconStandard } from "public/icons";
 
 import CallButton from "./CallButton";
 import ReviewButton from "./ReviewButton";
+import TagItem from "./TagItem";
 
 import styles from "./introduction.module.scss";
+import tagStyles from "./tagItem.module.scss";
 
 const IntroductionMoreButton = dynamic(() => import("./IntroductionMoreButton"), { ssr: false });
 
@@ -15,27 +22,60 @@ interface Props {
 }
 
 const Introduction: React.FC<Props> = ({ space }) => {
-  const { title, description, averageScore, reviewCount, publicTransportations } = space;
+  const {
+    title,
+    description,
+    averageScore,
+    reviewCount,
+    publicTransportations,
+    categories,
+    isImmediateReservation,
+    overflowUserCount,
+    maxUser,
+  } = space;
 
   return (
     <section className={styles.wrapper}>
-      {publicTransportations.length > 0 && (
-        <small className={styles.transport}>
-          {publicTransportations[0].name} 도보 {publicTransportations[0].timeTaken}분
-        </small>
-      )}
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.info}>
-        <div className={styles.left}>
-          <StarRatingItem score={averageScore} reviewCount={reviewCount} viewReviewCount={false} />
-          {reviewCount !== 0 && <ReviewButton reviewCount={reviewCount} />}
+      <div className={styles.top}>
+        {publicTransportations.length > 0 && (
+          <small className={styles.transport}>
+            {publicTransportations[0].name} 도보 {publicTransportations[0].timeTaken}분
+          </small>
+        )}
+        <h1 className={styles.title}>{title}</h1>
+        <div className={styles.info}>
+          <div className={styles.left}>
+            <StarRatingItem score={averageScore} reviewCount={reviewCount} viewReviewCount={false} />
+            {reviewCount !== 0 && <ReviewButton reviewCount={reviewCount} />}
+          </div>
+          <CallButton />
         </div>
-        <CallButton />
       </div>
-      <p className={styles.desc} id="space-detail-description">
-        {description}
+      <HorizonDraggable className={styles.tagList}>
+        {!isImmediateReservation && <TagItem icon={<IconApprove />} name="승인 후 결제" />}
+        <TagItem icon={<IconStandard />} name={`${overflowUserCount}명 기준`} />
+        <TagItem icon={<IconMaximum />} name={`최대 ${maxUser}명`} />
+        {categories.map((category) => (
+          <TagItem
+            key={category.id}
+            icon={
+              <Image
+                src={category.iconPath as string}
+                width={getNumberFromPixel(tagStyles.tagImageSize)}
+                height={getNumberFromPixel(tagStyles.tagImageSize)}
+                alt={`${category.name} 카테고리 이미지`}
+              />
+            }
+            name={category.name}
+          />
+        ))}
+      </HorizonDraggable>
+      <div className={styles.bottom}>
+        <p className={styles.desc} id="space-detail-description">
+          {description}
+        </p>
         <IntroductionMoreButton space={space} />
-      </p>
+      </div>
     </section>
   );
 };

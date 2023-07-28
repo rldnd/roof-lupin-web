@@ -1,8 +1,9 @@
 import type { Building } from "./building";
 import type { Caution } from "./caution";
-import type { ImageDTO } from "./common";
+import type { Day, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { Location } from "./location";
+import type { OpenHour } from "./openHour";
 import type { RefundPolicy } from "./refund";
 import type { PackageRentalType, TimeRentalType } from "./rentalType";
 import type { Review } from "./review";
@@ -27,6 +28,17 @@ export interface SpaceCategory {
   id: string;
   /** 카테고리 이름 */
   name: string;
+  /** 아이콘 이미지 경로 */
+  iconPath: string;
+}
+
+export interface SpaceHoliday {
+  /** 휴무일 id */
+  id: string;
+  /** 요일 */
+  day: Day;
+  /** 간격 (1 ~ 3 은 해당 월의 n번째주, 4는 월 단위) */
+  interval: number;
 }
 
 export interface BestPhoto {
@@ -102,6 +114,10 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   sizes: Size[];
   /** 베스트 포토 */
   bestPhotos: BestPhoto[];
+  /** 영업 시간 */
+  openHours: OpenHour[];
+  /** 휴일 */
+  holidays: SpaceHoliday[];
 }
 
 export interface SpaceRentalType {
