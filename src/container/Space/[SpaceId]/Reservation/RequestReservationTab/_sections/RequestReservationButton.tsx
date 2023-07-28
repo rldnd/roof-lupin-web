@@ -15,9 +15,9 @@ import {
   reservationTimeState,
 } from "@/states/reservation";
 
-import styles from "./reservationButton.module.scss";
+import styles from "./requestReservationButton.module.scss";
 
-const ReservationButton: React.FC = () => {
+const RequestReservationButton: React.FC = () => {
   const setTab = useSetAtom(reservationTabState);
 
   const { spaceId } = useParams();
@@ -31,20 +31,15 @@ const ReservationButton: React.FC = () => {
     ((timeStartAt && timeEndAt) || reservationPackage.length > 0) &&
     (!data.deposit || (data.deposit && reservationDepositConfirm));
 
-  const onClick = () => {
-    if (data.isImmediateReservation) setTab("payment");
-    else setTab("requestReservation");
-  };
-
   return (
-    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper} onClick={onClick}>
-      {data.isImmediateReservation ? "예약하기" : "예약 요청하기"}
+    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper} onClick={() => {}}>
+      예약 요청하기
     </Button>
   );
 };
 
-export default ReservationButton;
+export default RequestReservationButton;
 
-export const LoadingReservationButton: React.FC = () => {
+export const LoadingRequestReservationButton: React.FC = () => {
   return <Button type="button" color="primary" disabled className={styles.wrapper} />;
 };

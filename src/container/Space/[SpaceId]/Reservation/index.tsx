@@ -16,6 +16,7 @@ import ReservationTab from "./ReservationTab";
 
 const SpaceReservationContainer: React.FC = () => {
   const tab = useAtomValue(reservationTabState);
+  console.log({ tab });
 
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
@@ -23,6 +24,7 @@ const SpaceReservationContainer: React.FC = () => {
       {tab === RESERVATION_TAB_MAPPER.REQUEST_RESERVATION && <RequestReservationTab />}
       {tab === RESERVATION_TAB_MAPPER.PAYMENT && <PaymentTab />}
       {tab === RESERVATION_TAB_MAPPER.REQUEST_PAYMENT && <RequestPaymentTab />}
+
       <Suspense fallback={null}>
         <DataHandler />
       </Suspense>

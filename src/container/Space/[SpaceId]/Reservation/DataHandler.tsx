@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
 import { useAtom, useSetAtom } from "jotai";
-import { useUnmount, useUpdateEffect } from "react-use";
+import { useMount, useUnmount, useUpdateEffect } from "react-use";
 
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery } from "@/hooks";
@@ -47,7 +47,19 @@ const DataHandler: React.FC = () => {
     [data.deposit, depositConfirm, packages.length, time.endAt, time.startAt],
   );
 
-  const isRequest = !data.isImmediateReservation;
+  const isRequest = useMemo<boolean>(() => !data.isImmediateReservation, [data.isImmediateReservation]);
+
+  const reset = useCallback(() => {
+    setAdditionalServices({});
+    setTime(initialReservationTime);
+    setPackages([]);
+    setDepositConfirm(false);
+    setReservation(initialReservation);
+  }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
+
+  useMount(() => {
+    if (tab && tab.toLocaleLowerCase().includes("reservation")) reset();
+  });
 
   useEffect(() => {
     if (
@@ -57,14 +69,15 @@ const DataHandler: React.FC = () => {
       !userCount ||
       !tab ||
       !Object.values(RESERVATION_TAB_MAPPER).includes(tab) ||
-      (tab.includes("request") && !isRequest) ||
-      (tab.includes("payment") && !canPayment)
-    )
+      tab.toLocaleLowerCase().includes("request") !== isRequest ||
+      (tab.toLocaleLowerCase().includes("payment") && !canPayment)
+    ) {
       throw Error("잘못된 접근입니다.");
+    }
 
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount) }));
     setTab(tab as Tab);
-  }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab]);
+  }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab, reset]);
 
   useUpdateEffect(() => {
     window.scrollTo({ top: 0 });
@@ -72,11 +85,7 @@ const DataHandler: React.FC = () => {
 
   useUnmount(() => {
     setTab(null);
-    setAdditionalServices({});
-    setTime(initialReservationTime);
-    setPackages([]);
-    setDepositConfirm(false);
-    setReservation(initialReservation);
+    reset();
   });
 
   return null;

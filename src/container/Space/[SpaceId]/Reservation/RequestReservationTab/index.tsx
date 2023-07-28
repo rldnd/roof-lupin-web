@@ -1,17 +1,8 @@
 import { Suspense } from "react";
 
-import { HostApprove } from "./_sections";
+import { HostApprove, LoadingRequestReservationButton, RequestReservationButton } from "./_sections";
 import { Header } from "../_shared";
-import {
-  Deposit,
-  History,
-  LoadingReservationButton,
-  LoadingSpaceInfo,
-  ReservationButton,
-  Service,
-  SpaceInfo,
-  TimeAndPackage,
-} from "../_shared/_reservation";
+import { Deposit, History, LoadingSpaceInfo, Service, SpaceInfo, TimeAndPackage } from "../_shared/_reservation";
 
 import styles from "./requestReservationTab.module.scss";
 
@@ -32,8 +23,8 @@ const RequestReservationTab: React.FC = () => {
       <Suspense fallback={null}>
         <Deposit />
       </Suspense>
-      <Suspense fallback={<LoadingReservationButton />}>
-        <ReservationButton />
+      <Suspense fallback={<LoadingRequestReservationButton />}>
+        <RequestReservationButton />
       </Suspense>
     </main>
   );
