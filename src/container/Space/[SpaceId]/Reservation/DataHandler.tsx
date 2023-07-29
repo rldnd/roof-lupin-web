@@ -79,10 +79,6 @@ const DataHandler: React.FC = () => {
     setTab(tab as Tab);
   }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab, reset, spaceId]);
 
-  useUpdateEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [tab]);
-
   useUnmount(() => {
     setTab(null);
     reset();

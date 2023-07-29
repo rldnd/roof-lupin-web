@@ -1,24 +1,25 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
 import { SpaceDetail } from "@/common/types/space";
 import { Button } from "@/components";
-import { useSuspenseQuery } from "@/hooks";
+import { useQueryString, useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
+  RESERVATION_TAB_MAPPER,
   reservationDepositConfirmState,
   reservationPackageState,
-  reservationTabState,
   reservationTimeState,
 } from "@/states/reservation";
 
 import styles from "./reservationButton.module.scss";
 
 const ReservationButton: React.FC = () => {
-  const setTab = useSetAtom(reservationTabState);
+  const { push } = useRouter();
+  const { append, getQueryStringWithPath } = useQueryString();
 
   const { spaceId } = useParams();
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
@@ -31,8 +32,12 @@ const ReservationButton: React.FC = () => {
     ((timeStartAt && timeEndAt) || reservationPackage.length > 0) &&
     (!data.deposit || (data.deposit && reservationDepositConfirm));
 
+  const onClickButton = () => {
+    push(getQueryStringWithPath(append({ tab: RESERVATION_TAB_MAPPER.PAYMENT })));
+  };
+
   return (
-    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper} onClick={() => {}}>
+    <Button type="button" color="primary" disabled={!enabled} className={styles.wrapper} onClick={onClickButton}>
       예약하기
     </Button>
   );
