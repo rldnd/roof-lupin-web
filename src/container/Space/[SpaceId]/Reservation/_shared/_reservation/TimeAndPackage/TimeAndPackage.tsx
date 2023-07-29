@@ -152,9 +152,7 @@ const TimeAndPackage: React.FC = () => {
       )}
       {rentalTypes?.package?.length > 0 && (
         <>
-          <h2>
-            패키지<small>청소 보증금 100,000원 포함</small>
-          </h2>
+          <h2>패키지</h2>
           <menu className={styles.packageMenu}>
             {rentalTypes.package.map((item) => (
               <li key={item.id}>

@@ -16,17 +16,36 @@
     color: var(--c-gray-500);
   }
 
-  .list {
+  .listWrapper {
     width: 100%;
-    padding-top: 24px;
+    padding: 24px 0;
 
-    li + li {
-      margin-top: 8px;
+    & + .listWrapper {
+      border-top: 1px solid var(--c-gray-200);
     }
 
-    > span + span {
-      display: block;
-      margin-top: 8px;
+    > h3 {
+      @include m.flex(flex-start);
+      @include m.fontH4SemiBold;
+      gap: 8px;
+      color: var(--c-gray-900);
+
+      small {
+        @include m.fontCaption;
+        color: var(--c-gray-500);
+      }
+    }
+
+    .list {
+      margin-top: 12px;
+
+      li + li {
+        margin-top: 8px;
+      }
     }
   }
+}
+
+.hr {
+  margin-top: 8px !important;
 }
