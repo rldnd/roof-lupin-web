@@ -37,7 +37,7 @@ export interface SpaceHoliday {
   id: string;
   /** 요일 */
   day: Day;
-  /** 간격 (1 ~ 3 은 해당 월의 n번째주, 4는 월 단위) */
+  /** 간격 (해당 월의 n번째주) */
   interval: number;
 }
 

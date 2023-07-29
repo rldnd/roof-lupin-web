@@ -12,6 +12,7 @@
   transform: translateX(-50%);
 
   nav {
+    button,
     a {
       display: inline-block;
       width: 44px;
@@ -23,6 +24,10 @@
     svg {
       @include m.filterGray900;
       opacity: var(--opacity);
+    }
+
+    & > button > svg {
+      @include m.filterRoofOrange;
     }
   }
 

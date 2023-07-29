@@ -132,7 +132,12 @@ const TimeAndPackage: React.FC = () => {
             <h2>
               시간 단위<small>최소 {rentalTypes?.time?.baseHour}시간 부터</small>
             </h2>
-            <button type="button" className={styles.reset} onClick={handleResetTime}>
+            <button
+              type="button"
+              className={styles.reset}
+              onClick={handleResetTime}
+              disabled={!reservationTime.startAt || !reservationTime.endAt}
+            >
               초기화
             </button>
           </div>

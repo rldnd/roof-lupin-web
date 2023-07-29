@@ -3,8 +3,6 @@ export interface RefundPolicy {
   id: string;
   /** 환불률 */
   refundRate: number;
-  /** 환불 기한 */
-  dueDate: number;
-  /** 환불 기한 타입 */
-  dueDateType: number;
+  /** ~일 전 */
+  daysBefore: number;
 }

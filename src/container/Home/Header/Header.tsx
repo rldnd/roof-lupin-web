@@ -27,6 +27,10 @@ const Header: React.FC = () => {
     willChange: opacity !== 1 ? "opacity" : "auto",
   } as CSSProperties;
 
+  const onClickLogo = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <header
       style={style}
@@ -35,9 +39,11 @@ const Header: React.FC = () => {
         [styles.backgroundBreakpoint]: backgroundBreakpoint,
       })}
     >
-      <IconMainLogo />
+      <button type="button" aria-label="루프루팡 로고" onClick={onClickLogo}>
+        <IconMainLogo />
+      </button>
       <nav>
-        <Link href="/" title="검색 페이지">
+        <Link href="/search" title="검색 페이지">
           <IconSearch />
         </Link>
         <Link href="/" title="알림 페이지">

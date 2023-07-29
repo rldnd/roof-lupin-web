@@ -5,12 +5,39 @@
   width: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
-  ul {
+  .openHours {
+    @include m.flex(flex-start, flex-start, column);
+    gap: 4px;
     margin-top: 20px;
 
-    li {
+    > li {
       @include m.fontBody1Regular;
       color: var(--c-gray-800);
+
+      > .time {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  .holidayTitle {
+    @include m.fontBody1SemiBold;
+    margin-top: 24px;
+    color: var(--c-gray-800);
+  }
+
+  .holidays {
+    @include m.flex(flex-start, flex-start, column);
+    gap: 4px;
+    padding-top: 4px;
+
+    > li {
+      @include m.fontBody1Regular;
+      color: var(--c-gray-800);
+
+      > .day {
+        margin-left: 16px;
+      }
     }
   }
 }

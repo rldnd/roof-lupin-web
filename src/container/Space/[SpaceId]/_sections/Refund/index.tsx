@@ -15,7 +15,7 @@ const Refund: React.FC<Props> = ({ refundPolicies }) => {
       <p>
         {refundPolicies.map((policy) => (
           <Fragment key={policy.id}>
-            예약일 {policy.dueDate}일 전 {policy.refundRate}% 환불
+            예약일 {policy.daysBefore === 0 ? "당일" : `${policy.daysBefore}일 전`} {policy.refundRate}% 환불
             <br />
           </Fragment>
         ))}
