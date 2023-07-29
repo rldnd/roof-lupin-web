@@ -75,9 +75,9 @@ const DataHandler: React.FC = () => {
       throw Error("잘못된 접근입니다.");
     }
 
-    setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount) }));
+    setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
     setTab(tab as Tab);
-  }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab, reset]);
+  }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab, reset, spaceId]);
 
   useUpdateEffect(() => {
     window.scrollTo({ top: 0 });

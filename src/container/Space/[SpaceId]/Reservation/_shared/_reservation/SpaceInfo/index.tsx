@@ -1,39 +1,49 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
+import { useParams } from "next/navigation";
+
+import { useAtomValue } from "jotai";
 import Skeleton from "react-loading-skeleton";
 
 import type { SpaceDetail } from "@/common/types/space";
+import { SpaceEditReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
+import { reservationState } from "@/states/reservation";
 
 import styles from "./spaceInfo.module.scss";
 
 const SpaceInfo: React.FC = () => {
+  const [isShowEdit, setIsShowEdit] = useState(false);
+  const reservation = useAtomValue(reservationState);
+
   const { spaceId } = useParams();
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
-  const searchParams = useSearchParams();
-
-  const year = searchParams.get("year");
-  const month = searchParams.get("month");
-  const day = searchParams.get("day");
-  const userCount = searchParams.get("userCount");
-
   return (
-    <section className={styles.wrapper}>
-      <h1 className={styles.name}>{data.title}</h1>
-      <span className={styles.reservationInfo}>
-        <time>
-          {year}년 {month}월 {day}일 (토)
-        </time>
-        <span>{userCount}명</span>
-      </span>
-      <button type="button" className={styles.edit}>
-        수정
-      </button>
-    </section>
+    <>
+      <section className={styles.wrapper}>
+        <h1 className={styles.name}>{data.title}</h1>
+        <span className={styles.reservationInfo}>
+          <time>
+            {reservation.year}년 {reservation.month}월 {reservation.day}일 (토)
+          </time>
+          <span>{reservation.userCount}명</span>
+        </span>
+        <button type="button" className={styles.edit} onClick={() => setIsShowEdit(true)}>
+          수정
+        </button>
+      </section>
+      <SpaceEditReservationInfoFilterBottomSheet
+        isShow={isShowEdit}
+        maxUser={data.maxUser}
+        onClose={() => setIsShowEdit(false)}
+        overflowUserCost={data.overflowUserCost}
+        overflowUserCount={data.overflowUserCount}
+      />
+    </>
   );
 };
 

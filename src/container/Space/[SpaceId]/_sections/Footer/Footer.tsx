@@ -2,6 +2,8 @@
 
 import { Suspense, useEffect, useState } from "react";
 
+import { useParams } from "next/navigation";
+
 import { useAtom, useAtomValue } from "jotai";
 
 import { AuthChecker } from "@/components";
@@ -24,6 +26,7 @@ interface Props {
 }
 
 const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount }) => {
+  const { spaceId } = useParams();
   const [spaceReservationInfo, setSpaceReservationInfo] = useAtom(spaceReservationInfoState);
   const categorySortMenu = useAtomValue(categorySortMenuState);
 
@@ -37,7 +40,7 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
     const { year, month, day, userCount } = categorySortMenu;
     const beforeUrl = getBeforeNavigationUrl();
 
-    if (beforeUrl?.includes("spaces")) return;
+    if (beforeUrl?.includes(`/spaces/${spaceId}`)) return;
 
     setSpaceReservationInfo(() => {
       return {
@@ -47,7 +50,7 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
         userCount: userCount ?? 2,
       };
     });
-  }, [categorySortMenu, setSpaceReservationInfo]);
+  }, [categorySortMenu, setSpaceReservationInfo, spaceId]);
 
   return (
     <>
