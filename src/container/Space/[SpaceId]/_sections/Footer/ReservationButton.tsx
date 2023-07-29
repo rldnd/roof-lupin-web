@@ -3,12 +3,11 @@
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { useAtomValue } from "jotai";
-import queryString from "query-string";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
 import type { SpaceDetail } from "@/common/types/space";
 import { AuthChecker, Button } from "@/components";
-import { useSuspenseQuery } from "@/hooks";
+import { useQueryString, useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { getClientSpaceApi } from "@/services/space";
@@ -17,6 +16,8 @@ import { spaceReservationInfoState } from "@/states/space";
 
 const ReservationButton: React.FC = () => {
   const { push } = useRouter();
+  const { append, getQueryStringWithPath } = useQueryString();
+
   const pathname = usePathname();
   const { spaceId } = useParams();
 
@@ -37,11 +38,12 @@ const ReservationButton: React.FC = () => {
 
   const onClickButton = () => {
     if (!year || !month || !day || !userCount) return;
+
     const tab = space.isImmediateReservation
       ? RESERVATION_TAB_MAPPER.RESERVATION
       : RESERVATION_TAB_MAPPER.REQUEST_RESERVATION;
 
-    push(`${pathname}/reservations?${queryString.stringify({ year, month, day, userCount, tab })}`);
+    push(getQueryStringWithPath(append({ year, month, day, userCount, tab }), `${pathname}/reservations`));
   };
 
   return (
