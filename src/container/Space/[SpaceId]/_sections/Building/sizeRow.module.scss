@@ -8,14 +8,43 @@
   padding: 6px 8px;
   color: var(--c-gray-600);
 
-  .icon {
+  .iconWrapper {
+    @include m.flex;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 3.75px 6.25px 3.75px 2.5px;
     margin-right: 16px;
+
+    .floor {
+      @include m.absolute(auto 0 0 auto);
+      @include m.fontH4SemiBold;
+      color: var(--c-gray-600);
+    }
   }
 
-  .multiFloor {
+  .space {
+    @include m.flex;
+  }
+
+  .label {
     @include m.flex;
 
-    & + .multiFloor::before {
+    &::after {
+      display: inline-block;
+      width: 2px;
+      height: 2px;
+      margin: 0 4px;
+      content: "";
+      background-color: var(--c-gray-400);
+      border-radius: 50%;
+    }
+  }
+
+  .multiSpace {
+    @include m.flex;
+
+    & + .multiSpace::before {
       display: inline-block;
       width: 1px;
       height: 16px;
@@ -23,30 +52,5 @@
       content: "";
       background-color: var(--c-gray-500);
     }
-
-    .floor {
-      @include m.flex;
-
-      &::after {
-        display: inline-block;
-        width: 2px;
-        height: 2px;
-        margin: 0 4px;
-        content: "";
-        background-color: var(--c-gray-400);
-        border-radius: 50%;
-      }
-    }
-  }
-
-  button {
-    @include m.flex;
-    @include m.fontBody1SemiBold;
-    gap: 4px;
-    padding: 6px 12px;
-    margin-left: auto;
-    color: var(--c-gray-400);
-    border: 1px solid var(--c-gray-300);
-    border-radius: 8px;
   }
 }

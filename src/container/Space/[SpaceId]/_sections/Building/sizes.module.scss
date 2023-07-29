@@ -1,0 +1,29 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between, flex-start);
+  gap: 8px;
+  width: 100%;
+
+  .sizeList {
+    @include m.flex(flex-start, flex-start, column);
+    flex: 1;
+
+    > li {
+      flex: 1;
+    }
+  }
+
+  .toggleButton {
+    @include m.flex;
+    @include m.fontBody1SemiBold;
+    gap: 4px;
+    padding: 6px 12px;
+    margin-left: auto;
+    color: var(--c-gray-400);
+    white-space: nowrap;
+    border: 1px solid var(--c-gray-300);
+    border-radius: 8px;
+  }
+}
