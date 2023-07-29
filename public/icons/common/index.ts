@@ -29,3 +29,6 @@ export { default as IconCloseFilled } from "./close-filled.svg";
 export { default as IconGrayCloseSmall } from "./gray-close-small.svg";
 export { default as IconInfo } from "./info.svg";
 export { default as IconGrayBottomCaret } from "./gray-bottom-caret.svg";
+export { default as IconLocation } from "./location.svg";
+export { default as IconAvatar } from "./avatar.svg";
+export { default as IconBookmark } from "./bookmark.svg";

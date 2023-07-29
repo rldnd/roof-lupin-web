@@ -8,7 +8,7 @@ import cx from "clsx";
 import { useScrollDirection } from "@/hooks";
 import { isWebview } from "@/utils/userAgent";
 
-import { IconHome } from "public/icons";
+import { IconAvatar, IconBookmark, IconHome, IconLocation, IconSearch } from "public/icons";
 
 import styles from "./bottomNavigation.module.scss";
 
@@ -33,32 +33,42 @@ const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) =
     >
       <nav>
         <Link className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/") })} href="/">
-          <IconHome />
+          <div className={styles.iconWrapper}>
+            <IconHome />
+          </div>
           <span>홈</span>
         </Link>
         <Link className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/search") })} href="/search">
-          <IconHome />
+          <div className={styles.iconWrapper}>
+            <IconSearch />
+          </div>
           <span>검색</span>
         </Link>
         <Link
           className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/locations") })}
           href="/locations"
         >
-          <IconHome />
+          <div className={styles.iconWrapper}>
+            <IconLocation />
+          </div>
           <span>주변</span>
         </Link>
         <Link
           className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/interests") })}
           href="/interests"
         >
-          <IconHome />
+          <div className={styles.iconWrapper}>
+            <IconBookmark />
+          </div>
           <span>찜</span>
         </Link>
         <Link
           className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/auth/login") })}
           href="/auth/login"
         >
-          <IconHome />
+          <div className={styles.iconWrapper}>
+            <IconAvatar />
+          </div>
           <span>마이</span>
         </Link>
       </nav>

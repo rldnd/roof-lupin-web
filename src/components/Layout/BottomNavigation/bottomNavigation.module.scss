@@ -32,7 +32,14 @@
     .item {
       @include m.flex(flex-start, center, column);
       @include m.fontCaption;
+      @include m.filterGray400;
       color: var(--c-gray-400);
+
+      .iconWrapper {
+        @include m.flex;
+        width: 44px;
+        height: 44px;
+      }
 
       &.isActive {
         @include m.filterRoofOrange;
