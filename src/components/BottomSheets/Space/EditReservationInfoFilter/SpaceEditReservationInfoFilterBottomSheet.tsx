@@ -2,11 +2,18 @@
 
 import { FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
 
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import { BottomSheetPortal } from "@/components/Common";
 import { useQueryString, useToast } from "@/hooks";
-import { reservationState } from "@/states/reservation";
+import {
+  initialReservationTime,
+  reservationAdditionalServicesState,
+  reservationDepositConfirmState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states/reservation";
 import { initialSpaceReservationInfo, SpaceReservationInfo } from "@/states/space";
 import { NotNullable } from "@/utils/types";
 
@@ -35,6 +42,11 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   const { append, getQueryStringWithPath } = useQueryString();
   const { addToast } = useToast();
 
+  const setTime = useSetAtom(reservationTimeState);
+  const setPackage = useSetAtom(reservationPackageState);
+  const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
+  const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+
   const [reservation, setReservation] = useAtom(reservationState);
   const [localInfo, setLocalInfo] = useState<NotNullable<SpaceReservationInfo>>(initialSpaceReservationInfo);
 
@@ -43,7 +55,11 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
 
     const { year, month, day, userCount } = localInfo;
     window.history.replaceState(null, "", getQueryStringWithPath(append({ year, month, day, userCount })));
+    setTime(initialReservationTime);
+    setPackage([]);
+    setAdditionalServices({});
     setReservation((prev) => ({ ...prev, year, month, day, userCount }));
+    setDepositConfirm(false);
     onClose();
   };
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
 import { useAtom, useSetAtom } from "jotai";
-import { useMount, useUnmount, useUpdateEffect } from "react-use";
+import { useMount, useUnmount } from "react-use";
 
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery } from "@/hooks";
@@ -30,8 +30,6 @@ const DataHandler: React.FC = () => {
   const { get } = useSearchParams();
 
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
-
-  const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
 
   const setReservation = useSetAtom(reservationState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
@@ -58,10 +56,9 @@ const DataHandler: React.FC = () => {
   }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
 
   useMount(() => {
+    const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
     if (tab && tab.toLocaleLowerCase().includes("reservation")) reset();
-  });
 
-  useEffect(() => {
     if (
       !year ||
       !month ||
@@ -77,7 +74,7 @@ const DataHandler: React.FC = () => {
 
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
     setTab(tab as Tab);
-  }, [year, month, day, userCount, setReservation, tab, isRequest, canPayment, setTab, reset, spaceId]);
+  });
 
   useUnmount(() => {
     setTab(null);
