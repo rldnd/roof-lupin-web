@@ -1,5 +1,7 @@
 "use client";
 
+import { Fragment } from "react";
+
 import { useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
@@ -50,9 +52,9 @@ const SelectedReservationInfo: React.FC = () => {
               </>
             )}
             {packages.map((item) => (
-              <>
+              <Fragment key={item.rentalTypeId}>
                 {item.name} ({item.startAt}-{item.endAt}시)
-              </>
+              </Fragment>
             ))}
             {hasCountServices.length > 0 && (
               <>
