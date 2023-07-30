@@ -18,9 +18,9 @@ export interface CreateReservation {
   month: string;
   /** 예약 일 */
   day: string;
-  /** 대표 이용자 이름 */
+  /** 예약자 이름 */
   userName: string;
-  /** 대표 이용자 전화번호 */
+  /** 예약자 전화번호 */
   userPhoneNumber: string;
   /** 이용 인원 */
   userCount: number;
@@ -36,6 +36,4 @@ export interface CreateReservation {
   spaceId: string;
   /** 유저가 가지고 있는 쿠폰 IDs */
   userCouponIds?: string[];
-  /** 공간 id */
-  spaceId: string;
 }

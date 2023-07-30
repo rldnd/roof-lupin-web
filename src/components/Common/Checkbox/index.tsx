@@ -8,11 +8,13 @@ import { IconCheck } from "public/icons";
 
 import styles from "./checkbox.module.scss";
 
-interface Props extends Omit<ComponentProps<"input">, "hidden"> {}
+interface Props extends Omit<ComponentProps<"input">, "hidden"> {
+  isGray?: boolean;
+}
 
-const Checkbox: React.FC<Props> = ({ className, children, ...props }) => {
+const Checkbox: React.FC<Props> = ({ className, children, isGray = false, ...props }) => {
   return (
-    <label className={cx(styles.wrapper, className)}>
+    <label className={cx(styles.wrapper, { [styles.isGray]: isGray }, className)}>
       <input {...props} type="checkbox" hidden />
       <span className={styles.checkboxWrapper}>
         <span className={styles.checkbox}>

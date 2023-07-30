@@ -2,16 +2,15 @@
 
 import { Suspense } from "react";
 
-import { HostApprove } from "./_sections";
+import { HostApprove, SubmitButton } from "./_sections";
 import { Header } from "../_shared";
 import {
+  Checkboxes,
   Discount,
   FreeCancelTerm,
   PriceInfo,
   ReservationClerkInfo,
   SelectedReservationInfo,
-  Submit,
-  UserInfo,
 } from "../_shared/_payment";
 
 import styles from "./requestPaymentTab.module.scss";
@@ -26,8 +25,6 @@ const RequestPaymentTab: React.FC = () => {
       <hr />
       <ReservationClerkInfo />
       <hr />
-      <UserInfo />
-      <hr />
       <Discount />
       <hr />
       <PriceInfo />
@@ -36,7 +33,8 @@ const RequestPaymentTab: React.FC = () => {
       <hr />
       <HostApprove />
       <hr />
-      <Submit buttonText="지금 예약 요청하기" />
+      <Checkboxes />
+      <SubmitButton />
     </main>
   );
 };

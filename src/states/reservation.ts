@@ -41,6 +41,15 @@ export interface ReservationPackage extends Omit<CreateReservationRentalType, "a
   baseCost: number;
 }
 
+export type Privacy = "privacy" | "thirdParty" | "rule";
+export type ReservationChecked = Record<Privacy, boolean>;
+
+const initialReservationChecked: ReservationChecked = {
+  privacy: false,
+  thirdParty: false,
+  rule: false,
+};
+
 export const initialReservation: Reservation = {
   day: null,
   discountCost: null,
@@ -78,3 +87,4 @@ export const reservationTimeState = sessionPersistenceAtom<ReservationTime>(RESE
 export const reservationPackageState = sessionPersistenceAtom<ReservationPackage[]>(RESERVATION_PACKAGE, []);
 /** 보증금 내용 확인 여부 */
 export const reservationDepositConfirmState = sessionPersistenceAtom<boolean>(RESERVATION_DEPOSIT_CONFIRM, false);
+export const reservationCheckedState = atom<ReservationChecked>(initialReservationChecked);

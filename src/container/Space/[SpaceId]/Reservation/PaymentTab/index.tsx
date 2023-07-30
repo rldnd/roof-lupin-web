@@ -2,15 +2,15 @@
 
 import { Suspense } from "react";
 
+import { SubmitButton } from "./_sections";
 import { Header } from "../_shared";
 import {
+  Checkboxes,
   Discount,
   FreeCancelTerm,
   PriceInfo,
   ReservationClerkInfo,
   SelectedReservationInfo,
-  Submit,
-  UserInfo,
 } from "../_shared/_payment";
 
 import styles from "./paymentTab.module.scss";
@@ -25,15 +25,14 @@ const PaymentTab: React.FC = () => {
       <hr />
       <ReservationClerkInfo />
       <hr />
-      <UserInfo />
-      <hr />
       <Discount />
       <hr />
       <PriceInfo />
       <hr />
       <FreeCancelTerm />
       <hr />
-      <Submit buttonText="얼마 결제하기" />
+      <Checkboxes />
+      <SubmitButton />
     </main>
   );
 };

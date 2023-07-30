@@ -34,7 +34,7 @@
     padding-left: 4px;
   }
 
-  &:has(input:checked) {
+  &:not(.isGray):has(input:checked) {
     .checkbox {
       background-color: var(--c-roof-orange);
       border: 0;
@@ -46,6 +46,28 @@
 
     .children {
       color: var(--c-roof-orange);
+    }
+  }
+
+  &.isGray {
+    .checkbox {
+      background-color: var(--c-gray-250);
+      border-color: transparent;
+
+      > svg {
+        filter: none;
+      }
+    }
+
+    &:has(input:checked) {
+      .checkbox {
+        background-color: var(--c-roof-orange);
+        border: 0;
+      }
+    }
+
+    .children {
+      color: var(--c-gray-900);
     }
   }
 }

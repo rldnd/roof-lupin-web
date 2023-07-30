@@ -10,6 +10,7 @@
   .input {
     @include m.fontH4Regular;
     padding: 10px 0;
+    color: var(--c-gray-900);
     border: 0;
     border-bottom: 1px solid var(--c-gray-500);
     caret-color: var(--c-roof-orange);
