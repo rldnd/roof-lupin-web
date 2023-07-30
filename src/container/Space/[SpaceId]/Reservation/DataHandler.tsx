@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
@@ -28,6 +28,7 @@ const DataHandler: React.FC = () => {
   const setTab = useSetAtom(reservationTabState);
 
   const { get } = useSearchParams();
+  const tab = get("tab");
 
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
@@ -57,7 +58,6 @@ const DataHandler: React.FC = () => {
 
   useMount(() => {
     const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
-    if (tab && tab.toLocaleLowerCase().includes("reservation")) reset();
 
     if (
       !year ||
@@ -72,9 +72,14 @@ const DataHandler: React.FC = () => {
       throw Error("잘못된 접근입니다.");
     }
 
+    if (tab.toLocaleLowerCase().includes("reservation")) reset();
+
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
-    setTab(tab as Tab);
   });
+
+  useEffect(() => {
+    setTab(tab as Tab);
+  }, [setTab, tab]);
 
   useUnmount(() => {
     setTab(null);
