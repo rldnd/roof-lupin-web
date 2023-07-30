@@ -53,6 +53,16 @@ img {
   outline: 1px solid var(--c-roof-orange);
 }
 
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 input::-ms-clear,
 input::-ms-reveal {
   display: none;
