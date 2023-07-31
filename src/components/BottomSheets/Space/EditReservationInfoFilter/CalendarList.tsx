@@ -15,9 +15,6 @@ import { type ActiveDate, LoadingMonthCalendar } from "../../_shared/Calendar/Mo
 
 import styles from "./calendarList.module.scss";
 
-const CALENDAR_ID = "SPACE_EDIT_RESERVATION_INFO_FILTER_BOTTOM_SHEET_CALENDAR_ID";
-const $root = document.getElementById(CALENDAR_ID) as HTMLUListElement;
-
 interface Props {
   activeDate: ActiveDate;
   onClickDay: (year: string, month: string, day: string) => MouseEventHandler<HTMLButtonElement>;
@@ -47,8 +44,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
       isSuccess={isSuccess}
       hasNextPage={hasNextPage}
       className={styles.calendarWrapper}
-      id={CALENDAR_ID}
-      root={$root}
+      isRootContainer
     >
       {data.pages.map((page) => (
         <MonthCalendar

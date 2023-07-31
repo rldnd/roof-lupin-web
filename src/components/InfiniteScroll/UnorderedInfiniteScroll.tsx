@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, type ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 
 import { useInView } from "react-intersection-observer";
 
@@ -13,29 +13,40 @@ interface Props {
   children: ReactNode;
   loadingComponent?: ReactNode;
   id?: string;
+  isRootContainer?: boolean;
   fetchNextPage: () => unknown | Promise<unknown>;
 }
 
-const UnorderedInfiniteScroll = forwardRef<HTMLUListElement, Props>(
-  ({ className, root, children, fetchNextPage, loadingComponent, hasNextPage, isFetching, isSuccess, id }, ref) => {
-    const [inViewRef, inView] = useInView({
-      root,
-    });
+const UnorderedInfiniteScroll: React.FC<Props> = ({
+  className,
+  root,
+  children,
+  fetchNextPage,
+  loadingComponent,
+  hasNextPage,
+  isFetching,
+  isSuccess,
+  id,
+  isRootContainer = false,
+}) => {
+  const ulRef = useRef<HTMLUListElement>(null);
+  const [inViewRef, inView] = useInView({
+    root: isRootContainer ? ulRef.current : root,
+  });
 
-    useEffect(() => {
-      if (inView && isSuccess && !isFetching && hasNextPage) fetchNextPage();
-    }, [inView, fetchNextPage, hasNextPage, isFetching, isSuccess]);
+  useEffect(() => {
+    if (inView && isSuccess && !isFetching && hasNextPage) fetchNextPage();
+  }, [inView, fetchNextPage, hasNextPage, isFetching, isSuccess]);
 
-    return (
-      <>
-        <ul className={className} ref={ref} id={id}>
-          {children}
-        </ul>
-        {isFetching && loadingComponent}
+  return (
+    <>
+      <ul className={className} ref={ulRef} id={id}>
+        {children}
         <div ref={inViewRef} />
-      </>
-    );
-  },
-);
+      </ul>
+      {isFetching && loadingComponent}
+    </>
+  );
+};
 
 export default UnorderedInfiniteScroll;

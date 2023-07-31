@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 
-import { HostApprove, SubmitButton } from "./_sections";
+import { HostApprove, LoadingSubmit, SubmitButton } from "./_sections";
 import { Header } from "../_shared";
 import {
   Checkboxes,
@@ -34,7 +34,9 @@ const RequestPaymentTab: React.FC = () => {
       <HostApprove />
       <hr />
       <Checkboxes />
-      <SubmitButton />
+      <Suspense fallback={<LoadingSubmit />}>
+        <SubmitButton />
+      </Suspense>
     </main>
   );
 };
