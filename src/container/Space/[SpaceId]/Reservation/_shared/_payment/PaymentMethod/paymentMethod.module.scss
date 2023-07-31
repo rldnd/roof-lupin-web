@@ -1,0 +1,53 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.fontH3SemiBold;
+    color: var(--c-black);
+  }
+
+  > small {
+    @include m.fontCaption;
+    display: inline-block;
+    margin: 8px 0 24px;
+    color: var(--c-gray-500);
+  }
+
+  .methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+    width: 100%;
+
+    .method {
+      width: 100%;
+      height: 56px;
+      background-color: var(--c-white);
+      border: 1px solid var(--c-gray-300);
+      border-radius: 8px;
+
+      button {
+        @include m.flex;
+        @include m.fontCaptionSemiBold;
+        width: 100%;
+        height: 100%;
+        padding: 16px 12px;
+        color: var(--c-gray-800);
+      }
+
+      .imageWrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        > img {
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}

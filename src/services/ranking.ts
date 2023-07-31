@@ -7,9 +7,6 @@ export interface PaginateRankingSpacesParams extends BasePaginationQueryParams {
   rankingId: string;
 }
 
-/** [SERVER ISR] 랭킹 아이디 조회 */
-export const getRankingIdsApi = () => fetchClient<string[]>("/rankings/ids", { tags: ["rankings", "/rankings/ids"] });
-
 /** [SERVER ISR] 랭킹 자세히 불러오기 */
 export const getRankingApi = (rankingId: string) =>
   fetchClient<Ranking>(`/rankings/${rankingId}/detail`, { tags: ["rankings", `/rankings/${rankingId}/detail`] });

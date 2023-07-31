@@ -2,12 +2,13 @@
 
 import { Suspense } from "react";
 
-import { SubmitButton } from "./_sections";
+import { LoadingSubmit, SubmitButton } from "./_sections";
 import { Header } from "../_shared";
 import {
   Checkboxes,
   Discount,
   FreeCancelTerm,
+  PaymentMethod,
   PriceInfo,
   ReservationClerkInfo,
   SelectedReservationInfo,
@@ -29,10 +30,14 @@ const PaymentTab: React.FC = () => {
       <hr />
       <PriceInfo />
       <hr />
+      <PaymentMethod />
+      <hr />
       <FreeCancelTerm />
       <hr />
       <Checkboxes />
-      <SubmitButton />
+      <Suspense fallback={<LoadingSubmit />}>
+        <SubmitButton />
+      </Suspense>
     </main>
   );
 };

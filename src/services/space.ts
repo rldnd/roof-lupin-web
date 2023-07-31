@@ -31,9 +31,6 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   sort: SpaceSort;
 }
 
-/** [SERVER ISR] 공간 아이디 목록 조회하기 */
-export const getSpaceIdsApi = () => fetchClient<{ ids: string[] }>("/spaces/ids", { tags: ["spaces", "/spaces/ids"] });
-
 /** [SERVER ISR] 공간 상세 조회하기 */
 export const getServerSpaceApi = (spaceId: string) =>
   fetchClient<SpaceDetail>(`/spaces/${spaceId}/detail`, { tags: ["spaces", `/spaces/${spaceId}/detail`] });

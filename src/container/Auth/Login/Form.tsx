@@ -2,15 +2,21 @@
 
 import React, { type MouseEventHandler } from "react";
 
+import { useRouter } from "next/navigation";
+
+import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
-import { PlatformButton } from "@/components";
+import { Button, PlatformButton } from "@/components";
 import { useWebview } from "@/hooks";
+import { apiClient } from "@/services/apiClient";
+import { setTokens } from "@/utils/auth";
 
 import { IconApple, IconKakao, IconNaver } from "public/icons";
 
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
+  const { replace } = useRouter();
   const { sendMessage } = useWebview();
 
   const onLoginKakaoWebview = () => {
@@ -20,6 +26,12 @@ const Form: React.FC = () => {
   const onClickSocial: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { dataset } = e.currentTarget;
     window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/social/${dataset.social}`, "_self");
+  };
+
+  const onClickTestLogin = async () => {
+    const { data } = await apiClient.get<Token>("/auth/test");
+    setTokens(data);
+    replace("/");
   };
 
   return (
@@ -43,6 +55,9 @@ const Form: React.FC = () => {
         <IconApple />
         Apple로 계속하기
       </button>
+      <Button type="button" color="primary" full onClick={onClickTestLogin}>
+        테스트 로그인
+      </Button>
     </section>
   );
 };
