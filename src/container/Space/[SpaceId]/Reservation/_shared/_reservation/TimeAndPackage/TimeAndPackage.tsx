@@ -108,12 +108,22 @@ const TimeAndPackage: React.FC = () => {
     if (checked) {
       const checkedItem = rentalTypes.package.find((item) => item.id === value);
       if (checkedItem) {
+        let isFirstPackage = false;
         const { id, name, startAt, endAt, baseCost } = checkedItem;
-        setReservationPackage((prev) => [...prev, { rentalTypeId: id, name, startAt, endAt, baseCost }]);
-        setReservationAdditionalServices((prev) => ({
-          ...prev,
-          [id]: checkedItem.additionalServices.map((item) => ({ ...item, count: 0 })),
-        }));
+
+        setReservationPackage((prev) => {
+          if (prev.length === 0) isFirstPackage = true;
+          return [...prev, { rentalTypeId: id, name, startAt, endAt, baseCost }];
+        });
+
+        setReservationAdditionalServices((prev) => {
+          if (isFirstPackage) return { [id]: checkedItem.additionalServices.map((item) => ({ ...item, count: 0 })) };
+
+          return {
+            ...prev,
+            [id]: checkedItem.additionalServices.map((item) => ({ ...item, count: 0 })),
+          };
+        });
       }
     } else {
       setReservationPackage((prev) => prev.filter((item) => item.rentalTypeId !== value));

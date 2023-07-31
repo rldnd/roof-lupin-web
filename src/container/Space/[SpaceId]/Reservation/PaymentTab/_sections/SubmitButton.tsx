@@ -22,7 +22,7 @@ import { getPrepareReservationBody } from "@/utils/reservation";
 import styles from "./submitButton.module.scss";
 
 const Submit: React.FC = () => {
-  const { prepareTossPay, completeTossPay } = useTossPay();
+  const { prepareTossPay } = useTossPay();
 
   const { spaceId } = useParams();
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
