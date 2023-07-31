@@ -27,6 +27,8 @@ export interface BaseTimeRentalType {
   timeCostInfos: TimeCostInfo[];
   /** 공간 ID */
   spaceId: string;
+  /** 추가 서비스 목록 */
+  additionalServices: AdditionalService[];
 }
 
 export interface BasePackageRentalType {
@@ -44,6 +46,8 @@ export interface BasePackageRentalType {
   endAt: number;
   /** 공간 ID */
   spaceId: string;
+  /** 추가 서비스 목록 */
+  additionalServices: AdditionalService[];
 }
 
 export type RentalType = BaseTimeRentalType | BasePackageRentalType;

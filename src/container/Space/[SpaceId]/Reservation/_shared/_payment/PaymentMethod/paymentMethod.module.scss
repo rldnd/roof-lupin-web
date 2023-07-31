@@ -27,7 +27,6 @@
       width: 100%;
       height: 56px;
       background-color: var(--c-white);
-      border: 1px solid var(--c-gray-300);
       border-radius: 8px;
 
       button {
@@ -37,6 +36,14 @@
         height: 100%;
         padding: 16px 12px;
         color: var(--c-gray-800);
+        border: 1px solid var(--c-gray-300);
+        border-radius: inherit;
+
+        &.active {
+          color: var(--c-roof-orange);
+          background-color: var(--c-orange-bg);
+          border-color: var(--c-roof-orange);
+        }
       }
 
       .imageWrapper {

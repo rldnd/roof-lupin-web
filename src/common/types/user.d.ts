@@ -13,6 +13,10 @@ export interface CommonUser extends DateDTO {
   birthDay: string | null;
   gender: Gender | null;
   profileImage: string | null;
+  /** 성인 인증 여부 */
+  isAdult: boolean;
+  /** 알림 승인 여부 */
+  isAlarmAccepted: boolean;
 }
 
 export interface PushToken {
