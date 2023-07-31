@@ -12,9 +12,26 @@ export const getPrepareReservationBody = (
   time: ReservationTime,
   packages: ReservationPackage[],
   additionalServices: ReservationAdditionalService,
-) => {
+): CreateReservation | null => {
   const { year, month, day, userName, userPhoneNumber, userCount, spaceId } = reservation;
   const rentalTypes = getRentalTypes(time, packages, additionalServices);
+
+  if (!year || !month || !day || !userName || !userPhoneNumber || !userCount || !spaceId) return null;
+
+  return {
+    year,
+    month,
+    day,
+    userName,
+    userPhoneNumber,
+    userCount,
+    spaceId,
+    rentalTypes,
+    discountCost: 0,
+    originalCost: 0,
+    totalCost: 0,
+    userCouponIds: [],
+  };
 };
 
 const getRentalTypes = (
@@ -23,6 +40,8 @@ const getRentalTypes = (
   additionalServices: ReservationAdditionalService,
 ): CreateReservationRentalType[] => {
   const rentalTypes: CreateReservationRentalType[] = [];
+
+  console.log({ time, packages });
 
   if (time.rentalTypeId && time.startAt && time.endAt) {
     rentalTypes.push({

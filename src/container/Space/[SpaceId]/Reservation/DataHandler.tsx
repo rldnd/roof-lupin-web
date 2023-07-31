@@ -50,7 +50,7 @@ const DataHandler: React.FC = () => {
 
   const reset = useCallback(() => {
     setAdditionalServices({});
-    setTime(initialReservationTime);
+    setTime((prev) => ({ ...prev, cost: null, endAt: null, startAt: null }));
     setPackages([]);
     setDepositConfirm(false);
     setReservation(initialReservation);

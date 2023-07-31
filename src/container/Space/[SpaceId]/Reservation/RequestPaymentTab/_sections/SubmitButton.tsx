@@ -12,6 +12,7 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states/reservation";
+import { getPrepareReservationBody } from "@/utils/reservation";
 
 import styles from "./submitButton.module.scss";
 
@@ -28,12 +29,13 @@ const Submit: React.FC = () => {
     !reservation.userName || !reservation.userPhoneNumber || Object.values(checked).some((value) => !value);
 
   const onClickButton = () => {
-    const { year, month, day, userName, userPhoneNumber, userCount, spaceId } = reservation;
+    const body = getPrepareReservationBody(reservation, time, packages, additionalServices);
+    console.log(body);
   };
 
   return (
     <section className={styles.wrapper}>
-      <Button color="primary" full className={styles.submitButton} disabled={disabled}>
+      <Button color="primary" full className={styles.submitButton} disabled={disabled} onClick={onClickButton}>
         지금 예약 요청하기
       </Button>
     </section>

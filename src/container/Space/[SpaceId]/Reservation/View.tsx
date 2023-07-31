@@ -2,7 +2,7 @@
 
 import { useAtomValue } from "jotai";
 
-import { RESERVATION_TAB_MAPPER, reservationTabState } from "@/states/reservation";
+import { RESERVATION_TAB_MAPPER, reservationTabState, reservationTimeState } from "@/states/reservation";
 
 import PaymentTab from "./PaymentTab";
 import RequestPaymentTab from "./RequestPaymentTab";
@@ -12,6 +12,8 @@ import ReservationTab from "./ReservationTab";
 const View: React.FC = () => {
   const tab = useAtomValue(reservationTabState);
 
+  const time = useAtomValue(reservationTimeState);
+  console.log(time);
   return (
     <>
       {tab === RESERVATION_TAB_MAPPER.RESERVATION && <ReservationTab />}

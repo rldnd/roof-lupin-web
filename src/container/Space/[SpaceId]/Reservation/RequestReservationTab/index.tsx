@@ -8,7 +8,6 @@ import { Deposit, History, LoadingSpaceInfo, Service, SpaceInfo, TimeAndPackage 
 
 import styles from "./requestReservationTab.module.scss";
 
-// TODO: spaceInfo => 날짜 변경
 const RequestReservationTab: React.FC = () => {
   return (
     <main className={styles.wrapper}>

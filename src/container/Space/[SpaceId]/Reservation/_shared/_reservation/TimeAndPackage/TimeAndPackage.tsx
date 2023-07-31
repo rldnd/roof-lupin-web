@@ -49,7 +49,6 @@ const TimeAndPackage: React.FC = () => {
       enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
       onSuccess: (data) => {
         if (!data.time && data.package.length === 0) throw Error("예약 가능한 날짜가 아닙니다.");
-        if (data.time) setReservationTime((prev) => ({ ...prev, rentalTypeId: data.time!.id }));
       },
     },
   );
@@ -65,7 +64,7 @@ const TimeAndPackage: React.FC = () => {
   };
 
   const onClickTime: MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (!rentalTypes.time?.timeCostInfos) return;
+    if (!rentalTypes.time?.timeCostInfos || !rentalTypes.time.id) return;
     handleResetPackage();
 
     const hour = Number(e.currentTarget.value);
@@ -92,7 +91,7 @@ const TimeAndPackage: React.FC = () => {
         (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
         0,
       );
-      setReservationTime((prev) => ({ ...prev, endAt: hour + 1, cost }));
+      setReservationTime((prev) => ({ ...prev, endAt: hour + 1, cost, rentalTypeId: rentalTypes.time!.id }));
       setReservationAdditionalServices({
         [reservationTime.rentalTypeId as string]:
           rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>((item) => ({ ...item, count: 0 })),
