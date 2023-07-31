@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useAtomValue } from "jotai";
 
@@ -17,9 +17,6 @@ import styles from "./spaceList.module.scss";
 const LIMIT = 10;
 
 const SpaceList: React.FC = () => {
-  // const {} = useNaverMap(LOCATION_PAGE_MAP_ID);
-
-  const spaceListRef = useRef<HTMLUListElement>(null);
   const [spaces, setSpaces] = useState<Space[]>([]);
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
@@ -61,7 +58,7 @@ const SpaceList: React.FC = () => {
       hasNextPage={hasNextPage}
       isFetching={isFetching}
       isSuccess={isSuccess}
-      ref={spaceListRef}
+      isRootContainer
     >
       {spaces.map((space) => (
         <SpaceDetailCard key={space.id} href={`/spaces/${space.id}`} space={space}>
