@@ -57,7 +57,8 @@ const getRentalTypes = (
     rentalTypes.push({
       rentalTypeId: time.rentalTypeId,
       startAt: time.startAt,
-      endAt: time.endAt,
+      // NOTE: 서버에서 endAt은 {hour}~{hour+1} 에서 hour 기준이기 때문에, -1 해줘야 함
+      endAt: time.endAt - 1,
       additionalServices: getCreateAdditionalService(time.rentalTypeId, additionalServices),
     });
   }
