@@ -8,18 +8,34 @@ import type { AxiosResponse } from "axios";
 interface ReturnUseTossPay {
   prepareTossPay(body: CreateReservation): Promise<AxiosResponse<{ url: string }>>;
   completeTossPay(body: ConfirmTossPayment): Promise<AxiosResponse<{ id: string }>>;
+  isPrepareSuccess: boolean;
+  isPrepareError: boolean;
+  isPaySuccess: boolean;
+  isPayError: boolean;
 }
 
 const useTossPay = (): ReturnUseTossPay => {
-  const { mutateAsync: prepareTossPay } = useMutation(preparePaymentTossApi, {
+  const {
+    mutateAsync: prepareTossPay,
+    isSuccess: isPrepareSuccess,
+    isError: isPrepareError,
+  } = useMutation(preparePaymentTossApi, {
     onSuccess: (data) => window.open(data.data.url, "_self"),
   });
 
-  const { mutateAsync: completeTossPay } = useMutation(completePaymentTossApi);
+  const {
+    mutateAsync: completeTossPay,
+    isSuccess: isPaySuccess,
+    isError: isPayError,
+  } = useMutation(completePaymentTossApi);
 
   return {
     prepareTossPay,
     completeTossPay,
+    isPayError,
+    isPaySuccess,
+    isPrepareError,
+    isPrepareSuccess,
   };
 };
 
