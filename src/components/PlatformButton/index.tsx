@@ -2,7 +2,7 @@
 
 import { ComponentProps, type MouseEventHandler, useCallback } from "react";
 
-import { isMobile, isWebview } from "@/utils/userAgent";
+import { usePlatform } from "@/hooks";
 
 interface Props extends Omit<ComponentProps<"button">, "onClick"> {
   mobile: MouseEventHandler<HTMLButtonElement>;
@@ -11,13 +11,14 @@ interface Props extends Omit<ComponentProps<"button">, "onClick"> {
 }
 
 const PlatformButton: React.FC<Props> = ({ desktop, mobile, webview, children, ...props }) => {
+  const { isWebview, isMobile } = usePlatform();
   const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       if (isWebview) webview(e);
       else if (isMobile) mobile(e);
       else desktop(e);
     },
-    [desktop, mobile, webview],
+    [desktop, isMobile, isWebview, mobile, webview],
   );
 
   return (

@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import type { BaseWebviewPayload, WithoutData } from "@/common/types/webview";
 import { parseConverter, stringifyConverter } from "@/utils/json";
 import { isClient } from "@/utils/next";
-import { isWebview } from "@/utils/userAgent";
 
 import useClientEffect from "./useClientEffect";
 
@@ -18,7 +17,7 @@ type SendMessagePayload<T extends BaseWebviewPayload> = T["data"] extends Withou
 type SendMessage = <T extends BaseWebviewPayload>(payload: SendMessagePayload<T>) => void;
 
 const checkHasWebviewConnected = (): boolean => {
-  return typeof window.flutterWebview !== "undefined" || !isWebview;
+  return typeof window.flutterWebview !== "undefined";
 };
 
 interface ReturnUseWebview {

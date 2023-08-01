@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 
 import cx from "clsx";
 
-import { useScrollDirection } from "@/hooks";
-import { isWebview } from "@/utils/userAgent";
+import { usePlatform, useScrollDirection } from "@/hooks";
 
 import { IconAvatar, IconBookmark, IconHome, IconLocation, IconSearch } from "public/icons";
 
@@ -21,6 +20,7 @@ interface Props {
 }
 
 const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) => {
+  const { isWebview } = usePlatform();
   const scrollDirection = useScrollDirection();
   const pathname = usePathname();
 

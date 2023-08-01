@@ -10,6 +10,7 @@ import { Toast } from "@/components/Common/Toast";
 import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
+import PlatformChecker from "./PlatformChecker";
 import Providers from "./Providers";
 import PushTokenHandler from "./PushTokenHandler";
 
@@ -36,6 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div id="bottom-sheet" />
           <Suspense fallback={null}>
             <PushTokenHandler />
+          </Suspense>
+          <Suspense fallback={null}>
+            <PlatformChecker />
           </Suspense>
           <Toast />
         </Providers>
