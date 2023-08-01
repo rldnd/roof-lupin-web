@@ -40,10 +40,10 @@ const Header: React.FC = () => {
         [styles.backgroundBreakpoint]: backgroundBreakpoint,
       })}
     >
-      안드: {isAndroidWebview ? true : false}
-      아이폰: {isIosWebview ? true : false}
-      모발: {isMobile ? true : false}
-      웹뷰: {isWebview ? true : false}
+      안드: {isAndroidWebview ? "true" : "false"}
+      아이폰: {isIosWebview ? "true" : "false"}
+      모발: {isMobile ? "true" : "false"}
+      웹뷰: {isWebview ? "true" : "false"}
       <button type="button" aria-label="루프루팡 로고" onClick={onClickLogo}>
         <IconMainLogo />
       </button>
