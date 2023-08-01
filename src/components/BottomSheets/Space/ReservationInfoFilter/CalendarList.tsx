@@ -1,11 +1,10 @@
 "use client";
 
-import type { MouseEventHandler } from "react";
+import { type MouseEventHandler, useEffect } from "react";
 
 import { useParams } from "next/navigation";
 
 import type { PossibleRentalTypesByMonth } from "@/common/types/rentalType";
-import { OrderedInfiniteScroll } from "@/components/InfiniteScroll";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceRentalTypePossibleMonthApi } from "@/services/rentalType";
 import { dayjs } from "@/utils/date";
@@ -37,15 +36,12 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
         }),
     );
 
+  useEffect(() => {
+    if (isSuccess && hasNextPage && !isFetching) fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isFetching, isSuccess]);
+
   return (
-    <OrderedInfiniteScroll
-      fetchNextPage={fetchNextPage}
-      isFetching={isFetching}
-      isSuccess={isSuccess}
-      hasNextPage={hasNextPage}
-      className={styles.calendarWrapper}
-      isRootContainer
-    >
+    <ol className={styles.calendarWrapper}>
       {data.pages.map((page) => (
         <MonthCalendar
           key={`${page.year}-${page.month}`}
@@ -57,7 +53,7 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
         />
       ))}
       {isFetching && <LoadingMonthCalendar />}
-    </OrderedInfiniteScroll>
+    </ol>
   );
 };
 

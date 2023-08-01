@@ -14,8 +14,8 @@ export const formatHourToAHHMM = (hour: number) => {
   return `오전 ${hour}`;
 };
 
-export const getFirstDayOfWeek = () => {
-  return Number(dayjs().startOf("week").format("DD"));
+export const getFirstDayOfWeek = (): { month: number; day: number } => {
+  return { month: dayjs().startOf("week").month() + 1, day: Number(dayjs().startOf("week").format("DD")) };
 };
 
 export { dayjs };
