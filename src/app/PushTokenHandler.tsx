@@ -15,13 +15,19 @@ import { useMe } from "@/hooks/queries";
 import { getMyPushTokenApi, updateMeApi } from "@/services/user";
 
 const PushTokenHandler: React.FC = () => {
-  const { me, refetchMe } = useMe();
+  const { isLogined } = useMe();
   const { addListener, sendMessage, removeListener } = useWebview();
 
-  const { data: myPushToken } = useQuery(["getMyPushToken", me], () => getMyPushTokenApi().then((res) => res.data), {
-    enabled: Boolean(me),
+  const { data: myPushToken, refetch: refetchPushToken } = useQuery(
+    ["getMyPushToken", isLogined],
+    () => getMyPushTokenApi().then((res) => res.data),
+    {
+      enabled: isLogined,
+    },
+  );
+  const { mutate: updateMe } = useMutation(updateMeApi, {
+    onSuccess: () => refetchPushToken(),
   });
-  const { mutate: updateMe } = useMutation(updateMeApi, { onSuccess: () => refetchMe() });
 
   const checkPushTokenDifferent = useCallback(
     ({ pushToken }: AppAuthPushTokenData) => {
@@ -31,7 +37,7 @@ const PushTokenHandler: React.FC = () => {
   );
 
   useClientEffect(() => {
-    if (!me) return;
+    if (!isLogined) return;
 
     sendMessage<WebAuthRequestPushTokenPayload>({ type: "web-auth/requestPushToken" });
     addListener<AppAuthPushTokenPayload>("app-auth/pushToken", checkPushTokenDifferent);
@@ -41,7 +47,7 @@ const PushTokenHandler: React.FC = () => {
       removeListener<AppAuthPushTokenPayload>("app-auth/pushToken");
       removeListener<AppAuthPushTokenChangedPayload>("app-auth/pushTokenChanged");
     };
-  }, [me]);
+  }, [addListener, checkPushTokenDifferent, isLogined, removeListener, sendMessage]);
 
   return null;
 };

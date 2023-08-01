@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components";
 import { useTossPay } from "@/hooks/queries";
-import { setSocialType, setTokens } from "@/utils/auth";
 
 import styles from "./tossPayApproveContainer.module.scss";
 

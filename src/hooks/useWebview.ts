@@ -4,7 +4,6 @@ import type { BaseWebviewPayload, WithoutData } from "@/common/types/webview";
 import { parseConverter, stringifyConverter } from "@/utils/json";
 import { isClient } from "@/utils/next";
 
-import { useToast } from ".";
 import useClientEffect from "./useClientEffect";
 
 interface Listener {
@@ -28,7 +27,6 @@ interface ReturnUseWebview {
 }
 
 const useWebview = (): ReturnUseWebview => {
-  const { addToast } = useToast();
   const [listeners, setListeners] = useState<Listener[]>([]);
 
   const addListener: AddListener = useCallback((type, callback) => {
@@ -39,15 +37,11 @@ const useWebview = (): ReturnUseWebview => {
     setListeners((prev) => prev.filter((listener) => listener.type !== type));
   }, []);
 
-  const sendMessage: SendMessage = useCallback(
-    (payload) => {
-      if (!checkHasWebviewConnected() || !isClient) return;
+  const sendMessage: SendMessage = useCallback((payload) => {
+    if (!checkHasWebviewConnected() || !isClient) return;
 
-      addToast({ message: payload.type });
-      window.flutterWebview?.postMessage(stringifyConverter(payload));
-    },
-    [addToast],
-  );
+    window.flutterWebview?.postMessage(stringifyConverter(payload));
+  }, []);
 
   useClientEffect(() => {
     if (!checkHasWebviewConnected()) return;
