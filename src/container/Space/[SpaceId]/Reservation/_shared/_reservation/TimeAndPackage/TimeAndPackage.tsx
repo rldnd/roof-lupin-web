@@ -91,7 +91,8 @@ const TimeAndPackage: React.FC = () => {
         (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
         0,
       );
-      setReservationTime((prev) => ({ ...prev, endAt: hour + 1, cost, rentalTypeId: rentalTypes.time!.id }));
+      const endAt = hour + 1 === 24 ? 0 : hour + 1;
+      setReservationTime((prev) => ({ ...prev, endAt, cost, rentalTypeId: rentalTypes.time!.id }));
       setReservationAdditionalServices({
         [reservationTime.rentalTypeId as string]:
           rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>((item) => ({ ...item, count: 0 })),

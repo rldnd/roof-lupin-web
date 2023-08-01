@@ -71,7 +71,7 @@ const Service: React.FC = () => {
       <section className={styles.wrapper}>
         <h2>부가 서비스</h2>
         <span className={styles.description}>
-          {hasTime && "시간 단위 상품 사용 시 가능한 부가서비스 입니다."}
+          {Boolean(hasTime) && "시간 단위 상품 사용 시 가능한 부가서비스 입니다."}
           {hasPackage &&
             `${packages.map((packageItem) => packageItem.name).join(", ")} 사용 시 가능한 부가서비스 입니다.`}
         </span>
