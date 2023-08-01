@@ -7,6 +7,8 @@ import type {
   ReservationTime,
 } from "@/states/reservation";
 
+import { isUnderTimeReservation } from "./rentalType";
+
 export const getPrepareReservationBody = (
   reservation: Reservation,
   time: ReservationTime,
@@ -121,7 +123,7 @@ const getAdditionalServiceCost = (
   additionalServices: ReservationAdditionalService,
 ) => {
   let cost = 0;
-  if (time.rentalTypeId && time.startAt && time.endAt && time.rentalTypeId in additionalServices) {
+  if (isUnderTimeReservation(time) && time.rentalTypeId in additionalServices) {
     cost += additionalServices[time.rentalTypeId].reduce<number>((acc, cur) => acc + cur.cost * cur.count, 0);
   }
 

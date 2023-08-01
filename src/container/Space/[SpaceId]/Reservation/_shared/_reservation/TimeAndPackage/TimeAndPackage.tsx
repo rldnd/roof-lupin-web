@@ -27,6 +27,7 @@ import {
 } from "@/states/reservation";
 import { formatHourToAHHMM } from "@/utils/date";
 import { deletePropertyInObject } from "@/utils/function";
+import { isUnderTimeReservation } from "@/utils/rentalType";
 
 import styles from "./timeAndPackage.module.scss";
 
@@ -52,6 +53,8 @@ const TimeAndPackage: React.FC = () => {
       },
     },
   );
+
+  console.log(reservationTime);
 
   const handleResetTime = () => {
     setReservationTime((prev) => ({ ...prev, startAt: null, endAt: null, cost: null }));
@@ -146,7 +149,7 @@ const TimeAndPackage: React.FC = () => {
               type="button"
               className={styles.reset}
               onClick={handleResetTime}
-              disabled={!reservationTime.startAt || !reservationTime.endAt}
+              disabled={!isUnderTimeReservation(reservationTime)}
             >
               초기화
             </button>

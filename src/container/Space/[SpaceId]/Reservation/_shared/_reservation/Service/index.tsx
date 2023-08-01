@@ -13,6 +13,7 @@ import {
   reservationTimeState,
 } from "@/states/reservation";
 import { formatHourToAHHMM } from "@/utils/date";
+import { isUnderTimeReservation } from "@/utils/rentalType";
 
 import styles from "./service.module.scss";
 
@@ -26,7 +27,7 @@ const getRentalTypeFromId = (
   packages: ReservationPackage[],
   time: ReservationTime,
 ): ReturnGetRentalTypeFromId => {
-  if (time.startAt && time.endAt)
+  if (isUnderTimeReservation(time))
     return {
       name: "시간 단위 상품",
       time: `${formatHourToAHHMM(time.startAt)}시 ~ ${formatHourToAHHMM(time.endAt)}시`,
@@ -47,7 +48,6 @@ const Service: React.FC = () => {
 
   const [reservationAdditionalServices, setReservationAdditionalServices] = useAtom(reservationAdditionalServicesState);
 
-  const hasTime = time.startAt && time.endAt;
   const hasPackage = packages.length > 0;
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -71,7 +71,7 @@ const Service: React.FC = () => {
       <section className={styles.wrapper}>
         <h2>부가 서비스</h2>
         <span className={styles.description}>
-          {Boolean(hasTime) && "시간 단위 상품 사용 시 가능한 부가서비스 입니다."}
+          {isUnderTimeReservation(time) && "시간 단위 상품 사용 시 가능한 부가서비스 입니다."}
           {hasPackage &&
             `${packages.map((packageItem) => packageItem.name).join(", ")} 사용 시 가능한 부가서비스 입니다.`}
         </span>

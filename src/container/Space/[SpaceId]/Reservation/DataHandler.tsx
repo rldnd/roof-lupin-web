@@ -21,6 +21,7 @@ import {
   reservationTimeState,
   type Tab,
 } from "@/states/reservation";
+import { isUnderTimeReservation } from "@/utils/rentalType";
 
 const DataHandler: React.FC = () => {
   const { spaceId } = useParams();
@@ -40,9 +41,9 @@ const DataHandler: React.FC = () => {
 
   const canPayment = useMemo<boolean>(
     () =>
-      (Boolean(time.startAt && time.endAt) || packages.length > 0) &&
+      (isUnderTimeReservation(time) || packages.length > 0) &&
       (!data.deposit || Boolean(data.deposit && depositConfirm)),
-    [data.deposit, depositConfirm, packages.length, time.endAt, time.startAt],
+    [data.deposit, depositConfirm, packages.length, time],
   );
 
   const isRequest = useMemo<boolean>(() => !data.isImmediateReservation, [data.isImmediateReservation]);

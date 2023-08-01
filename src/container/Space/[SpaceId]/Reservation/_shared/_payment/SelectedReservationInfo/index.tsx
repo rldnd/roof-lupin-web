@@ -16,6 +16,7 @@ import {
   reservationTimeState,
 } from "@/states/reservation";
 import { dayjs } from "@/utils/date";
+import { isUnderTimeReservation } from "@/utils/rentalType";
 import { getDiffHour } from "@/utils/time";
 
 import { DataItem, DataList } from "../../Data";
@@ -46,7 +47,7 @@ const SelectedReservationInfo: React.FC = () => {
           </DataItem>
           <DataItem label="인원">{userCount}명</DataItem>
           <DataItem label="상품 및 부가서비스">
-            {time.startAt && time.endAt && (
+            {isUnderTimeReservation(time) && (
               <>
                 시간 단위 예약 ({time.startAt}-{time.endAt}시, {getDiffHour(time.startAt, time.endAt)}시간)
               </>
