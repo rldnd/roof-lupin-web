@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import cx from "clsx";
 
-import { useHeaderScrollOpacity, usePlatform } from "@/hooks";
+import { useHeaderScrollOpacity } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { getNumberFromPixel } from "@/utils/styles";
 
@@ -15,7 +15,6 @@ import { IconBell, IconMainLogo, IconSearch } from "public/icons";
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
-  const { isAndroidWebview, isIosWebview, isMobile, isWebview } = usePlatform();
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
     containerHeight:
       getNumberFromPixel(sizes.mainCarouselHeight) + getNumberFromPixel(sizes.mainCarouselProgressHeight),
@@ -40,10 +39,6 @@ const Header: React.FC = () => {
         [styles.backgroundBreakpoint]: backgroundBreakpoint,
       })}
     >
-      안드: {isAndroidWebview ? "true" : "false"}
-      아이폰: {isIosWebview ? "true" : "false"}
-      모발: {isMobile ? "true" : "false"}
-      웹뷰: {isWebview ? "true" : "false"}
       <button type="button" aria-label="루프루팡 로고" onClick={onClickLogo}>
         <IconMainLogo />
       </button>
