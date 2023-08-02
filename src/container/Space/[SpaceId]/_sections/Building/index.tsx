@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import type { Building as BuildingType } from "@/common/types/building";
 import type { Size } from "@/common/types/size";
 
@@ -19,7 +17,7 @@ const Building: React.FC<Props> = ({ buildings, sizes }) => {
       <ul className={styles.buildings}>
         {buildings.map((building) => (
           <li key={building.id} className={styles.building}>
-            <Image width={30} height={30} src={building.iconPath} alt="빌딩 아이콘" />
+            <img width={30} height={30} src={building.iconPath} alt="빌딩 아이콘" />
             <span>{building.name}</span>
           </li>
         ))}

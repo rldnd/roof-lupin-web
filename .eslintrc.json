@@ -193,6 +193,7 @@
         "labelAttributes": ["htmlFor"],
         "controlComponents": ["input"]
       }
-    ]
+    ],
+    "@next/next/no-img-element": "off"
   }
 }

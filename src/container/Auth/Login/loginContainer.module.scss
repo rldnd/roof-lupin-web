@@ -4,15 +4,13 @@
 .wrapper {
   width: 100%;
   height: 100dvh;
+  overflow: hidden;
 
   .backgroundImageWrapper {
     @include m.absolute(0 0 0 0);
     width: 100%;
     height: 100dvh;
-
-    img {
-      object-fit: cover;
-    }
+    object-fit: cover;
   }
 
   > main {

@@ -2,21 +2,20 @@
 
 import Image from "next/image";
 
+import type { SpaceDetail } from "@/common/types/space";
+
 import styles from "./topSection.module.scss";
 
-const TopSection: React.FC = () => {
+interface Props {
+  space: SpaceDetail;
+}
+
+const TopSection: React.FC<Props> = ({ space }) => {
   return (
     <section className={styles.wrapper}>
-      <div className={styles.imageWrapper}>
-        <Image
-          fill
-          sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-          alt="공간 이미지"
-          src="https://dev-image.rooflupin.com/IMG_5913.jpg"
-        />
-      </div>
+      <img alt="공간 이미지" src={space.thumbnail} />
       <h1 className={styles.title}>
-        ~~~~~
+        {space.title}
         <br />
         예약 요청이 완료되었어요
       </h1>

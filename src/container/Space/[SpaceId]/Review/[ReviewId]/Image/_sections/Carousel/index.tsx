@@ -85,15 +85,7 @@ const Carousel: React.FC = () => {
     <section className={styles.wrapper}>
       <Slider className={styles.slider} {...settings}>
         {review.images.map((image) => (
-          <div className={styles.imageWrapper} key={image.url}>
-            <Image
-              fill
-              src={image.url}
-              alt="이미지"
-              sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-              priority
-            />
-          </div>
+          <img className={styles.image} key={image.url} src={image.url} alt="이미지" />
         ))}
       </Slider>
     </section>

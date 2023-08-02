@@ -11,14 +11,10 @@
     height: calc(100dvh - c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
     padding-top: calc(c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
 
-    .imageWrapper {
-      position: relative;
+    .image {
       width: 100%;
       height: calc(100dvh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
-
-      img {
-        object-fit: cover;
-      }
+      object-fit: cover;
     }
 
     .arrow {

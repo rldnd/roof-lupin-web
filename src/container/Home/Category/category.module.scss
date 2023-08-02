@@ -1,5 +1,3 @@
-/* stylelint-disable property-no-unknown */
-/* stylelint-disable selector-pseudo-class-no-unknown */
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
@@ -19,6 +17,8 @@ $CATEGORY_WIDTH: 56px;
     width: max-content;
 
     img {
+      width: $CATEGORY_WIDTH;
+      height: $CATEGORY_WIDTH;
       object-fit: cover;
       border-radius: 8px;
     }
@@ -42,8 +42,4 @@ $CATEGORY_WIDTH: 56px;
       transform: translateX(-50%);
     }
   }
-}
-
-:export {
-  categoryWidth: $CATEGORY_WIDTH;
 }

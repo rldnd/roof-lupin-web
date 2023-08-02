@@ -1,6 +1,5 @@
 import { memo, ReactNode } from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
@@ -23,16 +22,10 @@ interface Props {
 const SpaceDetailCard: React.FC<Props> = ({ className, space, href, children }) => {
   return (
     <li className={cx(styles.wrapper, className)}>
-      <div className={styles.imageWrapper}>
-        <Link href={href}>
-          <Image
-            src={space.thumbnail}
-            fill
-            alt={`${space.title} 공간 이미지`}
-            sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-          />
-        </Link>
-      </div>
+      <Link href={href} className={styles.imageWrapper}>
+        <img src={space.thumbnail} alt={`${space.title} 공간 이미지`} />
+      </Link>
+
       {children}
 
       <Link href={href} className={styles.content}>

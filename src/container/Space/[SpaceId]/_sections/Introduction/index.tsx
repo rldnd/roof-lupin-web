@@ -1,10 +1,8 @@
 import dynamic from "next/dynamic";
-import Image from "next/image";
 
 import type { SpaceDetail } from "@/common/types/space";
 import { HorizonDraggable } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
-import { getNumberFromPixel } from "@/utils/styles";
 
 import { IconApprove, IconMaximum, IconStandard } from "public/icons";
 
@@ -13,7 +11,6 @@ import ReviewButton from "./ReviewButton";
 import TagItem from "./TagItem";
 
 import styles from "./introduction.module.scss";
-import tagStyles from "./tagItem.module.scss";
 
 const IntroductionMoreButton = dynamic(() => import("./IntroductionMoreButton"), { ssr: false });
 
@@ -58,14 +55,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
         {categories.map((category) => (
           <TagItem
             key={category.id}
-            icon={
-              <Image
-                src={category.iconPath as string}
-                width={getNumberFromPixel(tagStyles.tagImageSize)}
-                height={getNumberFromPixel(tagStyles.tagImageSize)}
-                alt={`${category.name} 카테고리 이미지`}
-              />
-            }
+            icon={<img src={category.iconPath as string} alt={`${category.name} 카테고리 이미지`} />}
             name={category.name}
           />
         ))}

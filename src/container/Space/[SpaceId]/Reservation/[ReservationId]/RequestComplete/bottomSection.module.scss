@@ -3,7 +3,9 @@
 
 .wrapper {
   width: 100%;
-  height: c.$S_SPACE_DETAIL_CAROUSEL_HEIGHT;
-  cursor: grab;
-  object-fit: cover;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 40px;
+
+  button {
+    margin-top: 56px;
+  }
 }

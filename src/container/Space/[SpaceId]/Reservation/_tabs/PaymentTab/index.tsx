@@ -3,16 +3,17 @@
 import { Suspense } from "react";
 
 import { LoadingSubmit, SubmitButton } from "./_sections";
-import { Header } from "../_shared";
+import { Header } from "../../_shared";
 import {
   Checkboxes,
   Discount,
   FreeCancelTerm,
+  LoadingSelectedReservationInfo,
   PaymentMethod,
   PriceInfo,
   ReservationClerkInfo,
   SelectedReservationInfo,
-} from "../_shared/_payment";
+} from "../../_shared/_payment";
 
 import styles from "./paymentTab.module.scss";
 
@@ -20,7 +21,7 @@ const PaymentTab: React.FC = () => {
   return (
     <main className={styles.wrapper}>
       <Header title="결제" />
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingSelectedReservationInfo />}>
         <SelectedReservationInfo />
       </Suspense>
       <hr />

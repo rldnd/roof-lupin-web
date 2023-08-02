@@ -2,8 +2,6 @@
 
 import { MouseEventHandler } from "react";
 
-import Image from "next/image";
-
 import cx from "clsx";
 import { useAtom } from "jotai";
 
@@ -28,39 +26,21 @@ const PaymentMethod: React.FC = () => {
         <li className={styles.method}>
           <button type="button" value="kakao" onClick={onClick} className={cx({ [styles.active]: method === "kakao" })}>
             <div className={styles.imageWrapper}>
-              <Image
-                fill
-                src={"/images/payment/kakao-pay.png"}
-                alt="카카오 페이"
-                sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-                priority
-              />
+              <img src={"/images/payment/kakao-pay.png"} alt="카카오 페이" />
             </div>
           </button>
         </li>
         <li className={styles.method}>
           <button type="button" value="toss" onClick={onClick} className={cx({ [styles.active]: method === "toss" })}>
             <div className={styles.imageWrapper}>
-              <Image
-                fill
-                src={"/images/payment/toss-pay.png"}
-                alt="토스 페이"
-                sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-                priority
-              />
+              <img src={"/images/payment/toss-pay.png"} alt="토스 페이" />
             </div>
           </button>
         </li>
         <li className={styles.method}>
           <button type="button" value="naver" onClick={onClick} className={cx({ [styles.active]: method === "naver" })}>
             <div className={styles.imageWrapper}>
-              <Image
-                fill
-                src={"/images/payment/naver-pay.png"}
-                alt="네이버 페이"
-                sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-                priority
-              />
+              <img src={"/images/payment/naver-pay.png"} alt="네이버 페이" />
             </div>
           </button>
         </li>

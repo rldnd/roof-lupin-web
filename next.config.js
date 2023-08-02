@@ -10,6 +10,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: "https",

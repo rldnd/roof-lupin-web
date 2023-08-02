@@ -2,8 +2,6 @@
 
 import { memo } from "react";
 
-import Image from "next/image";
-
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
@@ -28,7 +26,7 @@ const Header: React.FC<Props> = ({ review, className, menuHidden = false }) => {
       <div className={styles.info}>
         <div className={styles.imageWrapper}>
           {review.user.profileImage && (
-            <Image src={review.user.profileImage} width={40} height={40} alt="프로필 이미지" />
+            <img src={review.user.profileImage} width={40} height={40} alt="프로필 이미지" />
           )}
         </div>
         <p className={styles.profile}>

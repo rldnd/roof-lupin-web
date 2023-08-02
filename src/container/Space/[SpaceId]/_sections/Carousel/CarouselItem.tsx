@@ -1,7 +1,5 @@
 import { memo } from "react";
 
-import Image from "next/image";
-
 import type { ImageDTO } from "@/common/types/common";
 
 import styles from "./carouselItem.module.scss";
@@ -11,17 +9,7 @@ interface Props {
 }
 
 const CarouselItem: React.FC<Props> = ({ image }) => {
-  return (
-    <div className={styles.wrapper}>
-      <Image
-        src={image.url}
-        alt="공간 이미지"
-        fill
-        priority
-        sizes="(min-width: 60em) 24vw,(min-width: 28em) 45vw,100vw"
-      />
-    </div>
-  );
+  return <img className={styles.wrapper} src={image.url} alt="공간 이미지" />;
 };
 
 export default memo(CarouselItem);

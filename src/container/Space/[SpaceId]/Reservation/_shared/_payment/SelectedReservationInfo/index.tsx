@@ -5,8 +5,11 @@ import { Fragment } from "react";
 import { useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
+import Skeleton from "react-loading-skeleton";
 
 import type { SpaceDetail } from "@/common/types/space";
+import { DataItem, DataList } from "@/components";
+import { LoadingDataItem } from "@/components/Data/DataItem";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
@@ -18,8 +21,6 @@ import {
 import { dayjs } from "@/utils/date";
 import { isUnderTimeReservation } from "@/utils/rentalType";
 import { getDiffHour } from "@/utils/time";
-
-import { DataItem, DataList } from "../../Data";
 
 import styles from "./selectedReservationInfo.module.scss";
 
@@ -73,5 +74,14 @@ const SelectedReservationInfo: React.FC = () => {
 export default SelectedReservationInfo;
 
 export const LoadingSelectedReservationInfo: React.FC = () => {
-  return <></>;
+  return (
+    <>
+      <Skeleton className={styles.title} width={120} />
+      <DataList>
+        <LoadingDataItem />
+        <LoadingDataItem />
+        <LoadingDataItem />
+      </DataList>
+    </>
+  );
 };

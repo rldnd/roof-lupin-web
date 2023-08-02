@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-no-unknown */
-/* stylelint-disable property-no-unknown */
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
@@ -26,8 +24,4 @@ $TAG_IMAGE_SIZE: 24px;
     color: var(--c-gray-700);
     white-space: nowrap;
   }
-}
-
-:export {
-  tagImageSize: $TAG_IMAGE_SIZE;
 }

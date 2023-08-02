@@ -3,8 +3,8 @@
 import { Suspense } from "react";
 
 import { HostApprove, LoadingRequestReservationButton, RequestReservationButton } from "./_sections";
-import { Header } from "../_shared";
-import { Deposit, History, LoadingSpaceInfo, Service, SpaceInfo, TimeAndPackage } from "../_shared/_reservation";
+import { Header } from "../../_shared";
+import { Deposit, History, LoadingSpaceInfo, Service, SpaceInfo, TimeAndPackage } from "../../_shared/_reservation";
 
 import styles from "./requestReservationTab.module.scss";
 

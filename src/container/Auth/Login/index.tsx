@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { BackButton, ToastPositioner } from "@/components";
 import { getMainApi } from "@/services/main";
@@ -14,12 +12,10 @@ export default async function LoginContainer() {
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
       <div className={styles.wrapper}>
-        <div className={styles.backgroundImageWrapper}>
-          <Image className={styles.backgroundImage} src={main.mainImage} priority fill alt="로그인 배경 이미지" />
-        </div>
+        <img className={styles.backgroundImage} src={main.mainImage} alt="로그인 배경 이미지" />
         <main>
           <BackButton className={styles.backButton}>둘러보기</BackButton>
-          <Image src={"/images/auth/login-logo.png"} priority width={100} height={112} alt="로그인 화면 로고" />
+          <img src={"/images/auth/login-logo.png"} width={100} height={112} alt="로그인 화면 로고" />
           <p className={styles.slogan}>{main.content}</p>
           <Form />
         </main>

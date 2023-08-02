@@ -1,6 +1,5 @@
 import { memo } from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
@@ -8,7 +7,6 @@ import Skeleton from "react-loading-skeleton";
 
 import type { Space } from "@/common/types/space";
 import { StarRatingItem } from "@/components/Common/StarRating";
-import { getNumberFromPixel } from "@/utils/styles";
 
 import { SpacePrice } from "..";
 
@@ -17,24 +15,17 @@ import styles from "./spaceRankCard.module.scss";
 interface Props {
   className?: string;
   space: Space;
-  rank: number;
+  rank?: number;
   href: string;
 }
 
 const SpaceRankCard: React.FC<Props> = ({ rank, space, className, href }) => {
   return (
     <li className={cx(styles.wrapper, className)}>
-      <div className={styles.imageWrapper}>
-        <Link href={href}>
-          <Image
-            width={getNumberFromPixel(styles.imageWidth)}
-            height={getNumberFromPixel(styles.imageHeight)}
-            alt="공간 이미지"
-            src={space.thumbnail}
-          />
-          <span className={styles.rank}>{rank}</span>
-        </Link>
-      </div>
+      <Link href={href} className={styles.imageWrapper}>
+        <img alt="공간 이미지" src={space.thumbnail} />
+        {rank && <span className={styles.rank}>{rank}</span>}
+      </Link>
       <div className={styles.content}>
         <Link href={href}>
           <small className={styles.address}>

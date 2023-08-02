@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import type { Service } from "@/common/types/service";
 
 import styles from "./service.module.scss";
@@ -15,7 +13,7 @@ const service: React.FC<Props> = ({ services }) => {
       <ul>
         {services.map((item) => (
           <li key={item.id}>
-            {<Image src={item.iconPath} width={30} height={30} alt="아이콘" />}
+            <img src={item.iconPath} width={30} height={30} alt="아이콘" />
             <span>{item.name}</span>
           </li>
         ))}

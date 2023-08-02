@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useMutation } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
@@ -22,8 +22,15 @@ import { getPrepareReservationBody } from "@/utils/reservation";
 import styles from "./submitButton.module.scss";
 
 const Submit: React.FC = () => {
+  const { replace } = useRouter();
   const { spaceId } = useParams();
-  const { mutate: prepareReservation } = useMutation(prepareReservationApi);
+
+  const { mutate: prepareReservation } = useMutation(prepareReservationApi, {
+    onSuccess: (data) => {
+      const reservationId = data.data.id;
+      replace(`/space/${spaceId}/reservation/${reservationId}/request-complete`);
+    },
+  });
 
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 

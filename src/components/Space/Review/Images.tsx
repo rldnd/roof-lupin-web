@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { ImageDTO } from "@/common/types/common";
@@ -20,7 +19,7 @@ const Images: React.FC<Props> = ({ spaceId, images, reviewId }) => {
       {images.map((image) => (
         <li key={image.url}>
           <Link href={`/spaces/${spaceId}/reviews/${reviewId}/images`}>
-            <Image width={128} height={128} src={image.url} alt="이미지" />
+            <img width={128} height={128} src={image.url} alt="이미지" />
           </Link>
         </li>
       ))}
