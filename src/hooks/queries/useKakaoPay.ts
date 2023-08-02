@@ -1,33 +1,38 @@
 import { useMutation } from "@tanstack/react-query";
 
 import type { ErrorDTO } from "@/common/types/common";
-import { ConfirmTossPayment } from "@/common/types/payment";
+import type { ApproveKakaoPayment, PrepareKakaoPayment } from "@/common/types/payment";
 import type { CreateReservation } from "@/common/types/reservation";
 import { isAxiosError } from "@/services/apiClient";
-import { completePaymentTossApi, preparePaymentTossApi } from "@/services/payment";
+import { completePaymentKakaoApi, preparePaymentKakaoApi } from "@/services/payment";
 import type { AxiosResponse } from "axios";
 
-import { useToast } from "..";
+import { usePlatform, useToast } from "..";
 
-interface ReturnUseTossPay {
-  prepareTossPay(body: CreateReservation): Promise<AxiosResponse<{ url: string }>>;
-  completeTossPay(body: ConfirmTossPayment): Promise<AxiosResponse<{ id: string }>>;
+interface ReturnUseKakaoPay {
+  prepareKakaoPay(body: CreateReservation): Promise<AxiosResponse<PrepareKakaoPayment>>;
+  completeKakaoPay(body: ApproveKakaoPayment): Promise<AxiosResponse<{ id: string }>>;
   isPrepareSuccess: boolean;
   isPrepareError: boolean;
   isPaySuccess: boolean;
   isPayError: boolean;
 }
 
-const useTossPay = (): ReturnUseTossPay => {
-  // TODO: remove
+const useKakaoPay = (): ReturnUseKakaoPay => {
+  const { isWebview, isMobile, isPc } = usePlatform();
   const { addToast } = useToast();
 
   const {
-    mutateAsync: prepareTossPay,
+    mutateAsync: prepareKakaoPay,
     isSuccess: isPrepareSuccess,
     isError: isPrepareError,
-  } = useMutation(preparePaymentTossApi, {
-    onSuccess: (data) => window.open(data.data.url, "_self"),
+  } = useMutation(preparePaymentKakaoApi, {
+    onSuccess: (data) => {
+      if (isPc) window.open(data.data.nextRedirectPcUrl, "_self");
+      if (isMobile) window.open(data.data.nextRedirectMobileUrl, "_self");
+      // TODO: 체크해라..
+      if (isWebview) window.open(data.data.nextRedirectAppUrl, "_self");
+    },
     onError: (error) => {
       if (isAxiosError<ErrorDTO>(error)) {
         addToast({ message: `status: ${error.response?.data.statusCode} / message: ${error.response?.data.message}` });
@@ -36,10 +41,10 @@ const useTossPay = (): ReturnUseTossPay => {
   });
 
   const {
-    mutateAsync: completeTossPay,
+    mutateAsync: completeKakaoPay,
     isSuccess: isPaySuccess,
     isError: isPayError,
-  } = useMutation(completePaymentTossApi, {
+  } = useMutation(completePaymentKakaoApi, {
     onError: (error) => {
       if (isAxiosError<ErrorDTO>(error)) {
         addToast({ message: `status: ${error.response?.data.statusCode} / message: ${error.response?.data.message}` });
@@ -48,8 +53,8 @@ const useTossPay = (): ReturnUseTossPay => {
   });
 
   return {
-    prepareTossPay,
-    completeTossPay,
+    prepareKakaoPay,
+    completeKakaoPay,
     isPayError,
     isPaySuccess,
     isPrepareError,
@@ -57,4 +62,4 @@ const useTossPay = (): ReturnUseTossPay => {
   };
 };
 
-export default useTossPay;
+export default useKakaoPay;

@@ -20,7 +20,7 @@ const KakaoContainer: React.FC = () => {
       setTokens({ accessToken, refreshToken });
       setSocialType("kakao");
       router.replace("/");
-    } else router.back();
+    } else router.replace("/auth/failed");
   }, [searchParams, router]);
 
   return <Loading isShow />;

@@ -20,7 +20,7 @@ const NaverContainer: React.FC = () => {
       setTokens({ accessToken, refreshToken });
       setSocialType("naver");
       router.replace("/");
-    } else router.back();
+    } else router.replace("/auth/failed");
   }, [searchParams, router]);
 
   return <Loading isShow />;

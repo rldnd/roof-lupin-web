@@ -48,7 +48,7 @@ export const getPrepareReservationBody = (
   };
 };
 
-const getRentalTypes = (
+export const getRentalTypes = (
   time: ReservationTime,
   packages: ReservationPackage[],
   additionalServices: ReservationAdditionalService,
@@ -81,7 +81,7 @@ const getRentalTypes = (
   return rentalTypes;
 };
 
-const getCreateAdditionalService = (
+export const getCreateAdditionalService = (
   rentalTypeId: string,
   additionalServices: ReservationAdditionalService,
 ): AdditionalServiceReservation[] => {
@@ -93,7 +93,7 @@ const getCreateAdditionalService = (
   }, []);
 };
 
-const getOriginalCost = (
+export const getOriginalCost = (
   time: ReservationTime,
   packages: ReservationPackage[],
   additionalServices: ReservationAdditionalService,
@@ -109,17 +109,17 @@ const getOriginalCost = (
   return timeCost + packageCost + additionalServiceCost + additionalUserCost;
 };
 
-const getTimeCost = (time: ReservationTime): number => {
+export const getTimeCost = (time: ReservationTime): number => {
   const { cost, startAt, endAt } = time;
   if (!endAt || !startAt || !cost) return 0;
   return cost;
 };
 
-const getPackageCost = (packages: ReservationPackage[]) => {
+export const getPackageCost = (packages: ReservationPackage[]) => {
   return packages.reduce<number>((acc, cur) => acc + cur.baseCost, 0);
 };
 
-const getAdditionalServiceCost = (
+export const getAdditionalServiceCost = (
   time: ReservationTime,
   packages: ReservationPackage[],
   additionalServices: ReservationAdditionalService,
@@ -140,7 +140,11 @@ const getAdditionalServiceCost = (
   return cost;
 };
 
-const getAdditionalUserPrice = (userCount: number, overflowUserCost: number, overflowUserCount: number) => {
+export const getAdditionalUserPrice = (
+  userCount: number | null,
+  overflowUserCost: number,
+  overflowUserCount: number,
+) => {
   if (!userCount || userCount <= overflowUserCount) return 0;
   return overflowUserCost * (userCount - overflowUserCount);
 };

@@ -45,7 +45,7 @@ export interface ReservationPackage extends Omit<CreateReservationRentalType, "a
 export type Privacy = "privacy" | "thirdParty" | "rule";
 export type ReservationChecked = Record<Privacy, boolean>;
 
-const initialReservationChecked: ReservationChecked = {
+export const initialReservationChecked: ReservationChecked = {
   privacy: false,
   thirdParty: false,
   rule: false,

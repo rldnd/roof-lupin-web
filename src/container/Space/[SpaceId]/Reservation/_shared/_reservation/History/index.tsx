@@ -17,6 +17,7 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states/reservation";
+import { getAdditionalUserPrice } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";
 
 import styles from "./history.module.scss";
@@ -52,9 +53,8 @@ const History: React.FC = () => {
   const additionalUserPrice = useMemo<Item[]>(() => {
     const { userCount } = reservation;
     const { overflowUserCost, overflowUserCount } = space;
-
-    if (!userCount || userCount <= overflowUserCount) return [{ title: ADDITIONAL_USER_TITLE, price: 0 }];
-    return [{ title: ADDITIONAL_USER_TITLE, price: overflowUserCost * (userCount - overflowUserCount) }];
+    const price = getAdditionalUserPrice(userCount, overflowUserCost, overflowUserCount);
+    return [{ title: ADDITIONAL_USER_TITLE, price }];
   }, [reservation, space]);
 
   return (

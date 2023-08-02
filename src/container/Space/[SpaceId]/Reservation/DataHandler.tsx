@@ -12,11 +12,14 @@ import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
   initialReservation,
+  initialReservationChecked,
   initialReservationTime,
   RESERVATION_TAB_MAPPER,
   reservationAdditionalServicesState,
+  reservationCheckedState,
   reservationDepositConfirmState,
   reservationPackageState,
+  reservationPaymentMethodState,
   reservationState,
   reservationTabState,
   reservationTimeState,
@@ -35,6 +38,8 @@ const DataHandler: React.FC = () => {
 
   const setReservation = useSetAtom(reservationState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
+  const setChecked = useSetAtom(reservationCheckedState);
+  const setPaymentMethod = useSetAtom(reservationPaymentMethodState);
 
   const [time, setTime] = useAtom(reservationTimeState);
   const [packages, setPackages] = useAtom(reservationPackageState);
@@ -49,13 +54,18 @@ const DataHandler: React.FC = () => {
 
   const isRequest = useMemo<boolean>(() => !data.isImmediateReservation, [data.isImmediateReservation]);
 
-  const reset = useCallback(() => {
+  const resetReservationInfo = useCallback(() => {
     setAdditionalServices({});
     setTime(initialReservationTime);
     setPackages([]);
     setDepositConfirm(false);
     setReservation(initialReservation);
   }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
+
+  const resetPaymentInfo = useCallback(() => {
+    setChecked(initialReservationChecked);
+    setPaymentMethod(null);
+  }, [setChecked, setPaymentMethod]);
 
   useMount(() => {
     const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
@@ -73,18 +83,19 @@ const DataHandler: React.FC = () => {
       throw Error("잘못된 접근입니다.");
     }
 
-    if (tab.toLocaleLowerCase().includes("reservation")) reset();
+    if (tab.toLocaleLowerCase().includes("reservation")) resetReservationInfo();
 
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
   });
 
   useEffect(() => {
     setTab(tab as Tab);
-  }, [setTab, tab]);
+    resetPaymentInfo();
+  }, [resetPaymentInfo, setChecked, setTab, tab]);
 
   useUnmount(() => {
     setTab(null);
-    reset();
+    resetReservationInfo();
   });
 
   return null;

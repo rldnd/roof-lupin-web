@@ -27,3 +27,28 @@ export interface PrepareKakaoPayment {
   /** 주문 결과 ID */
   orderResultId: string;
 }
+
+export interface ApproveKakaoPayment {
+  /** 주문번호 */
+  orderId: string;
+  /** 주문결과번호 */
+  orderResultId: string;
+  /** 결제승인 토큰 */
+  pg_token: string;
+}
+
+export interface PortOnePreparePayment {
+  /** 가맹점 주문번호 */
+  merchant_uid: string;
+  /** 상품 이름 */
+  name: string;
+  /** 결제금액 */
+  amount: number;
+}
+
+export interface CompletePortOnePayment {
+  /** 가맹점 주문번호 */
+  merchant_uid: string;
+  /** 결제 고유번호 */
+  imp_uid: string;
+}

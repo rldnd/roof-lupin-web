@@ -27,11 +27,13 @@ const Form: React.FC = () => {
   };
 
   const onClickSocial: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setIsLoading(true);
     const { dataset } = e.currentTarget;
     window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/social/${dataset.social}`, "_self");
   };
 
   const onClickTestLogin = async () => {
+    setIsLoading(true);
     const { data } = await apiClient.get<Token>("/auth/test");
     setTokens(data);
     replace("/");
