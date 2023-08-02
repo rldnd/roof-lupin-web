@@ -12,6 +12,7 @@ import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
   initialReservation,
+  initialReservationTime,
   RESERVATION_TAB_MAPPER,
   reservationAdditionalServicesState,
   reservationDepositConfirmState,
@@ -50,7 +51,7 @@ const DataHandler: React.FC = () => {
 
   const reset = useCallback(() => {
     setAdditionalServices({});
-    setTime((prev) => ({ ...prev, cost: null, endAt: null, startAt: null }));
+    setTime(initialReservationTime);
     setPackages([]);
     setDepositConfirm(false);
     setReservation(initialReservation);

@@ -55,12 +55,14 @@ const getRentalTypes = (
 ): CreateReservationRentalType[] => {
   const rentalTypes: CreateReservationRentalType[] = [];
 
-  if (time.rentalTypeId && time.startAt && time.endAt) {
+  if (isUnderTimeReservation(time)) {
+    // NOTE: 서버에서 endAt은 {hour}~{hour+1} 에서 hour 기준이기 때문에, -1 해줘야 함
+    const endAt = time.endAt === 0 ? 23 : time.endAt - 1;
+
     rentalTypes.push({
       rentalTypeId: time.rentalTypeId,
       startAt: time.startAt,
-      // NOTE: 서버에서 endAt은 {hour}~{hour+1} 에서 hour 기준이기 때문에, -1 해줘야 함
-      endAt: time.endAt === 0 ? 23 : time.endAt - 1,
+      endAt,
       additionalServices: getCreateAdditionalService(time.rentalTypeId, additionalServices),
     });
   }
@@ -123,6 +125,7 @@ const getAdditionalServiceCost = (
   additionalServices: ReservationAdditionalService,
 ) => {
   let cost = 0;
+
   if (isUnderTimeReservation(time) && time.rentalTypeId in additionalServices) {
     cost += additionalServices[time.rentalTypeId].reduce<number>((acc, cur) => acc + cur.cost * cur.count, 0);
   }

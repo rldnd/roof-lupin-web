@@ -51,13 +51,15 @@ const Service: React.FC = () => {
   const hasPackage = packages.length > 0;
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { value, checked } = e.currentTarget;
+    const { value: serviceId, checked } = e.currentTarget;
 
     setReservationAdditionalServices((prev) =>
       Object.entries(prev).reduce(
-        (acc, [id, services]) => ({
+        (acc, [rentalTypeId, services]) => ({
           ...acc,
-          [id]: services.map((service) => (service.id === value ? { ...service, count: checked ? 1 : 0 } : service)),
+          [rentalTypeId]: services.map((service) =>
+            service.id === serviceId ? { ...service, count: checked ? 1 : 0 } : service,
+          ),
         }),
         {},
       ),

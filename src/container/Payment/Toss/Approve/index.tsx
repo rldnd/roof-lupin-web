@@ -9,6 +9,7 @@ import { useTossPay } from "@/hooks/queries";
 
 import styles from "./tossPayApproveContainer.module.scss";
 
+// TODO: server component & client component 분리
 const TossPayApproveContainer: React.FC = () => {
   const router = useRouter();
   const { completeTossPay, isPaySuccess, isPayError } = useTossPay();

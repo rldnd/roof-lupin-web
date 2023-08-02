@@ -55,7 +55,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
 
     const { year, month, day, userCount } = localInfo;
     window.history.replaceState(null, "", getQueryStringWithPath(append({ year, month, day, userCount })));
-    setTime((prev) => ({ ...prev, cost: null, endAt: null, startAt: null }));
+    setTime(initialReservationTime);
     setPackage([]);
     setAdditionalServices({});
     setReservation((prev) => ({ ...prev, year, month, day, userCount }));

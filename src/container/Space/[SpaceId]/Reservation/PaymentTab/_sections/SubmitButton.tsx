@@ -61,7 +61,7 @@ const Submit: React.FC = () => {
         disabled={disabled}
         onClick={onClickButton}
       >
-        {(body?.originalCost ?? 0).toLocaleString("ko-KR")}원 결제하기
+        {(body?.totalCost ?? 0).toLocaleString("ko-KR")}원 결제하기
       </Button>
     </section>
   );

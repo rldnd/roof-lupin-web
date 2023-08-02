@@ -20,6 +20,7 @@ import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import {
   BaseReservationAdditionalService,
+  initialReservationTime,
   reservationAdditionalServicesState,
   reservationPackageState,
   reservationState,
@@ -54,8 +55,6 @@ const TimeAndPackage: React.FC = () => {
     },
   );
 
-  console.log(reservationTime);
-
   const handleResetTime = () => {
     setReservationTime((prev) => ({ ...prev, startAt: null, endAt: null, cost: null }));
     setReservationAdditionalServices((prev) => deletePropertyInObject(prev, reservationTime.rentalTypeId as string));
@@ -87,7 +86,7 @@ const TimeAndPackage: React.FC = () => {
 
     // MEMO: 시작 시간을 선택하게 되는 경우
     if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd) || hasDisabledBetween) {
-      setReservationTime((prev) => ({ ...prev, startAt: hour, endAt: null, cost: null }));
+      setReservationTime({ ...initialReservationTime, startAt: hour });
     } else {
       //MEMO: 끝 시간을 선택하게 되는 경우
       const cost = rentalTypes.time.timeCostInfos.reduce<number>(
@@ -97,8 +96,9 @@ const TimeAndPackage: React.FC = () => {
       const endAt = hour + 1 === 24 ? 0 : hour + 1;
       setReservationTime((prev) => ({ ...prev, endAt, cost, rentalTypeId: rentalTypes.time!.id }));
       setReservationAdditionalServices({
-        [reservationTime.rentalTypeId as string]:
-          rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>((item) => ({ ...item, count: 0 })),
+        [rentalTypes.time!.id as string]: rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>(
+          (item) => ({ ...item, count: 0 }),
+        ),
       });
     }
   };

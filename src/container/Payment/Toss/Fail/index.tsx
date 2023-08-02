@@ -1,14 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components";
 
-import styles from "./failed.module.scss";
+import styles from "./tossPayFailContainer.module.scss";
 
-// TODO: server component & client component 분리
-const AuthFailedContainer: React.FC = () => {
+const TossPayFailContainer: React.FC = () => {
   const { replace } = useRouter();
+  const { get } = useSearchParams();
 
   const onClickButton = () => {
     replace("/");
@@ -16,7 +16,8 @@ const AuthFailedContainer: React.FC = () => {
 
   return (
     <main className={styles.wrapper}>
-      <h1>로그인에 실패하였습니다</h1>
+      <h1>{get("code")}</h1>
+      <p>{get("message")}</p>
       <Button type="button" full color="primary" onClick={onClickButton}>
         홈으로 돌아가기
       </Button>
@@ -24,4 +25,4 @@ const AuthFailedContainer: React.FC = () => {
   );
 };
 
-export default AuthFailedContainer;
+export default TossPayFailContainer;
