@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { Loading } from "@/components";
 import { setSocialType, setTokens } from "@/utils/auth";
 
 const AppleContainer: React.FC = () => {
@@ -22,7 +23,7 @@ const AppleContainer: React.FC = () => {
     } else router.back();
   }, [searchParams, router]);
 
-  return null;
+  return <Loading isShow />;
 };
 
 export default AppleContainer;

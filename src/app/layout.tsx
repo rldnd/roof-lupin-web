@@ -7,7 +7,6 @@ import NextTopLoader from "nextjs-toploader";
 
 import { Toast } from "@/components/Common/Toast";
 
-import AppSocialLoginHandler from "./AppSocialLoginHandler";
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
 import PlatformChecker from "./PlatformChecker";
@@ -45,9 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />
-        </Suspense>
-        <Suspense fallback={null}>
-          <AppSocialLoginHandler />
         </Suspense>
       </body>
     </html>

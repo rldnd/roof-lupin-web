@@ -1,0 +1,60 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+@keyframes pill {
+  0% {
+    background-position: 0 0;
+    transform: rotate(0deg);
+  }
+
+  25% {
+    background-position: 0 100%;
+    transform: rotate(0deg);
+  }
+
+  50% {
+    background-position: 0 100%;
+    transform: rotate(180deg);
+  }
+
+  75% {
+    background-position: 0 200%;
+    transform: rotate(180deg);
+  }
+
+  100% {
+    background-position: 0 200%;
+    transform: rotate(360deg);
+  }
+}
+
+.wrapper {
+  @include m.fixed(50% auto auto 50%);
+  @include m.flex;
+  width: 100%;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 50%);
+  transform: translate(-50%, -50%);
+
+  .loading::before {
+    display: inline-block;
+    width: 30px;
+    height: 60px;
+    content: "";
+    background: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      from(var(--c-roof-orange)),
+      color-stop(50%, var(--c-roof-orange)),
+      color-stop(50%, transparent),
+      to(transparent)
+    );
+    background: linear-gradient(0deg, var(--c-roof-orange), var(--c-roof-orange) 50%, transparent 50%, transparent);
+    background-repeat: no-repeat;
+    background-size: 100% 200%;
+    border: 6px solid var(--c-white);
+    border-radius: 15px;
+    animation: pill 2s infinite backwards;
+  }
+}
