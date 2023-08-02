@@ -14,12 +14,19 @@ $CATEGORY_WIDTH: 56px;
     @include m.flex(flex-start, center, column);
     position: relative;
     gap: 6px;
-    width: max-content;
+    width: $CATEGORY_WIDTH;
 
-    img {
+    .imageWrapper {
+      @include m.flex;
       width: $CATEGORY_WIDTH;
       height: $CATEGORY_WIDTH;
-      object-fit: cover;
+      background-color: var(--c-gray-100);
+      border-radius: 8px;
+    }
+
+    img {
+      width: 32px;
+      object-fit: contain;
       border-radius: 8px;
     }
 
