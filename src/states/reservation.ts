@@ -7,7 +7,6 @@ import {
   RESERVATION_PACKAGE,
   RESERVATION_TIME,
 } from "@/common/constants";
-import type { PaymentMethod } from "@/common/types/payment";
 import type { CreateReservation, CreateReservationRentalType } from "@/common/types/reservation";
 import type { AdditionalService } from "@/common/types/service";
 import { sessionPersistenceAtom } from "@/utils/jotai";
@@ -90,5 +89,3 @@ export const reservationPackageState = sessionPersistenceAtom<ReservationPackage
 export const reservationDepositConfirmState = sessionPersistenceAtom<boolean>(RESERVATION_DEPOSIT_CONFIRM, false);
 /** 예약 약관 확인 여부 */
 export const reservationCheckedState = atom<ReservationChecked>(initialReservationChecked);
-/** 결제 수단 */
-export const reservationPaymentMethodState = atom<PaymentMethod | null>(null);

@@ -31,7 +31,9 @@ const PaymentTab: React.FC = () => {
       <hr />
       <PriceInfo />
       <hr />
-      <PaymentMethod />
+      <Suspense fallback={null}>
+        <PaymentMethod />
+      </Suspense>
       <hr />
       <FreeCancelTerm />
       <hr />

@@ -1,62 +1,52 @@
 "use client";
 
-import { MouseEventHandler } from "react";
+import { useEffect } from "react";
 
-import cx from "clsx";
-import { useAtom } from "jotai";
+import { useParams } from "next/navigation";
 
-import { PaymentMethod as PaymentMethodType } from "@/common/types/payment";
-import { reservationPaymentMethodState } from "@/states/reservation";
+import { useAtomValue } from "jotai";
+
+import type { SpaceDetail } from "@/common/types/space";
+import { useSuspenseQuery, useTossPayment } from "@/hooks";
+import { getClientSpaceApi } from "@/services/space";
+import {
+  reservationAdditionalServicesState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states/reservation";
+import { getOriginalCost } from "@/utils/reservation";
 
 import styles from "./paymentMethod.module.scss";
 
+const PAYMENT_ID = "payment-widget";
+
 const PaymentMethod: React.FC = () => {
-  const [method, setMethod] = useAtom(reservationPaymentMethodState);
+  const { spaceId } = useParams();
+  const { createPaymentWidget } = useTossPayment();
 
-  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    const value = e.currentTarget.value as PaymentMethodType;
-    setMethod(value);
-  };
+  const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
-  return (
-    <section className={styles.wrapper}>
-      <h2>결제 수단</h2>
-      <small className={styles.desc}>상세 안내할 내용</small>
-      <menu className={styles.methods}>
-        <li className={styles.method}>
-          <button type="button" value="kakao" onClick={onClick} className={cx({ [styles.active]: method === "kakao" })}>
-            <div className={styles.imageWrapper}>
-              <img src={"/images/payment/kakao-pay.png"} alt="카카오 페이" />
-            </div>
-          </button>
-        </li>
-        <li className={styles.method}>
-          <button type="button" value="toss" onClick={onClick} className={cx({ [styles.active]: method === "toss" })}>
-            <div className={styles.imageWrapper}>
-              <img src={"/images/payment/toss-pay.png"} alt="토스 페이" />
-            </div>
-          </button>
-        </li>
-        <li className={styles.method}>
-          <button type="button" value="naver" onClick={onClick} className={cx({ [styles.active]: method === "naver" })}>
-            <div className={styles.imageWrapper}>
-              <img src={"/images/payment/naver-pay.png"} alt="네이버 페이" />
-            </div>
-          </button>
-        </li>
-        <li className={styles.method}>
-          <button
-            type="button"
-            value="port-one"
-            onClick={onClick}
-            className={cx({ [styles.active]: method === "port-one" })}
-          >
-            신용/체크 카드
-          </button>
-        </li>
-      </menu>
-    </section>
-  );
+  const { userCount } = useAtomValue(reservationState);
+  const time = useAtomValue(reservationTimeState);
+  const packages = useAtomValue(reservationPackageState);
+  const additionalServices = useAtomValue(reservationAdditionalServicesState);
+
+  useEffect(() => {
+    if (!userCount) return;
+    const originalCost = getOriginalCost(
+      time,
+      packages,
+      additionalServices,
+      userCount,
+      space.overflowUserCost,
+      space.overflowUserCount,
+    );
+
+    createPaymentWidget({ elementId: PAYMENT_ID, price: originalCost });
+  }, [additionalServices, createPaymentWidget, packages, space, time, userCount]);
+
+  return <section id={PAYMENT_ID} className={styles.wrapper} />;
 };
 
 export default PaymentMethod;
