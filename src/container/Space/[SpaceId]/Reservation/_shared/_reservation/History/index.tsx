@@ -17,6 +17,7 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states/reservation";
+import { isUnderTimeReservation } from "@/utils/rentalType";
 import { getAdditionalUserPrice } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";
 
@@ -34,8 +35,8 @@ const History: React.FC = () => {
   const reservationAdditionalServices = useAtomValue(reservationAdditionalServicesState);
 
   const timeHistory = useMemo<Item[]>(() => {
-    const { cost, startAt, endAt } = reservationTime;
-    if (!endAt || !startAt || !cost) return [];
+    if (!isUnderTimeReservation(reservationTime)) return [];
+    const { startAt, endAt, cost } = reservationTime;
     return [{ title: `시간 단위 예약 (${getDiffHour(startAt, endAt)}시간)`, price: cost }];
   }, [reservationTime]);
 
