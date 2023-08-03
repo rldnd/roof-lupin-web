@@ -34,8 +34,11 @@ interface Props {
 const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClickDay }) => {
   const isCurrentMonth = dayjs().year() === Number(year) && dayjs().month() + 1 === Number(month);
   const { month: firstDayOfWeekMonth, day: firstDayOfWeekDay } = getFirstDayOfWeek();
-  const isFirstWeek =
-    firstDayOfWeekMonth === dayjs().month() + 1 && dayjs().date() <= 7 - dayjs().startOf("month").day();
+
+  const isTodayFirstWeek =
+    ((dayjs().set("date", 1).day() === 0 && firstDayOfWeekMonth.toString() === month) ||
+      (firstDayOfWeekMonth + 1).toString() === month) &&
+    dayjs().date() <= 7 - dayjs().startOf("month").day();
 
   return (
     <li className={styles.wrapper}>
@@ -43,7 +46,7 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
         {year}년 {month}월
       </h2>
       <ol className={styles.dayList}>
-        {(!isCurrentMonth || !isFirstWeek) &&
+        {((isCurrentMonth && isTodayFirstWeek) || !isCurrentMonth) &&
           range(dayjs(`${year}-${month}-1`).startOf("month").day()).map((value) => <li key={`empty-day-${value}`} />)}
         {range(dayjs(`${year}-${month}-1`).daysInMonth()).map((value) => {
           const day = value + 1;
@@ -55,7 +58,7 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
           return (
             <MonthCalendarItem
               active={active}
-              isBeforeToday={isCurrentMonth && day >= firstDayOfWeekDay && day < dayjs().date()}
+              isBeforeToday={month === (dayjs().month() + 1).toString() && day < dayjs().date()}
               isHoliday={info?.isHoliday ?? false}
               isPossible={info?.isPossible ?? true}
               key={`${year}-${month}-${day}`}

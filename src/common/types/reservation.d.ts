@@ -54,6 +54,17 @@ export interface CreateReservation {
   userCouponIds?: string[];
 }
 
+export interface ReservationRental {
+  /** 대여 ID */
+  rentalTypeId: string;
+  /** 대여 시작 시간 */
+  startAt: number;
+  /** 대여 종료 시간 */
+  endAt: number;
+  /** 대여 타입 */
+  rentalType: RentalType;
+}
+
 export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   /** 예약 아이디 */
   id: string;
@@ -76,7 +87,7 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   /** 유저 정보 */
   user: CommonUser;
   /** 대여 정보 */
-  rentalTypes: ReservationRental;
+  rentalTypes: ReservationRental[];
   /** 공간 정보 */
   space: Space;
   /** 리뷰 작성 여부 */
