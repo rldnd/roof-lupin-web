@@ -49,7 +49,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <PlatformChecker />
           </Suspense>
-          <Toast />
+          <Suspense fallback={null}>
+            <Toast />
+          </Suspense>
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />

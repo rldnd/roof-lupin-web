@@ -3,7 +3,12 @@ import { useCallback } from "react";
 import { loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom } from "jotai";
 
+import { PaymentPayload } from "@/common/types/payment";
 import { paymentMethodsWidgetState, paymentWidgetState } from "@/states/payment";
+
+export type PaymentMethod = ReturnType<PaymentWidgetInstance["renderPaymentMethods"]>;
+export type PaymentPriceUpdateReason = keyof PaymentMethod["UPDATE_REASON"];
+export type SelectedPaymentMethod = ReturnType<PaymentMethod["getSelectedPaymentMethod"]>;
 
 interface CreatePaymentWidgetArgs {
   price: number;
@@ -12,12 +17,13 @@ interface CreatePaymentWidgetArgs {
 
 interface UpdatePriceArgs {
   price: number;
-  reason: keyof ReturnType<PaymentWidgetInstance["renderPaymentMethods"]>["UPDATE_REASON"];
+  reason?: PaymentPriceUpdateReason | PaymentPriceUpdateReason[];
 }
 
 interface ReturnUseTossPayment {
   createPaymentWidget(args: CreatePaymentWidgetArgs): Promise<void>;
   updatePrice(args: UpdatePriceArgs): void;
+  requestPayment(args: PaymentPayload): void;
 }
 
 const useTossPayment = (): ReturnUseTossPayment => {
@@ -46,9 +52,18 @@ const useTossPayment = (): ReturnUseTossPayment => {
     [paymentMethodsWidget],
   );
 
+  const requestPayment = useCallback(
+    (arg: PaymentPayload) => {
+      if (!isPaymentWidgetInstance(paymentWidget)) return;
+      paymentWidget.requestPayment({ ...arg, windowTarget: "" } as any);
+    },
+    [paymentWidget],
+  );
+
   return {
     createPaymentWidget,
     updatePrice,
+    requestPayment,
   };
 };
 
