@@ -10,6 +10,7 @@ import { reservationCheckedState } from "@/states/reservation";
 
 import styles from "./checkboxes.module.scss";
 
+// TODO: Toss payments agreements
 const Checkboxes: React.FC = () => {
   const [checked, setChecked] = useAtom(reservationCheckedState);
   const isCheckedAll = Object.values(checked).every((value) => value);
