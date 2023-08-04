@@ -6,3 +6,5 @@ export const createPaymentPayloadApi = (body: CreatePaymentPayload) =>
 
 export const completePaymentApi = (body: ConfirmTossPayment) =>
   apiClient.post<{ id: string }>("/payments/complete", body);
+
+export const deletePaymentWhenFailApi = (orderId: string) => apiClient.delete(`/payments/failure/${orderId}`);
