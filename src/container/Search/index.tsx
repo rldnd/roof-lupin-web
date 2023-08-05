@@ -6,7 +6,7 @@ import { Header, RecentSearch, RecentSpace, RecommendSearch } from "./_sections"
 
 import styles from "./searchContainer.module.scss";
 
-const SearchContainer: React.FC = () => {
+export default async function SearchContainer() {
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION}>
       <main className={styles.wrapper}>
@@ -18,6 +18,4 @@ const SearchContainer: React.FC = () => {
       </main>
     </ToastPositioner>
   );
-};
-
-export default SearchContainer;
+}

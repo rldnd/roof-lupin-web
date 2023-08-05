@@ -31,5 +31,15 @@
         height: 24px;
       }
     }
+
+    .loadingButton {
+      @include m.chipBw;
+    }
+  }
+
+  .emptyText {
+    @include m.fontBody1SemiBold;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
+    color: var(--c-gray-500);
   }
 }
