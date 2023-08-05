@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import type { SearchRecord } from "@/common/types/search";
 import { HorizonDraggable } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { deleteSearchRecordApi, getSearchRecordsApi } from "@/services/search";
 
 import { IconGrayCloseSmall } from "public/icons";
@@ -14,9 +15,13 @@ import { IconGrayCloseSmall } from "public/icons";
 import styles from "./recentSearch.module.scss";
 
 const RecentSearch: React.FC = () => {
-  const { data: records, refetch } = useSuspenseQuery<SearchRecord[]>(["getSearchRecords"], () =>
-    getSearchRecordsApi(),
+  const { isLogined } = useMe();
+  const { data: records, refetch } = useSuspenseQuery<SearchRecord[]>(
+    ["getSearchRecords"],
+    () => getSearchRecordsApi(),
+    { enabled: isLogined },
   );
+
   const { mutate: deleteSearchRecord } = useMutation(deleteSearchRecordApi, { onSuccess: () => refetch() });
 
   const onClickDelete = (id: string) => {
@@ -27,18 +32,18 @@ const RecentSearch: React.FC = () => {
     <section className={styles.wrapper}>
       <h2>최근 검색어</h2>
       <HorizonDraggable component="menu" className={styles.list}>
-        {records.map((record) => (
+        {records?.map((record) => (
           <li key={record.id}>
             <button type="button" className={styles.tagButton}>
               {record.content}
-              <button type="button" className={styles.deleteButton} onClick={() => onClickDelete(record.id)}>
+              <div role="button" tabIndex={0} className={styles.deleteButton} onClick={() => onClickDelete(record.id)}>
                 <IconGrayCloseSmall />
-              </button>
+              </div>
             </button>
           </li>
         ))}
       </HorizonDraggable>
-      {records.length === 0 && <span className={styles.emptyText}>아직 검색 내역이 없어요</span>}
+      {(!isLogined || records.length === 0) && <span className={styles.emptyText}>아직 검색 내역이 없어요</span>}
     </section>
   );
 };

@@ -24,8 +24,12 @@
     gap: 8px;
     padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
 
-    li button {
+    li .tagButton {
       @include m.chipSecondary;
+    }
+
+    .loadingButton {
+      @include m.chipBw;
     }
   }
 }

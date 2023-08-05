@@ -1,8 +1,10 @@
+import { Suspense } from "react";
+
 import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
 import { BottomNavigation } from "@/components/Layout";
 
-import { Header, RecentSearch, RecentSpace, RecommendSearch } from "./_sections";
+import { Header, LoadingRecommendSearch, RecentSearch, RecentSpace, RecommendSearch } from "./_sections";
 
 import styles from "./searchContainer.module.scss";
 
@@ -12,7 +14,9 @@ export default async function SearchContainer() {
       <main className={styles.wrapper}>
         <Header />
         <RecentSearch />
-        <RecommendSearch />
+        <Suspense fallback={<LoadingRecommendSearch />}>
+          <RecommendSearch />
+        </Suspense>
         <RecentSpace />
         <BottomNavigation />
       </main>

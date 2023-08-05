@@ -1,0 +1,34 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$CARD_SIZE: 142px;
+
+.wrapper {
+  width: $CARD_SIZE;
+  min-width: $CARD_SIZE;
+
+  > a {
+    @include m.flex(flex-start, flex-start, column);
+    width: 100%;
+  }
+
+  .image {
+    width: 100%;
+    height: $CARD_SIZE;
+    object-fit: cover;
+    margin-bottom: 4px;
+    border-radius: 4px;
+  }
+
+  .transport {
+    @include m.fontCaption2;
+    margin-bottom: 2px;
+    color: var(--c-gray-500);
+  }
+
+  .name {
+    @include m.fontBody1SemiBold;
+    @include m.makeEllipsis(2);
+    color: var(--c-black);
+  }
+}
