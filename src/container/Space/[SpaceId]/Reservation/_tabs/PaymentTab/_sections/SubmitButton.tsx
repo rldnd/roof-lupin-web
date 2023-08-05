@@ -10,9 +10,9 @@ import { Button } from "@/components";
 import { useSuspenseQuery, useTossPayment } from "@/hooks";
 import { createPaymentPayloadApi } from "@/services/payment";
 import { getClientSpaceApi } from "@/services/space";
+import { paymentCheckedRequiredAgreementState } from "@/states/payment";
 import {
   reservationAdditionalServicesState,
-  reservationCheckedState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
@@ -24,6 +24,8 @@ import styles from "./submitButton.module.scss";
 const Submit: React.FC = () => {
   const { spaceId } = useParams();
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
+  const checkedRequired = useAtomValue(paymentCheckedRequiredAgreementState);
+
   const { requestPayment } = useTossPayment();
 
   const { mutate: createPayload } = useMutation(createPaymentPayloadApi, {
@@ -34,7 +36,6 @@ const Submit: React.FC = () => {
   const time = useAtomValue(reservationTimeState);
   const packages = useAtomValue(reservationPackageState);
   const additionalServices = useAtomValue(reservationAdditionalServicesState);
-  const checked = useAtomValue(reservationCheckedState);
 
   const body = getPrepareReservationBody(
     reservation,
@@ -45,8 +46,7 @@ const Submit: React.FC = () => {
     space.overflowUserCount,
   );
 
-  const disabled =
-    !reservation.userName || !reservation.userPhoneNumber || Object.values(checked).some((value) => !value);
+  const disabled = !reservation.userName || !reservation.userPhoneNumber || !checkedRequired;
 
   const onClickButton = async () => {
     if (!body) return;

@@ -5,7 +5,6 @@ import { Suspense } from "react";
 import { HostApprove, LoadingSubmit, SubmitButton } from "./_sections";
 import { Header } from "../../_shared";
 import {
-  Checkboxes,
   Discount,
   LoadingSelectedReservationInfo,
   PriceInfo,
@@ -31,7 +30,6 @@ const RequestPaymentTab: React.FC = () => {
       <hr />
       <HostApprove />
       <hr />
-      <Checkboxes />
       <Suspense fallback={<LoadingSubmit />}>
         <SubmitButton />
       </Suspense>

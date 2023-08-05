@@ -10,13 +10,12 @@ import { useMount, useUnmount } from "react-use";
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
+import { paymentCheckedRequiredAgreementState } from "@/states/payment";
 import {
   initialReservation,
-  initialReservationChecked,
   initialReservationTime,
   RESERVATION_TAB_MAPPER,
   reservationAdditionalServicesState,
-  reservationCheckedState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
@@ -29,6 +28,7 @@ import { isUnderTimeReservation } from "@/utils/rentalType";
 const DataHandler: React.FC = () => {
   const { spaceId } = useParams();
   const setTab = useSetAtom(reservationTabState);
+  const setPaymentCheckedRequired = useSetAtom(paymentCheckedRequiredAgreementState);
 
   const { get } = useSearchParams();
   const tab = get("tab");
@@ -37,7 +37,6 @@ const DataHandler: React.FC = () => {
 
   const setReservation = useSetAtom(reservationState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
-  const setChecked = useSetAtom(reservationCheckedState);
 
   const [time, setTime] = useAtom(reservationTimeState);
   const [packages, setPackages] = useAtom(reservationPackageState);
@@ -61,8 +60,8 @@ const DataHandler: React.FC = () => {
   }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
 
   const resetPaymentInfo = useCallback(() => {
-    setChecked(initialReservationChecked);
-  }, [setChecked]);
+    setPaymentCheckedRequired(false);
+  }, [setPaymentCheckedRequired]);
 
   useMount(() => {
     const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
@@ -88,7 +87,7 @@ const DataHandler: React.FC = () => {
   useEffect(() => {
     setTab(tab as Tab);
     resetPaymentInfo();
-  }, [resetPaymentInfo, setChecked, setTab, tab]);
+  }, [resetPaymentInfo, setTab, tab]);
 
   useUnmount(() => {
     setTab(null);

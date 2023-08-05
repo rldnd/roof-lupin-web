@@ -19,11 +19,11 @@ import { getOriginalCost } from "@/utils/reservation";
 
 import styles from "./paymentMethod.module.scss";
 
-const PAYMENT_ID = "payment-widget";
+const PAYMENT_WIDGET_ID = "payment-widget";
 
 const PaymentMethod: React.FC = () => {
   const { spaceId } = useParams();
-  const { createPaymentWidget } = useTossPayment();
+  const { createPaymentWidget, hasPaymentWidget } = useTossPayment();
 
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
 
@@ -33,7 +33,7 @@ const PaymentMethod: React.FC = () => {
   const additionalServices = useAtomValue(reservationAdditionalServicesState);
 
   useEffect(() => {
-    if (!userCount) return;
+    if (!userCount || hasPaymentWidget) return;
     const originalCost = getOriginalCost(
       time,
       packages,
@@ -43,10 +43,10 @@ const PaymentMethod: React.FC = () => {
       space.overflowUserCount,
     );
 
-    createPaymentWidget({ elementId: PAYMENT_ID, price: originalCost });
-  }, [additionalServices, createPaymentWidget, packages, space, time, userCount]);
+    createPaymentWidget({ elementId: PAYMENT_WIDGET_ID, price: originalCost });
+  }, [additionalServices, createPaymentWidget, packages, space, time, userCount, hasPaymentWidget]);
 
-  return <section id={PAYMENT_ID} className={styles.wrapper} />;
+  return <section id={PAYMENT_WIDGET_ID} className={styles.wrapper} />;
 };
 
 export default PaymentMethod;

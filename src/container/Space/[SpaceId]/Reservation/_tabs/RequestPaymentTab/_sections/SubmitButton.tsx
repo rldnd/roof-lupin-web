@@ -12,7 +12,6 @@ import { prepareReservationApi } from "@/services/reservation";
 import { getClientSpaceApi } from "@/services/space";
 import {
   reservationAdditionalServicesState,
-  reservationCheckedState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
@@ -38,10 +37,8 @@ const Submit: React.FC = () => {
   const time = useAtomValue(reservationTimeState);
   const packages = useAtomValue(reservationPackageState);
   const additionalServices = useAtomValue(reservationAdditionalServicesState);
-  const checked = useAtomValue(reservationCheckedState);
 
-  const disabled =
-    !reservation.userName || !reservation.userPhoneNumber || Object.values(checked).some((value) => !value);
+  const disabled = !reservation.userName || !reservation.userPhoneNumber;
 
   const onClickButton = () => {
     const body = getPrepareReservationBody(
