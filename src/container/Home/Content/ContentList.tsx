@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { ContentCategory } from "@/common/types/category";
+import type { ContentCategory } from "@/common/types/content";
 import { ArrowLink, HorizonDraggable } from "@/components";
 
 import styles from "./contentList.module.scss";
@@ -17,7 +17,7 @@ const ContentList: React.FC<Props> = ({ content, children }) => {
         <h2>
           <span>#{content.highlight}</span> {content.name}
         </h2>
-        <ArrowLink href="/">더보기</ArrowLink>
+        <ArrowLink href={`/contents/${content.id}`}>더보기</ArrowLink>
       </header>
       <HorizonDraggable className={styles.list}>{children}</HorizonDraggable>
     </section>

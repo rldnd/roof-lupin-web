@@ -1,9 +1,11 @@
 import { useCallback, useEffect } from "react";
 
+import { useMutation } from "@tanstack/react-query";
 import { loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
 import { PaymentPayload } from "@/common/types/payment";
+import { deletePaymentWhenFailApi } from "@/services/payment";
 import {
   paymentAgreementState,
   paymentCheckedRequiredAgreementState,
@@ -43,6 +45,8 @@ const useTossPayment = (): ReturnUseTossPayment => {
   const [paymentAgreement, setPaymentAgreement] = useAtom(paymentAgreementState);
   const setPaymentCheckedRequired = useSetAtom(paymentCheckedRequiredAgreementState);
 
+  const { mutate: deletePaymentWhenFail } = useMutation(deletePaymentWhenFailApi);
+
   const renderAgreement = useCallback(
     (elementId: string) => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
@@ -75,11 +79,15 @@ const useTossPayment = (): ReturnUseTossPayment => {
   );
 
   const requestPayment = useCallback(
-    (args: PaymentPayload) => {
+    async (args: PaymentPayload) => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
-      paymentWidget.requestPayment(args as any);
+      try {
+        await paymentWidget.requestPayment(args as any);
+      } catch (error) {
+        deletePaymentWhenFail(args.orderId);
+      }
     },
-    [paymentWidget],
+    [deletePaymentWhenFail, paymentWidget],
   );
 
   useEffect(() => {

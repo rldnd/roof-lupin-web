@@ -1,7 +1,6 @@
-import type { ContentCategory } from "./category";
+import type { ContentCategory } from "./content";
 import type { Exhibition } from "./exhibition";
-
-import { Ranking } from "./ranking";
+import type { Ranking } from "./ranking";
 
 export type HomeContentType = "CONTENTS" | "EXHIBITION" | "RANKING";
 
