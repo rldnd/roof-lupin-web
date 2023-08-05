@@ -1,19 +1,27 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
 import type { SearchRecord } from "@/common/types/search";
 import { HorizonDraggable } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
-import { getSearchRecordsApi } from "@/services/search";
+import { deleteSearchRecordApi, getSearchRecordsApi } from "@/services/search";
 
 import { IconGrayCloseSmall } from "public/icons";
 
 import styles from "./recentSearch.module.scss";
 
 const RecentSearch: React.FC = () => {
-  const { data: records } = useSuspenseQuery<SearchRecord[]>(["getSearchRecords"], () => getSearchRecordsApi());
+  const { data: records, refetch } = useSuspenseQuery<SearchRecord[]>(["getSearchRecords"], () =>
+    getSearchRecordsApi(),
+  );
+  const { mutate: deleteSearchRecord } = useMutation(deleteSearchRecordApi, { onSuccess: () => refetch() });
+
+  const onClickDelete = (id: string) => {
+    deleteSearchRecord(id);
+  };
 
   return (
     <section className={styles.wrapper}>
@@ -23,7 +31,7 @@ const RecentSearch: React.FC = () => {
           <li key={record.id}>
             <button type="button" className={styles.tagButton}>
               {record.content}
-              <button type="button" className={styles.deleteButton}>
+              <button type="button" className={styles.deleteButton} onClick={() => onClickDelete(record.id)}>
                 <IconGrayCloseSmall />
               </button>
             </button>
