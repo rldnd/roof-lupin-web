@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import type { SpaceDetail } from "@/common/types/space";
 
 import styles from "./topSection.module.scss";

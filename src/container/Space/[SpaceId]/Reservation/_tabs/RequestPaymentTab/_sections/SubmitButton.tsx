@@ -27,7 +27,7 @@ const Submit: React.FC = () => {
   const { mutate: prepareReservation } = useMutation(prepareReservationApi, {
     onSuccess: (data) => {
       const reservationId = data.data.id;
-      replace(`/space/${spaceId}/reservation/${reservationId}/request-complete`);
+      replace(`/spaces/${spaceId}/reservations/${reservationId}/request-complete`);
     },
   });
 

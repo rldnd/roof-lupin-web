@@ -1,12 +1,14 @@
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import { getServerSpaceApi } from "@/services/space";
 
-import BottomSection, { LoadingBottomSection } from "./BottomSection";
+import { LoadingBottomSection } from "./BottomSection";
 import Header from "./Header";
 import TopSection from "./TopSection";
 
 import styles from "./requestReservationCompleteContainer.module.scss";
+
+const BottomSection = dynamic(() => import("./BottomSection"), { ssr: false, loading: () => <LoadingBottomSection /> });
 
 interface Props {
   params: { spaceId: string };
@@ -21,9 +23,7 @@ export default async function RequestReservationCompleteContainer({ params }: Pr
       <main className={styles.content}>
         <TopSection space={space} />
         <hr />
-        <Suspense fallback={<LoadingBottomSection />}>
-          <BottomSection />
-        </Suspense>
+        <BottomSection />
       </main>
     </div>
   );

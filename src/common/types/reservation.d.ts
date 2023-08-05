@@ -80,10 +80,16 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   totalCost: number;
   /** VAT 금액 */
   vatCost: number;
+  /** 유저 수 */
+  userCount: number;
+  /** 취소 여부 */
+  isCanceled: boolean;
   /** 할인금액 */
   discountCost: number;
   /** 총액 - 할인가가 적용되지 않은 금액 */
   originalCost: number;
+  /** 결제 날짜 */
+  payedAt: Date | null;
   /** 유저 정보 */
   user: CommonUser;
   /** 대여 정보 */
