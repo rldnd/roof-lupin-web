@@ -1,61 +1,27 @@
 "use client";
 
-import { useMemo } from "react";
-
-import { useParams } from "next/navigation";
-
-import type { PossibleRentalTypes } from "@/common/types/rentalType";
 import { Button } from "@/components/Common";
-import { useSuspenseQuery } from "@/hooks";
-import { useMe } from "@/hooks/queries";
-import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
-import { dayjs } from "@/utils/date";
+import type { CategorySortMenuInfoFilter } from "@/states";
+import { isEndAtNextDay } from "@/utils/time";
 
 import styles from "./submitButton.module.scss";
 
 interface Props {
-  year: string;
-  month: string;
-  day: string;
-  userCount: number;
+  localInfo: CategorySortMenuInfoFilter;
 }
 
-const SubmitButton: React.FC<Props> = ({ year, month, day, userCount }) => {
-  const { spaceId } = useParams();
-  const { isLogined } = useMe();
-  const [todayYear, todayMonth, todayDate] = [
-    dayjs().year().toString(),
-    (dayjs().month() + 1).toString(),
-    dayjs().date().toString(),
-  ];
-
-  const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
-    ["getSpaceRentalTypePossible", spaceId, todayYear, todayMonth, todayDate],
-    () =>
-      getSpaceRentalTypePossibleApi({
-        spaceId,
-        year: todayYear,
-        month: todayMonth,
-        day: todayDate,
-      }),
-    {
-      enabled: isLogined,
-    },
-  );
-
-  const disabled = useMemo<boolean>(
-    () =>
-      year === todayYear &&
-      month === todayMonth &&
-      day === todayDate &&
-      !rentalTypes?.time &&
-      (!Array.isArray(rentalTypes?.package) || rentalTypes.package.length === 0),
-    [day, month, rentalTypes.package, rentalTypes?.time, todayDate, todayMonth, todayYear, year],
-  );
-
+const SubmitButton: React.FC<Props> = ({ localInfo }) => {
+  const { month, day, userCount, startAt, endAt } = localInfo;
   return (
-    <Button type="submit" color="primary" className={styles.wrapper} disabled={disabled}>
-      {year}년 {month}월 {day}일, {userCount}명
+    <Button type="submit" color="primary" className={styles.wrapper}>
+      {month}월 {day}일{" "}
+      {typeof startAt === "number" && typeof endAt === "number" && (
+        <>
+          {`${startAt}:00`} ~ {isEndAtNextDay(endAt) && "익일 "}
+          {`${endAt}:00`}
+        </>
+      )}{" "}
+      {userCount}명
     </Button>
   );
 };

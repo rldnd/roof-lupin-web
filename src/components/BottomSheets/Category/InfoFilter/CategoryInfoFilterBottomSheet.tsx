@@ -113,11 +113,11 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
             onClickDay={onClickDay}
           />
         </Suspense>
-        <hr />
-        <CategoryTimePicker startAt={localInfo.startAt} endAt={localInfo.endAt} onClickTime={onClickTime} />
-        <Suspense fallback={null}>
-          <SubmitButton {...localInfo} />
-        </Suspense>
+
+        <div className={styles.bottom}>
+          <CategoryTimePicker startAt={localInfo.startAt} endAt={localInfo.endAt} onClickTime={onClickTime} />
+          <SubmitButton localInfo={localInfo} />
+        </div>
       </form>
     </BottomSheetPortal>
   );

@@ -1,6 +1,7 @@
 "use client";
-
 import { QueryErrorResetBoundary, useQueryErrorResetBoundary } from "@tanstack/react-query";
+
+import { Button } from "@/components";
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   const { reset: resetReactQueryError } = useQueryErrorResetBoundary();
@@ -14,7 +15,9 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
     <QueryErrorResetBoundary>
       <div>
         <h2>{JSON.stringify(error)}</h2>
-        <button onClick={onClickButton}>재시도</button>
+        <Button full color="primary" onClick={onClickButton}>
+          재시도
+        </Button>
       </div>
     </QueryErrorResetBoundary>
   );

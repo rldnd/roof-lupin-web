@@ -30,5 +30,10 @@
         color: var(--c-black);
       }
     }
+
+    .bottom {
+      width: 100%;
+      padding: 16px c.$S_PAGE_HORIZONTAL_PADDING 0;
+    }
   }
 }

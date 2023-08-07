@@ -36,7 +36,6 @@ interface Props {
 // TODO: Q&A 구현
 // TODO: 지도 구현
 // TODO: 판매자 정보 구현
-// TODO: 카테고리 필터와 싱크 맞추기
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getServerSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeApi(params.spaceId);

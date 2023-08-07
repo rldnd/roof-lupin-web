@@ -30,8 +30,8 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
           limit: 1,
           maxSize: 6,
           page: pageParam,
-          startYear: String(dayjs().year()),
-          startMonth: String(dayjs().month() + 1),
+          startYear: dayjs().year().toString(),
+          startMonth: (dayjs().month() + 1).toString(),
           spaceId,
         }),
     );

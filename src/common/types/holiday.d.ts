@@ -5,3 +5,9 @@ export interface Holiday {
   month: string;
   day: string;
 }
+
+export interface MonthHoliday {
+  year: string;
+  month: string;
+  holidays: Holiday[];
+}

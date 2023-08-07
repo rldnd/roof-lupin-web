@@ -11,7 +11,7 @@ export default function NotFound() {
   return (
     <div>
       없는 페이지임..
-      <Button color="primary" type="button" onClick={() => replace("/")}>
+      <Button full color="primary" type="button" onClick={() => replace("/")}>
         돌아가기
       </Button>
     </div>

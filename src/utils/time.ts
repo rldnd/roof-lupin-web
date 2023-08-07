@@ -8,5 +8,5 @@ export const addHour = (hour: number, add: number): number => {
 };
 
 export const isEndAtNextDay = (hour: number) => {
-  return hour < 9;
+  return hour <= 9;
 };

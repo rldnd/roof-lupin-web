@@ -36,20 +36,12 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   const time = dayjs(`${year}-${month}-${day}`).format("MM월 DD일 (ddd)");
 
   useEffect(() => {
-    const today = dayjs();
     const { year, month, day, userCount } = categorySortMenu;
     const beforeUrl = getBeforeNavigationUrl();
 
     if (beforeUrl?.includes(`/spaces/${spaceId}`)) return;
 
-    setSpaceReservationInfo(() => {
-      return {
-        year: year ?? today.year().toString(),
-        month: month ?? (today.month() + 1).toString(),
-        day: day ?? today.date().toString(),
-        userCount: userCount ?? 2,
-      };
-    });
+    setSpaceReservationInfo(() => ({ year, month, day, userCount }));
   }, [categorySortMenu, setSpaceReservationInfo, spaceId]);
 
   return (

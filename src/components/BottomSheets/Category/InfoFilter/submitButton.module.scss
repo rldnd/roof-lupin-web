@@ -2,6 +2,6 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+  width: 100%;
   margin-top: 36px;
 }
