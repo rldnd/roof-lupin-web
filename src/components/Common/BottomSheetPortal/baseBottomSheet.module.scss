@@ -12,7 +12,7 @@
 
     h1 {
       @include m.makeEllipsis;
-      @include m.fontH2;
+      @include m.fontH4SemiBold;
       flex: 1;
       justify-self: center;
       padding-left: 44px;
@@ -30,7 +30,7 @@
   .content {
     flex: 1;
     width: 100%;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING;
+    padding: c.$S_PAGE_HORIZONTAL_PADDING;
     overflow-y: scroll;
   }
 }

@@ -6,7 +6,7 @@ import { useTossPayment } from "@/hooks";
 
 const AGREEMENT_WIDGET_ID = "agreement-widget";
 
-const Checkboxes: React.FC = () => {
+const Agreement: React.FC = () => {
   const { hasPaymentWidget, renderAgreement } = useTossPayment();
 
   useEffect(() => {
@@ -16,4 +16,4 @@ const Checkboxes: React.FC = () => {
   return <section id={AGREEMENT_WIDGET_ID} />;
 };
 
-export default Checkboxes;
+export default Agreement;
