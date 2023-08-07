@@ -29,6 +29,7 @@ export default async function HomeContainer() {
           ))}
         </Carousel>
         <Category categories={categories} />
+
         {contents.map((content) => {
           if (content.type === "CONTENTS") {
             const { id, highlight, name, spaces } = content.contentCategory;
@@ -51,6 +52,7 @@ export default async function HomeContainer() {
             return <Ranking key={content.id} ranking={content.ranking} />;
           }
         })}
+
         <Footer />
         <BottomNavigation />
       </main>

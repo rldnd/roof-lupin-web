@@ -1,0 +1,20 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  width: 100%;
+  padding-right: calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
+  padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
+  margin-bottom: 12px;
+
+  .reset {
+    @include m.chipSecondary;
+  }
+
+  .close {
+    @include m.flex;
+    width: 44px;
+    height: 44px;
+  }
+}

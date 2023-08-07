@@ -2,8 +2,11 @@ import { CATEGORY_SORT_MENU } from "@/common/constants";
 import type { PaginateSpacesQueryParams } from "@/services/space";
 import { dayjs } from "@/utils/date";
 import { sessionPersistenceAtom } from "@/utils/jotai";
+import type { NotNullable } from "@/utils/types";
 
-export type CategorySortMenu = Omit<PaginateSpacesQueryParams, "page" | "limit">;
+type BaseCategorySortMenu = Omit<PaginateSpacesQueryParams, "page" | "limit">;
+export type CategorySortMenu = NotNullable<Pick<BaseCategorySortMenu, "year" | "month" | "day" | "userCount">> &
+  Omit<BaseCategorySortMenu, "year" | "month" | "day" | "userCount">;
 
 export const initialCategorySortMenu: CategorySortMenu = {
   categoryIds: null,
@@ -25,3 +28,8 @@ export const categorySortMenuState = sessionPersistenceAtom<CategorySortMenu>(
   CATEGORY_SORT_MENU,
   initialCategorySortMenu,
 );
+
+export type CategorySortMenuInfoFilter = Pick<
+  CategorySortMenu,
+  "year" | "month" | "day" | "userCount" | "startAt" | "endAt"
+>;
