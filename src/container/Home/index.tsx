@@ -6,6 +6,7 @@ import { getHomeCategoriesApi, getHomeContentsApi, getHomeCurationsApi } from "@
 import { Carousel, CarouselItem } from "./Carousel";
 import Category from "./Category";
 import { ContentBookmark, ContentList } from "./Content";
+import Exhibition from "./Exhibition";
 import { Header } from "./Header";
 import Ranking from "./Ranking";
 
@@ -43,8 +44,7 @@ export default async function HomeContainer() {
           }
 
           if (content.type === "EXHIBITION") {
-            const { title } = content.exhibition;
-            return <h1 key={content.id}>기획전 개발 필요:{title}</h1>;
+            return <Exhibition key={content.id} exhibition={content.exhibition} />;
           }
 
           if (content.type === "RANKING") {

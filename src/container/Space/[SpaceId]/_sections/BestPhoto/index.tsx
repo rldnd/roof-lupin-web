@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import { BestPhoto as BestPhotoType } from "@/common/types/space";
 import { HorizonDraggable } from "@/components";
 

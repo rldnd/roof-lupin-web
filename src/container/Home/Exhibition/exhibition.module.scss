@@ -1,0 +1,32 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  width: 100%;
+  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING 40px;
+
+  .exhibitionTag {
+    @include m.fontBody1SemiBold;
+    color: var(--c-roof-orange);
+  }
+
+  h2 {
+    @include m.fontH1;
+    margin-bottom: 8px;
+    color: var(--c-black);
+  }
+
+  .desc {
+    @include m.fontH4Regular;
+    margin-bottom: 16px;
+    color: var(--c-gray-600);
+  }
+
+  img {
+    width: 100%;
+    height: 310px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
