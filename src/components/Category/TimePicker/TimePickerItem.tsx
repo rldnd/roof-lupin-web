@@ -11,13 +11,20 @@ interface Props {
   time: number;
   onClick: MouseEventHandler<HTMLButtonElement>;
   active: boolean;
+  isStart: boolean;
+  isEnd: boolean;
 }
 
-const CategoryTimePickerItem: React.FC<Props> = ({ onClick, active, index, time }) => {
+const CategoryTimePickerItem: React.FC<Props> = ({ onClick, active, index, time, isStart, isEnd }) => {
   return (
     <li className={styles.wrapper}>
-      <button type="button" className={cx(styles.button, { [styles.active]: active })} value={index} onClick={onClick}>
-        <div className={styles.priceWrapper}>{time}</div>
+      <button
+        type="button"
+        className={cx(styles.button, { [styles.active]: active, [styles.isStart]: isStart, [styles.isEnd]: isEnd })}
+        value={index}
+        onClick={onClick}
+      >
+        {`${time}:00`}
       </button>
     </li>
   );

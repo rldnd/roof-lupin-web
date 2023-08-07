@@ -76,7 +76,7 @@ const TimeAndPackage: React.FC = () => {
     ];
 
     const hasStart = startIndex !== -1;
-    const hasClickedBeforeStart = hasStart && clickedIndex < startIndex;
+    const hasClickedBeforeStart = hasStart && clickedIndex <= startIndex;
     const hasEnd = typeof reservationTime.endAt === "number" && reservationTime.endAt !== -1;
     const hasDisabledBetween =
       hasStart &&

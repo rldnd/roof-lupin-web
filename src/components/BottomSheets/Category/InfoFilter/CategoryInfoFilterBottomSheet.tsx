@@ -1,10 +1,11 @@
 "use client";
 
-import { FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
+import { type FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
 
 import { useAtom } from "jotai";
+import { range } from "lodash-es";
 
-import { BottomSheetPortal } from "@/components";
+import { BottomSheetPortal, CategoryTimePicker } from "@/components";
 import { type CategorySortMenuInfoFilter, categorySortMenuState } from "@/states";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";
@@ -40,7 +41,8 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   };
 
   const onReset = useCallback(() => {
-    setLocalInfo(info);
+    const { year, month, day, userCount, startAt, endAt } = info;
+    setLocalInfo({ year, month, day, userCount, startAt, endAt });
   }, [info]);
 
   const onClickPlus = () => {
@@ -57,6 +59,29 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
         setLocalInfo((prev) => ({ ...prev, year, month, day }));
       },
     [],
+  );
+
+  const onClickTime: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      const index = Number(e.currentTarget.value);
+      const hour = (index + 9) % 24;
+
+      const startIndex = range(25)
+        .map((value) => (value + 9) % 24)
+        .findIndex((item) => item === localInfo.startAt);
+
+      const hasStart = startIndex !== -1;
+      const hasClickedBeforeStart = hasStart && index <= startIndex;
+      const hasEnd = typeof localInfo.endAt === "number";
+
+      if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd)) {
+        setLocalInfo((prev) => ({ ...prev, endAt: null, startAt: hour }));
+      } else {
+        const endAt = hour + 1 === 24 ? 0 : hour + 1;
+        setLocalInfo((prev) => ({ ...prev, endAt }));
+      }
+    },
+    [localInfo],
   );
 
   useEffect(() => {
@@ -89,6 +114,8 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
             onClickDay={onClickDay}
           />
         </Suspense>
+        <hr />
+        <CategoryTimePicker startAt={localInfo.startAt} endAt={localInfo.endAt} onClickTime={onClickTime} />
         <Suspense fallback={null}>
           <SubmitButton {...localInfo} />
         </Suspense>

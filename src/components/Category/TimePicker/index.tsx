@@ -28,6 +28,10 @@ interface Props {
 }
 
 const CategoryTimePicker: React.FC<Props> = ({ className, startAt, endAt, onClickTime }) => {
+  const time = range(25).map((value) => (value + 9) % 24);
+  const startIndex = time.findIndex((value) => value === startAt);
+  const endIndex = time.findIndex((value, idx) => value === endAt && idx > startIndex);
+
   return (
     <HorizonDraggable component="menu" className={cx(styles.wrapper, className)}>
       {range(25).map((value) => {
@@ -37,7 +41,9 @@ const CategoryTimePicker: React.FC<Props> = ({ className, startAt, endAt, onClic
             index={value}
             time={(value + 9) % 24}
             onClick={onClickTime}
-            active={checkIsActive(startIndex, endIndex, index)}
+            isStart={value === startIndex}
+            isEnd={value === endIndex}
+            active={checkIsActive(startIndex, endIndex, value)}
           />
         );
       })}
