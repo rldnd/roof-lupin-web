@@ -77,8 +77,7 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
       if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd)) {
         setLocalInfo((prev) => ({ ...prev, endAt: null, startAt: hour }));
       } else {
-        const endAt = hour + 1 === 24 ? 0 : hour + 1;
-        setLocalInfo((prev) => ({ ...prev, endAt }));
+        setLocalInfo((prev) => ({ ...prev, endAt: hour }));
       }
     },
     [localInfo],

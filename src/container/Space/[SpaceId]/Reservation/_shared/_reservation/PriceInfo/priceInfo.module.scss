@@ -13,6 +13,7 @@
 
   .description {
     @include m.fontCaption;
+    display: inline-block;
     margin-bottom: 24px;
     color: var(--c-gray-500);
   }

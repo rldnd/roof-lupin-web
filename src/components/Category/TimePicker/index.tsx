@@ -17,7 +17,7 @@ const checkIsActive = (startIndex: number, endIndex: number, index: number): boo
 
   if (!hasClickedStart && !hasClickedEnd) return false;
   if (hasClickedStart && !hasClickedEnd) return startIndex === index;
-  return startIndex <= index && index < endIndex;
+  return startIndex <= index && index <= endIndex;
 };
 
 interface Props {
@@ -41,7 +41,7 @@ const CategoryTimePicker: React.FC<Props> = ({ className, startAt, endAt, onClic
             index={value}
             time={(value + 9) % 24}
             onClick={onClickTime}
-            isStart={value === startIndex}
+            isStart={value === startIndex && endIndex > -1}
             isEnd={value === endIndex}
             active={checkIsActive(startIndex, endIndex, value)}
           />

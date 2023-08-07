@@ -42,6 +42,8 @@ const TimeAndPackage: React.FC = () => {
   const [reservationPackage, setReservationPackage] = useAtom(reservationPackageState);
   const setReservationAdditionalServices = useSetAtom(reservationAdditionalServicesState);
 
+  console.log(reservationTime.endAt);
+
   const { year, month, day } = reservation;
 
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
@@ -70,10 +72,10 @@ const TimeAndPackage: React.FC = () => {
     handleResetPackage();
 
     const hour = Number(e.currentTarget.value);
-    const [startIndex, clickedIndex] = [
-      rentalTypes.time.timeCostInfos.findIndex((item) => item.time === reservationTime.startAt),
-      rentalTypes.time.timeCostInfos.findIndex((item) => item.time === hour),
-    ];
+    const startIndex = rentalTypes.time.timeCostInfos.findIndex((item) => item.time === reservationTime.startAt);
+    const clickedIndex = rentalTypes.time.timeCostInfos.findIndex(
+      (item, idx) => item.time === hour && idx > startIndex,
+    );
 
     const hasStart = startIndex !== -1;
     const hasClickedBeforeStart = hasStart && clickedIndex <= startIndex;
@@ -93,8 +95,7 @@ const TimeAndPackage: React.FC = () => {
         (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
         0,
       );
-      const endAt = hour + 1 === 24 ? 0 : hour + 1;
-      setReservationTime((prev) => ({ ...prev, endAt, cost, rentalTypeId: rentalTypes.time!.id }));
+      setReservationTime((prev) => ({ ...prev, endAt: hour, cost, rentalTypeId: rentalTypes.time!.id }));
       setReservationAdditionalServices({
         [rentalTypes.time!.id as string]: rentalTypes.time.additionalServices.map<BaseReservationAdditionalService>(
           (item) => ({ ...item, count: 0 }),

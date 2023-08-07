@@ -37,7 +37,7 @@ const BottomSection: React.FC = () => {
             <Fragment key={rentalType.id}>
               {isTimeRentalType(rentalType) && (
                 <>
-                  시간 단위 예약 ({rentalType.startAt}-{rentalType.endAt}시,
+                  시간 단위 예약 ({rentalType.startAt}-{rentalType.endAt + 1}시,
                   {getDiffHour(rentalType.startAt, rentalType.endAt)}시간)
                 </>
               )}

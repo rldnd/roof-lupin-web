@@ -19,7 +19,7 @@ const checkIsActive = (startIndex: number, endIndex: number, index: number): boo
 
   if (!hasClickedStart && !hasClickedEnd) return false;
   if (hasClickedStart && !hasClickedEnd) return startIndex === index;
-  return startIndex <= index && index < endIndex;
+  return startIndex <= index && index <= endIndex;
 };
 
 interface Props {
