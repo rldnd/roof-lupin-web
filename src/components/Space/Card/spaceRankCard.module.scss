@@ -42,24 +42,24 @@ $IMAGE_HEIGHT: 132px;
     a {
       width: 100%;
       height: 100%;
+    }
 
-      .transport {
-        @include m.fontCaption;
-        margin-bottom: 2px;
-        color: var(--c-gray-500);
-      }
+    .transport {
+      @include m.fontCaption;
+      margin-bottom: 2px;
+      color: var(--c-gray-500);
+    }
 
-      .title {
-        @include m.makeEllipsis(2);
-        @include m.fontH4SemiBold;
-        width: 100%;
-        margin-bottom: 2px;
-        color: var(--c-black);
-      }
+    .title {
+      @include m.makeEllipsis(2);
+      @include m.fontH4SemiBold;
+      width: 100%;
+      margin-bottom: 2px;
+      color: var(--c-black);
+    }
 
-      .starRating {
-        margin-bottom: 12px;
-      }
+    .starRating {
+      margin-bottom: 12px;
     }
   }
 }

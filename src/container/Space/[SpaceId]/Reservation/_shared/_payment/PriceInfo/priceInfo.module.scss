@@ -7,24 +7,8 @@
 
   > h2 {
     @include m.fontH3SemiBold;
-    margin-bottom: 6px;
+    margin-bottom: 24px;
     color: var(--c-black);
-  }
-
-  .description {
-    @include m.fontCaption;
-    color: var(--c-gray-500);
-  }
-
-  .remainNotice {
-    @include m.flex;
-    @include m.fontCaptionSemiBold;
-    width: 100%;
-    padding: 12px 8px;
-    margin: 16px 0 32px;
-    color: var(--c-roof-orange);
-    background-color: var(--c-orange-bg);
-    border-radius: 4px;
   }
 
   .couponPrice {

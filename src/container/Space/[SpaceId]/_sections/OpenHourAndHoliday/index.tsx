@@ -1,8 +1,8 @@
 import { DAY_MAPPER } from "@/common/constants/day";
 import { HOLIDAY_INTERVAL_MAPPER } from "@/common/constants/holiday";
-import type { Day } from "@/common/types/common";
 import type { OpenHour } from "@/common/types/openHour";
 import type { SpaceHoliday } from "@/common/types/space";
+import { isEndAtNextDay } from "@/utils/time";
 
 import styles from "./openHourAndHoliday.module.scss";
 
@@ -21,7 +21,7 @@ interface SameDayHoliday {
 
 const OpenHourAndHoliday: React.FC<Props> = ({ openHours, holidays }) => {
   const sameTimeOpenHours = openHours.reduce<SameTimeOpenHour>((acc, cur) => {
-    const endAt = Number(cur.endAt) < 9 ? `익일 ${cur.endAt}:00` : `${cur.endAt}:00`;
+    const endAt = isEndAtNextDay(Number(cur.endAt)) ? `익일 ${cur.endAt}:00` : `${cur.endAt}:00`;
     const time = `${cur.startAt}:00 ~ ${endAt}`;
     if (time in acc) return { ...acc, [time]: [...acc[time], DAY_MAPPER[cur.day]] };
     return { ...acc, [time]: [DAY_MAPPER[cur.day]] };

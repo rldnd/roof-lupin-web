@@ -17,6 +17,7 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states/reservation";
+import { getAdditionalUserPrice } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";
 
 import styles from "./priceInfo.module.scss";
@@ -32,18 +33,18 @@ const PriceInfo: React.FC = () => {
   const reservationPackage = useAtomValue(reservationPackageState);
   const reservationAdditionalServices = useAtomValue(reservationAdditionalServicesState);
 
-  const timeHistory = useMemo<Item[]>(() => {
+  const timePrice = useMemo<Item[]>(() => {
     const { cost, startAt, endAt } = reservationTime;
     if (!endAt || !startAt || !cost) return [];
     return [{ title: `시간 단위 예약 (${getDiffHour(startAt, endAt)}시간)`, price: cost }];
   }, [reservationTime]);
 
-  const packageHistory = useMemo<Item[]>(() => {
+  const packagePrice = useMemo<Item[]>(() => {
     if (reservationPackage.length === 0) return [];
     return reservationPackage.map((item) => ({ title: item.name, price: item.baseCost }));
   }, [reservationPackage]);
 
-  const additionalServicesHistory = useMemo<Item[]>(() => {
+  const additionalServicesPrice = useMemo<Item[]>(() => {
     return Object.values(reservationAdditionalServices)
       .flatMap((services) => services.filter((service) => service.count === 1))
       .map((service) => ({ title: service.name, price: service.cost }));
@@ -52,20 +53,19 @@ const PriceInfo: React.FC = () => {
   const additionalUserPrice = useMemo<Item[]>(() => {
     const { userCount } = reservation;
     const { overflowUserCost, overflowUserCount } = space;
+    const price = getAdditionalUserPrice(userCount, overflowUserCost, overflowUserCount);
 
-    if (!userCount || userCount <= overflowUserCount) return [{ title: ADDITIONAL_USER_TITLE, price: 0 }];
-    return [{ title: ADDITIONAL_USER_TITLE, price: overflowUserCost * (userCount - overflowUserCount) }];
+    return [{ title: ADDITIONAL_USER_TITLE, price }];
   }, [reservation, space]);
 
   return (
     <section className={styles.wrapper}>
       <h2>결제 정보</h2>
-      <div className={styles.remainNotice}>선택한 내용은 이전 화면으로 돌아가도 20분간 유지됩니다.</div>
       <PriceInfoTable
         items={[
-          ...timeHistory,
-          ...packageHistory,
-          ...additionalServicesHistory,
+          ...timePrice,
+          ...packagePrice,
+          ...additionalServicesPrice,
           ...additionalUserPrice,
           { title: "쿠폰 할인", price: 0, ddClassName: styles.couponPrice },
         ]}

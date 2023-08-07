@@ -7,7 +7,7 @@
   gap: 4px;
   width: 100%;
 
-  > li {
+  > li button {
     @include m.chipIcon;
   }
 
