@@ -13,6 +13,7 @@ type Status = "loading" | "success" | "fail";
 
 import styles from "./paymentSuccessContainer.module.scss";
 
+// TODO: server component 분리
 const PaymentSuccessContainer: React.FC = () => {
   const router = useRouter();
   const { get } = useSearchParams();
