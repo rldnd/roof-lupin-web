@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import { xor } from "lodash-es";
 
 import type { Category } from "@/common/types/category";
-import { locationCategoryIdsState } from "@/states/location";
+import { locationCategoryIdsState } from "@/states";
 
 import styles from "./categoryItem.module.scss";
 

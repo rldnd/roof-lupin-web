@@ -1,6 +1,6 @@
 import type { NotNullable } from "./types";
 import type { BasePackageRentalType, BaseTimeRentalType, RentalType } from "@/common/types/rentalType";
-import type { ReservationTime } from "@/states/reservation";
+import type { ReservationTime } from "@/states";
 
 export const isPackageRentalType = (rentalType: RentalType): rentalType is BasePackageRentalType =>
   rentalType.rentalType === "PACKAGE";

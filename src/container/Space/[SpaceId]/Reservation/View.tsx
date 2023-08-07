@@ -2,7 +2,7 @@
 
 import { useAtomValue } from "jotai";
 
-import { RESERVATION_TAB_MAPPER, reservationTabState } from "@/states/reservation";
+import { RESERVATION_TAB_MAPPER, reservationTabState } from "@/states";
 
 import { PaymentTab, RequestPaymentTab, RequestReservationTab, ReservationTab } from "./_tabs";
 

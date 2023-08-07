@@ -10,7 +10,7 @@ import type { SpaceDetail } from "@/common/types/space";
 import { Checkbox } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
-import { reservationDepositConfirmState } from "@/states/reservation";
+import { reservationDepositConfirmState } from "@/states";
 
 import { IconInfo } from "public/icons";
 

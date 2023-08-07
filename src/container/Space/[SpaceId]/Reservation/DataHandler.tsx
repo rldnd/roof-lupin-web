@@ -10,10 +10,10 @@ import { useMount, useUnmount } from "react-use";
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
-import { paymentCheckedRequiredAgreementState } from "@/states/payment";
 import {
   initialReservation,
   initialReservationTime,
+  paymentCheckedRequiredAgreementState,
   RESERVATION_TAB_MAPPER,
   reservationAdditionalServicesState,
   reservationDepositConfirmState,
@@ -22,7 +22,7 @@ import {
   reservationTabState,
   reservationTimeState,
   type Tab,
-} from "@/states/reservation";
+} from "@/states";
 import { isUnderTimeReservation } from "@/utils/rentalType";
 
 const DataHandler: React.FC = () => {

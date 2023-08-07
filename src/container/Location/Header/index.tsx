@@ -8,7 +8,7 @@ import { useAtomValue } from "jotai";
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { BaseHeader } from "@/components/Layout";
 import { getLocationCoordinateApi } from "@/services/location";
-import { mapCenterState } from "@/states/location";
+import { mapCenterState } from "@/states";
 
 import { IconPosition } from "public/icons";
 

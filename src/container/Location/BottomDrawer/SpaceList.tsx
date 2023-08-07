@@ -9,7 +9,7 @@ import type { Space } from "@/common/types/space";
 import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states/location";
+import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { getDistance } from "@/utils/naverMap";
 
 import styles from "./spaceList.module.scss";

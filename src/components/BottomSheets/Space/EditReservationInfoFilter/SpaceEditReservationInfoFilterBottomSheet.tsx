@@ -8,13 +8,14 @@ import { BottomSheetPortal } from "@/components/Common";
 import { useQueryString, useToast } from "@/hooks";
 import {
   initialReservationTime,
+  initialSpaceReservationInfo,
   reservationAdditionalServicesState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
-import { initialSpaceReservationInfo, SpaceReservationInfo } from "@/states/space";
+  SpaceReservationInfo,
+} from "@/states";
 import { NotNullable } from "@/utils/types";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";

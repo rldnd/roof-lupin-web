@@ -1,4 +1,5 @@
 "use client";
+
 import { QueryErrorResetBoundary, useQueryErrorResetBoundary } from "@tanstack/react-query";
 
 import { Button } from "@/components";

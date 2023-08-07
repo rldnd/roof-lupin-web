@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 import { useSetAtom } from "jotai";
 
-import { type Platform, PLATFORMS, platformState } from "@/states/platform";
+import { type Platform, PLATFORMS, platformState } from "@/states";
 
 const PlatformChecker: React.FC = () => {
   const setPlatform = useSetAtom(platformState);

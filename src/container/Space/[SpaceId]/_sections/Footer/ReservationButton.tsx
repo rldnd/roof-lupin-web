@@ -11,8 +11,7 @@ import { useQueryString, useSuspenseQuery } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { getClientSpaceApi } from "@/services/space";
-import { RESERVATION_TAB_MAPPER } from "@/states/reservation";
-import { spaceReservationInfoState } from "@/states/space";
+import { RESERVATION_TAB_MAPPER, spaceReservationInfoState } from "@/states";
 
 const ReservationButton: React.FC = () => {
   const { push } = useRouter();

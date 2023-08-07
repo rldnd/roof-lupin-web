@@ -16,7 +16,7 @@ import {
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { isUnderTimeReservation } from "@/utils/rentalType";
 import { getAdditionalUserPrice } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";

@@ -10,13 +10,13 @@ import { Button } from "@/components";
 import { useSuspenseQuery, useTossPayment } from "@/hooks";
 import { createPaymentPayloadApi } from "@/services/payment";
 import { getClientSpaceApi } from "@/services/space";
-import { paymentCheckedRequiredAgreementState } from "@/states/payment";
 import {
+  paymentCheckedRequiredAgreementState,
   reservationAdditionalServicesState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { getPrepareReservationBody } from "@/utils/reservation";
 
 import styles from "./submitButton.module.scss";

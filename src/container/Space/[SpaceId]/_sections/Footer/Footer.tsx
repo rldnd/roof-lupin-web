@@ -8,8 +8,7 @@ import { useAtom, useAtomValue } from "jotai";
 
 import { AuthChecker } from "@/components";
 import { SpaceReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
-import { categorySortMenuState } from "@/states";
-import { spaceReservationInfoState } from "@/states/space";
+import { categorySortMenuState, spaceReservationInfoState } from "@/states";
 import { dayjs } from "@/utils/date";
 import { getBeforeNavigationUrl } from "@/utils/navigation";
 

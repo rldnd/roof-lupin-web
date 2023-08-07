@@ -13,7 +13,7 @@ import {
   reservationDepositConfirmState,
   reservationPackageState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 
 import styles from "./requestReservationButton.module.scss";
 

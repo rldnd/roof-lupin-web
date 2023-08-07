@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { useAtomValue } from "jotai";
 
-import { platformState } from "@/states/platform";
+import { platformState } from "@/states";
 import { isClient } from "@/utils/next";
 
 interface ReturnUsePlatform {

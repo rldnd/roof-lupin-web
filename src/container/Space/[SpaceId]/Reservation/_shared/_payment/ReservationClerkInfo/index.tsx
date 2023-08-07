@@ -5,7 +5,7 @@ import { ChangeEventHandler } from "react";
 import { useAtom } from "jotai";
 
 import { UnderlinedInput } from "@/components";
-import { reservationState } from "@/states/reservation";
+import { reservationState } from "@/states";
 
 import styles from "./reservationClerkInfo.module.scss";
 

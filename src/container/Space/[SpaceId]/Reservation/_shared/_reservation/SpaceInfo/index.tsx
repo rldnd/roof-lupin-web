@@ -11,7 +11,7 @@ import type { SpaceDetail } from "@/common/types/space";
 import { SpaceEditReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
-import { reservationState } from "@/states/reservation";
+import { reservationState } from "@/states";
 
 import styles from "./spaceInfo.module.scss";
 

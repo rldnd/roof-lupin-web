@@ -15,7 +15,7 @@ import {
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { getPrepareReservationBody } from "@/utils/reservation";
 
 import styles from "./submitButton.module.scss";

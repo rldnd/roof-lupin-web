@@ -16,7 +16,7 @@ import {
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { getAdditionalUserPrice } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";
 

@@ -25,7 +25,7 @@ import {
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { formatHourToAHHMM } from "@/utils/date";
 import { deletePropertyInObject } from "@/utils/function";
 import { isUnderTimeReservation } from "@/utils/rentalType";

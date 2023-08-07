@@ -17,7 +17,7 @@ import type {
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
 import { useClientEffect, useThrottleSetAtom } from "@/hooks";
-import { clickedMapMarkerState, mapCenterState, mapSizeState, mapZoomState } from "@/states/location";
+import { clickedMapMarkerState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
   checkIsTargetMap,

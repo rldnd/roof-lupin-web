@@ -14,7 +14,7 @@ import {
   reservationPackageState,
   reservationState,
   reservationTimeState,
-} from "@/states/reservation";
+} from "@/states";
 import { getOriginalCost } from "@/utils/reservation";
 
 import styles from "./paymentMethod.module.scss";

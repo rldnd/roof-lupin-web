@@ -11,7 +11,7 @@ import {
   paymentCheckedRequiredAgreementState,
   paymentMethodsWidgetState,
   paymentWidgetState,
-} from "@/states/payment";
+} from "@/states";
 
 export type PaymentMethod = ReturnType<PaymentWidgetInstance["renderPaymentMethods"]>;
 export type PaymentPriceUpdateReason = keyof PaymentMethod["UPDATE_REASON"];

@@ -1,11 +1,6 @@
 import type { CreateReservation, CreateReservationRentalType } from "@/common/types/reservation";
 import type { AdditionalServiceReservation } from "@/common/types/service";
-import type {
-  Reservation,
-  ReservationAdditionalService,
-  ReservationPackage,
-  ReservationTime,
-} from "@/states/reservation";
+import type { Reservation, ReservationAdditionalService, ReservationPackage, ReservationTime } from "@/states";
 
 import { isUnderTimeReservation } from "./rentalType";
 

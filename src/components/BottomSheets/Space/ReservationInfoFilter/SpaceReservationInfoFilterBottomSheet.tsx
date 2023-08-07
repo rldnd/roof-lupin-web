@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 
 import { BottomSheetPortal } from "@/components/Common";
 import { useToast } from "@/hooks";
-import { SpaceReservationInfo, spaceReservationInfoState } from "@/states/space";
+import { SpaceReservationInfo, spaceReservationInfoState } from "@/states";
 import { NotNullable } from "@/utils/types";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";
