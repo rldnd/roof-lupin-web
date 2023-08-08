@@ -2,7 +2,6 @@
 
 import { type CSSProperties, lazy, type MouseEventHandler, useCallback, useEffect, useMemo } from "react";
 
-import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import cx from "clsx";

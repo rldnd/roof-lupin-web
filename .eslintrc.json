@@ -22,7 +22,7 @@
     "plugin:react/recommended",
     "next/core-web-vitals"
   ],
-  "plugins": ["@typescript-eslint", "import", "prettier", "react", "react-hooks"],
+  "plugins": ["@typescript-eslint", "import", "prettier", "react"],
   "settings": {
     "react": {
       "version": "detect"
