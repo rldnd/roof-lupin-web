@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
 
+import { PAYMENT_WIDGET_ID } from "@/common/constants";
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery, useTossPayment } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
@@ -18,8 +19,6 @@ import {
 import { getOriginalCost } from "@/utils/reservation";
 
 import styles from "./paymentMethod.module.scss";
-
-const PAYMENT_WIDGET_ID = "payment-widget";
 
 const PaymentMethod: React.FC = () => {
   const { spaceId } = useParams();

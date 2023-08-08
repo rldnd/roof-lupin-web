@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { clearPaymentWidget, loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
+import { AGREEMENT_WIDGET_ID, PAYMENT_WIDGET_ID } from "@/common/constants";
 import type { PaymentPayload } from "@/common/types/payment";
 import { deletePaymentWhenFailApi } from "@/services/payment";
 import {
@@ -12,6 +13,7 @@ import {
   paymentMethodsWidgetState,
   paymentWidgetState,
 } from "@/states";
+import { isClient } from "@/utils/next";
 
 import { useToast } from ".";
 
@@ -91,10 +93,19 @@ const useTossPayment = (): ReturnUseTossPayment => {
 
     if (isPaymentMethodsWidgetInstance(paymentMethodsWidget)) {
       setPaymentMethodsWidget(undefined);
+
+      if (isClient) {
+        const $element = document?.getElementById(PAYMENT_WIDGET_ID);
+        $element?.removeChild($element.firstChild as Node);
+      }
     }
 
     if (isPaymentAgreement(paymentAgreement)) {
       setPaymentAgreement(undefined);
+      if (isClient) {
+        const $element = document?.getElementById(AGREEMENT_WIDGET_ID);
+        $element?.removeChild($element.firstChild as Node);
+      }
     }
   }, [
     paymentAgreement,
