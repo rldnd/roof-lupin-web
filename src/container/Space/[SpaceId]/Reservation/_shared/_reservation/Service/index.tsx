@@ -14,6 +14,7 @@ import {
 } from "@/states";
 import { formatHourToAHHMM } from "@/utils/date";
 import { isUnderTimeReservation } from "@/utils/rentalType";
+import { addHour, getNextDayText } from "@/utils/time";
 
 import styles from "./service.module.scss";
 
@@ -30,7 +31,9 @@ const getRentalTypeFromId = (
   if (isUnderTimeReservation(time))
     return {
       name: "시간 단위 상품",
-      time: `${formatHourToAHHMM(time.startAt)}시 ~ ${formatHourToAHHMM(time.endAt)}시`,
+      time: `${getNextDayText(time.startAt)}${formatHourToAHHMM(time.startAt)}시 ~ ${getNextDayText(
+        addHour(time.endAt, 1),
+      )}${formatHourToAHHMM(addHour(time.endAt, 1))}시`,
     };
 
   const packageItem = packages.find((packageItem) => packageItem.rentalTypeId === rentalTypeId);
@@ -38,7 +41,9 @@ const getRentalTypeFromId = (
 
   return {
     name: packageItem.name,
-    time: `${formatHourToAHHMM(packageItem.startAt)}시 ~ ${formatHourToAHHMM(packageItem.endAt)}시`,
+    time: `${getNextDayText(packageItem.startAt)}${formatHourToAHHMM(packageItem.startAt)}시 ~ ${getNextDayText(
+      packageItem.endAt,
+    )}${formatHourToAHHMM(packageItem.endAt)}시`,
   };
 };
 

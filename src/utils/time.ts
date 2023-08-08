@@ -7,6 +7,11 @@ export const addHour = (hour: number, add: number): number => {
   return hour + add >= 24 ? hour + add - 24 : hour + add;
 };
 
-export const isEndAtNextDay = (hour: number) => {
+export const isTimeNextDay = (hour: number) => {
   return hour <= 9;
+};
+
+export const getNextDayText = (hour: number) => {
+  if (isTimeNextDay(hour)) return "익일 ";
+  return "";
 };

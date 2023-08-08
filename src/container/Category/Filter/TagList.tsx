@@ -7,7 +7,7 @@ import { useAtomValue } from "jotai";
 import { HorizonDraggable } from "@/components";
 import { CategoryInfoFilterBottomSheet, CategoryLocationFilterBottomSheet } from "@/components/BottomSheets/Category";
 import { categorySortMenuState } from "@/states";
-import { isEndAtNextDay } from "@/utils/time";
+import { addHour, getNextDayText } from "@/utils/time";
 
 import styles from "./tagList.module.scss";
 
@@ -29,9 +29,9 @@ const TagList: React.FC = () => {
             {month}월{day}일{" "}
             {typeof startAt === "number" && typeof endAt === "number" && (
               <>
-                {isEndAtNextDay(endAt) && "익일"}
-                {startAt}시 ~ {isEndAtNextDay(endAt) && "익일"}
-                {endAt}시
+                {getNextDayText(startAt)}
+                {startAt}시 ~ {getNextDayText(addHour(endAt, 1))}
+                {addHour(endAt, 1)}시
               </>
             )}
           </button>

@@ -20,7 +20,7 @@ import {
 } from "@/states";
 import { dayjs } from "@/utils/date";
 import { isUnderTimeReservation } from "@/utils/rentalType";
-import { getDiffHour } from "@/utils/time";
+import { addHour, getDiffHour, getNextDayText } from "@/utils/time";
 
 import styles from "./selectedReservationInfo.module.scss";
 
@@ -50,7 +50,9 @@ const SelectedReservationInfo: React.FC = () => {
           <DataItem label="상품 및 부가서비스">
             {isUnderTimeReservation(time) && (
               <>
-                시간 단위 예약 ({time.startAt}-{time.endAt + 1}시, {getDiffHour(time.startAt, time.endAt)}시간)
+                시간 단위 예약 ({getNextDayText(time.startAt)}
+                {time.startAt}-{getNextDayText(addHour(time.endAt, 1))}
+                {addHour(time.endAt, 1)}시, {getDiffHour(time.startAt, time.endAt)}시간)
               </>
             )}
             {packages.map((item) => (

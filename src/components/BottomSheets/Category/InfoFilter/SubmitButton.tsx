@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/Common";
 import type { CategorySortMenuInfoFilter } from "@/states";
-import { isEndAtNextDay } from "@/utils/time";
+import { addHour, getNextDayText } from "@/utils/time";
 
 import styles from "./submitButton.module.scss";
 
@@ -23,9 +23,9 @@ const SubmitButton: React.FC<Props> = ({ localInfo }) => {
       {month}월 {day}일{" "}
       {typeof startAt === "number" && typeof endAt === "number" && (
         <>
-          {isEndAtNextDay(endAt) && "익일 "}
-          {`${startAt}:00`} ~ {isEndAtNextDay(endAt) && "익일 "}
-          {`${endAt}:00`}
+          {getNextDayText(startAt)}
+          {`${startAt}:00`} ~ {getNextDayText(addHour(endAt, 1))}
+          {`${addHour(endAt, 1)}:00`}
         </>
       )}{" "}
       {userCount}명

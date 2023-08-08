@@ -2,7 +2,7 @@ import { DAY_MAPPER } from "@/common/constants/day";
 import { HOLIDAY_INTERVAL_MAPPER } from "@/common/constants/holiday";
 import type { OpenHour } from "@/common/types/openHour";
 import type { SpaceHoliday } from "@/common/types/space";
-import { isEndAtNextDay } from "@/utils/time";
+import { getNextDayText } from "@/utils/time";
 
 import styles from "./openHourAndHoliday.module.scss";
 
@@ -21,8 +21,8 @@ interface SameDayHoliday {
 
 const OpenHourAndHoliday: React.FC<Props> = ({ openHours, holidays }) => {
   const sameTimeOpenHours = openHours.reduce<SameTimeOpenHour>((acc, cur) => {
-    const endAt = isEndAtNextDay(Number(cur.endAt)) ? `익일 ${cur.endAt}:00` : `${cur.endAt}:00`;
-    const time = `${cur.startAt}:00 ~ ${endAt}`;
+    const endAt = `${getNextDayText(Number(cur.endAt))}${cur.endAt}:00`;
+    const time = `${cur.startAt}:00 ~ ${endAt}:00`;
     if (time in acc) return { ...acc, [time]: [...acc[time], DAY_MAPPER[cur.day]] };
     return { ...acc, [time]: [DAY_MAPPER[cur.day]] };
   }, {});
@@ -36,6 +36,7 @@ const OpenHourAndHoliday: React.FC<Props> = ({ openHours, holidays }) => {
     <section className={styles.wrapper}>
       <h2>영업 시간 및 휴무일</h2>
       <ul className={styles.openHours}>
+        {Object.keys(sameTimeOpenHours).length > 0 && <h3>영업 시간</h3>}
         {Object.entries(sameTimeOpenHours).map(([time, days]) => {
           if (days.length === 7)
             return (
@@ -51,7 +52,7 @@ const OpenHourAndHoliday: React.FC<Props> = ({ openHours, holidays }) => {
           );
         })}
       </ul>
-      <h3 className={styles.holidayTitle}>정기 휴무</h3>
+      {Object.keys(sameDayHolidays).length > 0 && <h3 className={styles.holidayTitle}>정기 휴무</h3>}
       <ul className={styles.holidays}>
         {Object.entries(sameDayHolidays).map(([interval, days]) => (
           <li key={`${days.join(",")} 휴무`}>

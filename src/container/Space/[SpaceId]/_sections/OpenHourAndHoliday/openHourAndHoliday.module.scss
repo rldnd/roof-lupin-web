@@ -20,10 +20,13 @@
     }
   }
 
-  .holidayTitle {
+  h3 {
     @include m.fontBody1SemiBold;
-    margin-top: 24px;
     color: var(--c-gray-800);
+  }
+
+  .holidayTitle {
+    margin-top: 24px;
   }
 
   .holidays {

@@ -11,7 +11,7 @@ import { useSuspenseQuery } from "@/hooks";
 import { getMyReservationApi } from "@/services/reservation";
 import { dayjs } from "@/utils/date";
 import { isPackageRentalType, isTimeRentalType } from "@/utils/rentalType";
-import { getDiffHour } from "@/utils/time";
+import { addHour, getDiffHour, getNextDayText } from "@/utils/time";
 
 import styles from "./bottomSection.module.scss";
 
@@ -37,7 +37,9 @@ const BottomSection: React.FC = () => {
             <Fragment key={rentalType.id}>
               {isTimeRentalType(rentalType) && (
                 <>
-                  시간 단위 예약 ({rentalType.startAt}-{rentalType.endAt + 1}시,
+                  시간 단위 예약 ({getNextDayText(rentalType.startAt)}
+                  {rentalType.startAt}-{getNextDayText(addHour(rentalType.endAt, 1))}
+                  {addHour(rentalType.endAt, 1)}시,
                   {getDiffHour(rentalType.startAt, rentalType.endAt)}시간)
                 </>
               )}
