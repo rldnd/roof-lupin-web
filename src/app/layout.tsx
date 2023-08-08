@@ -43,13 +43,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div id="modal" />
           <div id="toast" />
           <div id="bottom-sheet" />
+          <Toast />
           <Suspense fallback={null}>
             <PushTokenHandler />
           </Suspense>
           <Suspense fallback={null}>
             <PlatformChecker />
           </Suspense>
-          <Toast />
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />

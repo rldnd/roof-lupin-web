@@ -88,6 +88,8 @@ const Toast: React.FC = () => {
     });
   });
 
+  if (!toastRoot) return null;
+
   return createPortal(
     <div className={styles.toastWrapper} ref={wrapperRef} style={{ bottom: position.bottom }}>
       <TransitionGroup className={styles.wrapper}>
