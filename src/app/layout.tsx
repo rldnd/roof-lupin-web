@@ -20,16 +20,22 @@ import "@/styles/global.scss";
 import styles from "./layout.module.scss";
 
 export const metadata: Metadata = {
-  title: "루프루팡",
-  description: "Cumuco Roof-lupin service",
+  title: {
+    default: "루프루팡",
+    template: "%s | 루프루팡",
+  },
+  description: "도심 속 루프라이프의 시작, 루프루팡",
   viewport: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no",
-  icons: [
-    { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
-    { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
-    { rel: "apple-touch-icon", sizes: "180x180", url: "/apple-touch-icon.png" },
-  ],
+  icons: {
+    icon: [
+      { sizes: "32x32", url: "/favicon-32x32.png" },
+      { sizes: "16x16", url: "/favicon-16x16.png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   manifest: "/site.webmanifest",
   themeColor: "#ffffff",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_API_LOCAL_URL as string),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -12,7 +12,7 @@
 
     h1 {
       @include m.makeEllipsis;
-      @include m.fontH4SemiBold;
+      @include m.fontH3SemiBold;
       flex: 1;
       justify-self: center;
       padding-left: 44px;

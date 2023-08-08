@@ -9,6 +9,8 @@ import { CategoryInfoFilterBottomSheet, CategoryLocationFilterBottomSheet } from
 import { categorySortMenuState } from "@/states";
 import { addHour, getNextDayText } from "@/utils/time";
 
+import { IconCategoryFilterCalendar, IconCategoryFilterLocation, IconCategoryFilterUser } from "public/icons";
+
 import styles from "./tagList.module.scss";
 
 const TagList: React.FC = () => {
@@ -21,11 +23,13 @@ const TagList: React.FC = () => {
       <HorizonDraggable component="menu" className={styles.wrapper}>
         <li>
           <button type="button" onClick={() => setIsShowLocationFilter(true)}>
+            <IconCategoryFilterLocation />
             {locationName ?? "전체 지역"}
           </button>
         </li>
         <li>
           <button type="button" onClick={() => setIsShowInfoFilter(true)}>
+            <IconCategoryFilterCalendar />
             {month}월{day}일{" "}
             {typeof startAt === "number" && typeof endAt === "number" && (
               <>
@@ -38,6 +42,7 @@ const TagList: React.FC = () => {
         </li>
         <li>
           <button type="button" onClick={() => setIsShowInfoFilter(true)}>
+            <IconCategoryFilterUser />
             {userCount}명
           </button>
         </li>
