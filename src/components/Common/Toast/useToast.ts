@@ -3,14 +3,14 @@ import { useCallback } from "react";
 import ToastEventEmitter from "./ToastEventEmitter";
 import { ChangeToastPositionType, ToastAddType } from "./types";
 
-interface IUseToast {
+interface ReturnUseToast {
   addToast(toast: ToastAddType): void;
   removeToast(id: string): void;
   changePosition(position: ChangeToastPositionType): void;
   clearToasts(): void;
 }
 
-const useToast = (): IUseToast => {
+const useToast = (): ReturnUseToast => {
   const addToast = useCallback((toast: ToastAddType) => {
     ToastEventEmitter.add(toast);
   }, []);

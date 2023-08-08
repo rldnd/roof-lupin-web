@@ -6,7 +6,6 @@ import "@/utils/naverMap";
 import NextTopLoader from "nextjs-toploader";
 
 import { Toast } from "@/components/Common/Toast";
-import { isClient } from "@/utils/next";
 
 import { suit } from "./fonts";
 import NavigationStore from "./NavigationHandler";
@@ -50,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <PlatformChecker />
           </Suspense>
-          {isClient && <Toast />}
+          <Toast />
         </Providers>
         <Suspense fallback={null}>
           <NavigationStore />
