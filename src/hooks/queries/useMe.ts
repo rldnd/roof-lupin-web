@@ -41,6 +41,7 @@ const useMe = (options?: Options): UseMeReturn => {
     onError: () => onLogout(),
     ...options,
     enabled: isClient && options?.enabled,
+    useErrorBoundary: false,
   });
 
   const onLogout = useCallback(() => {

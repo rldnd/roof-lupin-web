@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Provider as JotaiProvider } from "jotai";
 
 const queryClient = new QueryClient({
@@ -11,6 +11,7 @@ const queryClient = new QueryClient({
       retry: 1,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      useErrorBoundary: true,
     },
   },
 });
@@ -22,7 +23,9 @@ interface Props {
 const Providers: React.FC<Props> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <JotaiProvider>{children}</JotaiProvider>
+      <QueryErrorResetBoundary>
+        <JotaiProvider>{children}</JotaiProvider>
+      </QueryErrorResetBoundary>
     </QueryClientProvider>
   );
 };

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import { loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
+import { clearPaymentWidget, loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
 import type { PaymentPayload } from "@/common/types/payment";
@@ -83,18 +83,41 @@ const useTossPayment = (): ReturnUseTossPayment => {
     [paymentMethodsWidget],
   );
 
+  const clearWidgets = useCallback(() => {
+    if (isPaymentWidgetInstance(paymentWidget)) {
+      clearPaymentWidget();
+      setPaymentWidget(undefined);
+    }
+
+    if (isPaymentMethodsWidgetInstance(paymentMethodsWidget)) {
+      setPaymentMethodsWidget(undefined);
+    }
+
+    if (isPaymentAgreement(paymentAgreement)) {
+      setPaymentAgreement(undefined);
+    }
+  }, [
+    paymentAgreement,
+    paymentMethodsWidget,
+    paymentWidget,
+    setPaymentAgreement,
+    setPaymentMethodsWidget,
+    setPaymentWidget,
+  ]);
+
   const requestPayment = useCallback(
     async (args: PaymentPayload) => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
 
       try {
         await paymentWidget.requestPayment(args as any);
+        clearWidgets();
       } catch (error) {
         addToast({ message: "결제가 취소되었습니다." });
         deletePaymentWhenFail(args.orderId);
       }
     },
-    [addToast, deletePaymentWhenFail, paymentWidget],
+    [addToast, clearWidgets, deletePaymentWhenFail, paymentWidget],
   );
 
   useEffect(() => {
