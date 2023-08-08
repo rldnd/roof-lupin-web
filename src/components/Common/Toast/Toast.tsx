@@ -21,7 +21,7 @@ import styles from "./toast.module.scss";
 
 const toastRoot = document.querySelector("#toast") as HTMLDivElement;
 
-const Toast = () => {
+const Toast: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const timers = useRef<Record<string, NodeJS.Timer>>({});
 

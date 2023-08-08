@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
-import { PaymentPayload } from "@/common/types/payment";
+import type { PaymentPayload } from "@/common/types/payment";
 import { deletePaymentWhenFailApi } from "@/services/payment";
 import {
   paymentAgreementState,
@@ -12,6 +12,8 @@ import {
   paymentMethodsWidgetState,
   paymentWidgetState,
 } from "@/states";
+
+import { useToast } from ".";
 
 export type PaymentMethod = ReturnType<PaymentWidgetInstance["renderPaymentMethods"]>;
 export type PaymentPriceUpdateReason = keyof PaymentMethod["UPDATE_REASON"];
@@ -40,6 +42,8 @@ interface ReturnUseTossPayment {
 }
 
 const useTossPayment = (): ReturnUseTossPayment => {
+  const { addToast } = useToast();
+
   const [paymentWidget, setPaymentWidget] = useAtom(paymentWidgetState);
   const [paymentMethodsWidget, setPaymentMethodsWidget] = useAtom(paymentMethodsWidgetState);
   const [paymentAgreement, setPaymentAgreement] = useAtom(paymentAgreementState);
@@ -61,6 +65,7 @@ const useTossPayment = (): ReturnUseTossPayment => {
         process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string,
         process.env.NEXT_PUBLIC_TOSS_SECRET_KEY as string,
       );
+
       const methodsWidget = widget.renderPaymentMethods(`#${elementId}`, price);
 
       setPaymentWidget(widget);
@@ -81,13 +86,15 @@ const useTossPayment = (): ReturnUseTossPayment => {
   const requestPayment = useCallback(
     async (args: PaymentPayload) => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
+
       try {
         await paymentWidget.requestPayment(args as any);
       } catch (error) {
+        addToast({ message: "결제가 취소되었습니다." });
         deletePaymentWhenFail(args.orderId);
       }
     },
-    [deletePaymentWhenFail, paymentWidget],
+    [addToast, deletePaymentWhenFail, paymentWidget],
   );
 
   useEffect(() => {
