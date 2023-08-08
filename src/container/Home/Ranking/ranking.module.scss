@@ -7,11 +7,14 @@
 
   .titleWrapper {
     @include m.flex(space-between);
+    gap: 12px;
     width: 100%;
     margin-bottom: 4px;
 
     h2 {
       @include m.fontH3SemiBold;
+      @include m.makeEllipsis;
+      flex: 1;
       color: var(--c-black);
     }
   }
