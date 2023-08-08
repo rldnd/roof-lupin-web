@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { useClientEffect } from "@/hooks";
 
+// TODO: server component & client component 분리
 // NOTE: 다이나믹 링크 컨트롤
 const RedirectContainer: React.FC = () => {
   const router = useRouter();

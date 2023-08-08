@@ -6,7 +6,7 @@ import { Button } from "@/components";
 
 import styles from "./tossPayFailContainer.module.scss";
 
-// TODO: fail api call
+// TODO: server component & client component 분리
 const TossPayFailContainer: React.FC = () => {
   const { replace } = useRouter();
   const { get } = useSearchParams();

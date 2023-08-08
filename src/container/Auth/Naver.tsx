@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Loading } from "@/components";
 import { setSocialType, setTokens } from "@/utils/auth";
 
+// TODO: server component & client component 분리
 const NaverContainer: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

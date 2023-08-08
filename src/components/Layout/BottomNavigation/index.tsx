@@ -1,10 +1,13 @@
 "use client";
 
+import { MouseEventHandler, useCallback } from "react";
+
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import cx from "clsx";
 
+import { AuthChecker } from "@/components";
 import { usePlatform, useScrollDirection } from "@/hooks";
 
 import { IconAvatar, IconBookmark, IconHome, IconLocation, IconSearch } from "public/icons";
@@ -20,9 +23,17 @@ interface Props {
 }
 
 const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) => {
+  const { push } = useRouter();
   const { isWebview } = usePlatform();
   const scrollDirection = useScrollDirection();
   const pathname = usePathname();
+
+  const onClickButton: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      push(e.currentTarget.value);
+    },
+    [push],
+  );
 
   return (
     <footer
@@ -53,15 +64,18 @@ const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) =
           </div>
           <span>주변</span>
         </Link>
-        <Link
-          className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/interests") })}
-          href="/interests"
-        >
-          <div className={styles.iconWrapper}>
-            <IconBookmark />
-          </div>
-          <span>찜</span>
-        </Link>
+        <AuthChecker>
+          <button
+            className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/interests") })}
+            value="/interests"
+            onClick={onClickButton}
+          >
+            <div className={styles.iconWrapper}>
+              <IconBookmark />
+            </div>
+            <span>찜</span>
+          </button>
+        </AuthChecker>
         <Link
           className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/auth/login") })}
           href="/auth/login"
