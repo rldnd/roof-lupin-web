@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useCallback, useEffect, useMemo } from "react";
@@ -8,7 +9,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { useMount, useUnmount } from "react-use";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { useSuspenseQuery } from "@/hooks";
+import { useSuspenseQuery, useTossPayment } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
   initialReservation,
@@ -29,6 +30,7 @@ const DataHandler: React.FC = () => {
   const { spaceId } = useParams();
   const setTab = useSetAtom(reservationTabState);
   const setPaymentCheckedRequired = useSetAtom(paymentCheckedRequiredAgreementState);
+  const { clearWidgets } = useTossPayment();
 
   const { get } = useSearchParams();
   const tab = get("tab");
@@ -61,7 +63,8 @@ const DataHandler: React.FC = () => {
 
   const resetPaymentInfo = useCallback(() => {
     setPaymentCheckedRequired(false);
-  }, [setPaymentCheckedRequired]);
+    clearWidgets();
+  }, [clearWidgets, setPaymentCheckedRequired]);
 
   useMount(() => {
     const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];
@@ -87,11 +90,12 @@ const DataHandler: React.FC = () => {
   useEffect(() => {
     setTab(tab as Tab);
     resetPaymentInfo();
-  }, [resetPaymentInfo, setTab, tab]);
+  }, [setTab, tab]);
 
   useUnmount(() => {
     setTab(null);
     resetReservationInfo();
+    resetPaymentInfo();
   });
 
   return null;

@@ -31,6 +31,7 @@ const Header: React.FC<Props> = ({ space }) => {
     () => getSpaceInterestedApi(space.id).then((res) => res.data),
     {
       select: (res) => res.isInterested ?? false,
+      useErrorBoundary: false,
     },
   );
 

@@ -20,10 +20,10 @@ interface Props {
 }
 
 const Bookmark: React.FC<Props> = ({ space }) => {
-  const { me } = useMe();
+  const { isLogined } = useMe();
   const [isActive, setIsActive] = useState(false);
   const { data: isInterested, refetch } = useQuery(
-    ["getHomeSpacesInContents", me],
+    ["getHomeSpacesInContents", isLogined],
     () =>
       getHomeSpacesInContentsApi().then((res) =>
         res.data.reduce<Space[]>((acc, cur) => {
@@ -33,7 +33,7 @@ const Bookmark: React.FC<Props> = ({ space }) => {
       ),
     {
       select: (res) => res.find((item) => item.id === space.id)?.isInterested ?? false,
-      enabled: Boolean(me),
+      enabled: Boolean(isLogined),
     },
   );
 

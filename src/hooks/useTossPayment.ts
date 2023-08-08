@@ -1,10 +1,9 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { useMutation } from "@tanstack/react-query";
 import { clearPaymentWidget, loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
-import { AGREEMENT_WIDGET_ID, PAYMENT_WIDGET_ID } from "@/common/constants";
 import type { PaymentPayload } from "@/common/types/payment";
 import { deletePaymentWhenFailApi } from "@/services/payment";
 import {
@@ -13,7 +12,6 @@ import {
   paymentMethodsWidgetState,
   paymentWidgetState,
 } from "@/states";
-import { isClient } from "@/utils/next";
 
 import { useToast } from ".";
 
@@ -37,6 +35,7 @@ interface ReturnUseTossPayment {
   hasPaymentWidget: boolean;
   hasPaymentMethodsWidget: boolean;
   hasPaymentAgreement: boolean;
+  clearWidgets(): void;
   renderAgreement(elementId: string): void;
   createPaymentWidget(args: CreatePaymentWidgetArgs): Promise<void>;
   updatePrice(args: UpdatePriceArgs): void;
@@ -50,6 +49,13 @@ const useTossPayment = (): ReturnUseTossPayment => {
   const [paymentMethodsWidget, setPaymentMethodsWidget] = useAtom(paymentMethodsWidgetState);
   const [paymentAgreement, setPaymentAgreement] = useAtom(paymentAgreementState);
   const setPaymentCheckedRequired = useSetAtom(paymentCheckedRequiredAgreementState);
+
+  const hasPaymentWidget = useMemo<boolean>(() => isPaymentWidgetInstance(paymentWidget), [paymentWidget]);
+  const hasPaymentMethodsWidget = useMemo<boolean>(
+    () => isPaymentMethodsWidgetInstance(paymentMethodsWidget),
+    [paymentMethodsWidget],
+  );
+  const hasPaymentAgreement = useMemo<boolean>(() => isPaymentAgreement(paymentAgreement), [paymentAgreement]);
 
   const { mutate: deletePaymentWhenFail } = useMutation(deletePaymentWhenFailApi);
 
@@ -86,35 +92,13 @@ const useTossPayment = (): ReturnUseTossPayment => {
   );
 
   const clearWidgets = useCallback(() => {
-    if (isPaymentWidgetInstance(paymentWidget)) {
+    if (hasPaymentWidget) {
       clearPaymentWidget();
       setPaymentWidget(undefined);
-    }
-
-    if (isPaymentMethodsWidgetInstance(paymentMethodsWidget)) {
       setPaymentMethodsWidget(undefined);
-
-      if (isClient) {
-        const $element = document?.getElementById(PAYMENT_WIDGET_ID);
-        $element?.removeChild($element.firstChild as Node);
-      }
-    }
-
-    if (isPaymentAgreement(paymentAgreement)) {
       setPaymentAgreement(undefined);
-      if (isClient) {
-        const $element = document?.getElementById(AGREEMENT_WIDGET_ID);
-        $element?.removeChild($element.firstChild as Node);
-      }
     }
-  }, [
-    paymentAgreement,
-    paymentMethodsWidget,
-    paymentWidget,
-    setPaymentAgreement,
-    setPaymentMethodsWidget,
-    setPaymentWidget,
-  ]);
+  }, [hasPaymentWidget, setPaymentAgreement, setPaymentMethodsWidget, setPaymentWidget]);
 
   const requestPayment = useCallback(
     async (args: PaymentPayload) => {
@@ -143,11 +127,12 @@ const useTossPayment = (): ReturnUseTossPayment => {
   }, [paymentAgreement, setPaymentCheckedRequired]);
 
   return {
-    hasPaymentWidget: isPaymentWidgetInstance(paymentWidget),
-    hasPaymentMethodsWidget: isPaymentMethodsWidgetInstance(paymentMethodsWidget),
-    hasPaymentAgreement: isPaymentAgreement(paymentAgreement),
+    hasPaymentWidget,
+    hasPaymentMethodsWidget,
+    hasPaymentAgreement,
     renderAgreement,
     createPaymentWidget,
+    clearWidgets,
     updatePrice,
     requestPayment,
   };
