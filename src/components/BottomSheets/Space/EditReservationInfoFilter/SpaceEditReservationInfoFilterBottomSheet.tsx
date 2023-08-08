@@ -40,7 +40,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   overflowUserCost,
   overflowUserCount,
 }) => {
-  const { append, getQueryStringWithPath } = useQueryString();
+  const { set, getQueryStringWithPath } = useQueryString();
   const { addToast } = useToast();
 
   const setTime = useSetAtom(reservationTimeState);
@@ -55,7 +55,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
     e.preventDefault();
 
     const { year, month, day, userCount } = localInfo;
-    window.history.replaceState(null, "", getQueryStringWithPath(append({ year, month, day, userCount })));
+    window.history.replaceState(null, "", getQueryStringWithPath(set({ year, month, day, userCount })));
     setTime(initialReservationTime);
     setPackage([]);
     setAdditionalServices({});

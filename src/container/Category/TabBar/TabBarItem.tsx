@@ -18,15 +18,15 @@ interface Props {
 
 const TabBarItem: React.FC<Props> = ({ category }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { append, getQueryStringWithPath } = useQueryString();
+  const { set, getQueryStringWithPath } = useQueryString();
 
   const [categoryMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
 
   const onClick = useCallback(() => {
-    history.replaceState(null, "", getQueryStringWithPath(append({ categoryId: category.id })));
+    history.replaceState(null, "", getQueryStringWithPath(set({ categoryId: category.id })));
     buttonRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
     setCategorySortMenu((prev) => ({ ...prev, categoryIds: category.id }));
-  }, [append, category.id, getQueryStringWithPath, setCategorySortMenu]);
+  }, [set, category.id, getQueryStringWithPath, setCategorySortMenu]);
 
   return (
     <button

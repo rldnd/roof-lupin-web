@@ -16,6 +16,7 @@
     }
 
     &.active {
+      @include m.fontH4SemiBold;
       color: var(--c-roof-orange);
 
       svg {

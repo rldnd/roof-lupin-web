@@ -19,7 +19,7 @@ import styles from "./reservationButton.module.scss";
 
 const ReservationButton: React.FC = () => {
   const { push } = useRouter();
-  const { append, getQueryStringWithPath } = useQueryString();
+  const { set, getQueryStringWithPath } = useQueryString();
 
   const { spaceId } = useParams();
   const { data } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
@@ -33,7 +33,7 @@ const ReservationButton: React.FC = () => {
     (!data.deposit || (data.deposit && reservationDepositConfirm));
 
   const onClickButton = () => {
-    push(getQueryStringWithPath(append({ tab: RESERVATION_TAB_MAPPER.PAYMENT })));
+    push(getQueryStringWithPath(set({ tab: RESERVATION_TAB_MAPPER.PAYMENT })));
   };
 
   return (

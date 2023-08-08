@@ -12,6 +12,12 @@
       @include m.flex(space-between, center, row-reverse);
       width: 100%;
 
+      &:has(input:checked) {
+        span {
+          color: var(--c-gray-900);
+        }
+      }
+
       span:last-of-type {
         @include m.fontH4SemiBold;
       }

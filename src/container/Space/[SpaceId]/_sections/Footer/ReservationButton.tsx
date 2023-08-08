@@ -15,7 +15,7 @@ import { RESERVATION_TAB_MAPPER, spaceReservationInfoState } from "@/states";
 
 const ReservationButton: React.FC = () => {
   const { push } = useRouter();
-  const { append, getQueryStringWithPath } = useQueryString();
+  const { set, getQueryStringWithPath } = useQueryString();
 
   const pathname = usePathname();
   const { spaceId } = useParams();
@@ -42,7 +42,7 @@ const ReservationButton: React.FC = () => {
       ? RESERVATION_TAB_MAPPER.RESERVATION
       : RESERVATION_TAB_MAPPER.REQUEST_RESERVATION;
 
-    push(getQueryStringWithPath(append({ year, month, day, userCount, tab }), `${pathname}/reservations`));
+    push(getQueryStringWithPath(set({ year, month, day, userCount, tab }), `${pathname}/reservations`));
   };
 
   return (

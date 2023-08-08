@@ -3,9 +3,11 @@ import { useCallback } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 type AppendArgs = Record<string, string | number>;
+type SetArgs = Record<string, string | number>;
 
 type GetCurrentParams = () => URLSearchParams;
 type Append = (args: AppendArgs) => URLSearchParams;
+type Set = (args: SetArgs) => URLSearchParams;
 type GetQueryString = (args: URLSearchParams) => string;
 type GetQueryStringWithPath = (query: URLSearchParams, path?: string) => string;
 type Remove = (args: string[]) => URLSearchParams;
@@ -13,6 +15,7 @@ type Remove = (args: string[]) => URLSearchParams;
 interface ReturnUseQueryString {
   getCurrentParams: GetCurrentParams;
   append: Append;
+  set: Set;
   remove: Remove;
   getQueryString: GetQueryString;
   getQueryStringWithPath: GetQueryStringWithPath;
@@ -27,6 +30,15 @@ const useQueryString = (): ReturnUseQueryString => {
   }, [searchParams]);
 
   const append: Append = useCallback(
+    (args) => {
+      const params = getCurrentParams();
+      Object.entries(args).forEach(([key, value]) => params.append(key, String(value)));
+      return params;
+    },
+    [getCurrentParams],
+  );
+
+  const set: Set = useCallback(
     (args) => {
       const params = getCurrentParams();
       Object.entries(args).forEach(([key, value]) => params.set(key, String(value)));
@@ -58,6 +70,7 @@ const useQueryString = (): ReturnUseQueryString => {
   return {
     getCurrentParams,
     append,
+    set,
     remove,
     getQueryString,
     getQueryStringWithPath,
