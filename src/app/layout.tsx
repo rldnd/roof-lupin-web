@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+import type { Metadata } from "next";
+
 import "@/utils/ga";
 import "@/utils/naverMap";
 
@@ -17,24 +19,22 @@ import "@/styles/global.scss";
 
 import styles from "./layout.module.scss";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "루프루팡",
   description: "Cumuco Roof-lupin service",
   viewport: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  icons: [
+    { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
+    { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
+    { rel: "apple-touch-icon", sizes: "180x180", url: "/apple-touch-icon.png" },
+  ],
+  manifest: "/site.webmanifest",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-      </head>
       <body className={suit.className}>
         <NextTopLoader showSpinner={false} height={4} color="#eb4824" crawl />
         <Providers>
