@@ -37,11 +37,9 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   useEffect(() => {
     const { year, month, day, userCount } = categorySortMenu;
     const beforeUrl = getBeforeNavigationUrl();
-
     if (beforeUrl?.includes(`/spaces/${spaceId}`)) return;
-
-    setSpaceReservationInfo(() => ({ year, month, day, userCount }));
-  }, [categorySortMenu, setSpaceReservationInfo, spaceId]);
+    setSpaceReservationInfo(() => ({ year, month, day, userCount: maxUser < userCount ? maxUser : userCount }));
+  }, [categorySortMenu, maxUser, setSpaceReservationInfo, spaceId]);
 
   return (
     <>

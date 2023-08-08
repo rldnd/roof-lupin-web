@@ -29,6 +29,7 @@ const TagList: React.FC = () => {
             {month}월{day}일{" "}
             {typeof startAt === "number" && typeof endAt === "number" && (
               <>
+                {isEndAtNextDay(endAt) && "익일"}
                 {startAt}시 ~ {isEndAtNextDay(endAt) && "익일"}
                 {endAt}시
               </>

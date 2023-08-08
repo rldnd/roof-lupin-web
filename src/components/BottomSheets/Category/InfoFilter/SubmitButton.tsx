@@ -12,11 +12,18 @@ interface Props {
 
 const SubmitButton: React.FC<Props> = ({ localInfo }) => {
   const { month, day, userCount, startAt, endAt } = localInfo;
+
   return (
-    <Button type="submit" color="primary" className={styles.wrapper}>
+    <Button
+      type="submit"
+      color="primary"
+      className={styles.wrapper}
+      disabled={typeof startAt === "number" && typeof endAt !== "number"}
+    >
       {month}월 {day}일{" "}
       {typeof startAt === "number" && typeof endAt === "number" && (
         <>
+          {isEndAtNextDay(endAt) && "익일 "}
           {`${startAt}:00`} ~ {isEndAtNextDay(endAt) && "익일 "}
           {`${endAt}:00`}
         </>

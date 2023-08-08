@@ -50,7 +50,10 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   };
 
   const onClickMinus = () => {
-    setLocalInfo((prev) => ({ ...prev!, userCount: prev.userCount - 1 }));
+    setLocalInfo((prev) => {
+      if (prev.userCount === 2 || prev.userCount === 99) return prev;
+      return { ...prev, userCount: prev.userCount - 1 };
+    });
   };
 
   const onClickDay = useCallback(
@@ -74,11 +77,9 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
       const hasClickedBeforeStart = hasStart && index <= startIndex;
       const hasEnd = typeof localInfo.endAt === "number";
 
-      if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd)) {
+      if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd))
         setLocalInfo((prev) => ({ ...prev, endAt: null, startAt: hour }));
-      } else {
-        setLocalInfo((prev) => ({ ...prev, endAt: hour }));
-      }
+      else setLocalInfo((prev) => ({ ...prev, endAt: hour }));
     },
     [localInfo],
   );
