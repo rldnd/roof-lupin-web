@@ -1,8 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useSetAtom } from "jotai";
+
 import { Button } from "@/components";
+import {
+  initialReservation,
+  initialReservationTime,
+  reservationAdditionalServicesState,
+  reservationDepositConfirmState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states";
 
 import styles from "./tossPayFailContainer.module.scss";
 
@@ -11,9 +24,23 @@ const TossPayFailContainer: React.FC = () => {
   const { replace } = useRouter();
   const { get } = useSearchParams();
 
+  const setReservation = useSetAtom(reservationState);
+  const setTime = useSetAtom(reservationTimeState);
+  const setPackages = useSetAtom(reservationPackageState);
+  const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
+  const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+
   const onClickButton = () => {
     replace("/");
   };
+
+  useEffect(() => {
+    setAdditionalServices({});
+    setTime(initialReservationTime);
+    setPackages([]);
+    setDepositConfirm(false);
+    setReservation(initialReservation);
+  }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
 
   return (
     <main className={styles.wrapper}>

@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { useAtom, useSetAtom } from "jotai";
-import { useMount, useUnmount } from "react-use";
+import { useMount } from "react-use";
 
 import type { SpaceDetail } from "@/common/types/space";
 import { useSuspenseQuery, useTossPayment } from "@/hooks";
@@ -90,13 +90,6 @@ const DataHandler: React.FC = () => {
     setTab(tab as Tab);
     resetPaymentInfo();
   }, [setTab, tab]);
-
-  // TODO: check sideEffect
-  // useUnmount(() => {
-  //   setTab(null);
-  //   resetReservationInfo();
-  //   resetPaymentInfo();
-  // });
 
   return null;
 };

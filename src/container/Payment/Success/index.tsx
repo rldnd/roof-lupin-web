@@ -5,15 +5,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useMutation } from "@tanstack/react-query";
-import { useAtomValue } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import type { SpaceDetail } from "@/common/types/space";
-import { Button } from "@/components";
+import { Button, Loading } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { completePaymentApi } from "@/services/payment";
 import { getClientSpaceApi } from "@/services/space";
 import {
+  initialReservation,
+  initialReservationTime,
   reservationAdditionalServicesState,
+  reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
@@ -31,15 +34,18 @@ const PaymentSuccessContainer: React.FC = () => {
 
   const [status, setStatus] = useState<Status>("loading");
 
-  const paymentType = get("paymentType");
-  const orderId = get("orderId");
-  const paymentKey = get("paymentKey");
-  const amount = Number(get("amount"));
+  const [paymentType, orderId, paymentKey, amount] = [
+    get("paymentType"),
+    get("orderId"),
+    get("paymentKey"),
+    Number(get("amount")),
+  ];
 
-  const reservation = useAtomValue(reservationState);
-  const time = useAtomValue(reservationTimeState);
-  const packages = useAtomValue(reservationPackageState);
-  const additionalServices = useAtomValue(reservationAdditionalServicesState);
+  const [reservation, setReservation] = useAtom(reservationState);
+  const [time, setTime] = useAtom(reservationTimeState);
+  const [packages, setPackages] = useAtom(reservationPackageState);
+  const [additionalServices, setAdditionalServices] = useAtom(reservationAdditionalServicesState);
+  const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
 
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", reservation.spaceId], () =>
     getClientSpaceApi(reservation.spaceId!),
@@ -80,14 +86,27 @@ const PaymentSuccessContainer: React.FC = () => {
     space,
   ]);
 
+  useEffect(() => {
+    if (status === "loading") return;
+
+    setAdditionalServices({});
+    setTime(initialReservationTime);
+    setPackages([]);
+    setDepositConfirm(false);
+    setReservation(initialReservation);
+  }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime, status]);
+
   return (
-    <main className={styles.wrapper}>
-      {status === "success" && <h1>당신의 돈 {get("amount")}원이 날라갔습니다.. 바바이티비..</h1>}
-      {status === "fail" && <h1>결제에 실패했습니다..</h1>}
-      <Button type="button" onClick={() => router.replace("/")} color="primary" full>
-        홈으로
-      </Button>
-    </main>
+    <>
+      <main className={styles.wrapper}>
+        {status === "success" && <h1>{get("amount")}원이 결제되었습니다</h1>}
+        {status === "fail" && <h1>결제에 실패했습니다</h1>}
+        <Button type="button" onClick={() => router.replace("/")} color="primary" full>
+          홈으로
+        </Button>
+      </main>
+      <Loading isShow={status === "loading"} />
+    </>
   );
 };
 
