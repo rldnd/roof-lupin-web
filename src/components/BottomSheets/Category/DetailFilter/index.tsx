@@ -9,6 +9,7 @@ import { categorySortMenuState } from "@/states";
 
 import Footer from "./Footer";
 import PaymentCategory from "./PaymentCategory";
+import Price from "./Price";
 
 import styles from "./categoryDetailFilterBottomSheet.module.scss";
 
@@ -44,6 +45,7 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
       <form onSubmit={onSubmit} onReset={onReset}>
         <div className={styles.content}>
           <PaymentCategory isImmediateReservation={localMenu.isImmediateReservation} setLocalMenu={setLocalMenu} />
+          <Price />
         </div>
         <Footer />
       </form>

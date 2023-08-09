@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useEffect } from "react";
+import { useEffect } from "react";
 
 import { notFound, useSearchParams } from "next/navigation";
 
@@ -35,9 +35,7 @@ const Content: React.FC<Props> = ({ ids }) => {
 
   useEffect(() => {
     if (!searchParams.get("categoryId") || !ids.includes(searchParams.get("categoryId")!)) notFound();
-    startTransition(() => {
-      setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
-    });
+    setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
   }, [ids, searchParams, setCategorySortMenu]);
 
   useUpdateEffect(() => {
