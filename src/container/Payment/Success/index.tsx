@@ -47,8 +47,10 @@ const PaymentSuccessContainer: React.FC = () => {
   const [additionalServices, setAdditionalServices] = useAtom(reservationAdditionalServicesState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
 
-  const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", reservation.spaceId], () =>
-    getClientSpaceApi(reservation.spaceId!),
+  const { data: space } = useSuspenseQuery<SpaceDetail>(
+    ["getClientSpace", reservation.spaceId],
+    () => getClientSpaceApi(reservation.spaceId!),
+    { enabled: Boolean(reservation.spaceId) },
   );
 
   const { mutate: completePayment } = useMutation(completePaymentApi, {
