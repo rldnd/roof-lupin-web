@@ -3,4 +3,18 @@
 
 .wrapper {
   width: 100%;
+
+  .list {
+    @include m.flex(flex-start);
+    gap: 8px;
+    width: 100%;
+
+    .checkButton {
+      @include m.chipOutlined;
+
+      &:has(input:checked) {
+        @include m.chipPrimary;
+      }
+    }
+  }
 }

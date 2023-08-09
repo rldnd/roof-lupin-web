@@ -1,6 +1,11 @@
 "use client";
 
+import { FormEventHandler, useState } from "react";
+
+import { useAtom } from "jotai";
+
 import { BaseBottomSheet } from "@/components/Common";
+import { categorySortMenuState } from "@/states";
 
 import Footer from "./Footer";
 import PaymentCategory from "./PaymentCategory";
@@ -13,6 +18,18 @@ interface Props {
 }
 
 const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
+  const [localMenu, setLocalMenu] = useState(categorySortMenu);
+
+  const onReset = () => {};
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    setCategorySortMenu(localMenu);
+    onClose();
+  };
+
   return (
     <BaseBottomSheet
       title="상세 필터"
@@ -24,9 +41,9 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
       className={styles.wrapper}
       isHeightMax
     >
-      <form>
+      <form onSubmit={onSubmit} onReset={onReset}>
         <div className={styles.content}>
-          <PaymentCategory />
+          <PaymentCategory isImmediateReservation={localMenu.isImmediateReservation} setLocalMenu={setLocalMenu} />
         </div>
         <Footer />
       </form>
