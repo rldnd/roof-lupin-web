@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useMemo } from "react";
 
-import { useMutation } from "@tanstack/react-query";
 import { clearPaymentWidget, loadPaymentWidget, type PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { useAtom, useSetAtom } from "jotai";
 
 import type { PaymentPayload } from "@/common/types/payment";
-import { deletePaymentWhenFailApi } from "@/services/payment";
 import {
   paymentAgreementState,
   paymentCheckedRequiredAgreementState,
@@ -57,8 +55,6 @@ const useTossPayment = (): ReturnUseTossPayment => {
   );
   const hasPaymentAgreement = useMemo<boolean>(() => isPaymentAgreement(paymentAgreement), [paymentAgreement]);
 
-  const { mutate: deletePaymentWhenFail } = useMutation(deletePaymentWhenFailApi);
-
   const renderAgreement = useCallback(
     (elementId: string) => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
@@ -109,10 +105,9 @@ const useTossPayment = (): ReturnUseTossPayment => {
         clearWidgets();
       } catch (error) {
         addToast({ message: "결제가 취소되었습니다." });
-        deletePaymentWhenFail(args.orderId);
       }
     },
-    [addToast, clearWidgets, deletePaymentWhenFail, paymentWidget],
+    [addToast, clearWidgets, paymentWidget],
   );
 
   useEffect(() => {

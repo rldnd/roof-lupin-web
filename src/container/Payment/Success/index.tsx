@@ -5,13 +5,24 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useMutation } from "@tanstack/react-query";
+import { useAtomValue } from "jotai";
 
+import type { SpaceDetail } from "@/common/types/space";
 import { Button } from "@/components";
-import { completePaymentApi, deletePaymentWhenFailApi } from "@/services/payment";
-
-type Status = "loading" | "success" | "fail";
+import { useSuspenseQuery } from "@/hooks";
+import { completePaymentApi } from "@/services/payment";
+import { getClientSpaceApi } from "@/services/space";
+import {
+  reservationAdditionalServicesState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states";
+import { getPrepareReservationBody } from "@/utils/reservation";
 
 import styles from "./paymentSuccessContainer.module.scss";
+
+type Status = "loading" | "success" | "fail";
 
 // TODO: server component & client component 분리
 const PaymentSuccessContainer: React.FC = () => {
@@ -25,20 +36,49 @@ const PaymentSuccessContainer: React.FC = () => {
   const paymentKey = get("paymentKey");
   const amount = Number(get("amount"));
 
+  const reservation = useAtomValue(reservationState);
+  const time = useAtomValue(reservationTimeState);
+  const packages = useAtomValue(reservationPackageState);
+  const additionalServices = useAtomValue(reservationAdditionalServicesState);
+
+  const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", reservation.spaceId], () =>
+    getClientSpaceApi(reservation.spaceId!),
+  );
+
   const { mutate: completePayment } = useMutation(completePaymentApi, {
     onSuccess: () => setStatus("success"),
-    onError: () => {
-      if (orderId) deletePayment(orderId as string);
-      setStatus("fail");
-    },
+    onError: () => setStatus("fail"),
   });
 
-  const { mutate: deletePayment } = useMutation(deletePaymentWhenFailApi);
-
   useEffect(() => {
-    if (!orderId || !paymentKey || !amount || !paymentType) router.replace("/");
-    else completePayment({ amount, orderId, paymentKey });
-  }, [router, get, completePayment, orderId, paymentKey, amount, paymentType]);
+    if (!space) return;
+    if (!orderId || !paymentKey || !amount || !paymentType) throw Error("잘못된 접근입니다.");
+
+    const paymentInfo = getPrepareReservationBody(
+      reservation,
+      time,
+      packages,
+      additionalServices,
+      space.overflowUserCost,
+      space.overflowUserCount,
+    );
+
+    if (!paymentInfo) throw Error("잘못된 접근입니다.");
+    completePayment({ amount, orderId, paymentKey, paymentInfo });
+  }, [
+    router,
+    get,
+    completePayment,
+    orderId,
+    paymentKey,
+    amount,
+    paymentType,
+    reservation,
+    time,
+    packages,
+    additionalServices,
+    space,
+  ]);
 
   return (
     <main className={styles.wrapper}>

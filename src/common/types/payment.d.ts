@@ -72,4 +72,6 @@ export interface ConfirmTossPayment {
   orderId: string;
   /** 결제된 금액 */
   amount: number;
+  /** 결제 정보 */
+  paymentInfo: CreatePaymentPayload;
 }

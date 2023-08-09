@@ -83,7 +83,6 @@ const DataHandler: React.FC = () => {
     }
 
     if (tab.toLocaleLowerCase().includes("reservation")) resetReservationInfo();
-
     setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
   });
 
@@ -92,11 +91,12 @@ const DataHandler: React.FC = () => {
     resetPaymentInfo();
   }, [setTab, tab]);
 
-  useUnmount(() => {
-    setTab(null);
-    resetReservationInfo();
-    resetPaymentInfo();
-  });
+  // TODO: check sideEffect
+  // useUnmount(() => {
+  //   setTab(null);
+  //   resetReservationInfo();
+  //   resetPaymentInfo();
+  // });
 
   return null;
 };
