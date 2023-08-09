@@ -6,7 +6,7 @@ import cx from "clsx";
 import { useAtomValue } from "jotai";
 
 import { SPACE_SORT_MAPPER } from "@/common/constants/space";
-import { CategorySortBottomSheet } from "@/components/BottomSheets/Category";
+import { CategoryDetailFilterBottomSheet, CategorySortBottomSheet } from "@/components/BottomSheets/Category";
 import { useScrollDirection } from "@/hooks";
 import { categorySortMenuState } from "@/states";
 
@@ -21,6 +21,7 @@ const Filter: React.FC = () => {
 
   const categorySortMenu = useAtomValue(categorySortMenuState);
   const [isShowCategorySortBottomSheet, setIsShowCategorySortBottomSheet] = useState(false);
+  const [isShowCategoryDetailBottomSheet, setIsShowCategoryDetailBottomSheet] = useState(false);
 
   return (
     <>
@@ -28,7 +29,11 @@ const Filter: React.FC = () => {
         <TagList />
         <menu className={styles.menu}>
           <li>
-            <button type="button" className={styles.filterButton}>
+            <button
+              type="button"
+              className={styles.filterButton}
+              onClick={() => setIsShowCategoryDetailBottomSheet(true)}
+            >
               <IconFilter />
               필터
             </button>
@@ -44,6 +49,10 @@ const Filter: React.FC = () => {
       <CategorySortBottomSheet
         isShow={isShowCategorySortBottomSheet}
         onClose={() => setIsShowCategorySortBottomSheet(false)}
+      />
+      <CategoryDetailFilterBottomSheet
+        isShow={isShowCategoryDetailBottomSheet}
+        onClose={() => setIsShowCategoryDetailBottomSheet(false)}
       />
     </>
   );

@@ -20,6 +20,11 @@ export const initialCategorySortMenu: CategorySortMenu = {
   sort: "RECENT",
   startAt: null,
   endAt: null,
+  isImmediateReservation: null,
+  keyword: null,
+  maxSize: null,
+  minSize: null,
+  serviceIds: null,
   userCount: 2,
   year: dayjs().year().toString(),
 };

@@ -3,12 +3,11 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
-  padding-top: 8px;
 
   .header {
     @include m.flex(space-between);
     width: 100%;
-    padding: 2px 8px;
+    padding: 18px 8px 2px;
 
     h1 {
       @include m.makeEllipsis;
@@ -25,6 +24,14 @@
       width: 44px;
       height: 44px;
     }
+  }
+
+  &.isHeightMax {
+    height: c.$S_BOTTOM_SHEET_MAX_HEIGHT;
+  }
+
+  &.isHeightMin {
+    height: c.$S_BOTTOM_SHEET_MIN_HEIGHT;
   }
 
   .content {

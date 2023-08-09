@@ -28,3 +28,10 @@ export interface AdditionalServiceReservation {
   /** 추가 서비스 개수 */
   count: number;
 }
+
+export interface ServiceTitle {
+  /** 이름 */
+  name: string;
+  /** 서비스 리스트 */
+  services: Service[];
+}

@@ -2,7 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  height: c.$S_BOTTOM_SHEET_MAX_HEIGHT;
+  width: 100%;
 
   .content {
     padding-top: 32px;

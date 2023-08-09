@@ -30,7 +30,7 @@ const ReviewSortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   };
 
   return (
-    <BaseBottomSheet isShow={isShow} onClose={onClose} title="정렬" blockWindowScroll>
+    <BaseBottomSheet isShow={isShow} onClose={onClose} title="정렬" blockWindowScroll isHeightMin>
       <SortMenu>
         <SortMenuItem isActive={reviewSortMenu.sort === "CREATED_AT"} onClick={onClick} data-sort="CREATED_AT">
           {REVIEW_SORT_MAPPER["CREATED_AT"]}

@@ -38,6 +38,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_API_LOCAL_URL as string),
 };
 
+// TODO: 안드로이드 resize ( dvh 지원 X )
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">

@@ -10,11 +10,29 @@ import styles from "./baseBottomSheet.module.scss";
 
 interface Props extends BottomSheetPortalProps {
   title?: string;
+  isHeightMax?: boolean;
+  isHeightMin?: boolean;
 }
 
-const BaseBottomSheet: React.FC<Props> = ({ wrapperClassName, className, children, title, onClose, ...props }) => {
+const BaseBottomSheet: React.FC<Props> = ({
+  wrapperClassName,
+  className,
+  children,
+  title,
+  onClose,
+  isHeightMax = false,
+  isHeightMin = false,
+  ...props
+}) => {
   return (
-    <BottomSheetPortal className={cx(styles.wrapper, wrapperClassName)} onClose={onClose} {...props}>
+    <BottomSheetPortal
+      className={cx(styles.wrapper, wrapperClassName, {
+        [styles.isHeightMax]: isHeightMax,
+        [styles.isHeightMin]: isHeightMin,
+      })}
+      onClose={onClose}
+      {...props}
+    >
       <header className={styles.header}>
         {title && <h1>{title}</h1>}
         {onClose && (

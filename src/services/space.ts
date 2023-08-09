@@ -28,6 +28,16 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   startAt: number | null;
   /** 예약 가능 종료 시간 */
   endAt: number | null;
+  /** 검색어 */
+  keyword: string | null;
+  /** 최소 평수 */
+  minSize: number | null;
+  /** 최대 평수 */
+  maxSize: number | null;
+  /** 서비스 id들 (,를 통해 구분합니다.) */
+  serviceIds: string | null;
+  /** 결제 유형 */
+  isImmediateReservation: boolean | null;
   sort: SpaceSort;
 }
 

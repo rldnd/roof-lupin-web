@@ -21,6 +21,7 @@ const SpaceInfoBottomSheet: React.FC<Props> = ({ isShow, onClose, space }) => {
       className={styles.content}
       onClose={onClose}
       blockWindowScroll
+      isHeightMax
       title={space.title}
     >
       <p>{space.description}</p>

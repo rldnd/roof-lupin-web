@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 100fr 220fr;
+  gap: 8px;
+  width: 100%;
+  padding: 16px c.$S_PAGE_HORIZONTAL_PADDING 0;
+  border-top: 1px solid var(--c-gray-250);
+}

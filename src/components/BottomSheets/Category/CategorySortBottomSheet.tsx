@@ -32,6 +32,9 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} title="정렬" blockWindowScroll>
       <SortMenu>
+        <SortMenuItem isActive={categorySortMenu.sort === "RECENT"} onClick={onClick} data-sort="RECENT">
+          {SPACE_SORT_MAPPER["RECENT"]}
+        </SortMenuItem>
         <SortMenuItem isActive={categorySortMenu.sort === "POPULARITY"} onClick={onClick} data-sort="POPULARITY">
           {SPACE_SORT_MAPPER["POPULARITY"]}
         </SortMenuItem>
@@ -40,9 +43,6 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
         </SortMenuItem>
         <SortMenuItem isActive={categorySortMenu.sort === "PRICE_LOW"} onClick={onClick} data-sort="PRICE_LOW">
           {SPACE_SORT_MAPPER["PRICE_LOW"]}
-        </SortMenuItem>
-        <SortMenuItem isActive={categorySortMenu.sort === "RECENT"} onClick={onClick} data-sort="RECENT">
-          {SPACE_SORT_MAPPER["RECENT"]}
         </SortMenuItem>
       </SortMenu>
     </BaseBottomSheet>
