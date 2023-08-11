@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import { range } from "lodash-es";
 
 import { BottomSheetPortal, CategoryTimePicker } from "@/components";
-import { type CategorySortMenuInfoFilter, categorySortMenuState } from "@/states";
+import { type CategorySortMenuInfoFilter, categorySortMenuState, initialCategorySortMenu } from "@/states";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";
 import Header from "./Header";
@@ -41,9 +41,9 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   };
 
   const onReset = useCallback(() => {
-    const { year, month, day, userCount, startAt, endAt } = info;
+    const { year, month, day, userCount, startAt, endAt } = initialCategorySortMenu;
     setLocalInfo({ year, month, day, userCount, startAt, endAt });
-  }, [info]);
+  }, []);
 
   const onClickPlus = () => {
     setLocalInfo((prev) => ({ ...prev, userCount: prev.userCount + 1 }));
