@@ -46,12 +46,15 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   }, []);
 
   const onClickPlus = () => {
-    setLocalInfo((prev) => ({ ...prev, userCount: prev.userCount + 1 }));
+    setLocalInfo((prev) => {
+      if (prev.userCount === 99) return prev;
+      return { ...prev, userCount: prev.userCount + 1 };
+    });
   };
 
   const onClickMinus = () => {
     setLocalInfo((prev) => {
-      if (prev.userCount === 2 || prev.userCount === 99) return prev;
+      if (prev.userCount === 1) return prev;
       return { ...prev, userCount: prev.userCount - 1 };
     });
   };

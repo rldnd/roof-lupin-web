@@ -15,7 +15,7 @@ export default async function LoginContainer() {
         <img className={styles.backgroundImage} src={main.mainImage} alt="로그인 배경 이미지" />
         <main>
           <BackButton className={styles.backButton}>둘러보기</BackButton>
-          <img src={"/images/auth/login-logo.png"} width={100} height={112} alt="로그인 화면 로고" />
+          <img src={"/images/auth/login-logo.png"} width={100} height={132} alt="로그인 화면 로고" />
           <p className={styles.slogan}>{main.content}</p>
           <Form />
         </main>

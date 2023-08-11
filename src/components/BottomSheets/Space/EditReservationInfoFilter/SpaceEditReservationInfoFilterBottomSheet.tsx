@@ -71,7 +71,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   }, [reservation]);
 
   const onClickPlus = () => {
-    if (localInfo.userCount === maxUser) {
+    if (localInfo.userCount === maxUser || localInfo.userCount === 99) {
       addToast({ message: "인원을 더 추가할 수 없습니다." });
     } else {
       setLocalInfo((prev) => ({ ...prev, userCount: prev.userCount + 1 }));
@@ -79,7 +79,10 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   };
 
   const onClickMinus = () => {
-    setLocalInfo((prev) => ({ ...prev!, userCount: prev.userCount - 1 }));
+    setLocalInfo((prev) => {
+      if (prev.userCount === 1) return prev;
+      return { ...prev, userCount: prev.userCount - 1 };
+    });
   };
 
   const onClickDay = useCallback(
