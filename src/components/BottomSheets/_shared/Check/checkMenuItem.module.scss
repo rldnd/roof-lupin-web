@@ -10,6 +10,7 @@
 
     .checkbox {
       @include m.flex(space-between, center, row-reverse);
+      gap: 16px;
       width: 100%;
 
       &:has(input:checked) {
@@ -20,6 +21,7 @@
 
       span:last-of-type {
         @include m.fontH4SemiBold;
+        text-align: start;
       }
     }
   }

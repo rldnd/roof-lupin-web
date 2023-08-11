@@ -88,8 +88,8 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   );
 
   useEffect(() => {
-    if (!isShow) onReset();
-  }, [isShow, onReset]);
+    if (!isShow) setLocalInfo({ year, month, day, userCount, startAt, endAt });
+  }, [day, endAt, isShow, month, startAt, userCount, year]);
 
   return (
     <BottomSheetPortal

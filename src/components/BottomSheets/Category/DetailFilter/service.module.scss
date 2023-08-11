@@ -19,7 +19,7 @@
     .checkButton {
       @include m.chipOutlined;
 
-      &:has(input:checked) {
+      &.active {
         @include m.chipPrimary;
       }
     }

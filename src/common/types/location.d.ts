@@ -60,3 +60,19 @@ export interface NaverCoordinateLocation {
   /** 주소 */
   address: string | null;
 }
+
+export interface LocationFilterTopic {
+  /** id */
+  id: string;
+  /** 이름 */
+  name: string;
+}
+
+export interface LocationFilter {
+  /** id */
+  id: string;
+  /** 필터 이름 - 화면에 보여주는 용도 */
+  name: string;
+  /** 필터 토픽 */
+  topics: LocationFilterTopic[];
+}

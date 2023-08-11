@@ -1,7 +1,8 @@
 "use client";
 
-import { type ChangeEventHandler, type Dispatch, Fragment, type SetStateAction } from "react";
+import { type Dispatch, Fragment, type MouseEventHandler, type SetStateAction } from "react";
 
+import cx from "clsx";
 import { xor } from "lodash-es";
 
 import type { ServiceTitle } from "@/common/types/service";
@@ -18,9 +19,9 @@ interface Props {
 
 const Service: React.FC<Props> = ({ serviceIds: serviceIdString, setLocalMenu }) => {
   const { data } = useSuspenseQuery<ServiceTitle[]>(["getServiceTitles"], () => getServiceTitlesApi());
-  const serviceIds = serviceIdString === null ? [] : serviceIdString.split(",");
+  const serviceIds = serviceIdString === null ? [] : serviceIdString.split(",").filter(Boolean);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { value } = e.currentTarget;
     const serviceIdArray = xor(serviceIds, [value]);
     setLocalMenu((prev) => ({ ...prev, serviceIds: serviceIdArray.join(",") }));
@@ -35,16 +36,14 @@ const Service: React.FC<Props> = ({ serviceIds: serviceIdString, setLocalMenu })
           <menu className={styles.list}>
             {item.services.map((service) => (
               <li key={service.id}>
-                <label className={styles.checkButton}>
+                <button
+                  type="button"
+                  className={cx(styles.checkButton, { [styles.active]: serviceIds.includes(service.id) })}
+                  onClick={onClick}
+                  value={service.id}
+                >
                   {service.name}
-                  <input
-                    value={service.id}
-                    type="checkbox"
-                    hidden
-                    checked={serviceIds.includes(service.id)}
-                    onChange={onChange}
-                  />
-                </label>
+                </button>
               </li>
             ))}
           </menu>

@@ -1,23 +1,30 @@
 "use client";
 
-import type { ReactNode } from "react";
+import Skeleton from "react-loading-skeleton";
 
 import { Checkbox } from "@/components/Common";
+import type { Props as CheckboxProps } from "@/components/Common/Checkbox";
 
 import styles from "./checkMenuItem.module.scss";
 
-interface Props {
-  children: ReactNode;
-}
+interface Props extends CheckboxProps {}
 
-const CheckMenuItem: React.FC<Props> = ({ children }) => {
+const CheckMenuItem: React.FC<Props> = ({ ...props }) => {
   return (
     <li className={styles.wrapper}>
       <button type="button" className={styles.button}>
-        <Checkbox className={styles.checkbox}>{children}</Checkbox>
+        <Checkbox className={styles.checkbox} {...props} />
       </button>
     </li>
   );
 };
 
 export default CheckMenuItem;
+
+export const LoadingCheckMenuItem: React.FC = () => {
+  return (
+    <li className={styles.wrapper}>
+      <Skeleton width="100%" height={44} />
+    </li>
+  );
+};

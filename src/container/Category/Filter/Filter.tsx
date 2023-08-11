@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import cx from "clsx";
 import { useAtomValue } from "jotai";
@@ -26,7 +26,9 @@ const Filter: React.FC = () => {
   return (
     <>
       <section className={cx(styles.wrapper, styles[scrollDirection])}>
-        <TagList />
+        <Suspense fallback={null}>
+          <TagList />
+        </Suspense>
         <menu className={styles.menu}>
           <li>
             <button

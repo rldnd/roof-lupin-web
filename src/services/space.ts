@@ -34,6 +34,8 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   minSize: number | null;
   /** 최대 평수 */
   maxSize: number | null;
+  /** 위치필터 토픽 id들 (,를 통해 구분합니다.) */
+  locationFilterTopicIds: string | null;
   /** 서비스 id들 (,를 통해 구분합니다.) */
   serviceIds: string | null;
   /** 최소 가격 */

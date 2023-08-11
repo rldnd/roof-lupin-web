@@ -20,6 +20,7 @@ export const initialCategorySortMenu: CategorySortMenu = {
   sort: "RECENT",
   startAt: null,
   endAt: null,
+  locationFilterTopicIds: null,
   isImmediateReservation: null,
   keyword: null,
   maxSize: null,

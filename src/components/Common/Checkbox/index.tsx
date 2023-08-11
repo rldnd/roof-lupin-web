@@ -8,7 +8,7 @@ import { IconCheck } from "public/icons";
 
 import styles from "./checkbox.module.scss";
 
-interface Props extends Omit<ComponentProps<"input">, "hidden"> {
+export interface Props extends Omit<ComponentProps<"input">, "hidden"> {
   isGray?: boolean;
 }
 

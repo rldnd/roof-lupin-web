@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useAtomValue } from "jotai";
 
+import { LocationFilter } from "@/common/types/location";
 import { HorizonDraggable } from "@/components";
 import { CategoryInfoFilterBottomSheet, CategoryLocationFilterBottomSheet } from "@/components/BottomSheets/Category";
+import { useSuspenseQuery } from "@/hooks";
+import { getLocationFiltersApi } from "@/services/location";
 import { categorySortMenuState } from "@/states";
 import { addHour, getNextDayText } from "@/utils/time";
 
@@ -16,7 +19,21 @@ import styles from "./tagList.module.scss";
 const TagList: React.FC = () => {
   const [isShowInfoFilter, setIsShowInfoFilter] = useState(false);
   const [isShowLocationFilter, setIsShowLocationFilter] = useState(false);
-  const { locationName, month, day, startAt, endAt, userCount } = useAtomValue(categorySortMenuState);
+  const { month, day, startAt, endAt, userCount, locationFilterTopicIds } = useAtomValue(categorySortMenuState);
+
+  const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], () => getLocationFiltersApi());
+
+  const location = useMemo<string>(() => {
+    const selectedTopicIds = locationFilterTopicIds === null ? [] : locationFilterTopicIds.split(",").filter(Boolean);
+    const selectedItems = data.filter((item) => {
+      const topicItemIds = item.topics.map((topic) => topic.id);
+      return topicItemIds.every((id) => selectedTopicIds.includes(id));
+    });
+
+    if (selectedTopicIds.length === 0) return "전체 지역";
+    const selectedTopicCount = selectedItems.flatMap((item) => item.topics).length;
+    return `${selectedItems[0].topics[0].name} 외 ${selectedTopicCount - 1}`;
+  }, [locationFilterTopicIds, data]);
 
   return (
     <>
@@ -24,7 +41,7 @@ const TagList: React.FC = () => {
         <li>
           <button type="button" onClick={() => setIsShowLocationFilter(true)}>
             <IconCategoryFilterLocation />
-            {locationName ?? "전체 지역"}
+            {location}
           </button>
         </li>
         <li>

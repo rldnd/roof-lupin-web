@@ -1,2 +1,2 @@
-export { default as CheckMenu } from "./CheckMenu";
-export { default as CheckMenuItem } from "./CheckMenuItem";
+export { default as CheckMenu, LoadingCheckMenu } from "./CheckMenu";
+export { default as CheckMenuItem, LoadingCheckMenuItem } from "./CheckMenuItem";
