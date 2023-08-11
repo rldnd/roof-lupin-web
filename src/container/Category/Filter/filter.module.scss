@@ -38,7 +38,8 @@ $TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
   }
 
   @media screen and (width >= c.$S_CATEGORY_GRID_BREAK_POINT) {
-    @include m.flex(space-between, center, row);
+    display: grid;
+    grid-template-columns: 1fr max-content;
 
     .menu {
       @include m.flex(flex-end);
