@@ -24,6 +24,8 @@ export const initialCategorySortMenu: CategorySortMenu = {
   keyword: null,
   maxSize: null,
   minSize: null,
+  minPrice: null,
+  maxPrice: null,
   serviceIds: null,
   userCount: 2,
   year: dayjs().year().toString(),

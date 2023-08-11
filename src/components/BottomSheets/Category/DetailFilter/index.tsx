@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, Suspense, useEffect, useState } from "react";
 
 import { useAtom } from "jotai";
 
@@ -10,6 +10,8 @@ import { categorySortMenuState } from "@/states";
 import Footer from "./Footer";
 import PaymentCategory from "./PaymentCategory";
 import Price from "./Price";
+import Service from "./Service";
+import Size from "./Size";
 
 import styles from "./categoryDetailFilterBottomSheet.module.scss";
 
@@ -22,7 +24,17 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
   const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
   const [localMenu, setLocalMenu] = useState(categorySortMenu);
 
-  const onReset = () => {};
+  const onReset = () => {
+    setLocalMenu((prev) => ({
+      ...prev,
+      serviceIds: null,
+      minSize: null,
+      maxSize: null,
+      minPrice: null,
+      maxPrice: null,
+      isImmediateReservation: null,
+    }));
+  };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -30,6 +42,10 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
     setCategorySortMenu(localMenu);
     onClose();
   };
+
+  useEffect(() => {
+    setLocalMenu(categorySortMenu);
+  }, [categorySortMenu]);
 
   return (
     <BaseBottomSheet
@@ -46,6 +62,10 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
         <div className={styles.content}>
           <PaymentCategory isImmediateReservation={localMenu.isImmediateReservation} setLocalMenu={setLocalMenu} />
           <Price />
+          <Size />
+          <Suspense fallback={null}>
+            <Service serviceIds={localMenu.serviceIds} setLocalMenu={setLocalMenu} />
+          </Suspense>
         </div>
         <Footer />
       </form>

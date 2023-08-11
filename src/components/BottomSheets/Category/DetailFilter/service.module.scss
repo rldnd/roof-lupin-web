@@ -4,6 +4,12 @@
 .wrapper {
   width: 100%;
 
+  .subTitle {
+    @include m.fontBody1SemiBold;
+    margin: 24px 0 8px;
+    color: var(--c-gray-700);
+  }
+
   .list {
     @include m.flex(flex-start);
     flex-wrap: wrap;
@@ -13,7 +19,7 @@
     .checkButton {
       @include m.chipOutlined;
 
-      &.active {
+      &:has(input:checked) {
         @include m.chipPrimary;
       }
     }

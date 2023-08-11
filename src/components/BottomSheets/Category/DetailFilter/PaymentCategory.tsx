@@ -1,10 +1,9 @@
 "use client";
 
-import { type ChangeEventHandler, type Dispatch, type SetStateAction, useState } from "react";
+import { type Dispatch, type MouseEventHandler, type SetStateAction } from "react";
 
-import { isBoolean } from "lodash-es";
+import cx from "clsx";
 
-import HorizonDraggable from "@/components/HorizonDraggable";
 import type { CategorySortMenu } from "@/states";
 
 import styles from "./paymentCategory.module.scss";
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const PaymentCategory: React.FC<Props> = ({ isImmediateReservation, setLocalMenu }) => {
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { value } = e.currentTarget;
     const checked = value === "true" ? true : false;
     setLocalMenu((prev) => ({
@@ -27,32 +26,28 @@ const PaymentCategory: React.FC<Props> = ({ isImmediateReservation, setLocalMenu
   return (
     <section className={styles.wrapper}>
       <h2>결제 유형</h2>
-      <HorizonDraggable component="menu" className={styles.list}>
+      <menu className={styles.list}>
         <li>
-          <label className={styles.checkButton}>
+          <button
+            type="button"
+            value="false"
+            onClick={onClick}
+            className={cx(styles.checkButton, { [styles.active]: isImmediateReservation === false })}
+          >
             승인 후 결제
-            <input
-              type="checkbox"
-              value="false"
-              hidden
-              checked={isBoolean(isImmediateReservation) && !isImmediateReservation}
-              onChange={onChange}
-            />
-          </label>
+          </button>
         </li>
         <li>
-          <label className={styles.checkButton}>
+          <button
+            type="button"
+            value="true"
+            onClick={onClick}
+            className={cx(styles.checkButton, { [styles.active]: isImmediateReservation === true })}
+          >
             바로 결제
-            <input
-              type="checkbox"
-              value="true"
-              hidden
-              checked={isBoolean(isImmediateReservation) && isImmediateReservation}
-              onChange={onChange}
-            />
-          </label>
+          </button>
         </li>
-      </HorizonDraggable>
+      </menu>
     </section>
   );
 };

@@ -30,6 +30,8 @@ export interface AdditionalServiceReservation {
 }
 
 export interface ServiceTitle {
+  /** id */
+  id: string;
   /** 이름 */
   name: string;
   /** 서비스 리스트 */

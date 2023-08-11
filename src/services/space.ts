@@ -36,6 +36,10 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   maxSize: number | null;
   /** 서비스 id들 (,를 통해 구분합니다.) */
   serviceIds: string | null;
+  /** 최소 가격 */
+  minPrice: number | null;
+  /** 최대 가격 */
+  maxPrice: number | null;
   /** 결제 유형 */
   isImmediateReservation: boolean | null;
   sort: SpaceSort;

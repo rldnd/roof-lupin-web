@@ -4,7 +4,7 @@ import cx from "clsx";
 
 import styles from "./button.module.scss";
 
-type Color = "primary" | "secondary";
+type Color = "primary" | "secondary" | "bw";
 
 interface Props extends ComponentProps<"button"> {
   color: Color;

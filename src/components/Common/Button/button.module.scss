@@ -47,6 +47,22 @@
       border-color: var(--c-gray-400);
     }
   }
+
+  @if $color == "bw" {
+    color: var(--c-gray-500);
+    background-color: var(--c-white);
+    border: 1px solid var(--c-gray-500);
+
+    &:active {
+      background-color: var(--c-gray-150);
+    }
+
+    &:disabled {
+      color: var(--c-gray-250);
+      background-color: var(--c-gray-150);
+      border-color: var(--c-gray-250);
+    }
+  }
 }
 
 .wrapper {
@@ -60,6 +76,10 @@
 
   &.secondary {
     @include _color("secondary");
+  }
+
+  &.bw {
+    @include _color("bw");
   }
 
   &.full {
