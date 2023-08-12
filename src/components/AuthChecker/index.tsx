@@ -2,9 +2,7 @@
 
 import { type MouseEventHandler, type ReactNode, useCallback } from "react";
 
-import { useRouter } from "next/navigation";
-
-import { useToast } from "@/hooks";
+import { useLoginSheet } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 
 interface Props {
@@ -13,19 +11,17 @@ interface Props {
 }
 
 const AuthChecker: React.FC<Props> = ({ className, children }) => {
+  const { openSheet } = useLoginSheet();
   const { isLogined } = useMe();
-  const { addToast } = useToast();
-  const { push } = useRouter();
 
   const onClickCapture: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
       if (!isLogined) {
         e.stopPropagation();
-        addToast({ message: "로그인이 필요합니다." });
-        push("/auth/login");
+        openSheet();
       }
     },
-    [addToast, isLogined, push],
+    [isLogined, openSheet],
   );
 
   return (

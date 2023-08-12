@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  width: 100%;
+  padding: 48px c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: var(--c-white);
+
+  .logo {
+    object-fit: contain;
+    margin-bottom: 28px;
+  }
+
+  .desc {
+    @include m.fontH4SemiBold;
+    margin-bottom: 60px;
+    color: var(--c-gray-800);
+  }
+
+  .closeButton {
+    @include m.fontH4Regular;
+    margin-top: 40px;
+    color: var(--c-gray-600);
+    text-decoration: underline;
+  }
+}
