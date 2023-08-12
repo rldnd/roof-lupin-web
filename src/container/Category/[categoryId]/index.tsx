@@ -5,13 +5,12 @@ import { getHomeCategoriesApi } from "@/services/home";
 import { Content } from "./Content";
 import { Filter } from "./Filter";
 import { Header } from "./Header";
-import { TabBar } from "./TabBar";
+import TabBar from "./TabBar";
 
 import styles from "./categoryContainer.module.scss";
 
-export default async function CategoryContainer() {
+export default async function CategoryDetailContainer() {
   const categories = await getHomeCategoriesApi();
-  const ids = categories.map((category) => category.id);
 
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
@@ -19,7 +18,7 @@ export default async function CategoryContainer() {
         <Header />
         <TabBar categories={categories} />
         <Filter />
-        <Content ids={ids} />
+        <Content />
       </div>
     </ToastPositioner>
   );

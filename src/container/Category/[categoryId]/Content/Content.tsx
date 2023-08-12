@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
-import { notFound, useSearchParams } from "next/navigation";
-
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { range } from "lodash-es";
 import { useUpdateEffect } from "react-use";
 
@@ -17,26 +15,15 @@ import { categorySortMenuState } from "@/states";
 
 import styles from "./content.module.scss";
 
-interface Props {
-  ids: string[];
-}
-
-const Content: React.FC<Props> = ({ ids }) => {
-  const searchParams = useSearchParams();
-  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
+const Content: React.FC = () => {
+  const { categoryId } = useParams();
+  const categorySortMenu = useAtomValue(categorySortMenuState);
 
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
-    ["paginateSpaces", categorySortMenu],
-    ({ pageParam = 1 }) => paginateSpacesApi({ page: pageParam, limit: 10, ...categorySortMenu }),
-    {
-      enabled: Boolean(categorySortMenu.categoryIds),
-    },
+    ["paginateSpaces", categorySortMenu, categoryId],
+    ({ pageParam = 1 }) =>
+      paginateSpacesApi({ page: pageParam, limit: 10, ...categorySortMenu, categoryIds: categoryId }),
   );
-
-  useEffect(() => {
-    if (!searchParams.get("categoryId") || !ids.includes(searchParams.get("categoryId")!)) notFound();
-    setCategorySortMenu((prev) => ({ ...prev, categoryIds: searchParams.get("categoryId") }));
-  }, [ids, searchParams, setCategorySortMenu]);
 
   useUpdateEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,11 +35,11 @@ const Content: React.FC<Props> = ({ ids }) => {
         className={styles.spaceList}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
-        isFetching={isFetching || !categorySortMenu.categoryIds}
+        isFetching={isFetching}
         isSuccess={isSuccess}
-        loadingComponent={<LoadingContent />}
+        loadingComponentInList={<LoadingContentItems />}
       >
-        {data?.pages.map((space) => (
+        {data.pages.map((space) => (
           <SpaceDetailCard className={styles.space} key={space.id} space={space} href={`/spaces/${space.id}`}>
             <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
           </SpaceDetailCard>
@@ -64,13 +51,21 @@ const Content: React.FC<Props> = ({ ids }) => {
 
 export default Content;
 
+export const LoadingContentItems: React.FC = () => {
+  return (
+    <>
+      {range(10).map((value) => (
+        <LoadingSpaceDetailCard key={value} className={styles.space} />
+      ))}
+    </>
+  );
+};
+
 export const LoadingContent: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.spaceList}>
-        {range(10).map((value) => (
-          <LoadingSpaceDetailCard key={value} className={styles.space} />
-        ))}
+        <LoadingContentItems />
       </div>
     </div>
   );

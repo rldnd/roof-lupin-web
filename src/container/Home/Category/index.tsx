@@ -12,7 +12,7 @@ const Category: React.FC<Props> = ({ categories }) => {
   return (
     <nav className={styles.wrapper}>
       {categories.map((category) => (
-        <Link key={category.id} className={styles.item} href={`/categories?categoryId=${category.id}`}>
+        <Link key={category.id} className={styles.item} href={`/categories/${category.id}`}>
           <div className={styles.imageWrapper}>
             <img src={category.iconPath} alt={`${category.name} 카테고리 이미지`} />
           </div>

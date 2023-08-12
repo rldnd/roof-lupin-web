@@ -40,7 +40,7 @@ const SpaceBookmark: React.FC<Props> = ({ id, initialIsInterested, refetch }) =>
   return (
     <AuthChecker className={styles.wrapper}>
       <button type="button" onClick={handleClick} className={styles.bookmark}>
-        {isActive && <IconBookmarkActive />}
+        {Boolean(isActive) && <IconBookmarkActive />}
         {!isActive && <IconBookmarkInactive />}
       </button>
     </AuthChecker>
