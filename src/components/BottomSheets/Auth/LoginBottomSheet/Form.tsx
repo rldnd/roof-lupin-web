@@ -2,8 +2,6 @@
 
 import React, { type MouseEventHandler, useState } from "react";
 
-import { useRouter } from "next/navigation";
-
 import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
 import { Button, Loading, PlatformButton } from "@/components";
@@ -15,10 +13,12 @@ import { IconApple, IconKakao, IconNaver } from "public/icons";
 
 import styles from "./form.module.scss";
 
-const Form: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  close: () => void;
+}
 
-  const { replace } = useRouter();
+const Form: React.FC<Props> = ({ close }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useWebview();
 
   const onLoginKakaoWebview = () => {
@@ -35,7 +35,8 @@ const Form: React.FC = () => {
     setIsLoading(true);
     const { data } = await apiClient.get<Token>("/auth/test");
     setTokens(data);
-    replace("/");
+    setIsLoading(false);
+    close();
   };
 
   return (

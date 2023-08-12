@@ -2,6 +2,8 @@
 
 import { FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { useAtom, useSetAtom } from "jotai";
 
 import { BottomSheetPortal } from "@/components/Common";
@@ -40,6 +42,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   overflowUserCost,
   overflowUserCount,
 }) => {
+  const { replace } = useRouter();
   const { set, getQueryStringWithPath } = useQueryString();
   const { addToast } = useToast();
 
@@ -55,12 +58,12 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
     e.preventDefault();
 
     const { year, month, day, userCount } = localInfo;
-    window.history.replaceState(null, "", getQueryStringWithPath(set({ year, month, day, userCount })));
     setTime(initialReservationTime);
     setPackage([]);
     setAdditionalServices({});
     setReservation((prev) => ({ ...prev, year, month, day, userCount }));
     setDepositConfirm(false);
+    replace(getQueryStringWithPath(set({ year, month, day, userCount })));
     onClose();
   };
 
