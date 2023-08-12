@@ -13,16 +13,20 @@ interface Props extends Omit<ComponentProps<"input">, "onSubmit" | "onReset"> {
   onReset?: FormEventHandler<HTMLFormElement>;
 }
 
-const SearchInput: React.FC<Props> = ({ className, onSubmit, onReset, ...props }) => {
+const SearchInput: React.FC<Props> = ({ className, onSubmit, onReset, value, ...props }) => {
   return (
     <form className={cx(styles.wrapper, className)} onSubmit={onSubmit} onReset={onReset}>
-      <input type="search" {...props} />
-      <button type="submit" className={styles.searchButton}>
-        <IconGraySearch />
-      </button>
-      <button type="reset" className={styles.clearButton}>
-        <IconCloseFilled />
-      </button>
+      <input type="search" value={value} {...props} />
+      {!value && (
+        <button type="submit" className={styles.searchButton}>
+          <IconGraySearch />
+        </button>
+      )}
+      {Boolean(value) && (
+        <button type="reset" className={styles.clearButton}>
+          <IconCloseFilled />
+        </button>
+      )}
     </form>
   );
 };

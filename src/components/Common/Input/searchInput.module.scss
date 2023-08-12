@@ -30,26 +30,6 @@ $BUTTON_HEIGHT: 36px;
     }
   }
 
-  &:has(input:placeholder-shown) {
-    .searchButton {
-      display: flex;
-    }
-
-    .clearButton {
-      display: none;
-    }
-  }
-
-  &:not(:has(input:placeholder-shown)) {
-    .searchButton {
-      display: none;
-    }
-
-    .clearButton {
-      display: flex;
-    }
-  }
-
   > button {
     @include m.absolute(50% 8px auto auto);
     @include m.flex;
