@@ -6,6 +6,7 @@ import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
 import { Button, Loading, PlatformButton } from "@/components";
 import { usePlatform, useWebview } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { apiClient } from "@/services/apiClient";
 import { setTokens } from "@/utils/auth";
 
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ close }) => {
+  const { refetchMe } = useMe();
   const { isIosWebview } = usePlatform();
   const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useWebview();
@@ -37,6 +39,7 @@ const Form: React.FC<Props> = ({ close }) => {
     const { data } = await apiClient.get<Token>("/auth/test");
     setTokens(data);
     setIsLoading(false);
+    refetchMe();
     close();
   };
 

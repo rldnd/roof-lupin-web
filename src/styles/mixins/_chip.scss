@@ -108,8 +108,11 @@
   }
 
   &.active {
-    @include color.filterRoofOrange;
     color: var(--c-roof-orange);
     background-color: var(--c-orange-bg);
+
+    svg {
+      @include color.filterRoofOrange;
+    }
   }
 }

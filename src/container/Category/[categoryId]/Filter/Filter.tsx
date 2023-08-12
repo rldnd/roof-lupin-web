@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 
 import cx from "clsx";
 import { useAtomValue } from "jotai";
+import { isBoolean } from "lodash-es";
 
 import { SPACE_SORT_MAPPER } from "@/common/constants/space";
 import { CategoryDetailFilterBottomSheet, CategorySortBottomSheet } from "@/components/BottomSheets/Category";
@@ -23,6 +24,8 @@ const Filter: React.FC = () => {
   const [isShowCategorySortBottomSheet, setIsShowCategorySortBottomSheet] = useState(false);
   const [isShowCategoryDetailBottomSheet, setIsShowCategoryDetailBottomSheet] = useState(false);
 
+  const isFilterActive = isBoolean(categorySortMenu.isImmediateReservation) || Boolean(categorySortMenu.serviceIds);
+
   return (
     <>
       <section className={cx(styles.wrapper, styles[scrollDirection])}>
@@ -33,7 +36,7 @@ const Filter: React.FC = () => {
           <li>
             <button
               type="button"
-              className={styles.filterButton}
+              className={cx(styles.filterButton, { [styles.active]: isFilterActive })}
               onClick={() => setIsShowCategoryDetailBottomSheet(true)}
             >
               <IconFilter />
