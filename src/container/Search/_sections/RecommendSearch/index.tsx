@@ -28,7 +28,9 @@ const RecommendSearch: React.FC = () => {
       <HorizonDraggable component="menu" className={styles.list}>
         {recommends.map((recommend) => (
           <li key={recommend.id}>
-            <button type="button">{recommend.content}</button>
+            <button type="button" className={styles.tagButton}>
+              {recommend.content}
+            </button>
           </li>
         ))}
       </HorizonDraggable>

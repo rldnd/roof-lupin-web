@@ -36,11 +36,11 @@ export const LoadingRecentSpace: React.FC = () => {
   return (
     <section className={styles.wrapper}>
       <h2>최근 본 공간</h2>
-      <ul className={styles.list}>
+      <HorizonDraggable className={styles.list}>
         {range(3).map((value) => (
           <LoadingSpaceNameCard key={value} />
         ))}
-      </ul>
+      </HorizonDraggable>
     </section>
   );
 };
