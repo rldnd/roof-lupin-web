@@ -101,10 +101,7 @@ const useTossPayment = (): ReturnUseTossPayment => {
       if (!isPaymentWidgetInstance(paymentWidget)) return;
 
       try {
-        await paymentWidget.requestPayment({
-          ...(args as any),
-          successUrl: `http://localhost:3000${args.successUrl.replace("https://web.rooflupin.com", "")}`,
-        });
+        await paymentWidget.requestPayment(args as any);
         clearWidgets();
       } catch (error) {
         addToast({ message: "결제가 취소되었습니다." });
