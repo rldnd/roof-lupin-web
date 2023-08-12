@@ -1,0 +1,29 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 24px c.$S_PAGE_HORIZONTAL_PADDING 0;
+
+  .image {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 327 / 188;
+  }
+
+  .title {
+    @include m.fontH2;
+    margin: 24px 0 16px;
+    color: var(--c-black);
+  }
+
+  .desc {
+    @include m.fontBody1Regular;
+    color: var(--c-gray-500);
+
+    > span {
+      @include m.fontBody1SemiBold;
+      color: var(--c-roof-orange);
+    }
+  }
+}

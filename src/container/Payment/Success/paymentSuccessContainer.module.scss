@@ -2,17 +2,20 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(center, center, column);
   width: 100%;
   height: 100%;
-  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  padding-top: c.$S_BASE_HEADER_HEIGHT;
 
-  h1 {
-    @include m.fontH1;
-    color: var(--c-gray-900);
-  }
+  .content {
+    width: 100%;
 
-  button {
-    margin-top: 40px;
+    hr {
+      display: inline-block;
+      width: 100%;
+      height: 4px;
+      margin: 32px 0;
+      background-color: var(--c-gray-150);
+      border: 0;
+    }
   }
 }

@@ -57,9 +57,10 @@ const BottomSection: React.FC = () => {
             </Fragment>
           ))}
         </DataItem>
+        <DataItem label="결제 예정 금액">{data.totalCost.toLocaleString("ko-KR")}원</DataItem>
       </DataList>
       <Button type="button" color="secondary" full>
-        예약 신청 내역 바로가기
+        예약 내역 확인
       </Button>
     </section>
   );
@@ -76,7 +77,7 @@ export const LoadingBottomSection: React.FC = () => {
         <LoadingDataItem />
       </DataList>
       <Button type="button" color="secondary" full disabled>
-        예약 신청 내역 바로가기
+        예약 내역 확인
       </Button>
     </section>
   );

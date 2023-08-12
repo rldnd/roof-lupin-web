@@ -42,8 +42,6 @@ const TimeAndPackage: React.FC = () => {
   const [reservationPackage, setReservationPackage] = useAtom(reservationPackageState);
   const setReservationAdditionalServices = useSetAtom(reservationAdditionalServicesState);
 
-  console.log(reservationTime.endAt);
-
   const { year, month, day } = reservation;
 
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(

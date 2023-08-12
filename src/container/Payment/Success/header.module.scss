@@ -1,0 +1,28 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(0 auto auto 50%);
+  @include m.flex(flex-start);
+  z-index: c.$Z_HEADER;
+  gap: 16px;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 18px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+
+  .closeButton {
+    @include m.flex;
+    width: 40px;
+    height: 40px;
+  }
+
+  .title {
+    @include m.fontH3SemiBold;
+    @include m.makeEllipsis;
+    flex: 1;
+    color: var(--c-black);
+  }
+}
