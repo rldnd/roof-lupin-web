@@ -5,7 +5,7 @@ import React, { type MouseEventHandler, useState } from "react";
 import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
 import { Button, Loading, PlatformButton } from "@/components";
-import { useWebview } from "@/hooks";
+import { usePlatform, useWebview } from "@/hooks";
 import { apiClient } from "@/services/apiClient";
 import { setTokens } from "@/utils/auth";
 
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ close }) => {
+  const { isIosWebview } = usePlatform();
   const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useWebview();
 
@@ -57,10 +58,12 @@ const Form: React.FC<Props> = ({ close }) => {
           <IconNaver />
           네이버로 계속하기
         </button>
-        <button type="button" onClick={onClickSocial} data-social="apple" title="애플 로그인">
-          <IconApple />
-          Apple로 계속하기
-        </button>
+        {isIosWebview && (
+          <button type="button" onClick={onClickSocial} data-social="apple" title="애플 로그인">
+            <IconApple />
+            Apple로 계속하기
+          </button>
+        )}
         <Button type="button" color="primary" full onClick={onClickTestLogin}>
           테스트 로그인
         </Button>

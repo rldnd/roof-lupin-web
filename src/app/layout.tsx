@@ -15,10 +15,10 @@ import NavigationStore from "./NavigationHandler";
 import PlatformChecker from "./PlatformChecker";
 import Providers from "./Providers";
 import PushTokenHandler from "./PushTokenHandler";
-
-import "@/styles/global.scss";
+import WindowSizeHandler from "./WindowSizeHandler";
 
 import styles from "./layout.module.scss";
+import "@/styles/global.scss";
 
 export const metadata: Metadata = {
   title: {
@@ -39,15 +39,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_API_LOCAL_URL as string),
 };
 
-// TODO: 안드로이드 resize ( dvh 지원 X )
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body className={suit.className}>
         <NextTopLoader showSpinner={false} height={4} color="#eb4824" crawl />
         <Providers>
-          <div className={styles.background} />
-          <div className={styles.wrapper}>{children}</div>
+          <div className={styles.background} id="layout-background" />
+          <div className={styles.wrapper} id="layout-content">
+            {children}
+          </div>
           <div id="modal" />
           <div id="toast" />
           <div id="bottom-sheet" />
@@ -60,6 +61,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PlatformChecker />
           </Suspense>
         </Providers>
+        <Suspense fallback={null}>
+          <WindowSizeHandler />
+        </Suspense>
         <Suspense fallback={null}>
           <NavigationStore />
         </Suspense>

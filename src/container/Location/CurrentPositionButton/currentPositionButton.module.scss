@@ -3,7 +3,8 @@
 
 .wrapper {
   @include m.absolute(
-    auto c.$S_PAGE_HORIZONTAL_PADDING calc(c.$S_LOCATION_BOTTOM_DRAWER_MIN_HEIGHT + c.$S_PAGE_HORIZONTAL_PADDING) auto
+    auto c.$S_PAGE_HORIZONTAL_PADDING
+      calc(c.$S_LOCATION_BOTTOM_DRAWER_MIN_HEIGHT - c.$S_BOTTOM_NAVIGATION_HEIGHT + 24px) auto
   );
   @include m.flex;
   z-index: calc(c.$Z_BOTTOM_DRAWER - 1);

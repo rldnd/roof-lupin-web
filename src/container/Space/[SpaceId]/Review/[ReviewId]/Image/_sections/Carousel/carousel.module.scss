@@ -3,17 +3,17 @@
 
 .wrapper {
   width: 100%;
-  height: calc(100dvh - c.$S_BASE_HEADER_HEIGHT);
+  height: calc(100vh - c.$S_BASE_HEADER_HEIGHT);
   background-color: var(--c-black);
 
   .slider {
     width: 100%;
-    height: calc(100dvh - c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
+    height: calc(100vh - c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
     padding-top: calc(c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
 
     .image {
       width: 100%;
-      height: calc(100dvh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
+      height: calc(100vh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
       object-fit: cover;
     }
 
@@ -41,7 +41,7 @@
   }
 
   .skeleton {
-    height: calc(100dvh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
+    height: calc(100vh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
     margin-top: calc(c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
     border-radius: 0;
   }
