@@ -20,7 +20,7 @@ const useScrollBlock = (): ReturnUseScrollBlock => {
     const body = document.getElementsByTagName("body")[0];
     if (body) {
       body.style.overflow = "hidden";
-      body.addEventListener("touchmove", handler);
+      body.addEventListener("touchmove", handler, { passive: false });
     }
   }, []);
 

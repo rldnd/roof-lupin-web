@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 
 import cx from "classnames";
 import { CSSTransition } from "react-transition-group";
+import { useUnmount } from "react-use";
 
 import { useClientEffect, useScrollBlock } from "@/hooks";
 
@@ -46,6 +47,10 @@ const BottomSheetPortal: React.FC<Props> = ({
     if (isShow) block();
     if (!isShow) unBlock();
   }, [isShow, blockWindowScroll, block, unBlock]);
+
+  useUnmount(() => {
+    unBlock();
+  });
 
   return createPortal(
     <CSSTransition
