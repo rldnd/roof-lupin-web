@@ -9,7 +9,6 @@ interface ReturnUseScrollBlock {
 
 const useScrollBlock = (): ReturnUseScrollBlock => {
   const handler = (e: Event) => {
-    e.preventDefault();
     e.stopPropagation();
     return false;
   };
@@ -20,7 +19,7 @@ const useScrollBlock = (): ReturnUseScrollBlock => {
     const body = document.getElementsByTagName("body")[0];
     if (body) {
       body.style.overflow = "hidden";
-      body.addEventListener("touchmove", handler, { passive: false });
+      body.addEventListener("touchmove", handler);
     }
   }, []);
 

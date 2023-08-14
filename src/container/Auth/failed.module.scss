@@ -4,7 +4,7 @@
 .wrapper {
   @include m.flex(center, center, column);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
   h1 {
