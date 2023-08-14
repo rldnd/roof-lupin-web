@@ -8,7 +8,7 @@ import { useAtom, useAtomValue } from "jotai";
 
 import { AuthChecker } from "@/components";
 import { SpaceReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
-import { categorySortMenuState, spaceReservationInfoState } from "@/states";
+import { spaceReservationInfoState, spaceSortMenuState } from "@/states";
 import { dayjs } from "@/utils/date";
 import { getBeforeNavigationUrl } from "@/utils/navigation";
 
@@ -27,7 +27,7 @@ interface Props {
 const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount }) => {
   const { spaceId } = useParams();
   const [spaceReservationInfo, setSpaceReservationInfo] = useAtom(spaceReservationInfoState);
-  const categorySortMenu = useAtomValue(categorySortMenuState);
+  const spaceSortMenu = useAtomValue(spaceSortMenuState);
 
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
 
@@ -35,11 +35,11 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   const time = dayjs(`${year}-${month}-${day}`).format("MM월 DD일 (ddd)");
 
   useEffect(() => {
-    const { year, month, day, userCount } = categorySortMenu;
+    const { year, month, day, userCount } = spaceSortMenu;
     const beforeUrl = getBeforeNavigationUrl();
     if (beforeUrl?.includes(`/spaces/${spaceId}`)) return;
     setSpaceReservationInfo(() => ({ year, month, day, userCount: maxUser < userCount ? maxUser : userCount }));
-  }, [categorySortMenu, maxUser, setSpaceReservationInfo, spaceId]);
+  }, [spaceSortMenu, maxUser, setSpaceReservationInfo, spaceId]);
 
   return (
     <>

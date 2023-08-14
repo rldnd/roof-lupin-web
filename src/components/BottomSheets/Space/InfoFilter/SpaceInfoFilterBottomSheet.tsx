@@ -6,25 +6,25 @@ import { useAtom } from "jotai";
 import { range } from "lodash-es";
 
 import { BottomSheetPortal, CategoryTimePicker } from "@/components";
-import { type CategorySortMenuInfoFilter, categorySortMenuState, initialCategorySortMenu } from "@/states";
+import { initialSpaceSortMenu, type SpaceSortMenuInfoFilter, spaceSortMenuState } from "@/states";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";
 import Header from "./Header";
 import SubmitButton from "./SubmitButton";
 import { DayBar, UserStepper } from "../../_shared";
 
-import styles from "./categoryInfoFilterBottomSheet.module.scss";
+import styles from "./spaceInfoFilterBottomSheet.module.scss";
 
 interface Props {
   isShow: boolean;
   onClose: () => void;
 }
 
-const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
-  const [info, setInfo] = useAtom(categorySortMenuState);
+const SpaceInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+  const [info, setInfo] = useAtom(spaceSortMenuState);
   const { year, month, day, userCount, startAt, endAt } = info;
 
-  const [localInfo, setLocalInfo] = useState<CategorySortMenuInfoFilter>({
+  const [localInfo, setLocalInfo] = useState<SpaceSortMenuInfoFilter>({
     year,
     month,
     day,
@@ -41,7 +41,7 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   };
 
   const onReset = useCallback(() => {
-    const { year, month, day, userCount, startAt, endAt } = initialCategorySortMenu;
+    const { year, month, day, userCount, startAt, endAt } = initialSpaceSortMenu;
     setLocalInfo({ year, month, day, userCount, startAt, endAt });
   }, []);
 
@@ -127,4 +127,4 @@ const CategoryInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => 
   );
 };
 
-export default CategoryInfoFilterBottomSheet;
+export default SpaceInfoFilterBottomSheet;

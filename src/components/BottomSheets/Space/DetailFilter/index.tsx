@@ -5,22 +5,22 @@ import { FormEventHandler, Suspense, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
 import { BaseBottomSheet } from "@/components/Common";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 
 import Footer from "./Footer";
 import PaymentCategory from "./PaymentCategory";
 import Service from "./Service";
 
-import styles from "./categoryDetailFilterBottomSheet.module.scss";
+import styles from "./spaceDetailFilterBottomSheet.module.scss";
 
 interface Props {
   isShow: boolean;
   onClose: () => void;
 }
 
-const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
-  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
-  const [localMenu, setLocalMenu] = useState(categorySortMenu);
+const SpaceDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+  const [spaceSortMenu, setSpaceSortMenu] = useAtom(spaceSortMenuState);
+  const [localMenu, setLocalMenu] = useState(spaceSortMenu);
 
   const onReset = () => {
     setLocalMenu((prev) => ({
@@ -37,13 +37,13 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    setCategorySortMenu(localMenu);
+    setSpaceSortMenu(localMenu);
     onClose();
   };
 
   useEffect(() => {
-    setLocalMenu(categorySortMenu);
-  }, [categorySortMenu]);
+    setLocalMenu(spaceSortMenu);
+  }, [spaceSortMenu]);
 
   return (
     <BaseBottomSheet
@@ -69,4 +69,4 @@ const CategoryDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) =
   );
 };
 
-export default CategoryDetailFilterBottomSheet;
+export default SpaceDetailFilterBottomSheet;

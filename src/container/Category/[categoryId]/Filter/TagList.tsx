@@ -6,10 +6,10 @@ import { useAtomValue } from "jotai";
 
 import { LocationFilter } from "@/common/types/location";
 import { HorizonDraggable } from "@/components";
-import { CategoryInfoFilterBottomSheet, CategoryLocationFilterBottomSheet } from "@/components/BottomSheets/Category";
+import { SpaceInfoFilterBottomSheet, SpaceLocationFilterBottomSheet } from "@/components/BottomSheets/Space";
 import { useSuspenseQuery } from "@/hooks";
 import { getLocationFiltersApi } from "@/services/location";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 import { addHour, getNextDayText } from "@/utils/time";
 
 import { IconCategoryFilterCalendar, IconCategoryFilterLocation, IconCategoryFilterUser } from "public/icons";
@@ -19,7 +19,7 @@ import styles from "./tagList.module.scss";
 const TagList: React.FC = () => {
   const [isShowInfoFilter, setIsShowInfoFilter] = useState(false);
   const [isShowLocationFilter, setIsShowLocationFilter] = useState(false);
-  const { month, day, startAt, endAt, userCount, locationFilterTopicIds } = useAtomValue(categorySortMenuState);
+  const { month, day, startAt, endAt, userCount, locationFilterTopicIds } = useAtomValue(spaceSortMenuState);
 
   const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], () => getLocationFiltersApi());
 
@@ -64,8 +64,8 @@ const TagList: React.FC = () => {
           </button>
         </li>
       </HorizonDraggable>
-      <CategoryInfoFilterBottomSheet isShow={isShowInfoFilter} onClose={() => setIsShowInfoFilter(false)} />
-      <CategoryLocationFilterBottomSheet isShow={isShowLocationFilter} onClose={() => setIsShowLocationFilter(false)} />
+      <SpaceInfoFilterBottomSheet isShow={isShowInfoFilter} onClose={() => setIsShowInfoFilter(false)} />
+      <SpaceLocationFilterBottomSheet isShow={isShowLocationFilter} onClose={() => setIsShowLocationFilter(false)} />
     </>
   );
 };

@@ -7,9 +7,9 @@ import { useAtomValue } from "jotai";
 import { isBoolean } from "lodash-es";
 
 import { SPACE_SORT_MAPPER } from "@/common/constants/space";
-import { CategoryDetailFilterBottomSheet, CategorySortBottomSheet } from "@/components/BottomSheets/Category";
+import { SpaceDetailFilterBottomSheet, SpaceSortBottomSheet } from "@/components/BottomSheets/Space";
 import { useScrollDirection } from "@/hooks";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 
 import { IconBottomCaret, IconFilter } from "public/icons";
 
@@ -20,11 +20,11 @@ import styles from "./filter.module.scss";
 const Filter: React.FC = () => {
   const scrollDirection = useScrollDirection();
 
-  const categorySortMenu = useAtomValue(categorySortMenuState);
-  const [isShowCategorySortBottomSheet, setIsShowCategorySortBottomSheet] = useState(false);
-  const [isShowCategoryDetailBottomSheet, setIsShowCategoryDetailBottomSheet] = useState(false);
+  const spaceSortMenu = useAtomValue(spaceSortMenuState);
+  const [isShowSpaceSortBottomSheet, setIsShowSpaceSortBottomSheet] = useState(false);
+  const [isShowSpaceDetailBottomSheet, setIsShowSpaceDetailBottomSheet] = useState(false);
 
-  const isFilterActive = isBoolean(categorySortMenu.isImmediateReservation) || Boolean(categorySortMenu.serviceIds);
+  const isFilterActive = isBoolean(spaceSortMenu.isImmediateReservation) || Boolean(spaceSortMenu.serviceIds);
 
   return (
     <>
@@ -37,27 +37,24 @@ const Filter: React.FC = () => {
             <button
               type="button"
               className={cx(styles.filterButton, { [styles.active]: isFilterActive })}
-              onClick={() => setIsShowCategoryDetailBottomSheet(true)}
+              onClick={() => setIsShowSpaceDetailBottomSheet(true)}
             >
               <IconFilter />
               필터
             </button>
           </li>
           <li>
-            <button type="button" className={styles.sortButton} onClick={() => setIsShowCategorySortBottomSheet(true)}>
-              {SPACE_SORT_MAPPER[categorySortMenu.sort]}
+            <button type="button" className={styles.sortButton} onClick={() => setIsShowSpaceSortBottomSheet(true)}>
+              {SPACE_SORT_MAPPER[spaceSortMenu.sort]}
               <IconBottomCaret />
             </button>
           </li>
         </menu>
       </section>
-      <CategorySortBottomSheet
-        isShow={isShowCategorySortBottomSheet}
-        onClose={() => setIsShowCategorySortBottomSheet(false)}
-      />
-      <CategoryDetailFilterBottomSheet
-        isShow={isShowCategoryDetailBottomSheet}
-        onClose={() => setIsShowCategoryDetailBottomSheet(false)}
+      <SpaceSortBottomSheet isShow={isShowSpaceSortBottomSheet} onClose={() => setIsShowSpaceSortBottomSheet(false)} />
+      <SpaceDetailFilterBottomSheet
+        isShow={isShowSpaceDetailBottomSheet}
+        onClose={() => setIsShowSpaceDetailBottomSheet(false)}
       />
     </>
   );

@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/Common";
-import type { CategorySortMenuInfoFilter } from "@/states";
+import type { SpaceSortMenuInfoFilter } from "@/states";
 import { addHour, getNextDayText } from "@/utils/time";
 
 import styles from "./submitButton.module.scss";
 
 interface Props {
-  localInfo: CategorySortMenuInfoFilter;
+  localInfo: SpaceSortMenuInfoFilter;
 }
 
 const SubmitButton: React.FC<Props> = ({ localInfo }) => {

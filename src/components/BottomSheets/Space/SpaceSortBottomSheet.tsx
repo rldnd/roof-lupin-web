@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { SPACE_SORT_MAPPER } from "@/common/constants/space";
 import type { SpaceSort } from "@/common/types/space";
 import { BaseBottomSheet } from "@/components/Common";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 
 import { SortMenu, SortMenuItem } from "../_shared";
 
@@ -16,14 +16,14 @@ interface Props {
   onClose: MouseEventHandler<HTMLElement>;
 }
 
-const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
-  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
+const SpaceSortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+  const [spaceSortMenu, setSpaceSortMenu] = useAtom(spaceSortMenuState);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const sort = e.currentTarget.dataset.sort as SpaceSort;
 
     startTransition(() => {
-      setCategorySortMenu((prev) => ({ ...prev, sort }));
+      setSpaceSortMenu((prev) => ({ ...prev, sort }));
     });
 
     onClose(e);
@@ -32,16 +32,16 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} title="정렬" blockWindowScroll>
       <SortMenu>
-        <SortMenuItem isActive={categorySortMenu.sort === "RECENT"} onClick={onClick} data-sort="RECENT">
+        <SortMenuItem isActive={spaceSortMenu.sort === "RECENT"} onClick={onClick} data-sort="RECENT">
           {SPACE_SORT_MAPPER["RECENT"]}
         </SortMenuItem>
-        <SortMenuItem isActive={categorySortMenu.sort === "POPULARITY"} onClick={onClick} data-sort="POPULARITY">
+        <SortMenuItem isActive={spaceSortMenu.sort === "POPULARITY"} onClick={onClick} data-sort="POPULARITY">
           {SPACE_SORT_MAPPER["POPULARITY"]}
         </SortMenuItem>
-        <SortMenuItem isActive={categorySortMenu.sort === "PRICE_HIGH"} onClick={onClick} data-sort="PRICE_HIGH">
+        <SortMenuItem isActive={spaceSortMenu.sort === "PRICE_HIGH"} onClick={onClick} data-sort="PRICE_HIGH">
           {SPACE_SORT_MAPPER["PRICE_HIGH"]}
         </SortMenuItem>
-        <SortMenuItem isActive={categorySortMenu.sort === "PRICE_LOW"} onClick={onClick} data-sort="PRICE_LOW">
+        <SortMenuItem isActive={spaceSortMenu.sort === "PRICE_LOW"} onClick={onClick} data-sort="PRICE_LOW">
           {SPACE_SORT_MAPPER["PRICE_LOW"]}
         </SortMenuItem>
       </SortMenu>
@@ -49,4 +49,4 @@ const CategorySortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   );
 };
 
-export default CategorySortBottomSheet;
+export default SpaceSortBottomSheet;

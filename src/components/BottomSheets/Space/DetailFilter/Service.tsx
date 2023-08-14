@@ -8,13 +8,13 @@ import { xor } from "lodash-es";
 import type { ServiceTitle } from "@/common/types/service";
 import { useSuspenseQuery } from "@/hooks";
 import { getServiceTitlesApi } from "@/services/service";
-import type { CategorySortMenu } from "@/states";
+import type { SpaceSortMenu } from "@/states";
 
 import styles from "./service.module.scss";
 
 interface Props {
   serviceIds: string | null;
-  setLocalMenu: Dispatch<SetStateAction<CategorySortMenu>>;
+  setLocalMenu: Dispatch<SetStateAction<SpaceSortMenu>>;
 }
 
 const Service: React.FC<Props> = ({ serviceIds: serviceIdString, setLocalMenu }) => {

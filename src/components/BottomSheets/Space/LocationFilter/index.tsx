@@ -5,24 +5,24 @@ import { type FormEventHandler, Suspense, useState } from "react";
 import { useAtom } from "jotai";
 
 import { BaseBottomSheet, Button } from "@/components/Common";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 
 import Content, { LoadingContent } from "./Content";
 
-import styles from "./categoryLocationFilterBottomSheet.module.scss";
+import styles from "./spaceLocationFilterBottomSheet.module.scss";
 
 interface Props {
   isShow: boolean;
   onClose: () => void;
 }
 
-const CategoryLocationFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
-  const [categorySortMenu, setCategorySortMenu] = useAtom(categorySortMenuState);
-  const [locationFilterTopicIds, setLocationFilterTopicIds] = useState(categorySortMenu.locationFilterTopicIds);
+const SpaceLocationFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+  const [spaceSortMenu, setSpaceSortMenu] = useAtom(spaceSortMenuState);
+  const [locationFilterTopicIds, setLocationFilterTopicIds] = useState(spaceSortMenu.locationFilterTopicIds);
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setCategorySortMenu((prev) => ({ ...prev, locationFilterTopicIds }));
+    setSpaceSortMenu((prev) => ({ ...prev, locationFilterTopicIds }));
     onClose();
   };
 
@@ -52,4 +52,4 @@ const CategoryLocationFilterBottomSheet: React.FC<Props> = ({ isShow, onClose })
   );
 };
 
-export default CategoryLocationFilterBottomSheet;
+export default SpaceLocationFilterBottomSheet;

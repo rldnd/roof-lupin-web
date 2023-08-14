@@ -11,23 +11,22 @@ import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/compo
 import { LoadingSpaceDetailCard } from "@/components/Space/Card/SpaceDetailCard";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { categorySortMenuState } from "@/states";
+import { spaceSortMenuState } from "@/states";
 
 import styles from "./content.module.scss";
 
 const Content: React.FC = () => {
   const { categoryId } = useParams();
-  const categorySortMenu = useAtomValue(categorySortMenuState);
+  const spaceSortMenu = useAtomValue(spaceSortMenuState);
 
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
-    ["paginateSpaces", categorySortMenu, categoryId],
-    ({ pageParam = 1 }) =>
-      paginateSpacesApi({ page: pageParam, limit: 10, ...categorySortMenu, categoryIds: categoryId }),
+    ["paginateSpaces", spaceSortMenu, categoryId],
+    ({ pageParam = 1 }) => paginateSpacesApi({ page: pageParam, limit: 10, ...spaceSortMenu, categoryIds: categoryId }),
   );
 
   useUpdateEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [categorySortMenu]);
+  }, [spaceSortMenu]);
 
   return (
     <main className={styles.wrapper}>

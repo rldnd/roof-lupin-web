@@ -4,13 +4,13 @@ import { type Dispatch, type MouseEventHandler, type SetStateAction } from "reac
 
 import cx from "clsx";
 
-import type { CategorySortMenu } from "@/states";
+import type { SpaceSortMenu } from "@/states";
 
 import styles from "./paymentCategory.module.scss";
 
 interface Props {
   isImmediateReservation: boolean | null;
-  setLocalMenu: Dispatch<SetStateAction<CategorySortMenu>>;
+  setLocalMenu: Dispatch<SetStateAction<SpaceSortMenu>>;
 }
 
 const PaymentCategory: React.FC<Props> = ({ isImmediateReservation, setLocalMenu }) => {
