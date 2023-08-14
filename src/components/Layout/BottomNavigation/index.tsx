@@ -76,15 +76,18 @@ const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) =
             <span>찜</span>
           </button>
         </AuthChecker>
-        <Link
-          className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/auth/login") })}
-          href="/auth/login"
-        >
-          <div className={styles.iconWrapper}>
-            <IconAvatar />
-          </div>
-          <span>마이</span>
-        </Link>
+        <AuthChecker>
+          <button
+            className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/my-page") })}
+            value="/my-page"
+            onClick={onClickButton}
+          >
+            <div className={styles.iconWrapper}>
+              <IconAvatar />
+            </div>
+            <span>마이</span>
+          </button>
+        </AuthChecker>
       </nav>
     </footer>
   );

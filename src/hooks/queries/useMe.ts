@@ -47,7 +47,10 @@ const useMe = (options?: Options): UseMeReturn => {
   const onLogout = useCallback(() => {
     removeTokens();
     setMe(null);
-  }, [setMe]);
+    queryClient.invalidateQueries({
+      predicate: (query) => !["getMe", "getMyPushToken"].includes(query.queryKey[0] as string),
+    });
+  }, [queryClient, setMe]);
 
   // TODO: migrate when alert completes
   useClientEffect(() => {
