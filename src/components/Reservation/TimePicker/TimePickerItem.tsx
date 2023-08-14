@@ -11,7 +11,7 @@ import styles from "./reservationTimePickerItem.module.scss";
 
 interface Props {
   info: PossibleTimeCostInfo;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   active: boolean;
 }
 

@@ -7,9 +7,10 @@ import styles from "./price.module.scss";
 
 interface Props {
   rentalType: SpaceRentalType;
+  spaceId: string;
 }
 
-const Price: React.FC<Props> = ({ rentalType }) => {
+const Price: React.FC<Props> = ({ rentalType, spaceId }) => {
   const { timeRentalType, packageRentalType } = rentalType;
 
   return (
@@ -24,7 +25,7 @@ const Price: React.FC<Props> = ({ rentalType }) => {
         )}
         {packageRentalType && <PriceItem title="패키지" minCost={packageRentalType.minPrice} />}
       </ul>
-      <ArrowLink href="" className={styles.link}>
+      <ArrowLink href={`/spaces/${spaceId}/prices`} className={styles.link}>
         자세히 보기
       </ArrowLink>
     </section>

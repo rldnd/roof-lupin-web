@@ -27,7 +27,7 @@ interface Props {
   className?: string;
   startAt: number | null;
   endAt: number | null;
-  onClickTime: MouseEventHandler<HTMLButtonElement>;
+  onClickTime?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ReservationTimePicker: React.FC<Props> = ({ infos, className, startAt, endAt, onClickTime }) => {

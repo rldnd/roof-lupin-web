@@ -49,14 +49,14 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <Suspense fallback={<LoadingCarousel />}>
           <Carousel slideCount={space.images.length}>
             {space.images.map((image) => (
-              <CarouselItem key={image.url} image={image} />
+              <CarouselItem key={image.url} image={image} spaceId={params.spaceId} />
             ))}
           </Carousel>
         </Suspense>
         <Introduction space={space} />
         <TabBar />
         <hr id="tab-bar-horizon" className={styles.tabBarHorizon} />
-        <Price rentalType={spaceRentalType} />
+        <Price rentalType={spaceRentalType} spaceId={params.spaceId} />
         <hr />
         <BestPhoto bestPhotos={space.bestPhotos} />
         <hr />

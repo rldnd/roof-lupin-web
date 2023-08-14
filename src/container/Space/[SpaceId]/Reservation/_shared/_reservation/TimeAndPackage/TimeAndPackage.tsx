@@ -16,7 +16,6 @@ import {
   ReservationTimePicker,
 } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
-import { useMe } from "@/hooks/queries";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import {
   BaseReservationAdditionalService,
@@ -32,10 +31,8 @@ import { isUnderTimeReservation } from "@/utils/rentalType";
 
 import styles from "./timeAndPackage.module.scss";
 
-// TODO: enabled에서 isLogined 제외하고, 추후 errorBoundary로 대체
 const TimeAndPackage: React.FC = () => {
   const { spaceId } = useParams();
-  const { isLogined } = useMe();
 
   const reservation = useAtomValue(reservationState);
   const [reservationTime, setReservationTime] = useAtom(reservationTimeState);
@@ -48,7 +45,7 @@ const TimeAndPackage: React.FC = () => {
     ["getSpaceRentalTypePossible", spaceId, year, month, day],
     () => getSpaceRentalTypePossibleApi({ spaceId, year: year!, month: month!, day: day! }),
     {
-      enabled: Boolean(year) && Boolean(month) && Boolean(day) && isLogined,
+      enabled: Boolean(year) && Boolean(month) && Boolean(day),
       onSuccess: (data) => {
         if (!data.time && data.package.length === 0) throw Error("예약 가능한 날짜가 아닙니다.");
       },
