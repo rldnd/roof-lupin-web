@@ -1,6 +1,12 @@
+/* stylelint-disable media-feature-name-no-unknown */
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
 .wrapper {
   width: 100%;
+  padding: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_SPACE_FILTER_MOBILE_HEIGHT) c.$S_PAGE_HORIZONTAL_PADDING 160px;
+
+  @media screen and (width >= c.$S_SPACE_GRID_BREAK_POINT) {
+    padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_SPACE_FILTER_DESKTOP_HEIGHT);
+  }
 }

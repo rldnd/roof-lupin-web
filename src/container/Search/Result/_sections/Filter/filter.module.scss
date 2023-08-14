@@ -2,10 +2,8 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
-$TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
-
 .wrapper {
-  @include m.fixed($TOP auto auto 50%);
+  @include m.fixed(c.$S_BASE_HEADER_HEIGHT auto auto 50%);
   @include m.flex(flex-start, center, column);
   z-index: c.$Z_SPACE_FILTER;
   gap: 12px;
@@ -30,7 +28,7 @@ $TOP: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT);
   }
 
   &.top {
-    top: $TOP;
+    top: c.$S_BASE_HEADER_HEIGHT;
   }
 
   &.down {

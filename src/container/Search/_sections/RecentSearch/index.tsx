@@ -44,7 +44,7 @@ const RecentSearch: React.FC = () => {
             <button
               type="button"
               className={styles.tagButton}
-              onClick={() => push(`/search/results?keyword=${record.content}`)}
+              onClick={() => push(`/search/results?keyword=${encodeURIComponent(record.content)}`)}
             >
               {record.content}
               <div

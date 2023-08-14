@@ -2,7 +2,7 @@
 
 import { type ChangeEventHandler, type FormEventHandler, useState } from "react";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { BackButton, SearchInput } from "@/components";
 
@@ -11,8 +11,9 @@ import { IconBlackLeftChevronExtraLarge } from "public/icons";
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
+  const { get } = useSearchParams();
   const { push } = useRouter();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(() => decodeURIComponent(get("keyword") ?? ""));
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.wrapper}>
-      <BackButton className={styles.backButton}>
+      <BackButton className={styles.backButton} replaceUrl="/search">
         <IconBlackLeftChevronExtraLarge />
       </BackButton>
       <SearchInput

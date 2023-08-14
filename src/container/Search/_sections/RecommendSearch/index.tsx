@@ -34,7 +34,7 @@ const RecommendSearch: React.FC = () => {
             <button
               type="button"
               className={styles.tagButton}
-              onClick={() => push(`/search/results?keyword=${recommend.content}`)}
+              onClick={() => push(`/search/results?keyword=${encodeURIComponent(recommend.content)}`)}
             >
               {recommend.content}
             </button>

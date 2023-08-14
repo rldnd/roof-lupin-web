@@ -4,10 +4,10 @@
 
 .wrapper {
   width: 100%;
-  padding: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT + c.$S_CATEGORY_FILTER_MOBILE_HEIGHT)
+  padding: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT + c.$S_SPACE_FILTER_MOBILE_HEIGHT)
     c.$S_PAGE_HORIZONTAL_PADDING 160px;
 
-  @media screen and (width >= c.$S_CATEGORY_GRID_BREAK_POINT) {
-    padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT + c.$S_CATEGORY_FILTER_DESKTOP_HEIGHT);
+  @media screen and (width >= c.$S_SPACE_GRID_BREAK_POINT) {
+    padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_CATEGORY_TAB_BAR_HEIGHT + c.$S_SPACE_FILTER_DESKTOP_HEIGHT);
   }
 }
