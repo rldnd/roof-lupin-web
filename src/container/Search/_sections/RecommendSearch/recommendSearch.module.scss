@@ -3,11 +3,11 @@
 
 .wrapper {
   width: 100%;
-  padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
 
   .titleWrapper {
     @include m.flex(flex-start);
     gap: 8px;
+    padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
 
     h2 {
       @include m.fontH4SemiBold;
@@ -22,7 +22,7 @@
   .list {
     @include m.flex(flex-start);
     gap: 8px;
-    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0;
 
     li .tagButton {
       @include m.chipSecondary;

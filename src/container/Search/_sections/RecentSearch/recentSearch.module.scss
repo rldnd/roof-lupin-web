@@ -3,10 +3,10 @@
 
 .wrapper {
   width: 100%;
-  padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
 
   h2 {
     @include m.fontH4SemiBold;
+    padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
     margin-bottom: 8px;
     color: var(--c-gray-900);
   }
@@ -14,7 +14,7 @@
   .list {
     @include m.flex(flex-start);
     gap: 8px;
-    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0;
 
     li {
       .tagButton {
@@ -35,7 +35,7 @@
 
   .emptyText {
     @include m.fontBody1SemiBold;
-    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0 0;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING 0;
     color: var(--c-gray-500);
   }
 }

@@ -1,0 +1,28 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex;
+  @include m.fixed(0 auto auto 50%);
+  z-index: c.$Z_HEADER;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 18px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+
+  .back {
+    @include m.absolute(18px auto auto c.$S_PAGE_HORIZONTAL_PADDING / 2);
+    @include m.flex;
+  }
+
+  .title {
+    @include m.fontH4SemiBold;
+    @include m.makeEllipsis;
+    flex: 1;
+    justify-self: center;
+    color: var(--c-black);
+    text-align: center;
+  }
+}

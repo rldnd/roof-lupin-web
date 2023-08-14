@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
 import { BestPhoto as BestPhotoType } from "@/common/types/space";
 import { HorizonDraggable } from "@/components";
 
@@ -13,6 +16,7 @@ interface Props {
 }
 
 const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
+  const { spaceId } = useParams();
   const isEmpty = bestPhotos.length === 0;
 
   return (
@@ -28,7 +32,9 @@ const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
         {!isEmpty &&
           bestPhotos.map((image) => (
             <li key={image.url} className={styles.imageWrapper}>
-              <img src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
+              <Link href={`/spaces/${spaceId}/best-photos`}>
+                <img src={image.url} alt="베스트 포토 이미지" width={200} height={275} />
+              </Link>
             </li>
           ))}
       </HorizonDraggable>
