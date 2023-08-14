@@ -1,5 +1,9 @@
 "use client";
 
+import { MouseEventHandler } from "react";
+
+import { useRouter } from "next/navigation";
+
 import { useMutation } from "@tanstack/react-query";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
@@ -15,6 +19,7 @@ import { IconGrayCloseSmall } from "public/icons";
 import styles from "./recentSearch.module.scss";
 
 const RecentSearch: React.FC = () => {
+  const { push } = useRouter();
   const { isLogined } = useMe();
   const { data: records, refetch } = useSuspenseQuery<SearchRecord[]>(
     ["getSearchRecords"],
@@ -24,7 +29,9 @@ const RecentSearch: React.FC = () => {
 
   const { mutate: deleteSearchRecord } = useMutation(deleteSearchRecordApi, { onSuccess: () => refetch() });
 
-  const onClickDelete = (id: string) => {
+  const onClickDelete: MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
+    const id = e.currentTarget.dataset.id as string;
     deleteSearchRecord(id);
   };
 
@@ -34,9 +41,19 @@ const RecentSearch: React.FC = () => {
       <HorizonDraggable component="menu" className={styles.list}>
         {records?.map((record) => (
           <li key={record.id}>
-            <button type="button" className={styles.tagButton}>
+            <button
+              type="button"
+              className={styles.tagButton}
+              onClick={() => push(`/search/results?keyword=${record.content}`)}
+            >
               {record.content}
-              <div role="button" tabIndex={0} className={styles.deleteButton} onClick={() => onClickDelete(record.id)}>
+              <div
+                role="button"
+                tabIndex={0}
+                className={styles.deleteButton}
+                data-id={record.id}
+                onClick={onClickDelete}
+              >
                 <IconGrayCloseSmall />
               </div>
             </button>

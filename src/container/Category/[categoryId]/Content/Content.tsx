@@ -21,7 +21,8 @@ const Content: React.FC = () => {
 
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
     ["paginateSpaces", spaceSortMenu, categoryId],
-    ({ pageParam = 1 }) => paginateSpacesApi({ page: pageParam, limit: 10, ...spaceSortMenu, categoryIds: categoryId }),
+    ({ pageParam = 1 }) =>
+      paginateSpacesApi({ page: pageParam, limit: 10, ...spaceSortMenu, categoryIds: categoryId, keyword: null }),
   );
 
   useUpdateEffect(() => {

@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 
+import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
+import { ToastPositioner } from "@/components";
 import { BaseHeader } from "@/components/Layout";
 
 import { LoadingInfo } from "./Info";
@@ -16,11 +18,13 @@ const TimeAndPackage = dynamic(() => import("./TimeAndPackage"), {
 
 export default async function SpacePriceContainer() {
   return (
-    <div className={styles.wrapper}>
-      <BaseHeader title="상세 요금" />
-      <Info />
-      <hr className={styles.info} />
-      <TimeAndPackage />
-    </div>
+    <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
+      <div className={styles.wrapper}>
+        <BaseHeader title="상세 요금" />
+        <Info />
+        <hr className={styles.info} />
+        <TimeAndPackage />
+      </div>
+    </ToastPositioner>
   );
 }

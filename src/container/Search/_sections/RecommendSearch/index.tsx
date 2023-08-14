@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
@@ -13,6 +15,7 @@ import { IconInfo } from "public/icons";
 import styles from "./recommendSearch.module.scss";
 
 const RecommendSearch: React.FC = () => {
+  const { push } = useRouter();
   const { data: recommends } = useSuspenseQuery<SearchRecommend[]>(["getSearchRecommends"], () =>
     getSearchRecommendsApi(),
   );
@@ -28,7 +31,11 @@ const RecommendSearch: React.FC = () => {
       <HorizonDraggable component="menu" className={styles.list}>
         {recommends.map((recommend) => (
           <li key={recommend.id}>
-            <button type="button" className={styles.tagButton}>
+            <button
+              type="button"
+              className={styles.tagButton}
+              onClick={() => push(`/search/results?keyword=${recommend.content}`)}
+            >
               {recommend.content}
             </button>
           </li>
