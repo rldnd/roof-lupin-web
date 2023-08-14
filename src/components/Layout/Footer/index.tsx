@@ -33,6 +33,7 @@ const Footer: React.FC = () => {
         <p>사업자등록번호 : 383-26-01563</p>
         <p>주소 : 서울특별시 광진구 광나루로 436, 1층 101호</p>
         <p>대표 이메일 : contact@cumuco.net</p>
+        <p>대표 연락처 : 070-8028-3628</p>
       </address>
     </footer>
   );
