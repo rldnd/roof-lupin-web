@@ -3,9 +3,11 @@
 import { useParams } from "next/navigation";
 
 import { useAtomValue } from "jotai";
+import { range } from "lodash-es";
+import Skeleton from "react-loading-skeleton";
 
 import type { PossibleRentalTypes } from "@/common/types/rentalType";
-import { ReservationTimePicker } from "@/components";
+import { LoadingReservationTimePicker, ReservationTimePicker } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { getSpaceRentalTypePossibleApi } from "@/services/rentalType";
 import { spaceReservationInfoState } from "@/states";
@@ -64,5 +66,25 @@ const TimeAndPackage: React.FC = () => {
 export default TimeAndPackage;
 
 export const LoadingTimeAndPackage: React.FC = () => {
-  return <></>;
+  return (
+    <>
+      <section className={styles.wrapper}>
+        <div className={styles.timeTitleWrapper}>
+          <h2>시간 단위</h2>
+          <Skeleton width={80} className={styles.minPrice} />
+        </div>
+        <LoadingReservationTimePicker />
+      </section>
+      <section className={styles.wrapper}>
+        <h2 className={styles.packageTitle}>패키지</h2>
+        <ul className={styles.list}>
+          {range(3).map((value) => (
+            <li key={value} className={styles.loadingPackageItem}>
+              <Skeleton height={65} containerClassName={styles.loadingPackageItem} key={value} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
+  );
 };

@@ -1,23 +1,26 @@
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import { BaseHeader } from "@/components/Layout";
 
-import Info, { LoadingInfo } from "./Info";
-import TimeAndPackage, { LoadingTimeAndPackage } from "./TimeAndPackage";
+import { LoadingInfo } from "./Info";
+import { LoadingTimeAndPackage } from "./TimeAndPackage";
 
 import styles from "./spacePriceContainer.module.scss";
+
+const Info = dynamic(() => import("./Info"), { ssr: false, loading: () => <LoadingInfo /> });
+
+const TimeAndPackage = dynamic(() => import("./TimeAndPackage"), {
+  ssr: false,
+  loading: () => <LoadingTimeAndPackage />,
+});
 
 export default async function SpacePriceContainer() {
   return (
     <div className={styles.wrapper}>
       <BaseHeader title="상세 요금" />
-      <Suspense fallback={<LoadingInfo />}>
-        <Info />
-      </Suspense>
+      <Info />
       <hr className={styles.info} />
-      <Suspense fallback={<LoadingTimeAndPackage />}>
-        <TimeAndPackage />
-      </Suspense>
+      <TimeAndPackage />
     </div>
   );
 }

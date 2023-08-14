@@ -1,6 +1,7 @@
 "use client";
 
 import { useAtomValue } from "jotai";
+import Skeleton from "react-loading-skeleton";
 
 import { spaceReservationInfoState } from "@/states";
 import { dayjs } from "@/utils/date";
@@ -9,7 +10,6 @@ import styles from "./info.module.scss";
 
 const Info: React.FC = () => {
   const { year, month, day, userCount } = useAtomValue(spaceReservationInfoState);
-
   const date = dayjs(`${year}-${month}-${day}`).format("MM월 DD일 ddd");
 
   return (
@@ -30,5 +30,10 @@ const Info: React.FC = () => {
 export default Info;
 
 export const LoadingInfo: React.FC = () => {
-  return <></>;
+  return (
+    <section className={styles.wrapper}>
+      <Skeleton width={200} />
+      <Skeleton width={250} style={{ marginTop: "4px" }} />
+    </section>
+  );
 };
