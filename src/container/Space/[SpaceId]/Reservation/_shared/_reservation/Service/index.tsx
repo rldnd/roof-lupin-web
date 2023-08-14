@@ -33,6 +33,7 @@ const getRentalTypeFromId = (
       name: "시간 단위 상품",
       time: `${getNextDayText(time.startAt)}${formatHourToAHHMM(time.startAt)}시 ~ ${getNextDayText(
         addHour(time.endAt, 1),
+        time.startAt,
       )}${formatHourToAHHMM(addHour(time.endAt, 1))}시`,
     };
 
@@ -43,6 +44,7 @@ const getRentalTypeFromId = (
     name: packageItem.name,
     time: `${getNextDayText(packageItem.startAt)}${formatHourToAHHMM(packageItem.startAt)}시 ~ ${getNextDayText(
       packageItem.endAt,
+      packageItem.startAt,
     )}${formatHourToAHHMM(packageItem.endAt)}시`,
   };
 };

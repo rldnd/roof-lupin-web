@@ -8,4 +8,5 @@ export const DAY_MAPPER: Record<Day, string> = {
   FRIDAY: "금요일",
   SATURDAY: "토요일",
   SUNDAY: "일요일",
+  HOLIDAY: "공휴일",
 } as const;

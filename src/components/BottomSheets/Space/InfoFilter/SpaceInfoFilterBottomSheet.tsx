@@ -72,7 +72,7 @@ const SpaceInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
       const index = Number(e.currentTarget.value);
       const hour = (index + 9) % 24;
 
-      const startIndex = range(25)
+      const startIndex = range(24)
         .map((value) => (value + 9) % 24)
         .findIndex((item) => item === localInfo.startAt);
 

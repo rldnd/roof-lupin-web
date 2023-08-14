@@ -51,7 +51,7 @@ const TagList: React.FC = () => {
             {typeof startAt === "number" && typeof endAt === "number" && (
               <>
                 {getNextDayText(startAt)}
-                {startAt}시 ~ {getNextDayText(addHour(endAt, 1))}
+                {startAt}시 ~ {getNextDayText(addHour(endAt, 1), startAt)}
                 {addHour(endAt, 1)}시
               </>
             )}

@@ -24,7 +24,7 @@ const SubmitButton: React.FC<Props> = ({ localInfo }) => {
       {typeof startAt === "number" && typeof endAt === "number" && (
         <>
           {getNextDayText(startAt)}
-          {`${startAt}:00`} ~ {getNextDayText(addHour(endAt, 1))}
+          {`${startAt}:00`} ~ {getNextDayText(addHour(endAt, 1), startAt)}
           {`${addHour(endAt, 1)}:00`}
         </>
       )}{" "}

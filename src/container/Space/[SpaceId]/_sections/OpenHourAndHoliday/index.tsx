@@ -21,7 +21,7 @@ interface SameDayHoliday {
 
 const OpenHourAndHoliday: React.FC<Props> = ({ openHours, holidays }) => {
   const sameTimeOpenHours = openHours.reduce<SameTimeOpenHour>((acc, cur) => {
-    const endAt = `${getNextDayText(Number(cur.endAt))}${cur.endAt}:00`;
+    const endAt = `${getNextDayText(Number(cur.endAt), Number(cur.startAt))}${cur.endAt}:00`;
     const time = `${cur.startAt}:00 ~ ${endAt}`;
     if (time in acc) return { ...acc, [time]: [...acc[time], DAY_MAPPER[cur.day]] };
     return { ...acc, [time]: [DAY_MAPPER[cur.day]] };

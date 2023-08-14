@@ -51,7 +51,7 @@ const SelectedReservationInfo: React.FC = () => {
             {isUnderTimeReservation(time) && (
               <>
                 시간 단위 예약 ({getNextDayText(time.startAt)}
-                {time.startAt}-{getNextDayText(addHour(time.endAt, 1))}
+                {time.startAt}-{getNextDayText(addHour(time.endAt, 1), time.startAt)}
                 {addHour(time.endAt, 1)}시, {getDiffHour(time.startAt, time.endAt)}시간)
               </>
             )}

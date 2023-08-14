@@ -55,7 +55,7 @@ export default ReservationTimePicker;
 export const LoadingReservationTimePicker: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <HorizonDraggable component="div" className={cx(styles.wrapper, className)}>
-      {range(25).map((value) => (
+      {range(24).map((value) => (
         <LoadingReservationTimePickerItem key={`${(value + 9) % 24}-${value}`} time={(value + 9) % 24} />
       ))}
       <Skeleton />
