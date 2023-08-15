@@ -4,6 +4,7 @@
 .wrapper {
   width: 100%;
   padding: 36px c.$S_PAGE_HORIZONTAL_PADDING;
+  border-bottom: 4px solid var(--c-gray-150);
 
   .titleWrapper {
     @include m.flex(space-between);

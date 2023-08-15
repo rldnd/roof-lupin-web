@@ -70,7 +70,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
         <hr />
-        <MenuItem title={`Q&A (${space.qnaCount})`} href="/" />
+        <MenuItem title={`Q&A (${space.qnaCount})`} href={`/spaces/${params.spaceId}/qnas`} />
         <hr />
         <Refund refundPolicies={space.refundPolicies} />
         <hr />

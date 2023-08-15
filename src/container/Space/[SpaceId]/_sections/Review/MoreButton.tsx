@@ -1,6 +1,7 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 import { Button } from "@/components";
 
@@ -12,17 +13,13 @@ interface Props {
 
 const MoreButton: React.FC<Props> = ({ count }) => {
   const { spaceId } = useParams();
-  const { push } = useRouter();
 
   return (
-    <Button
-      type="button"
-      color="secondary"
-      className={styles.wrapper}
-      onClick={() => push(`/spaces/${spaceId}/reviews`)}
-    >
-      {count}개 리뷰 더보기
-    </Button>
+    <Link href={`/spaces/${spaceId}/reviews`} className={styles.wrapper}>
+      <Button type="button" color="secondary" full>
+        {count}개 리뷰 더보기
+      </Button>
+    </Link>
   );
 };
 

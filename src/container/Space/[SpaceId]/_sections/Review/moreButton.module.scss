@@ -2,6 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  display: inline-block;
   width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
   margin-top: 40px;
   margin-left: c.$S_PAGE_HORIZONTAL_PADDING;

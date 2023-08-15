@@ -5,6 +5,7 @@
   @include m.flex(flex-start, flex-start, column);
   width: 100%;
   padding: 32px c.$S_PAGE_HORIZONTAL_PADDING 40px;
+  border-bottom: 4px solid var(--c-gray-150);
 
   .exhibitionTag {
     @include m.fontBody1SemiBold;

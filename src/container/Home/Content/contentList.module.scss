@@ -6,6 +6,7 @@
   gap: 24px;
   width: 100%;
   padding: 44px 0 32px;
+  border-bottom: 4px solid var(--c-gray-150);
 
   .header {
     @include m.flex(space-between);

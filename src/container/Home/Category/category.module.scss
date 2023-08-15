@@ -9,6 +9,7 @@ $CATEGORY_WIDTH: 56px;
   width: 100%;
   padding: 40px c.$S_PAGE_HORIZONTAL_PADDING 32px;
   overflow-x: scroll;
+  border-bottom: 4px solid var(--c-gray-150);
 
   .item {
     @include m.flex(flex-start, center, column);

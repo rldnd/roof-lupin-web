@@ -1,0 +1,19 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  gap: 12px;
+  width: 100%;
+  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: var(--c-gray-100);
+
+  > span {
+    @include m.fontCaption;
+    color: var(--c-gray-700);
+  }
+
+  > a {
+    width: 100%;
+  }
+}

@@ -1,0 +1,20 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding-top: c.$S_BASE_HEADER_HEIGHT;
+
+  .header {
+    > p {
+      @include m.flex(flex-start);
+      @include m.fontH3SemiBold;
+      gap: 8px;
+      color: var(--c-black);
+
+      span {
+        color: var(--c-roof-orange);
+      }
+    }
+  }
+}
