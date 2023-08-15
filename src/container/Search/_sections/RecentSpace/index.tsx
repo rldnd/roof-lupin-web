@@ -14,6 +14,7 @@ const RecentSpace: React.FC = () => {
   const { isLogined } = useMe();
   const { data: spaces } = useSuspenseQuery<Space[]>(["getSearchRecentSpaces"], () => getSearchRecentSpacesApi(), {
     enabled: isLogined,
+    refetchOnMount: true,
   });
 
   if (!isLogined || spaces.length === 0) return null;

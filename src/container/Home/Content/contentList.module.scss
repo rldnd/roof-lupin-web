@@ -5,8 +5,7 @@
   @include m.flex(center, center, column);
   gap: 24px;
   width: 100%;
-  padding-bottom: 32px;
-  margin-top: 44px;
+  padding: 44px 0 32px;
 
   .header {
     @include m.flex(space-between);

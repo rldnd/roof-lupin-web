@@ -12,6 +12,7 @@ import { SpaceEditReservationInfoFilterBottomSheet } from "@/components/BottomSh
 import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import { reservationState } from "@/states";
+import { dayjs } from "@/utils/date";
 
 import styles from "./spaceInfo.module.scss";
 
@@ -28,7 +29,8 @@ const SpaceInfo: React.FC = () => {
         <h1 className={styles.name}>{data.title}</h1>
         <span className={styles.reservationInfo}>
           <time>
-            {reservation.year}년 {reservation.month}월 {reservation.day}일 (토)
+            {reservation.year}년 {reservation.month}월 {reservation.day}일 (
+            {dayjs(`${reservation.year}-${reservation.month}-${reservation.day}`).format("ddd")})
           </time>
           <span>{reservation.userCount}명</span>
         </span>

@@ -8,7 +8,7 @@ import { useMe } from "@/hooks/queries";
 
 import styles from "./myPage.module.scss";
 
-// TODO: server / client 분리
+// TODO: server component & client component 분리
 const MyPage: React.FC = () => {
   const { replace } = useRouter();
   const { me, onLogout } = useMe();

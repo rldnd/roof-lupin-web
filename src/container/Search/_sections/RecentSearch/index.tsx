@@ -24,7 +24,7 @@ const RecentSearch: React.FC = () => {
   const { data: records, refetch } = useSuspenseQuery<SearchRecord[]>(
     ["getSearchRecords"],
     () => getSearchRecordsApi(),
-    { enabled: isLogined },
+    { enabled: isLogined, refetchOnMount: true },
   );
 
   const { mutate: deleteSearchRecord } = useMutation(deleteSearchRecordApi, { onSuccess: () => refetch() });
