@@ -2,8 +2,11 @@
 
 import { useParams } from "next/navigation";
 
+import { range } from "lodash-es";
+
 import type { QnA } from "@/common/types/qna";
 import { QnaItem, UnorderedInfiniteScroll } from "@/components";
+import { LoadingQnaItem } from "@/components/Qna/QnaItem";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceQnasApi } from "@/services/qna";
 
@@ -28,6 +31,7 @@ const Content: React.FC = () => {
       isSuccess={isSuccess}
       hasNextPage={hasNextPage}
       className={styles.wrapper}
+      loadingComponentInList={<LoadingItems />}
     >
       {qnas.pages.map((qna) => (
         <QnaItem key={qna.id} qna={qna} className={styles.item} />
@@ -38,6 +42,20 @@ const Content: React.FC = () => {
 
 export default Content;
 
+export const LoadingItems: React.FC = () => {
+  return (
+    <>
+      {range(10).map((value) => (
+        <LoadingQnaItem className={styles.item} key={value} />
+      ))}
+    </>
+  );
+};
+
 export const LoadingContent: React.FC = () => {
-  return null;
+  return (
+    <div className={styles.wrapper}>
+      <LoadingItems />
+    </div>
+  );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { QnA } from "@/common/types/qna";
 
@@ -25,3 +26,7 @@ const QnaItem: React.FC<Props> = ({ qna, className }) => {
 };
 
 export default QnaItem;
+
+export const LoadingQnaItem: React.FC<{ className?: string }> = ({ className }) => {
+  return <Skeleton containerClassName={cx(styles.wrapper, className)} height={100} />;
+};

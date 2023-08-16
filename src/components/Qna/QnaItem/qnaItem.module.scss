@@ -2,6 +2,7 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  display: inline-block;
   width: 100%;
 
   .content {
