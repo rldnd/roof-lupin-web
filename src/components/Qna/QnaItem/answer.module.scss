@@ -1,0 +1,31 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 16px 12px;
+  margin-top: 16px;
+  background-color: var(--c-orange-bg);
+  border-radius: 12px;
+
+  .answer {
+    @include m.fontBody1Regular;
+    position: relative;
+    color: var(--c-black);
+
+    &:not(.isClickedViewMore) {
+      @include m.makeEllipsis(3);
+    }
+
+    .moreButton {
+      @include m.absolute(auto 0 0 auto);
+      display: none;
+      padding: 0 8px 0 24px;
+      background: linear-gradient(270deg, #fef5f3 0%, rgba(254, 245, 243, 0%) 100%);
+
+      &.isShow {
+        display: block;
+      }
+    }
+  }
+}

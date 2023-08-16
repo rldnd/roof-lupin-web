@@ -1,0 +1,19 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  width: 100%;
+
+  .info {
+    @include m.flex(flex-start);
+    @include m.fontCaption;
+    gap: 12px;
+    color: var(--c-gray-600);
+  }
+
+  .settings {
+    width: 40px;
+    height: 40px;
+  }
+}

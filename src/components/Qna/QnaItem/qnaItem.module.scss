@@ -4,7 +4,9 @@
 .wrapper {
   width: 100%;
 
-  .title {
-    width: 100%;
+  .content {
+    @include m.fontBody1Regular;
+    color: var(--c-black);
+    white-space: pre-wrap;
   }
 }

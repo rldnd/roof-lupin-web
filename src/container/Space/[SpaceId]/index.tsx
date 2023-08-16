@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
-import { getSpaceRentalTypeApi } from "@/services/rentalType";
+import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getServerSpaceApi } from "@/services/space";
 
 import {
@@ -38,7 +38,7 @@ interface Props {
 // TODO: 판매자 정보 구현
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getServerSpaceApi(params.spaceId);
-  const spaceRentalTypePromise = getSpaceRentalTypeApi(params.spaceId);
+  const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
 
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 

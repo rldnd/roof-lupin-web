@@ -1,5 +1,6 @@
 import type { DateDTO } from "./common";
 import type { Host } from "./host";
+import type { Space } from "./space";
 import type { CommonUser } from "./user";
 
 export interface QnAAnswer extends DateDTO {
@@ -13,7 +14,7 @@ export interface QnAAnswer extends DateDTO {
   host: Host;
 }
 
-export interface QnA extends DateDTO {
+export interface QnA extends Omit<DateDTO, "deletedAt"> {
   /** QnA ID */
   id: string;
   /** 내용 */
@@ -22,4 +23,6 @@ export interface QnA extends DateDTO {
   user: CommonUser;
   /** 답변 */
   answers: QnAAnswer[];
+  /** 공간 */
+  space: Space;
 }

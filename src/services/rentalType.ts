@@ -1,5 +1,5 @@
-import type { BasePaginationQueryParams, PagingDTO } from "@/common/types/common";
-import type { PossibleRentalTypes, PossibleRentalTypesByMonth } from "@/common/types/rentalType";
+import type { BasePaginationQueryParams, Day, PagingDTO } from "@/common/types/common";
+import type { PossibleRentalTypes, PossibleRentalTypesByMonth, RentalType } from "@/common/types/rentalType";
 import type { SpaceRentalType } from "@/common/types/space";
 import { apiClient, fetchClient } from "@/services/apiClient";
 
@@ -17,8 +17,17 @@ export interface GetSpaceRentalTypePossibleParams {
   day: string;
 }
 
+export interface GetSpaceRentalTypeParams {
+  spaceId: string;
+  day?: Day;
+}
+
+/** [CLIENT ISR] 공간 대여 타입 조회하기 */
+export const getSpaceRentalTypeApi = ({ spaceId, day }: GetSpaceRentalTypeParams) =>
+  apiClient.get<RentalType[]>(`/rental-types/${spaceId}`, { params: { day } });
+
 /** [SERVER ISR] 공간 대여 타입 상세 조회하기 */
-export const getSpaceRentalTypeApi = (spaceId: string) =>
+export const getSpaceRentalTypeDetailApi = (spaceId: string) =>
   fetchClient<SpaceRentalType>(`/rental-types/${spaceId}/detail`, {
     tags: ["rental-types", `/rental-types/${spaceId}/detail`],
   });

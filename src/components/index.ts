@@ -2,6 +2,7 @@ export * from "./Category";
 export * from "./Common";
 export * from "./Reservation";
 export * from "./Space";
+export * from "./Qna";
 
 export { default as AuthChecker } from "./AuthChecker";
 export { default as BackButton } from "./BackButton";

@@ -1,7 +1,9 @@
+import { Suspense } from "react";
+
 import { BaseHeader } from "@/components/Layout";
 import { getServerSpaceApi } from "@/services/space";
 
-import { Question } from "./_sections";
+import { Content, LoadingContent, Question } from "./_sections";
 
 import styles from "./spaceQnaContainer.module.scss";
 
@@ -25,6 +27,9 @@ export default async function SpaceQnaContainer({ params }: Props) {
         }
       />
       <Question spaceId={params.spaceId} />
+      <Suspense fallback={<LoadingContent />}>
+        <Content />
+      </Suspense>
     </div>
   );
 }
