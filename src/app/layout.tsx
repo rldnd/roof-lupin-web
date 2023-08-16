@@ -8,6 +8,7 @@ import "@/utils/naverMap";
 import NextTopLoader from "nextjs-toploader";
 
 import { LoginBottomSheet } from "@/components/BottomSheets/Auth";
+import { PopConfirm } from "@/components/Common/PopConfirm";
 import { Toast } from "@/components/Common/Toast";
 
 import { suit } from "./fonts";
@@ -50,10 +51,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </div>
           <div id="modal" />
+          <div id="pop-confirm" />
           <div id="toast" />
           <div id="bottom-sheet" />
-          <LoginBottomSheet />
+          <PopConfirm />
           <Toast />
+          <LoginBottomSheet />
           <Suspense fallback={null}>
             <PushTokenHandler />
           </Suspense>

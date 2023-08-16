@@ -28,7 +28,6 @@ const LoginBottomSheet: React.FC = () => {
     };
 
     LoginBottomSheetEventEmitter.addChangeListener(eventCallback);
-
     return () => {
       LoginBottomSheetEventEmitter.removeChangeListener(eventCallback);
     };

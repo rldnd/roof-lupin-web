@@ -24,3 +24,4 @@ export { useNaverMap } from "@/components/NaverMap";
 
 export { useToast } from "@/components/Common/Toast";
 export { default as useLoginSheet } from "@/components/BottomSheets/Auth/LoginBottomSheet/useLoginSheet";
+export { default as usePopConfirm } from "@/components/Common/PopConfirm/usePopConfirm";

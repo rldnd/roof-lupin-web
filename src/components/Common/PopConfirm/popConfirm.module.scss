@@ -1,0 +1,33 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(0 0 0 0);
+  @include m.flex;
+  z-index: c.$Z_POP_CONFIRM;
+
+  &.enterDone,
+  &.exit {
+    > .popConfirm {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.enter,
+  &.exitActive {
+    > .popConfirm {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+  }
+
+  .popConfirm {
+    @include m.posCenter;
+    width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+    max-width: 327px;
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
