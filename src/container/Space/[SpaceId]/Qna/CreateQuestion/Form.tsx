@@ -51,7 +51,7 @@ const Form: React.FC = () => {
         placeholder={` •  공간에 대해 궁금한 점을 작성해주세요.\n •  질문은 공개 상태로만 등록할 수 있어요.\n •  공간 및 예약에 대한 문의가 아닌 글은 무통보 삭제될 수 있어요.\n •  질문 수정은 질문 등록 후 72시간 이내에만 가능해요.`}
       />
       <footer className={styles.footer}>
-        <Button type="submit" color="primary" full disabled={value.length > 0}>
+        <Button type="submit" color="primary" full disabled={value.length === 0}>
           질문하기
         </Button>
       </footer>

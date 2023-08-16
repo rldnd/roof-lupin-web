@@ -1,0 +1,18 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding-top: c.$S_BASE_HEADER_HEIGHT;
+
+  main {
+    width: 100%;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+    .info {
+      @include m.fontH2;
+      padding: 16px 0 48px;
+      color: var(--c-black);
+    }
+  }
+}
