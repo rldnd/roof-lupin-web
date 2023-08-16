@@ -1,6 +1,8 @@
-import Link from "next/link";
+"use client";
 
-import { Button } from "@/components";
+import { useRouter } from "next/navigation";
+
+import { AuthChecker, Button } from "@/components";
 
 import styles from "./question.module.scss";
 
@@ -9,14 +11,20 @@ interface Props {
 }
 
 const Question: React.FC<Props> = ({ spaceId }) => {
+  const { push } = useRouter();
+
+  const onClickButton = () => {
+    push(`/spaces/${spaceId}/qnas/create-question`);
+  };
+
   return (
     <section className={styles.wrapper}>
       <span>궁금한 내용을 남겨주시면, 호스트가 확인 후 빠르게 답변 드려요.</span>
-      <Link href={`/spaces/${spaceId}/qnas/question`}>
-        <Button type="button" color="secondary" full>
+      <AuthChecker className={styles.authChecker}>
+        <Button type="button" color="secondary" full onClick={onClickButton}>
           호스트에게 문의하기
         </Button>
-      </Link>
+      </AuthChecker>
     </section>
   );
 };

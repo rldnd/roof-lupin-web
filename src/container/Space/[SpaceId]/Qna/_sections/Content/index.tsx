@@ -17,7 +17,7 @@ const Content: React.FC = () => {
     isFetching,
     isSuccess,
     hasNextPage,
-  } = useSuspenseInfiniteQuery<QnA>(["paginateSpaceQnas"], ({ pageParam = 1 }) =>
+  } = useSuspenseInfiniteQuery<QnA>(["paginateSpaceQnas", spaceId], ({ pageParam = 1 }) =>
     paginateSpaceQnasApi({ spaceId, page: pageParam, limit: 10 }),
   );
 

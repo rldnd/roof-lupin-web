@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
+import cx from "clsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useUnmount, useUpdateEffect } from "react-use";
 
@@ -104,7 +105,7 @@ const Toast: React.FC = () => {
             }}
             unmountOnExit
           >
-            <div className={styles.toast}>
+            <div className={cx(styles.toast, { [styles.hasButton]: Boolean(toast.buttonText) })}>
               <span>{toast.message}</span>
               {Boolean(toast.buttonText) && (
                 <button type="button" className={styles.button} onClick={toast.onClickButton}>

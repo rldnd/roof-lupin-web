@@ -17,9 +17,9 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
   .wrapper {
     .toast {
       @include m.fontBody1Regular;
-      @include m.flex(space-between);
+      @include m.flex;
       gap: 8px;
-      width: calc(100dvw - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+      width: calc(100vw - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
       max-width: calc(c.$S_CONTENT_WIDTH - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
       padding: 8px 16px;
       color: var(--c-white);
@@ -27,6 +27,10 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
       border-radius: 4px;
       opacity: 0;
       transition: all 0.2s;
+
+      &.hasButton {
+        justify-content: space-between;
+      }
 
       & + .toast {
         margin-top: $SPACE;

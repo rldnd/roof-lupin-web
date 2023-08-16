@@ -15,7 +15,6 @@ export interface ToastItemInterface {
   visible: boolean;
   buttonText?: string;
   onClickButton?(): void | Promise<void>;
-  hasClose?: boolean;
   autoCloseTime?: number;
 }
 
@@ -24,7 +23,7 @@ export interface ToastPositionInterface {
   bottom: string;
 }
 
-export type ToastAddType = Pick<ToastItemInterface, "message" | "hasClose"> &
+export type ToastAddType = Pick<ToastItemInterface, "message"> &
   Partial<Pick<ToastItemInterface, "autoCloseTime" | "buttonText" | "onClickButton">>;
 
 export type ChangeToastPositionType = Partial<Omit<ToastPositionInterface, "action">>;

@@ -6,6 +6,13 @@ export interface PaginateQnasParams extends BasePaginationQueryParams {
   spaceId: string;
 }
 
+export interface CreateSpaceQnaBody {
+  content: string;
+  spaceId: string;
+}
+
 /** [CLIENT] 공간 Q&A 조회 */
 export const paginateSpaceQnasApi = ({ spaceId, ...params }: PaginateQnasParams) =>
   apiClient.get<PagingDTO<QnA>>(`/qnas/${spaceId}/paging`, { params });
+
+export const createSpaceQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);
