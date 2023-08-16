@@ -5,27 +5,29 @@ import type { MouseEventHandler } from "react";
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
-import type { PossibleTimeCostInfo } from "@/common/types/rentalType";
+import type { PossibleTimeCostInfo, TimeCostInfo } from "@/common/types/rentalType";
 
 import styles from "./reservationTimePickerItem.module.scss";
 
 interface Props {
-  info: PossibleTimeCostInfo;
+  info: PossibleTimeCostInfo | TimeCostInfo;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   active: boolean;
 }
 
 const ReservationTimePickerItem: React.FC<Props> = ({ info, onClick, active }) => {
+  const isPossible = "isPossible" in info ? info.isPossible : true;
+
   return (
     <li className={styles.wrapper}>
       <button
         type="button"
-        disabled={!info.isPossible}
+        disabled={!isPossible}
         className={cx(styles.button, { [styles.active]: active })}
         value={info.time}
         onClick={onClick}
       >
-        <div className={styles.priceWrapper}>{info.isPossible && <>{info.cost.toLocaleString("ko-KR")}원</>}</div>
+        <div className={styles.priceWrapper}>{isPossible && <>{info.cost.toLocaleString("ko-KR")}원</>}</div>
         <time dateTime={`${info.time}:00`}>{info.time}:00</time>
       </button>
     </li>

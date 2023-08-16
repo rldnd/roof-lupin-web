@@ -6,7 +6,7 @@ import cx from "clsx";
 import { range } from "lodash-es";
 import Skeleton from "react-loading-skeleton";
 
-import type { PossibleTimeCostInfo } from "@/common/types/rentalType";
+import type { PossibleTimeCostInfo, TimeCostInfo } from "@/common/types/rentalType";
 import HorizonDraggable from "@/components/HorizonDraggable";
 
 import ReservationTimePickerItem, { LoadingReservationTimePickerItem } from "./TimePickerItem";
@@ -23,7 +23,7 @@ const checkIsActive = (startIndex: number, endIndex: number, index: number): boo
 };
 
 interface Props {
-  infos: PossibleTimeCostInfo[];
+  infos: Array<PossibleTimeCostInfo | TimeCostInfo>;
   className?: string;
   startAt: number | null;
   endAt: number | null;
