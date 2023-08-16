@@ -76,16 +76,24 @@ const PopConfirm: React.FC = () => {
       unmountOnExit
     >
       <div className={styles.wrapper} ref={nodeRef}>
-        <Overlay onClose={onCancel.current} isOverlayTransparent={false} />
+        <Overlay isOverlayTransparent={false} />
         <aside className={styles.popConfirm}>
-          {title}
-          {description}
-          <button type="button" onClick={onCancel.current}>
-            취소
-          </button>
-          <button type="button" onClick={onConfirm.current}>
-            확인
-          </button>
+          <div className={styles.titleWrapper}>
+            <h2 className={styles.title}>{title}</h2>
+          </div>
+          {description && <span className={styles.desc}>{description}</span>}
+          <menu>
+            <li>
+              <button type="button" onClick={onCancel.current} className={styles.cancel}>
+                취소
+              </button>
+            </li>
+            <li>
+              <button type="button" onClick={onConfirm.current} className={styles.confirm}>
+                확인
+              </button>
+            </li>
+          </menu>
         </aside>
       </div>
     </CSSTransition>,

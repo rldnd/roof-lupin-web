@@ -16,6 +16,12 @@
   line-height: 100%;
 }
 
+@mixin fontH3SemiBoldLh130 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 130%;
+}
+
 @mixin fontH3Medium {
   font-size: 20px;
   font-weight: 500;

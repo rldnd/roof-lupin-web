@@ -1,6 +1,9 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
+$POP_CONFIRM_WIDTH: 327px;
+$POP_CONFIRM_HEIGHT: 180px;
+
 .wrapper {
   @include m.fixed(0 0 0 0);
   @include m.flex;
@@ -24,10 +27,65 @@
 
   .popConfirm {
     @include m.posCenter;
+    @include m.flex(flex-start, center, column);
     width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
-    max-width: 327px;
+    max-width: $POP_CONFIRM_WIDTH;
+    height: $POP_CONFIRM_HEIGHT;
+    padding-top: 24px;
+    background-color: var(--c-white);
+    border-radius: 16px;
     opacity: 0;
     transition: all 0.2s;
     transform: translate(-50%, -50%) scale(0.8);
+
+    .titleWrapper {
+      @include m.flex;
+      height: 52px;
+      padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+      .title {
+        @include m.fontH3SemiBoldLh130;
+        color: var(--c-black);
+        text-align: center;
+      }
+    }
+
+    .desc {
+      @include m.fontBody1SemiBold;
+      padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+      margin-top: 8px;
+      color: var(--c-gray-500);
+      text-align: center;
+    }
+
+    menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+      height: 56px;
+      margin-top: auto;
+      border-top: 1px solid var(--c-gray-250);
+
+      > li {
+        @include m.flex;
+        width: 100%;
+        height: 100%;
+
+        > button {
+          @include m.fontH4SemiBold;
+          width: 100%;
+          height: 100%;
+
+          &.cancel {
+            color: var(--c-gray-400);
+          }
+
+          &.confirm {
+            color: var(--c-roof-orange);
+            border-left: 1px solid var(--c-gray-250);
+          }
+        }
+      }
+    }
   }
 }
