@@ -6,11 +6,12 @@ import styles from "./radio.module.scss";
 
 interface Props extends ComponentProps<"input"> {}
 
-// TODO:
 const Radio: React.FC<Props> = ({ children, ...props }) => {
   return (
-    <label>
-      <input {...props} />
+    <label className={styles.wrapper}>
+      <div className={styles.inputWrapper}>
+        <input type="radio" {...props} />
+      </div>
       {children && <span className={styles.children}>{children}</span>}
     </label>
   );

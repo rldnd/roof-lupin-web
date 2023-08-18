@@ -5,20 +5,13 @@
   @include m.flex(flex-start, flex-start, column);
   flex: 1;
   width: 100%;
-  padding: 24px c.$S_PAGE_HORIZONTAL_PADDING 0;
-
-  .textarea {
-    flex: 1;
-    width: 100%;
-
-    &::placeholder {
-      white-space: pre-wrap;
-    }
-  }
 
   .footer {
+    @include m.fixed(auto auto 0 50%);
     width: 100%;
-    padding: 16px 0;
+    max-width: c.$S_CONTENT_WIDTH;
+    padding: 16px c.$S_PAGE_HORIZONTAL_PADDING;
     background-color: var(--c-white);
+    transform: translateX(-50%);
   }
 }

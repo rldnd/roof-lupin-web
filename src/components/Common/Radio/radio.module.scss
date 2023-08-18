@@ -3,4 +3,34 @@
 
 .wrapper {
   @include m.flex(flex-start);
+  gap: 4px;
+  cursor: pointer;
+
+  .inputWrapper {
+    @include m.flex;
+    width: 40px;
+    height: 40px;
+
+    > input {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      background-color: var(--c-white);
+      border: 1.5px solid var(--c-roof-orange);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 3px var(--c-white);
+      transition: all 0.2s ease-in-out;
+      appearance: none;
+
+      &:checked {
+        background-color: var(--c-roof-orange);
+      }
+    }
+  }
+
+  .children {
+    @include m.fontH4SemiBold;
+    color: var(--c-gray-800);
+  }
 }
