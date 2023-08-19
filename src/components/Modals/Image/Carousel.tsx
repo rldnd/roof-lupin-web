@@ -82,8 +82,8 @@ const Carousel: React.FC<Props> = ({ images, initialIndex, setIndex }) => {
   return (
     <section className={styles.wrapper}>
       <Slider className={styles.slider} ref={ref} {...settings}>
-        {images.map((image, index) => (
-          <img className={styles.image} key={`${image.url}-${index}`} src={image.url} alt="이미지" />
+        {images.map((image) => (
+          <img className={styles.image} key={image.url} src={image.url} alt="이미지" />
         ))}
       </Slider>
     </section>
