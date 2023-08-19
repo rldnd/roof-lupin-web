@@ -31,16 +31,16 @@ $POP_CONFIRM_HEIGHT: 180px;
     width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
     max-width: $POP_CONFIRM_WIDTH;
     height: $POP_CONFIRM_HEIGHT;
-    padding-top: 24px;
+    padding-top: 12px;
     background-color: var(--c-white);
     border-radius: 16px;
     opacity: 0;
     transition: all 0.2s;
     transform: translate(-50%, -50%) scale(0.8);
 
-    .titleWrapper {
-      @include m.flex;
-      height: 52px;
+    .content {
+      @include m.flex(center, center, column);
+      flex: 1;
       padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
       .title {
@@ -48,14 +48,13 @@ $POP_CONFIRM_HEIGHT: 180px;
         color: var(--c-black);
         text-align: center;
       }
-    }
 
-    .desc {
-      @include m.fontBody1SemiBold;
-      padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-      margin-top: 8px;
-      color: var(--c-gray-500);
-      text-align: center;
+      .desc {
+        @include m.fontBody1SemiBold;
+        margin-top: 8px;
+        color: var(--c-gray-500);
+        text-align: center;
+      }
     }
 
     menu {

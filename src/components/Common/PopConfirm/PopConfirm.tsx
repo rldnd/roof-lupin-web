@@ -78,10 +78,10 @@ const PopConfirm: React.FC = () => {
       <div className={styles.wrapper} ref={nodeRef}>
         <Overlay isOverlayTransparent={false} />
         <aside className={styles.popConfirm}>
-          <div className={styles.titleWrapper}>
+          <div className={styles.content}>
             <h2 className={styles.title}>{title}</h2>
+            {description && <span className={styles.desc}>{description}</span>}
           </div>
-          {description && <span className={styles.desc}>{description}</span>}
           <menu>
             <li>
               <button type="button" onClick={onCancel.current} className={styles.cancel}>

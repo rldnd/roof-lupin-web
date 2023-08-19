@@ -8,6 +8,7 @@ import {
   Agreement,
   Discount,
   FreeCancelTerm,
+  LoadingDiscount,
   LoadingSelectedReservationInfo,
   PaymentMethod,
   PriceInfo,
@@ -27,7 +28,9 @@ const PaymentTab: React.FC = () => {
       <hr />
       <ReservationClerkInfo />
       <hr />
-      <Discount />
+      <Suspense fallback={<LoadingDiscount />}>
+        <Discount />
+      </Suspense>
       <hr />
       <PriceInfo />
       <hr />

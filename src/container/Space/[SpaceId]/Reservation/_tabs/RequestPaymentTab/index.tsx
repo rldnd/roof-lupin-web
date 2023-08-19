@@ -6,6 +6,7 @@ import { HostApprove, LoadingSubmit, SubmitButton } from "./_sections";
 import { Header } from "../../_shared";
 import {
   Discount,
+  LoadingDiscount,
   LoadingSelectedReservationInfo,
   PriceInfo,
   ReservationClerkInfo,
@@ -24,7 +25,9 @@ const RequestPaymentTab: React.FC = () => {
       <hr />
       <ReservationClerkInfo />
       <hr />
-      <Discount />
+      <Suspense fallback={<LoadingDiscount />}>
+        <Discount />
+      </Suspense>
       <hr />
       <PriceInfo />
       <hr />

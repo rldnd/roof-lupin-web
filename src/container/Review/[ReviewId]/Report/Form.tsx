@@ -43,7 +43,8 @@ const Form: React.FC = () => {
     const content = checked === 6 ? input : e.currentTarget.title;
 
     openPopConfirm({
-      title: "작성하신 신고 사유대로 신고하시겠습니까?",
+      title: "선택한 사유로 신고하시겠어요?",
+      description: "검토 후 최대한 빠르게 조치하도록 하겠습니다.",
       onConfirm: () => mutate({ reviewId, content }),
     });
   };
