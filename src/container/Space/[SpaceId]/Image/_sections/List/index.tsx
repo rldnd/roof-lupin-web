@@ -1,4 +1,5 @@
 import type { ImageDTO } from "@/common/types/common";
+import Image from "@/components/Image";
 
 import styles from "./list.module.scss";
 
@@ -11,7 +12,7 @@ const List: React.FC<Props> = ({ images }) => {
     <ul className={styles.wrapper}>
       {images.map((image, idx) => (
         <li key={`${image} - ${idx}`}>
-          <img src={image.url} alt="공간 이미지" />
+          <Image src={image.url} alt="공간 이미지" images={images} initialIndex={idx} />
         </li>
       ))}
     </ul>

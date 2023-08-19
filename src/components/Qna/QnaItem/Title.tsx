@@ -11,7 +11,7 @@ import styles from "./title.module.scss";
 interface Props {
   nickname: string;
   createdAt: Date;
-  onClickSetting: MouseEventHandler<HTMLButtonElement>;
+  onClickSetting?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Title: React.FC<Props> = ({ nickname, createdAt, onClickSetting }) => {
@@ -23,9 +23,11 @@ const Title: React.FC<Props> = ({ nickname, createdAt, onClickSetting }) => {
         {nickname}
         <time dateTime={date}>{date}</time>
       </div>
-      <button type="button" className={styles.settings} onClick={onClickSetting}>
-        <IconThreeDotsLarge />
-      </button>
+      {Boolean(onClickSetting) && (
+        <button type="button" className={styles.settings} onClick={onClickSetting}>
+          <IconThreeDotsLarge />
+        </button>
+      )}
     </div>
   );
 };

@@ -2,18 +2,20 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(space-between);
+  @include m.flex;
+  position: relative;
   width: 100%;
   height: c.$S_BASE_HEADER_HEIGHT;
   padding: 10px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
   background-color: var(--c-white);
 
+  .backButton {
+    @include m.posCenterY;
+    left: 12px;
+  }
+
   h2 {
     @include m.fontH4SemiBold;
     color: var(--c-black);
-  }
-
-  .menuButton {
-    justify-self: flex-end;
   }
 }

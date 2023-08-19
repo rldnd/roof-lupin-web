@@ -7,7 +7,7 @@ import { useAtomValue } from "jotai";
 import { BackButton } from "@/components";
 import { reviewImageIndexState, reviewImageTotalCountState } from "@/states";
 
-import { IconBlackLeftChevronLarge, IconThreeDotsLarge } from "public/icons";
+import { IconBlackLeftChevronLarge } from "public/icons";
 
 import styles from "./header.module.scss";
 
@@ -18,17 +18,14 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.wrapper}>
-      <BackButton replaceUrl={`/spaces/${spaceId}/reviews`}>
+      <BackButton replaceUrl={`/spaces/${spaceId}/reviews`} className={styles.backButton}>
         <IconBlackLeftChevronLarge />
       </BackButton>
       {totalCount && (
         <h2>
-          {index}/{totalCount}
+          {index + 1}/{totalCount}
         </h2>
       )}
-      <button type="button" className={styles.menuButton}>
-        <IconThreeDotsLarge />
-      </button>
     </header>
   );
 };

@@ -47,6 +47,11 @@ $slick-opacity-not-active: 0.25 !default;
   }
 }
 
+.slick-track {
+  display: flex !important;
+  align-items: center !important;
+}
+
 .slick-prev,
 .slick-next {
   position: absolute;

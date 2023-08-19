@@ -1,18 +1,19 @@
 "use client";
 
-import { type CSSProperties, lazy, type MouseEventHandler, useCallback, useEffect, useMemo } from "react";
-
-import { useParams, useSearchParams } from "next/navigation";
+import {
+  type CSSProperties,
+  Dispatch,
+  lazy,
+  type MouseEventHandler,
+  SetStateAction,
+  useCallback,
+  useMemo,
+} from "react";
 
 import cx from "clsx";
-import { useSetAtom } from "jotai";
 import Skeleton from "react-loading-skeleton";
-import { useUnmount } from "react-use";
 
-import type { Review } from "@/common/types/review";
-import { useSuspenseQuery } from "@/hooks";
-import { getReviewApi } from "@/services/review";
-import { reviewImageIndexState, reviewImageTotalCountState } from "@/states";
+import type { ImageDTO } from "@/common/types/common";
 import type { Settings } from "react-slick";
 
 import { IconWhiteRightChevron } from "public/icons";
@@ -55,16 +56,13 @@ const defaultSettings: Settings = {
   nextArrow: <NextArrow />,
 };
 
-const Carousel: React.FC = () => {
-  const { reviewId } = useParams();
-  const { get } = useSearchParams();
-  const { data: review } = useSuspenseQuery<Review>(["getReview", reviewId], () => getReviewApi(reviewId));
+interface Props {
+  images: ImageDTO[];
+  initialIndex: number;
+  setIndex: Dispatch<SetStateAction<number>>;
+}
 
-  const initialIndex = get("index");
-
-  const setIndex = useSetAtom(reviewImageIndexState);
-  const setTotalCount = useSetAtom(reviewImageTotalCountState);
-
+const Carousel: React.FC<Props> = ({ images, initialIndex, setIndex }) => {
   const handleScroll = useCallback(
     (currentIndex: number, nextIndex: number) => {
       setIndex(nextIndex);
@@ -73,28 +71,14 @@ const Carousel: React.FC = () => {
   );
 
   const settings = useMemo<Settings>(
-    () => ({ ...defaultSettings, initialSlide: initialIndex ? Number(initialIndex) : 0, beforeChange: handleScroll }),
+    () => ({ ...defaultSettings, initialSlide: initialIndex, beforeChange: handleScroll }),
     [handleScroll, initialIndex],
   );
-
-  useEffect(() => {
-    setTotalCount(review.images.length);
-  }, [review, setTotalCount]);
-
-  useEffect(() => {
-    if (!initialIndex) return;
-    setIndex(Number(initialIndex));
-  }, [initialIndex, setIndex]);
-
-  useUnmount(() => {
-    setIndex(0);
-    setTotalCount(null);
-  });
 
   return (
     <section className={styles.wrapper}>
       <Slider className={styles.slider} {...settings}>
-        {review.images.map((image) => (
+        {images.map((image) => (
           <img className={styles.image} key={image.url} src={image.url} alt="이미지" />
         ))}
       </Slider>

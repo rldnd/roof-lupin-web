@@ -5,6 +5,9 @@ import { createPortal } from "react-dom";
 
 import cx from "clsx";
 import { CSSTransition } from "react-transition-group";
+import { useUnmount } from "react-use";
+
+import { useClientEffect, useScrollBlock } from "@/hooks";
 
 import Overlay from "../Overlay";
 
@@ -18,6 +21,8 @@ export interface Props {
   className?: string;
   wrapperClassName?: string;
   hideOverlay?: boolean;
+  blockWindowScroll?: boolean;
+  overlayClassName?: string;
   shouldCloseOnOverlayClick?: boolean;
   isOverlayTransparent?: boolean;
   children: ReactNode;
@@ -29,11 +34,25 @@ const ModalPortal: React.FC<Props> = ({
   wrapperClassName,
   className,
   children,
+  overlayClassName,
+  blockWindowScroll = false,
   hideOverlay = false,
   isOverlayTransparent = false,
   shouldCloseOnOverlayClick = true,
 }) => {
   const nodeRef = useRef(null);
+  const { block, unBlock } = useScrollBlock();
+
+  useClientEffect(() => {
+    if (!blockWindowScroll) return;
+
+    if (isShow) block();
+    if (!isShow) unBlock();
+  }, [isShow, blockWindowScroll, block, unBlock]);
+
+  useUnmount(() => {
+    unBlock();
+  });
 
   return createPortal(
     <CSSTransition
@@ -51,6 +70,7 @@ const ModalPortal: React.FC<Props> = ({
       <div className={cx(styles.wrapper, wrapperClassName)} ref={nodeRef}>
         {!hideOverlay && (
           <Overlay
+            className={overlayClassName}
             onClose={shouldCloseOnOverlayClick ? onClose : undefined}
             isOverlayTransparent={isOverlayTransparent}
           />

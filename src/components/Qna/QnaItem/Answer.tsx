@@ -29,7 +29,7 @@ const Answer: React.FC<Props> = ({ answer, isShowAll }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Title nickname={answer.host.name} createdAt={answer.createdAt} onClickSetting={() => {}} />
+      <Title nickname={answer.host.name} createdAt={answer.createdAt} />
       <p className={cx(styles.answer, { [styles.isClickedViewMore]: isClickedViewMore })} ref={answerRef}>
         {answer.content}
         <span className={cx(styles.moreButton, { [styles.isShow]: hasMoreButton && !isClickedViewMore })}>

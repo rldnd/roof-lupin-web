@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  @include m.fixed(0 auto auto 50%);
+  z-index: calc(c.$Z_MODAL + 1);
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 18px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: transparent;
+  transform: translateX(-50%);
+
+  span {
+    @include m.fontH4SemiBold;
+    color: var(--c-white);
+  }
+
+  > button {
+    cursor: pointer;
+
+    svg {
+      @include m.filterWhite;
+    }
+  }
+}

@@ -16,9 +16,9 @@ interface Props {
 const Images: React.FC<Props> = ({ spaceId, images, reviewId }) => {
   return (
     <HorizonDraggable className={styles.wrapper}>
-      {images.map((image) => (
+      {images.map((image, index) => (
         <li key={image.url}>
-          <Link href={`/spaces/${spaceId}/reviews/${reviewId}/images`}>
+          <Link href={`/spaces/${spaceId}/reviews/${reviewId}/images?index=${index}`}>
             <img width={128} height={128} src={image.url} alt="이미지" />
           </Link>
         </li>

@@ -1,0 +1,42 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  .slider {
+    width: 100%;
+
+    .image {
+      width: 100%;
+      object-fit: cover;
+      margin: auto;
+    }
+
+    .arrow {
+      @include m.posCenterY;
+      @include m.flex;
+      right: c.$S_PAGE_HORIZONTAL_PADDING;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 50%);
+      border-radius: 50%;
+
+      &.left {
+        right: auto;
+        left: c.$S_PAGE_HORIZONTAL_PADDING;
+
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .skeleton {
+    width: 100%;
+    height: 50vh;
+    border-radius: 0;
+  }
+}
