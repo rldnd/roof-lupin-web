@@ -12,6 +12,7 @@ interface Props extends BottomSheetPortalProps {
   title?: string;
   isHeightMax?: boolean;
   isHeightMin?: boolean;
+  hideHeader?: boolean;
 }
 
 const BaseBottomSheet: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const BaseBottomSheet: React.FC<Props> = ({
   onClose,
   isHeightMax = false,
   isHeightMin = false,
+  hideHeader = false,
   ...props
 }) => {
   return (
@@ -35,7 +37,7 @@ const BaseBottomSheet: React.FC<Props> = ({
     >
       <header className={styles.header}>
         {title && <h1>{title}</h1>}
-        {onClose && (
+        {onClose && !hideHeader && (
           <button type="button" className={styles.closeButton} onClick={onClose}>
             <IconClose />
           </button>
