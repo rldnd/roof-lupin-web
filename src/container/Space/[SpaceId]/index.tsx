@@ -76,7 +76,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <OpenHourAndHoliday openHours={space.openHours} holidays={space.holidays} />
         <hr />
-        <MenuItem title="호스트 정보" href="/" />
+        <MenuItem title="호스트 정보" href={`/spaces/${params.spaceId}/hosts`} />
         <hr />
         <ReportButton />
         <Footer
