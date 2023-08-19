@@ -2,21 +2,19 @@
 
 import { BaseBottomSheet } from "@/components/Common";
 
-import { NavigateMenuItem, SortMenu } from "../_shared";
+import { SortMenu, SortMenuItem } from "../_shared";
 
 interface Props {
-  reviewId: string;
   isShow: boolean;
   onClose(): void;
 }
 
-const OtherReviewMenuBottomSheet: React.FC<Props> = ({ reviewId, isShow, onClose }) => {
+const OtherReviewMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} hideHeader blockWindowScroll>
       <SortMenu>
-        <NavigateMenuItem href={`/reviews/${reviewId}/reports`} isActive={false}>
-          후기 신고
-        </NavigateMenuItem>
+        <SortMenuItem isActive={false}>수정하기</SortMenuItem>
+        <SortMenuItem isActive={false}>삭제하기</SortMenuItem>
       </SortMenu>
     </BaseBottomSheet>
   );

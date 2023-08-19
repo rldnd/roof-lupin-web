@@ -8,19 +8,19 @@ import { useMutation } from "@tanstack/react-query";
 
 import { Button, Radio, Textarea } from "@/components";
 import { usePopConfirm, useToast } from "@/hooks";
-import { createReviewReportApi } from "@/services/report";
+import { createQnaReportApi } from "@/services/report";
 
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
   const { openPopConfirm } = usePopConfirm();
   const { addToast } = useToast();
-  const { reviewId } = useParams();
+  const { qnaId } = useParams();
   const { back } = useRouter();
   const [checked, setChecked] = useState(0);
   const [input, setInput] = useState("");
 
-  const { mutate } = useMutation(createReviewReportApi, {
+  const { mutate } = useMutation(createQnaReportApi, {
     onSuccess: () => {
       addToast({ message: "신고가 정상적으로 접수되었습니다." });
       back();
@@ -44,7 +44,7 @@ const Form: React.FC = () => {
 
     openPopConfirm({
       title: "작성하신 신고 사유대로 신고하시겠습니까?",
-      onConfirm: () => mutate({ reviewId, content }),
+      onConfirm: () => mutate({ qnaId, content }),
     });
   };
 

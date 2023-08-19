@@ -9,7 +9,7 @@ interface Props {
   onClose(): void;
 }
 
-const OtherReviewMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
+const MyReviewMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} hideHeader blockWindowScroll>
       <SortMenu>
@@ -20,4 +20,4 @@ const OtherReviewMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   );
 };
 
-export default OtherReviewMenuBottomSheet;
+export default MyReviewMenuBottomSheet;

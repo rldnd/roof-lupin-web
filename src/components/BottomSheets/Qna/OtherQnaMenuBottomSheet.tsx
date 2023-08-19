@@ -5,16 +5,16 @@ import { BaseBottomSheet } from "@/components/Common";
 import { NavigateMenuItem, SortMenu } from "../_shared";
 
 interface Props {
-  reviewId: string;
+  qnaId: string;
   isShow: boolean;
   onClose(): void;
 }
 
-const OtherReviewMenuBottomSheet: React.FC<Props> = ({ reviewId, isShow, onClose }) => {
+const OtherQnaMenuBottomSheet: React.FC<Props> = ({ qnaId, isShow, onClose }) => {
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} hideHeader blockWindowScroll>
       <SortMenu>
-        <NavigateMenuItem href={`/reviews/${reviewId}/reports`} isActive={false}>
+        <NavigateMenuItem href={`/qnas/${qnaId}/reports`} isActive={false}>
           후기 신고
         </NavigateMenuItem>
       </SortMenu>
@@ -22,4 +22,4 @@ const OtherReviewMenuBottomSheet: React.FC<Props> = ({ reviewId, isShow, onClose
   );
 };
 
-export default OtherReviewMenuBottomSheet;
+export default OtherQnaMenuBottomSheet;
