@@ -1,6 +1,15 @@
 "use client";
 
-import { type CSSProperties, lazy, type MouseEventHandler, useCallback, useEffect, useMemo } from "react";
+import {
+  type CSSProperties,
+  lazy,
+  type MouseEventHandler,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
@@ -56,6 +65,7 @@ const defaultSettings: Settings = {
 };
 
 const Carousel: React.FC = () => {
+  const ref = useRef<any>();
   const { reviewId } = useParams();
   const { get } = useSearchParams();
   const { data: review } = useSuspenseQuery<Review>(["getReview", reviewId], () => getReviewApi(reviewId));
@@ -72,17 +82,15 @@ const Carousel: React.FC = () => {
     [setIndex],
   );
 
-  const settings = useMemo<Settings>(
-    () => ({ ...defaultSettings, initialSlide: initialIndex ? Number(initialIndex) : 0, beforeChange: handleScroll }),
-    [handleScroll, initialIndex],
-  );
+  const settings = useMemo<Settings>(() => ({ ...defaultSettings, beforeChange: handleScroll }), [handleScroll]);
 
   useEffect(() => {
     setTotalCount(review.images.length);
   }, [review, setTotalCount]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!initialIndex) return;
+    ref.current?.slickGoTo(Number(initialIndex));
     setIndex(Number(initialIndex));
   }, [initialIndex, setIndex]);
 
@@ -93,7 +101,7 @@ const Carousel: React.FC = () => {
 
   return (
     <section className={styles.wrapper}>
-      <Slider className={styles.slider} {...settings}>
+      <Slider className={styles.slider} ref={ref} {...settings}>
         {review.images.map((image) => (
           <img className={styles.image} key={image.url} src={image.url} alt="이미지" />
         ))}
