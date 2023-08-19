@@ -7,7 +7,9 @@ import {
   type MouseEventHandler,
   SetStateAction,
   useCallback,
+  useLayoutEffect,
   useMemo,
+  useRef,
 } from "react";
 
 import cx from "clsx";
@@ -63,6 +65,7 @@ interface Props {
 }
 
 const Carousel: React.FC<Props> = ({ images, initialIndex, setIndex }) => {
+  const ref = useRef<any>(null);
   const handleScroll = useCallback(
     (currentIndex: number, nextIndex: number) => {
       setIndex(nextIndex);
@@ -70,16 +73,17 @@ const Carousel: React.FC<Props> = ({ images, initialIndex, setIndex }) => {
     [setIndex],
   );
 
-  const settings = useMemo<Settings>(
-    () => ({ ...defaultSettings, initialSlide: initialIndex, beforeChange: handleScroll }),
-    [handleScroll, initialIndex],
-  );
+  const settings = useMemo<Settings>(() => ({ ...defaultSettings, beforeChange: handleScroll }), [handleScroll]);
+
+  useLayoutEffect(() => {
+    ref.current?.slickGoTo(initialIndex);
+  }, [initialIndex]);
 
   return (
     <section className={styles.wrapper}>
-      <Slider className={styles.slider} {...settings}>
-        {images.map((image) => (
-          <img className={styles.image} key={image.url} src={image.url} alt="이미지" />
+      <Slider className={styles.slider} ref={ref} {...settings}>
+        {images.map((image, index) => (
+          <img className={styles.image} key={`${image.url}-${index}`} src={image.url} alt="이미지" />
         ))}
       </Slider>
     </section>
