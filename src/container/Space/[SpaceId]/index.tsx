@@ -32,8 +32,6 @@ interface Props {
   params: { spaceId: string };
 }
 
-// TODO: 문의하기 구현
-// TODO: Q&A 구현
 // TODO: 지도 구현
 // TODO: 판매자 정보 구현
 export default async function SpaceDetailContainer({ params }: Props) {
