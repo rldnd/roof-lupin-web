@@ -21,3 +21,9 @@ export const getNextDayText = (hour: number) => {
 export const getTimeWithDay = (hour: number) => {
   return `${getNextDayText(hour)} ${getTime(hour)}:00`;
 };
+
+export const formatHourToAHHMM = (hour: number) => {
+  const time = getTime(hour);
+  const isAfternoon = time >= 12;
+  return `${getNextDayText(hour)} ${isAfternoon ? "오후" : "오전"} ${isAfternoon ? time - 12 : time}시`;
+};

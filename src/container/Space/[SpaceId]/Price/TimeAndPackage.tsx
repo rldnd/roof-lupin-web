@@ -11,8 +11,8 @@ import { LoadingReservationTimePicker, ReservationTimePicker } from "@/component
 import { useSuspenseQuery } from "@/hooks";
 import { getSpaceRentalTypeApi } from "@/services/rentalType";
 import { spaceReservationInfoState } from "@/states";
-import { formatHourToAHHMM } from "@/utils/date";
 import { isPackageRentalType, isTimeRentalType } from "@/utils/rentalType";
+import { formatHourToAHHMM } from "@/utils/time";
 
 import styles from "./timeAndPackage.module.scss";
 
@@ -47,9 +47,9 @@ const TimeAndPackage: React.FC = () => {
               <li key={item.id} className={styles.packageItem}>
                 <div className={styles.info}>
                   <span className={styles.name}>{item.name}</span>
-                  <span className={styles.description}>{`${formatHourToAHHMM(item.startAt)}시~${formatHourToAHHMM(
+                  <span className={styles.description}>{`${formatHourToAHHMM(item.startAt)}~${formatHourToAHHMM(
                     item.endAt,
-                  )}시`}</span>
+                  )}`}</span>
                 </div>
                 <span className={styles.price}>{item.baseCost.toLocaleString("ko-KR")}원</span>
               </li>
