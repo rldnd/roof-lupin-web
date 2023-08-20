@@ -3,7 +3,6 @@
 import { type FormEventHandler, type MouseEventHandler, Suspense, useCallback, useEffect, useState } from "react";
 
 import { useAtom } from "jotai";
-import { range } from "lodash-es";
 
 import { BottomSheetPortal, CategoryTimePicker } from "@/components";
 import { initialSpaceSortMenu, type SpaceSortMenuInfoFilter, spaceSortMenuState } from "@/states";
