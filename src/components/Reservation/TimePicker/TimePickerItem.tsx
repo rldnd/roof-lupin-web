@@ -28,7 +28,7 @@ const ReservationTimePickerItem: React.FC<Props> = ({ info, onClick, active }) =
         onClick={onClick}
       >
         <div className={styles.priceWrapper}>{isPossible && <>{info.cost.toLocaleString("ko-KR")}원</>}</div>
-        <time dateTime={`${info.time}:00`}>{info.time}:00</time>
+        <time dateTime={`${info.time}:00`}>{info.time % 24}:00</time>
       </button>
     </li>
   );

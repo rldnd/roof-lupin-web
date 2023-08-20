@@ -23,7 +23,7 @@ import {
 import { dayjs } from "@/utils/date";
 import { isPackageRentalType, isTimeRentalType } from "@/utils/rentalType";
 import { getPrepareReservationBody } from "@/utils/reservation";
-import { addHour, getDiffHour, getNextDayText } from "@/utils/time";
+import { getDiffHour, getTimeWithDay } from "@/utils/time";
 
 import styles from "./bottomSection.module.scss";
 
@@ -106,9 +106,7 @@ const BottomSection: React.FC<Props> = ({ space }) => {
             <Fragment key={rentalType.id}>
               {isTimeRentalType(rentalType) && (
                 <>
-                  시간 단위 예약 ({getNextDayText(rentalType.startAt)}
-                  {rentalType.startAt}-{getNextDayText(addHour(rentalType.endAt, 1), rentalType.startAt)}
-                  {addHour(rentalType.endAt, 1)}시,
+                  시간 단위 예약 ({getTimeWithDay(rentalType.startAt)}-{getTimeWithDay(rentalType.endAt + 1)},
                   {getDiffHour(rentalType.startAt, rentalType.endAt)}시간)
                 </>
               )}

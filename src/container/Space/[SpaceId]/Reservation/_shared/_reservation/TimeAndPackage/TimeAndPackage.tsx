@@ -25,9 +25,9 @@ import {
   reservationState,
   reservationTimeState,
 } from "@/states";
-import { formatHourToAHHMM } from "@/utils/date";
 import { deletePropertyInObject } from "@/utils/function";
 import { isUnderTimeReservation } from "@/utils/rentalType";
+import { formatHourToAHHMM } from "@/utils/time";
 
 import styles from "./timeAndPackage.module.scss";
 
@@ -67,18 +67,14 @@ const TimeAndPackage: React.FC = () => {
     handleResetPackage();
 
     const hour = Number(e.currentTarget.value);
-    const startIndex = rentalTypes.time.timeCostInfos.findIndex((item) => item.time === reservationTime.startAt);
-    const clickedIndex = rentalTypes.time.timeCostInfos.findIndex(
-      (item, idx) => item.time === hour && idx > startIndex,
-    );
 
-    const hasStart = startIndex !== -1;
-    const hasClickedBeforeStart = hasStart && clickedIndex <= startIndex;
-    const hasEnd = typeof reservationTime.endAt === "number" && reservationTime.endAt !== -1;
+    const hasStart = reservationTime.startAt !== null;
+    const hasClickedBeforeStart = hasStart && hour <= reservationTime.startAt!;
+    const hasEnd = typeof reservationTime.endAt === "number";
     const hasDisabledBetween =
       hasStart &&
       rentalTypes.time.timeCostInfos.some(
-        (item, index) => index > startIndex && index < clickedIndex && !item.isPossible,
+        (item) => item.time > reservationTime.startAt! && item.time < hour && !item.isPossible,
       );
 
     // MEMO: 시작 시간을 선택하게 되는 경우
@@ -87,7 +83,7 @@ const TimeAndPackage: React.FC = () => {
     } else {
       //MEMO: 끝 시간을 선택하게 되는 경우
       const cost = rentalTypes.time.timeCostInfos.reduce<number>(
-        (acc, cur, index) => (index >= startIndex && index <= clickedIndex ? acc + cur.cost : acc),
+        (acc, cur) => (cur.time >= reservationTime.startAt! && cur.time <= hour ? acc + cur.cost : acc),
         0,
       );
       setReservationTime((prev) => ({ ...prev, endAt: hour, cost, rentalTypeId: rentalTypes.time!.id }));
@@ -172,7 +168,7 @@ const TimeAndPackage: React.FC = () => {
                   disabled={!item.isPossible}
                   name={item.name}
                   onChange={onChangePackage}
-                  description={`${formatHourToAHHMM(item.startAt)}시~${formatHourToAHHMM(item.endAt)}시`}
+                  description={`${formatHourToAHHMM(item.startAt)}~${formatHourToAHHMM(item.endAt)}`}
                 />
               </li>
             ))}

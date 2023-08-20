@@ -69,15 +69,10 @@ const SpaceInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
 
   const onClickTime: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
-      const index = Number(e.currentTarget.value);
-      const hour = (index + 9) % 24;
+      const hour = Number(e.currentTarget.value);
 
-      const startIndex = range(24)
-        .map((value) => (value + 9) % 24)
-        .findIndex((item) => item === localInfo.startAt);
-
-      const hasStart = startIndex !== -1;
-      const hasClickedBeforeStart = hasStart && index <= startIndex;
+      const hasStart = localInfo.startAt !== null;
+      const hasClickedBeforeStart = hasStart && hour <= localInfo.startAt!;
       const hasEnd = typeof localInfo.endAt === "number";
 
       if (!hasStart || hasClickedBeforeStart || (hasStart && hasEnd))

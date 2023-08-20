@@ -24,7 +24,7 @@ const CategoryTimePickerItem: React.FC<Props> = ({ onClick, active, index, time,
         value={index}
         onClick={onClick}
       >
-        {`${time}:00`}
+        {`${time % 24}:00`}
       </button>
     </li>
   );

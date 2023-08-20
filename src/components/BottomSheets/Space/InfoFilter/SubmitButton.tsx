@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/Common";
 import type { SpaceSortMenuInfoFilter } from "@/states";
-import { addHour, getNextDayText } from "@/utils/time";
+import { getTimeWithDay } from "@/utils/time";
 
 import styles from "./submitButton.module.scss";
 
@@ -23,9 +23,7 @@ const SubmitButton: React.FC<Props> = ({ localInfo }) => {
       {month}월 {day}일{" "}
       {typeof startAt === "number" && typeof endAt === "number" && (
         <>
-          {getNextDayText(startAt)}
-          {`${startAt}:00`} ~ {getNextDayText(addHour(endAt, 1), startAt)}
-          {`${addHour(endAt, 1)}:00`}
+          {getTimeWithDay(startAt)} ~ {getTimeWithDay(endAt + 1)}
         </>
       )}{" "}
       {userCount}명

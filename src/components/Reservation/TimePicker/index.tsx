@@ -13,13 +13,13 @@ import ReservationTimePickerItem, { LoadingReservationTimePickerItem } from "./T
 
 import styles from "./reservationTimePicker.module.scss";
 
-const checkIsActive = (startIndex: number, endIndex: number, index: number): boolean => {
-  const hasClickedStart = startIndex !== -1;
-  const hasClickedEnd = endIndex !== -1;
+const checkIsActive = (startAt: number | null, endAt: number | null, hour: number): boolean => {
+  const hasClickedStart = startAt !== null;
+  const hasClickedEnd = endAt !== null;
 
   if (!hasClickedStart && !hasClickedEnd) return false;
-  if (hasClickedStart && !hasClickedEnd) return startIndex === index;
-  return startIndex <= index && index <= endIndex;
+  if (hasClickedStart && !hasClickedEnd) return startAt === hour;
+  return startAt! <= hour && hour <= endAt!;
 };
 
 interface Props {
@@ -31,9 +31,6 @@ interface Props {
 }
 
 const ReservationTimePicker: React.FC<Props> = ({ infos, className, startAt, endAt, onClickTime }) => {
-  const startIndex = infos.findIndex((info) => info.time === startAt);
-  const endIndex = infos.findIndex((info) => info.time === endAt);
-
   return (
     <HorizonDraggable component="menu" className={cx(styles.wrapper, className)}>
       {infos.map((info, index) => {
@@ -42,7 +39,7 @@ const ReservationTimePicker: React.FC<Props> = ({ infos, className, startAt, end
             key={`${info.time}-${index}`}
             info={info}
             onClick={onClickTime}
-            active={checkIsActive(startIndex, endIndex, index)}
+            active={checkIsActive(startAt, endAt, info.time)}
           />
         );
       })}

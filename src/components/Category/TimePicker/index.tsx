@@ -11,13 +11,13 @@ import CategoryTimePickerItem from "./TimePickerItem";
 
 import styles from "./categoryTimePicker.module.scss";
 
-const checkIsActive = (startIndex: number, endIndex: number, index: number): boolean => {
-  const hasClickedStart = startIndex !== -1;
-  const hasClickedEnd = endIndex !== -1;
+const checkIsActive = (startAt: number | null, endAt: number | null, hour: number): boolean => {
+  const hasClickedStart = startAt !== null;
+  const hasClickedEnd = endAt !== null;
 
   if (!hasClickedStart && !hasClickedEnd) return false;
-  if (hasClickedStart && !hasClickedEnd) return startIndex === index;
-  return startIndex <= index && index <= endIndex;
+  if (hasClickedStart && !hasClickedEnd) return startAt === hour;
+  return startAt! <= hour && hour <= endAt!;
 };
 
 interface Props {
@@ -28,22 +28,18 @@ interface Props {
 }
 
 const CategoryTimePicker: React.FC<Props> = ({ className, startAt, endAt, onClickTime }) => {
-  const time = range(24).map((value) => (value + 9) % 24);
-  const startIndex = time.findIndex((value) => value === startAt);
-  const endIndex = time.findIndex((value, idx) => value === endAt && idx > startIndex);
-
   return (
     <HorizonDraggable component="menu" className={cx(styles.wrapper, className)}>
-      {range(24).map((value) => {
+      {range(9, 33).map((value) => {
         return (
           <CategoryTimePickerItem
-            key={`${(value + 9) % 24}-${value}`}
+            key={value}
             index={value}
-            time={(value + 9) % 24}
+            time={value}
             onClick={onClickTime}
-            isStart={value === startIndex && endIndex > -1}
-            isEnd={value === endIndex}
-            active={checkIsActive(startIndex, endIndex, value)}
+            isStart={value === startAt && endAt !== null}
+            isEnd={value === endAt}
+            active={checkIsActive(startAt, endAt, value)}
           />
         );
       })}

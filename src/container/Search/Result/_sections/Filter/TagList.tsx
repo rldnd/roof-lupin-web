@@ -10,7 +10,7 @@ import { SpaceInfoFilterBottomSheet, SpaceLocationFilterBottomSheet } from "@/co
 import { useSuspenseQuery } from "@/hooks";
 import { getLocationFiltersApi } from "@/services/location";
 import { spaceSortMenuState } from "@/states";
-import { addHour, getNextDayText } from "@/utils/time";
+import { getTimeWithDay } from "@/utils/time";
 
 import { IconCategoryFilterCalendar, IconCategoryFilterLocation, IconCategoryFilterUser } from "public/icons";
 
@@ -50,9 +50,7 @@ const TagList: React.FC = () => {
             {month}월{day}일{" "}
             {typeof startAt === "number" && typeof endAt === "number" && (
               <>
-                {getNextDayText(startAt)}
-                {startAt}시 ~ {getNextDayText(addHour(endAt, 1), startAt)}
-                {addHour(endAt, 1)}시
+                {getTimeWithDay(startAt)} ~ {getTimeWithDay(endAt + 1)}
               </>
             )}
           </button>
