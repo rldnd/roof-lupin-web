@@ -57,14 +57,19 @@ const Form: React.FC = () => {
       <Radio value={2} checked={checked === 2} title="개인정보 포함 또는 유출 위험" onChange={onChangeRadio}>
         개인정보 포함 또는 유출 위험
       </Radio>
-      <Radio value={3} checked={checked === 3} title="불쾌한 표현" onChange={onChangeRadio}>
-        불쾌한 표현
-      </Radio>
-      <Radio value={4} checked={checked === 4} title="음란성 또는 청소년에게 유해한 내용" onChange={onChangeRadio}>
+      <Radio value={3} checked={checked === 3} title="음란성 또는 청소년에게 유해한 내용" onChange={onChangeRadio}>
         음란성 또는 청소년에게 유해한 내용
       </Radio>
-      <Radio value={5} checked={checked === 5} title="사실과 다르거나 비방성 내용" onChange={onChangeRadio}>
+      <Radio value={4} checked={checked === 4} title="사실과 다르거나 비방성 내용" onChange={onChangeRadio}>
         사실과 다르거나 비방성 내용
+      </Radio>
+      <Radio
+        value={4}
+        checked={checked === 5}
+        title="동일한 내용을 반복적으로 나열하는 도배성 게시글"
+        onChange={onChangeRadio}
+      >
+        동일한 내용을 반복적으로 나열하는 도배성 게시글
       </Radio>
       <Radio value={6} checked={checked === 6} onChange={onChangeRadio}>
         기타
