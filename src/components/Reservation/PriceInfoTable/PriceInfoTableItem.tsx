@@ -7,11 +7,12 @@ import styles from "./priceInfoTableItem.module.scss";
 export interface Props {
   title: string;
   price: number;
+  isMinus?: boolean;
   dtClassName?: string;
   ddClassName?: string;
 }
 
-const PriceInfoTableItem: React.FC<Props> = ({ title, price, ddClassName, dtClassName }) => {
+const PriceInfoTableItem: React.FC<Props> = ({ title, price, ddClassName, dtClassName, isMinus = false }) => {
   return (
     <>
       <dt className={cx(styles.dt, dtClassName)}>{title}</dt>

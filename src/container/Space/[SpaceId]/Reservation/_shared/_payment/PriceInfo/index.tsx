@@ -13,11 +13,12 @@ import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import {
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
 } from "@/states";
-import { getAdditionalUserPrice } from "@/utils/reservation";
+import { getAdditionalUserPrice, getDiscountCost, getOriginalCost } from "@/utils/reservation";
 import { getDiffHour } from "@/utils/time";
 
 import styles from "./priceInfo.module.scss";
@@ -32,6 +33,7 @@ const PriceInfo: React.FC = () => {
   const reservationTime = useAtomValue(reservationTimeState);
   const reservationPackage = useAtomValue(reservationPackageState);
   const reservationAdditionalServices = useAtomValue(reservationAdditionalServicesState);
+  const reservationCoupon = useAtomValue(reservationCouponState);
 
   const timePrice = useMemo<Item[]>(() => {
     const { cost, startAt, endAt } = reservationTime;
@@ -58,17 +60,40 @@ const PriceInfo: React.FC = () => {
     return [{ title: ADDITIONAL_USER_TITLE, price }];
   }, [reservation, space]);
 
+  const couponPrice = useMemo<Item[]>(() => {
+    if (!reservation.userCount) return [{ title: "쿠폰 할인", price: 0, ddClassName: styles.couponPrice }];
+
+    const originalCost = getOriginalCost(
+      reservationTime,
+      reservationPackage,
+      reservationAdditionalServices,
+      reservation.userCount,
+      space.overflowUserCost,
+      space.overflowUserCost,
+    );
+
+    return [
+      {
+        title: "쿠폰 할인",
+        price: getDiscountCost(originalCost, reservationCoupon),
+        isMinus: true,
+        ddClassName: styles.couponPrice,
+      },
+    ];
+  }, [
+    reservation.userCount,
+    reservationAdditionalServices,
+    reservationCoupon,
+    reservationPackage,
+    reservationTime,
+    space.overflowUserCost,
+  ]);
+
   return (
     <section className={styles.wrapper}>
       <h2>결제 정보</h2>
       <PriceInfoTable
-        items={[
-          ...timePrice,
-          ...packagePrice,
-          ...additionalServicesPrice,
-          ...additionalUserPrice,
-          { title: "쿠폰 할인", price: 0, ddClassName: styles.couponPrice },
-        ]}
+        items={[...timePrice, ...packagePrice, ...additionalServicesPrice, ...additionalUserPrice, ...couponPrice]}
         totalTitle="총 결제 금액"
       />
     </section>

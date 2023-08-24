@@ -16,7 +16,10 @@ interface Props {
 }
 
 const PriceInfoTable: React.FC<Props> = ({ items, totalTitle, totalDtClassName, totalDdClassName }) => {
-  const totalPrice = items.reduce((acc, cur) => acc + cur.price, 0);
+  const totalPrice = items.reduce((acc, cur) => {
+    if (cur.isMinus) return acc - cur.price;
+    return acc + cur.price;
+  }, 0);
 
   return (
     <dl className={styles.wrapper}>

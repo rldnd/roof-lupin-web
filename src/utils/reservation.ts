@@ -1,3 +1,4 @@
+import type { UserCoupon } from "@/common/types/coupon";
 import type { CreateReservation, CreateReservationRentalType } from "@/common/types/reservation";
 import type { AdditionalServiceReservation } from "@/common/types/service";
 import type { Reservation, ReservationAdditionalService, ReservationPackage, ReservationTime } from "@/states";
@@ -139,4 +140,13 @@ export const getAdditionalUserPrice = (
 ) => {
   if (!userCount || userCount <= overflowUserCount) return 0;
   return overflowUserCost * (userCount - overflowUserCount);
+};
+
+export const getDiscountCost = (originalCost: number, userCoupons: UserCoupon[]) => {
+  const hasCoupon = userCoupons.length > 0;
+  if (!hasCoupon) return 0;
+
+  const { discountType, discountValue } = userCoupons[0].coupon;
+  if (discountType === "PERCENTAGE") return originalCost * (discountValue / 100);
+  return discountValue;
 };
