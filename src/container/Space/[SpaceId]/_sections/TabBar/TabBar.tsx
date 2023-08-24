@@ -55,7 +55,6 @@ const TabBar: React.FC = () => {
     ["getReviewsSummary", spaceId],
     () => getReviewsSummaryApi(spaceId),
     {
-      enabled: Boolean(spaceId),
       suspense: false,
     },
   );

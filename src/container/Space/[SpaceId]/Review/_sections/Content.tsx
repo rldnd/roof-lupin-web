@@ -20,9 +20,6 @@ const Content: React.FC = () => {
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
     ["paginateReviews", reviewSortMenu],
     ({ pageParam = 1 }) => paginateReviewsApi({ page: pageParam, limit: 10, ...reviewSortMenu, spaceId }),
-    {
-      enabled: Boolean(spaceId),
-    },
   );
 
   return (

@@ -51,7 +51,7 @@ export interface CreateReservation {
   /** 공간 아이디 */
   spaceId: string;
   /** 유저가 가지고 있는 쿠폰 IDs */
-  userCouponIds?: string[];
+  userCouponIds: string[];
 }
 
 export interface ReservationRental {

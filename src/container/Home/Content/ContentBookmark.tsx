@@ -33,7 +33,7 @@ const Bookmark: React.FC<Props> = ({ space }) => {
       ),
     {
       select: (res) => res.find((item) => item.id === space.id)?.isInterested ?? false,
-      enabled: Boolean(isLogined),
+      enabled: isLogined,
     },
   );
 
