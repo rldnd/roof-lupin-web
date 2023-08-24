@@ -6,6 +6,7 @@ import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
 import type { UserCoupon } from "@/common/types/coupon";
+import { getCouponPrice } from "@/utils/coupon";
 import { dayjs } from "@/utils/date";
 
 import styles from "./couponMenu.module.scss";
@@ -16,7 +17,6 @@ interface Props extends ComponentProps<"button"> {
 }
 
 const CouponMenu: React.FC<Props> = ({ className, userCoupon, active, ...props }) => {
-  const { name, discountType, discountValue } = userCoupon.coupon;
   const dueDays = Math.abs(
     dayjs(`${dayjs().year()}-${dayjs().month() + 1}-${dayjs().date()}`).diff(userCoupon.usageDateEndAt, "day"),
   );
@@ -26,11 +26,8 @@ const CouponMenu: React.FC<Props> = ({ className, userCoupon, active, ...props }
   return (
     <button type="button" className={cx(styles.wrapper, className, { [styles.active]: active })} {...props}>
       <div className={styles.info}>
-        <strong className={styles.percent}>
-          {discountType === "PERCENTAGE" && `${discountValue}%`}
-          {discountType === "VALUE" && `${discountValue.toLocaleString("ko-KR")}원`}
-        </strong>
-        <span className={styles.name}>{name}</span>
+        <strong className={styles.percent}>{getCouponPrice(userCoupon)}</strong>
+        <span className={styles.name}>{userCoupon.coupon.name}</span>
         <div className={styles.bottom}>
           <span className={styles.dueDays}>D-{dueDays}</span>
           <time dateTime={endDate} className={styles.time}>

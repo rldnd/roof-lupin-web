@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { useParams } from "next/navigation";
 
+import cx from "clsx";
 import { useAtomValue } from "jotai";
 
 import type { UserCouponCount } from "@/common/types/coupon";
@@ -14,10 +15,12 @@ import { getCouponsCountApi } from "@/services/coupon";
 import { getClientSpaceApi } from "@/services/space";
 import {
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
 } from "@/states";
+import { getCouponPrice } from "@/utils/coupon";
 import { getOriginalCost } from "@/utils/reservation";
 
 import { IconGrayRightChevronLarge } from "public/icons";
@@ -34,6 +37,7 @@ const Discount: React.FC = () => {
   const time = useAtomValue(reservationTimeState);
   const packages = useAtomValue(reservationPackageState);
   const additionalServices = useAtomValue(reservationAdditionalServicesState);
+  const coupons = useAtomValue(reservationCouponState);
 
   const [isShowMenu, setIsShowMenu] = useState(false);
 
@@ -55,10 +59,18 @@ const Discount: React.FC = () => {
     <>
       <section className={styles.wrapper}>
         <h2>할인</h2>
-        <button type="button" className={styles.couponButton} onClick={onClickCouponButton} disabled={data.count === 0}>
+        <button
+          type="button"
+          className={cx(styles.couponButton, { [styles.active]: coupons.length > 0 })}
+          onClick={onClickCouponButton}
+          disabled={data.count === 0}
+        >
           <span>
             쿠폰 할인
-            <span className={styles.currentCoupons}>(전체 {data.count}장)</span>
+            <span className={styles.currentCoupons}>
+              {coupons.length === 0 && `(전체 ${data.count}장)`}
+              {coupons.length > 0 && `(${getCouponPrice(coupons[0])} 할인)`}
+            </span>
           </span>
           <IconGrayRightChevronLarge />
         </button>

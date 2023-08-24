@@ -18,12 +18,21 @@
     padding: 16px;
     color: var(--c-gray-900);
     background-color: var(--c-gray-100);
+    border: 1px solid transparent;
     border-radius: 8px;
 
     .currentCoupons {
       @include m.fontBody1SemiBold;
       margin-left: 8px;
       color: var(--c-gray-500);
+    }
+
+    &.active {
+      border-color: var(--c-roof-orange);
+
+      .currentCoupons {
+        color: var(--c-roof-orange);
+      }
     }
   }
 }
