@@ -4,7 +4,7 @@
 .wrapper {
   width: 100%;
   height: 100%;
-  padding: 0 !important;
+  padding: 0 0 48px !important;
   overflow-y: auto;
 
   form {
@@ -17,8 +17,9 @@
       grid-template-columns: 5fr 11fr;
       gap: 8px;
       width: 100%;
-      padding: 16px c.$S_PAGE_HORIZONTAL_PADDING 48px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0%) 0%, #ffffff 16.15%);
+      padding: 16px c.$S_PAGE_HORIZONTAL_PADDING 0;
+      background-color: var(--c-white);
+      border-top: 1px solid var(--c-gray-250);
 
       button {
         width: 100%;
