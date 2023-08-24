@@ -3,10 +3,12 @@ import { atom } from "jotai";
 import {
   RESERVATION,
   RESERVATION_ADDITIONAL_SERVICES,
+  RESERVATION_COUPON,
   RESERVATION_DEPOSIT_CONFIRM,
   RESERVATION_PACKAGE,
   RESERVATION_TIME,
 } from "@/common/constants";
+import type { UserCoupon } from "@/common/types/coupon";
 import type { CreateReservation, CreateReservationRentalType } from "@/common/types/reservation";
 import type { AdditionalService } from "@/common/types/service";
 import { sessionPersistenceAtom } from "@/utils/jotai";
@@ -40,6 +42,8 @@ export interface ReservationPackage extends Omit<CreateReservationRentalType, "a
   name: string;
   baseCost: number;
 }
+
+export type ReservationCoupon = UserCoupon;
 
 export const initialReservation: Reservation = {
   day: null,
@@ -78,3 +82,5 @@ export const reservationTimeState = sessionPersistenceAtom<ReservationTime>(RESE
 export const reservationPackageState = sessionPersistenceAtom<ReservationPackage[]>(RESERVATION_PACKAGE, []);
 /** 보증금 내용 확인 여부 */
 export const reservationDepositConfirmState = sessionPersistenceAtom<boolean>(RESERVATION_DEPOSIT_CONFIRM, false);
+/** 선택된 쿠폰 */
+export const reservationCouponState = sessionPersistenceAtom<ReservationCoupon[]>(RESERVATION_COUPON, []);

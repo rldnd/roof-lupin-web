@@ -11,6 +11,7 @@ import {
   initialReservation,
   initialReservationTime,
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
@@ -29,6 +30,7 @@ const TossPayFailContainer: React.FC = () => {
   const setPackages = useSetAtom(reservationPackageState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+  const setCoupon = useSetAtom(reservationCouponState);
 
   const onClickButton = () => {
     replace("/");
@@ -40,7 +42,8 @@ const TossPayFailContainer: React.FC = () => {
     setPackages([]);
     setDepositConfirm(false);
     setReservation(initialReservation);
-  }, [setAdditionalServices, setDepositConfirm, setPackages, setReservation, setTime]);
+    setCoupon([]);
+  }, [setAdditionalServices, setCoupon, setDepositConfirm, setPackages, setReservation, setTime]);
 
   return (
     <main className={styles.wrapper}>

@@ -12,6 +12,7 @@ import {
   initialReservationTime,
   initialSpaceReservationInfo,
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
@@ -50,6 +51,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
   const setPackage = useSetAtom(reservationPackageState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+  const setCoupon = useSetAtom(reservationCouponState);
 
   const [reservation, setReservation] = useAtom(reservationState);
   const [localInfo, setLocalInfo] = useState<NotNullable<SpaceReservationInfo>>(initialSpaceReservationInfo);
@@ -63,6 +65,7 @@ const SpaceEditReservationInfoFilterBottomSheet: React.FC<Props> = ({
     setAdditionalServices({});
     setReservation((prev) => ({ ...prev, year, month, day, userCount }));
     setDepositConfirm(false);
+    setCoupon([]);
     replace(getQueryStringWithPath(set({ year, month, day, userCount })));
     onClose();
   };

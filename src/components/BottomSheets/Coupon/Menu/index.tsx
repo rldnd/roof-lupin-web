@@ -1,11 +1,11 @@
 "use client";
 
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, Suspense, useState } from "react";
+import { type FormEventHandler, Suspense, useState } from "react";
 
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 
 import { BaseBottomSheet, Button } from "@/components/Common";
-import { reservationState } from "@/states";
+import { reservationCouponState } from "@/states";
 
 import Content, { LoadingContent } from "./Content";
 
@@ -17,22 +17,16 @@ interface Props {
 }
 
 const CouponMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
-  const [reservation, setReservation] = useAtom(reservationState);
-  const [localCouponIds, setLocalCouponIds] = useState(reservation.userCouponIds);
+  const [coupons, setCoupons] = useAtom(reservationCouponState);
+  const [localCoupons, setLocalCoupons] = useState(coupons);
 
   const onReset = () => {
-    setLocalCouponIds(null);
-  };
-
-  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    const { value } = e.currentTarget;
-    console.log({ value });
-    setLocalCouponIds([value]);
+    setLocalCoupons([]);
   };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setReservation({ ...reservation, userCouponIds: localCouponIds });
+    setCoupons(localCoupons);
     onClose();
   };
 
@@ -47,7 +41,7 @@ const CouponMenuBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
     >
       <form onSubmit={onSubmit} onReset={onReset}>
         <Suspense fallback={<LoadingContent />}>
-          <Content localCouponIds={localCouponIds} onClick={onClick} />
+          <Content localCoupons={localCoupons} setLocalCoupons={setLocalCoupons} />
         </Suspense>
         <footer className={styles.footer}>
           <Button type="reset" color="bw">

@@ -17,6 +17,7 @@ import {
   paymentCheckedRequiredAgreementState,
   RESERVATION_TAB_MAPPER,
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
@@ -39,6 +40,7 @@ const DataHandler: React.FC = () => {
 
   const setReservation = useSetAtom(reservationState);
   const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
+  const setCoupon = useSetAtom(reservationCouponState);
 
   const [time, setTime] = useAtom(reservationTimeState);
   const [packages, setPackages] = useAtom(reservationPackageState);
@@ -64,7 +66,8 @@ const DataHandler: React.FC = () => {
   const resetPaymentInfo = useCallback(() => {
     setPaymentCheckedRequired(false);
     clearWidgets();
-  }, [clearWidgets, setPaymentCheckedRequired]);
+    setCoupon([]);
+  }, [clearWidgets, setPaymentCheckedRequired, setCoupon]);
 
   useMount(() => {
     const [tab, year, month, day, userCount] = [get("tab"), get("year"), get("month"), get("day"), get("userCount")];

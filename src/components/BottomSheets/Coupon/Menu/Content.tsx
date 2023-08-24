@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEventHandler } from "react";
+import type { Dispatch, MouseEventHandler, SetStateAction } from "react";
 
 import { range } from "lodash-es";
 
@@ -10,19 +10,26 @@ import { LoadingCouponMenu } from "@/components/Coupon/CouponMenu";
 import { UnorderedInfiniteScroll } from "@/components/InfiniteScroll";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateCouponsApi } from "@/services/coupon";
+import type { ReservationCoupon } from "@/states";
 
 import styles from "./content.module.scss";
 
 interface Props {
-  localCouponIds: string[] | null;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  localCoupons: ReservationCoupon[];
+  setLocalCoupons: Dispatch<SetStateAction<ReservationCoupon[]>>;
 }
 
-const Content: React.FC<Props> = ({ localCouponIds, onClick }) => {
+const Content: React.FC<Props> = ({ localCoupons, setLocalCoupons }) => {
   const { data, isSuccess, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<UserCoupon>(
     ["paginateCoupons"],
     ({ pageParam = 1 }) => paginateCouponsApi({ page: pageParam, limit: 10 }),
   );
+
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const { value } = e.currentTarget;
+    const coupon = data.pages.flat().find((userCoupon) => userCoupon.id === value);
+    if (coupon) setLocalCoupons((prev) => [...prev, coupon]);
+  };
 
   return (
     <UnorderedInfiniteScroll
@@ -40,7 +47,7 @@ const Content: React.FC<Props> = ({ localCouponIds, onClick }) => {
           key={userCoupon.id}
           userCoupon={userCoupon}
           onClick={onClick}
-          active={Array.isArray(localCouponIds) && userCoupon.id === localCouponIds[0]}
+          active={localCoupons.some((localCoupon) => localCoupon.id === userCoupon.id)}
         />
       ))}
     </UnorderedInfiniteScroll>

@@ -15,6 +15,7 @@ import {
   initialReservation,
   initialReservationTime,
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationDepositConfirmState,
   reservationPackageState,
   reservationState,
@@ -46,6 +47,7 @@ const BottomSection: React.FC<Props> = ({ space }) => {
   const [packages, setPackages] = useAtom(reservationPackageState);
   const [additionalServices, setAdditionalServices] = useAtom(reservationAdditionalServicesState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
+  const setCoupon = useSetAtom(reservationCouponState);
 
   const { mutate: completePayment, data } = useMutation(completePaymentApi, {
     onSuccess: () => {
@@ -54,6 +56,7 @@ const BottomSection: React.FC<Props> = ({ space }) => {
       setPackages([]);
       setDepositConfirm(false);
       setReservation((prev) => ({ ...initialReservation, spaceId: prev.spaceId }));
+      setCoupon([]);
     },
     onError: () => replace("/payments/failed"),
   });
