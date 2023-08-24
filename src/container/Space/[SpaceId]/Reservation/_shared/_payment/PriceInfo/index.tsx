@@ -69,7 +69,7 @@ const PriceInfo: React.FC = () => {
       reservationAdditionalServices,
       reservation.userCount,
       space.overflowUserCost,
-      space.overflowUserCost,
+      space.overflowUserCount,
     );
 
     return [
@@ -87,6 +87,7 @@ const PriceInfo: React.FC = () => {
     reservationPackage,
     reservationTime,
     space.overflowUserCost,
+    space.overflowUserCount,
   ]);
 
   return (
