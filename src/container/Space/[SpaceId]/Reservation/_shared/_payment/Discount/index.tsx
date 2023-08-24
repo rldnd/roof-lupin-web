@@ -2,18 +2,49 @@
 
 import { useState } from "react";
 
+import { useParams } from "next/navigation";
+
+import { useAtomValue } from "jotai";
+
 import type { UserCouponCount } from "@/common/types/coupon";
+import type { SpaceDetail } from "@/common/types/space";
 import { CouponMenuBottomSheet } from "@/components/BottomSheets/Coupon";
 import { useSuspenseQuery } from "@/hooks";
 import { getCouponsCountApi } from "@/services/coupon";
+import { getClientSpaceApi } from "@/services/space";
+import {
+  reservationAdditionalServicesState,
+  reservationPackageState,
+  reservationState,
+  reservationTimeState,
+} from "@/states";
+import { getOriginalCost } from "@/utils/reservation";
 
 import { IconGrayRightChevronLarge } from "public/icons";
 
 import styles from "./discount.module.scss";
 
 const Discount: React.FC = () => {
-  const [isShowMenu, setIsShowMenu] = useState(false);
+  const { spaceId } = useParams();
+
   const { data } = useSuspenseQuery<UserCouponCount>(["getSpaceCouponsCount"], getCouponsCountApi);
+  const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
+
+  const reservation = useAtomValue(reservationState);
+  const time = useAtomValue(reservationTimeState);
+  const packages = useAtomValue(reservationPackageState);
+  const additionalServices = useAtomValue(reservationAdditionalServicesState);
+
+  const [isShowMenu, setIsShowMenu] = useState(false);
+
+  const originalCost = getOriginalCost(
+    time,
+    packages,
+    additionalServices,
+    reservation.userCount ?? 0,
+    space.overflowUserCost,
+    space.overflowUserCount,
+  );
 
   const onClickCouponButton = () => {
     if (data.count === 0) return;
@@ -24,7 +55,7 @@ const Discount: React.FC = () => {
     <>
       <section className={styles.wrapper}>
         <h2>할인</h2>
-        <button type="button" className={styles.couponButton} onClick={onClickCouponButton}>
+        <button type="button" className={styles.couponButton} onClick={onClickCouponButton} disabled={data.count === 0}>
           <span>
             쿠폰 할인
             <span className={styles.currentCoupons}>(전체 {data.count}장)</span>
@@ -32,7 +63,7 @@ const Discount: React.FC = () => {
           <IconGrayRightChevronLarge />
         </button>
       </section>
-      <CouponMenuBottomSheet isShow={isShowMenu} onClose={() => setIsShowMenu(false)} />
+      <CouponMenuBottomSheet isShow={isShowMenu} originalCost={originalCost} onClose={() => setIsShowMenu(false)} />
     </>
   );
 };

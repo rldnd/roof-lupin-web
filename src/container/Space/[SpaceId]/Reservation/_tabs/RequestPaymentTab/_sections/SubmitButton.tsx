@@ -12,6 +12,7 @@ import { prepareReservationApi } from "@/services/reservation";
 import { getClientSpaceApi } from "@/services/space";
 import {
   reservationAdditionalServicesState,
+  reservationCouponState,
   reservationPackageState,
   reservationState,
   reservationTimeState,
@@ -37,6 +38,7 @@ const Submit: React.FC = () => {
   const time = useAtomValue(reservationTimeState);
   const packages = useAtomValue(reservationPackageState);
   const additionalServices = useAtomValue(reservationAdditionalServicesState);
+  const coupons = useAtomValue(reservationCouponState);
 
   const disabled = !reservation.userName || !reservation.userPhoneNumber;
 
@@ -46,6 +48,7 @@ const Submit: React.FC = () => {
       time,
       packages,
       additionalServices,
+      coupons,
       space.overflowUserCost,
       space.overflowUserCount,
     );

@@ -46,8 +46,8 @@ const BottomSection: React.FC<Props> = ({ space }) => {
   const [time, setTime] = useAtom(reservationTimeState);
   const [packages, setPackages] = useAtom(reservationPackageState);
   const [additionalServices, setAdditionalServices] = useAtom(reservationAdditionalServicesState);
+  const [coupon, setCoupon] = useAtom(reservationCouponState);
   const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
-  const setCoupon = useSetAtom(reservationCouponState);
 
   const { mutate: completePayment, data } = useMutation(completePaymentApi, {
     onSuccess: () => {
@@ -74,6 +74,7 @@ const BottomSection: React.FC<Props> = ({ space }) => {
       time,
       packages,
       additionalServices,
+      coupon,
       space.overflowUserCost,
       space.overflowUserCount,
     );
@@ -93,6 +94,7 @@ const BottomSection: React.FC<Props> = ({ space }) => {
     additionalServices,
     space,
     data,
+    coupon,
   ]);
 
   if (!data) return <LoadingBottomSection />;

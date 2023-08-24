@@ -10,6 +10,7 @@ export const getPrepareReservationBody = (
   time: ReservationTime,
   packages: ReservationPackage[],
   additionalServices: ReservationAdditionalService,
+  userCoupons: UserCoupon[],
   overflowUserCost: number,
   overflowUserCount: number,
 ): CreateReservation | null => {
@@ -26,6 +27,7 @@ export const getPrepareReservationBody = (
     overflowUserCost,
     overflowUserCount,
   );
+  const discountCost = getDiscountCost(originalCost, userCoupons);
 
   return {
     year,
@@ -36,11 +38,10 @@ export const getPrepareReservationBody = (
     userCount,
     spaceId,
     rentalTypes,
-    // TODO: coupon 적용 시 수정해야 함
-    discountCost: 0,
+    discountCost,
     originalCost,
-    totalCost: originalCost,
-    userCouponIds: [],
+    totalCost: originalCost - discountCost,
+    userCouponIds: userCoupons.map((userCoupon) => userCoupon.id),
   };
 };
 
