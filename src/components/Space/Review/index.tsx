@@ -26,7 +26,7 @@ const SpaceReview: React.FC<Props> = ({ spaceId, review, className, isShowAll = 
       <Header review={review} />
       {review.images.length > 0 && <Images spaceId={spaceId} reviewId={review.id} images={review.images} />}
       <Content content={review.content} isShowAll={isShowAll} />
-      {review.reviewAnswers.length > 0 && <Answer answer={review.reviewAnswers[0]} isShowAll={isShowAll} />}
+      {review.answer && <Answer answer={review.answer} isShowAll={isShowAll} />}
     </li>
   );
 };

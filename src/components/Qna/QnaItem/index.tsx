@@ -32,7 +32,7 @@ const QnaItem: React.FC<Props> = ({ qna, className }) => {
           onClickSetting={() => setIsShowBottomSheet(true)}
         />
         <p className={styles.content}>{qna.content}</p>
-        {qna.answers.length === 1 && <Answer answer={qna.answers[0]} isShowAll={false} />}
+        {qna.answer && <Answer answer={qna.answer} isShowAll={false} />}
       </li>
       {isLogined && me?.id === qna.user.id && (
         <MyQnaMenuBottomSheet isShow={isShowBottomSheet} onClose={() => setIsShowBottomSheet(false)} />

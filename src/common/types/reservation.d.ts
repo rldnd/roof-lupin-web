@@ -1,9 +1,10 @@
 import type { DateDTO } from "./common";
+import type { Host } from "./host";
+import type { Refund } from "./refund";
 import type { RentalType } from "./rentalType";
 import type { AdditionalServiceReservation } from "./service";
 import type { Space } from "./space";
-
-import { CommonUser } from "./user";
+import type { CommonUser } from "./user";
 
 export interface ReservationRentalType {
   /** 대여 id */
@@ -65,6 +66,26 @@ export interface ReservationRental {
   rentalType: RentalType;
 }
 
+export type ReservationStatus =
+  | "APPROVED_PENDING"
+  | "APPROVED"
+  | "USED"
+  | "USER_CANCELED"
+  | "HOST_CANCELED"
+  | "REFUND"
+  | "BEFORE_USAGE";
+
+export interface ReservationCancel {
+  /** 예약 취소 아이디 */
+  id: string;
+  /** 취소 사유 */
+  reason: string;
+  /** 유저 */
+  user: CommonUser;
+  /** 호스트 */
+  host: Host;
+}
+
 export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   /** 예약 아이디 */
   id: string;
@@ -84,20 +105,30 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   userCount: number;
   /** 취소 여부 */
   isCanceled: boolean;
+  /** 영수증 */
+  receiptUrl: string;
+  /** 유저 이름 */
+  userName: string;
   /** 할인금액 */
   discountCost: number;
   /** 총액 - 할인가가 적용되지 않은 금액 */
   originalCost: number;
-  /** 결제 날짜 */
+  /** 결제 날짜 - 있으면 예약 확정 */
   payedAt: Date | null;
   /** 유저 정보 */
   user: CommonUser;
+  /** 유저 전화번호 */
+  userPhoneNumber: string;
   /** 대여 정보 */
   rentalTypes: ReservationRental[];
   /** 공간 정보 */
   space: Space;
   /** 리뷰 작성 여부 */
   isReviewed: boolean;
+  /** 예약 상태 */
+  status: ReservationStatus;
+  /** 환불 정보 */
+  refund: Refund;
   /** 주문 번호 */
   orderId: string | null;
   /** 주문결과번호 */
@@ -110,4 +141,6 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   isApproved: boolean;
   /** 승인일 */
   approvedAt: Date;
+  /** 취소 정보 */
+  cancel: ReservationCancel | null;
 }

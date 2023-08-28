@@ -22,7 +22,7 @@ export interface QnA extends Omit<DateDTO, "deletedAt"> {
   /** 유저 */
   user: CommonUser;
   /** 답변 */
-  answers: QnAAnswer[];
+  answer: QnAAnswer | null;
   /** 공간 */
   space: Space;
 }

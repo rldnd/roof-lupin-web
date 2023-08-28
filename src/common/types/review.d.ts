@@ -13,7 +13,7 @@ export interface Review extends DateDTO {
   images: ImageDTO[];
   isBest: boolean;
   user: CommonUser;
-  reviewAnswers: ReviewAnswer[];
+  answer: ReviewAnswer | null;
 }
 
 export interface ReviewAnswer {
