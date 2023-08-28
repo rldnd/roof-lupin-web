@@ -4,7 +4,7 @@ import { Fragment } from "react";
 
 import { useParams } from "next/navigation";
 
-import type { ReservationDetail } from "@/common/types/reservation";
+import type { Reservation } from "@/common/types/reservation";
 import { Button, DataItem, DataList } from "@/components";
 import { LoadingDataItem } from "@/components/Data/DataItem";
 import { useSuspenseQuery } from "@/hooks";
@@ -17,7 +17,7 @@ import styles from "./bottomSection.module.scss";
 
 const BottomSection: React.FC = () => {
   const { reservationId } = useParams();
-  const { data } = useSuspenseQuery<ReservationDetail>(["getMyReservation", reservationId], () =>
+  const { data } = useSuspenseQuery<Reservation>(["getMyReservation", reservationId], () =>
     getMyReservationApi(reservationId),
   );
 

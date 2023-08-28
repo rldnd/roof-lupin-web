@@ -1,0 +1,13 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start);
+  @include m.fontH4SemiBold;
+  padding: 16px 0;
+  color: var(--c-gray-800);
+
+  &.hasRight {
+    justify-content: space-between;
+  }
+}

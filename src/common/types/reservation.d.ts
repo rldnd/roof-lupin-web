@@ -6,6 +6,8 @@ import type { AdditionalServiceReservation } from "./service";
 import type { Space } from "./space";
 import type { CommonUser } from "./user";
 
+import { RESERVATION_STATUS_MAPPER } from "../constants/reservation";
+
 export interface ReservationRentalType {
   /** 대여 id */
   rentalTypeId: string;
@@ -66,14 +68,7 @@ export interface ReservationRental {
   rentalType: RentalType;
 }
 
-export type ReservationStatus =
-  | "APPROVED_PENDING"
-  | "APPROVED"
-  | "USED"
-  | "USER_CANCELED"
-  | "HOST_CANCELED"
-  | "REFUND"
-  | "BEFORE_USAGE";
+export type ReservationStatus = keyof typeof RESERVATION_STATUS_MAPPER;
 
 export interface ReservationCancel {
   /** 예약 취소 아이디 */
@@ -86,7 +81,7 @@ export interface ReservationCancel {
   host: Host;
 }
 
-export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
+export interface BaseReservation extends Omit<DateDTO, "deletedAt"> {
   /** 예약 아이디 */
   id: string;
   /** 예약 년도 */
@@ -107,18 +102,25 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   isCanceled: boolean;
   /** 영수증 */
   receiptUrl: string;
-  /** 유저 이름 */
-  userName: string;
+  /** VAT 금액 */
+  vatCost: number;
   /** 할인금액 */
   discountCost: number;
   /** 총액 - 할인가가 적용되지 않은 금액 */
   originalCost: number;
   /** 결제 날짜 - 있으면 예약 확정 */
   payedAt: Date | null;
-  /** 유저 정보 */
-  user: CommonUser;
+  /** 유저 이름 */
+  userName: string;
   /** 유저 전화번호 */
   userPhoneNumber: string;
+  /** 승인 여부 */
+  isApproved: boolean;
+}
+
+export interface Reservation extends BaseReservation {
+  /** 유저 정보 */
+  user: CommonUser;
   /** 대여 정보 */
   rentalTypes: ReservationRental[];
   /** 공간 정보 */
@@ -129,6 +131,11 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   status: ReservationStatus;
   /** 환불 정보 */
   refund: Refund;
+  /** 취소 정보 */
+  cancel: ReservationCancel | null;
+}
+
+export interface ReservationDetail extends Reservation {
   /** 주문 번호 */
   orderId: string | null;
   /** 주문결과번호 */
@@ -137,10 +144,8 @@ export interface ReservationDetail extends Omit<DateDTO, "deletedAt"> {
   payMethod: string | null;
   /** 환불 금액 */
   refundCost: number | null;
-  /** 승인 여부 */
-  isApproved: boolean;
   /** 승인일 */
   approvedAt: Date;
-  /** 취소 정보 */
-  cancel: ReservationCancel | null;
+  /** 정산 아이디 */
+  settlementId: string;
 }

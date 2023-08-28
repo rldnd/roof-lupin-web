@@ -8,11 +8,15 @@ import { IconFooterLogo, IconGrayBottomChevron } from "public/icons";
 
 import styles from "./footer.module.scss";
 
-const Footer: React.FC = () => {
+interface Props {
+  className?: string;
+}
+
+const Footer: React.FC<Props> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <footer className={styles.wrapper}>
+    <footer className={cx(styles.wrapper, className)}>
       <div className={styles.title}>
         <IconFooterLogo />
         <button

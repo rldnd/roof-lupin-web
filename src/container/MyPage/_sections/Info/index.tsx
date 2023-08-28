@@ -23,6 +23,7 @@ const Info: React.FC = () => {
           <Image className={styles.thumbnail} src={me.profileImage} width={60} height={60} alt="프로필 이미지" />
         )}
         {!me?.profileImage && <div className={styles.emptyImage} />}
+        {/* //TODO: 정보 수정 페이지 */}
         <span className={styles.email}>
           {me?.email} <IconGrayRightChevron />
         </span>
@@ -34,5 +35,5 @@ const Info: React.FC = () => {
 export default Info;
 
 export const LoadingInfo: React.FC = () => {
-  return null;
+  return <section className={styles.wrapper}></section>;
 };

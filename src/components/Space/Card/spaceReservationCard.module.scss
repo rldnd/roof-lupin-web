@@ -1,0 +1,56 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 88px 1fr 36px;
+  gap: 16px;
+  width: 100%;
+
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+
+    .image {
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
+
+  .content {
+    @include m.flex(center, flex-start, column);
+    width: 100%;
+    overflow: hidden;
+
+    .spaceName {
+      @include m.fontButton1;
+      @include m.makeEllipsis;
+      width: 100%;
+      margin-bottom: 2px;
+      color: var(--c-black);
+    }
+
+    .time {
+      @include m.fontBody1SemiBold;
+      @include m.makeEllipsis;
+      width: 100%;
+      margin-bottom: 4px;
+      color: var(--c-gray-800);
+    }
+
+    .numberWrapper {
+      @include m.flex(flex-start);
+      @include m.fontBody1SemiBold;
+      gap: 4px;
+      width: 100%;
+      color: var(--c-gray-500);
+      white-space: nowrap;
+
+      .number {
+        @include m.makeEllipsis;
+        @include m.fontBody1SemiBold;
+        color: var(--c-gray-800);
+      }
+    }
+  }
+}
