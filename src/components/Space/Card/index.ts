@@ -3,3 +3,4 @@ export { default as SpaceDetailCard, LoadingSpaceDetailCard } from "./SpaceDetai
 export { default as SpaceRankCard, LoadingSpaceRankCard } from "./SpaceRankCard";
 export { default as SpaceNameCard, LoadingSpaceNameCard } from "./SpaceNameCard";
 export { default as SpaceReservationCard, LoadingSpaceReservationCard } from "./SpaceReservationCard";
+export { default as SpaceCardTwoColumns, LoadingSpaceCardTwoColumns } from "./SpaceCardTwoColumns";

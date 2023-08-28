@@ -2,6 +2,13 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px 8px;
   width: 100%;
   padding: 44px c.$S_PAGE_HORIZONTAL_PADDING calc(c.$S_BOTTOM_NAVIGATION_HEIGHT + c.$S_PAGE_HORIZONTAL_PADDING);
+
+  > li {
+    width: 100%;
+  }
 }
