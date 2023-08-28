@@ -10,10 +10,15 @@ import styles from "./closeReservation.module.scss";
 const CloseReservation: React.FC = () => {
   const { data } = useSuspenseQuery<Reservation>(["getMyCloseReservation"], getMyCloseReservationApi);
 
+  if (!data) return null;
+
   return (
-    <section className={styles.wrapper}>
-      <SpaceReservationCard reservation={data} href={`/reservations/${data.id}`} />
-    </section>
+    <>
+      <section className={styles.wrapper}>
+        <SpaceReservationCard reservation={data} href={`/reservations/${data.id}`} />
+      </section>
+      <hr />
+    </>
   );
 };
 
@@ -21,8 +26,11 @@ export default CloseReservation;
 
 export const LoadingCloseReservation: React.FC = () => {
   return (
-    <section className={styles.wrapper}>
-      <LoadingSpaceReservationCard />
-    </section>
+    <>
+      <section className={styles.wrapper}>
+        <LoadingSpaceReservationCard />
+      </section>
+      <hr />
+    </>
   );
 };

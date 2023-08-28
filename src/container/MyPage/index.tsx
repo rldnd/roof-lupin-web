@@ -14,7 +14,6 @@ export default async function MyContainer() {
           <Info />
           <div className={styles.content}>
             <CloseReservation />
-            <hr />
             <Title>고객지원</Title>
             <Item>공지사항</Item>
             <Item>자주 묻는 질문 / FAQ</Item>
