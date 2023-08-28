@@ -5,11 +5,36 @@
   @include m.flex(flex-start, center, column);
   width: 100%;
   padding: 80px c.$S_PAGE_HORIZONTAL_PADDING 20px;
-  background-color: var(--c-gray-200);
+  background-color: var(--c-gray-150);
 
   .top {
     display: grid;
     grid-template-columns: 1fr 60px;
+    row-gap: 12px;
     width: 100%;
+    margin-bottom: 36px;
+
+    h1 {
+      @include m.fontH2;
+      color: var(--c-black);
+    }
+
+    .thumbnail {
+      border-radius: 50%;
+    }
+
+    .emptyImage {
+      width: 60px;
+      height: 60px;
+      background-color: var(--c-gray-200);
+      border-radius: 50%;
+    }
+
+    .email {
+      @include m.fontBody1Regular;
+      @include m.flex(flex-start);
+      gap: 4px;
+      color: var(--c-gray-700);
+    }
   }
 }
