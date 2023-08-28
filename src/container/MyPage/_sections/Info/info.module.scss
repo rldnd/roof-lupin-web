@@ -1,0 +1,15 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  width: 100%;
+  padding: 80px c.$S_PAGE_HORIZONTAL_PADDING 20px;
+  background-color: var(--c-gray-200);
+
+  .top {
+    display: grid;
+    grid-template-columns: 1fr 60px;
+    width: 100%;
+  }
+}

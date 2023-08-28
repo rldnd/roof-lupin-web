@@ -52,6 +52,8 @@ const BottomSheetPortal: React.FC<Props> = ({
     unBlock();
   });
 
+  if (!bottomSheetRoot) return null;
+
   return createPortal(
     <CSSTransition
       in={isShow}

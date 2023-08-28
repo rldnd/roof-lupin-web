@@ -2,23 +2,10 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(flex-start, flex-start, column);
   width: 100%;
-  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  padding-bottom: c.$S_BOTTOM_NAVIGATION_HEIGHT;
 
-  dl {
-    dt {
-      @include m.fontH3Medium;
-      color: var(--c-gray-800);
-    }
-
-    dd {
-      @include m.fontH4Regular;
-      color: var(--c-gray-700);
-    }
-  }
-
-  .logout {
-    margin-top: 40px;
+  main {
+    width: 100%;
   }
 }
