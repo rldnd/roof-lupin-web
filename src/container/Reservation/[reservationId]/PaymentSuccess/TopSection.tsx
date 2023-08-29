@@ -1,5 +1,7 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import Skeleton from "react-loading-skeleton";
 
 import type { ReservationDetail } from "@/common/types/reservation";
@@ -8,11 +10,9 @@ import { getMyReservationApi } from "@/services/reservation";
 
 import styles from "./topSection.module.scss";
 
-interface Props {
-  reservationId: string;
-}
+const TopSection: React.FC = () => {
+  const { reservationId } = useParams();
 
-const TopSection: React.FC<Props> = ({ reservationId }) => {
   const { data: reservation } = useSuspenseQuery<ReservationDetail>(["getMyReservation", reservationId], () =>
     getMyReservationApi(reservationId),
   );
