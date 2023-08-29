@@ -1,10 +1,16 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
-@mixin _size($size: "default") {
-  @if $size == "default" {
+@mixin _size($size) {
+  @if $size == "medium" {
     @include m.fontH4SemiBold;
     padding: 12px 24px;
+    border-radius: 4px;
+  }
+
+  @if $size == "small" {
+    @include m.fontBody1SemiBold;
+    padding: 6px 16px;
     border-radius: 4px;
   }
 }
@@ -66,9 +72,16 @@
 }
 
 .wrapper {
-  @include _size;
   display: inline-block;
   transition: all 0.2s;
+
+  &.small {
+    @include _size("small");
+  }
+
+  &.medium {
+    @include _size("medium");
+  }
 
   &.primary {
     @include _color("primary");
