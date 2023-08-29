@@ -8,5 +8,6 @@ export const CloseReservation = dynamic(() => import("./CloseReservation"), {
   ssr: false,
   loading: () => <LoadingCloseReservation />,
 });
+export const AppVersionItem = dynamic(() => import("./AppVersionItem"), { ssr: false });
 
 export * from "./Menu";
