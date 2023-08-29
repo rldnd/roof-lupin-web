@@ -1,0 +1,26 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start);
+  @include m.fixed(0 auto auto 50%);
+  gap: 16px;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 10px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
+  border-bottom: 1px solid var(--c-gray-300);
+  transform: translateX(-50%);
+
+  > button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .title {
+    @include m.fontH2;
+    @include m.makeEllipsis;
+    flex: 1;
+    color: var(--c-black);
+  }
+}

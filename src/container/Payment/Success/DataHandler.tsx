@@ -58,7 +58,7 @@ const DataHandler: React.FC = () => {
       setDepositConfirm(false);
       setReservation(initialReservation);
       setCoupon([]);
-      push(`/reservations/${data.data.id}`);
+      push(`/reservations/${data.data.id}/payment-success`);
     },
     onError: () => push("/payments/failed"),
   });
