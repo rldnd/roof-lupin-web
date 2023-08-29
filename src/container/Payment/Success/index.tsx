@@ -1,16 +1,16 @@
-import Header from "./Header";
-import View from "./View";
+import { Suspense } from "react";
 
-import styles from "./paymentSuccessContainer.module.scss";
+import { Loading } from "@/components";
 
-// TODO: 접근을 위한 페이지 뎁스 추가
+import DataHandler from "./DataHandler";
+
 export default async function PaymentSuccessContainer() {
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <main className={styles.content}>
-        <View />
-      </main>
-    </div>
+    <>
+      <Loading isShow />
+      <Suspense fallback={null}>
+        <DataHandler />
+      </Suspense>
+    </>
   );
 }
