@@ -25,13 +25,16 @@ const DataItem: React.FC<Props> = ({ children, label, ddClassName, dtClassName }
 
 export default DataItem;
 
-export const LoadingDataItem: React.FC = () => {
+export const LoadingDataItem: React.FC<{ dtClassName?: string; ddClassName?: string }> = ({
+  dtClassName,
+  ddClassName,
+}) => {
   return (
     <>
-      <dt className={styles.dt}>
+      <dt className={cx(styles.dt, dtClassName)}>
         <Skeleton width={40} />
       </dt>
-      <dd className={styles.dd}>
+      <dd className={cx(styles.dd, ddClassName)}>
         <Skeleton width={80} />
       </dd>
     </>

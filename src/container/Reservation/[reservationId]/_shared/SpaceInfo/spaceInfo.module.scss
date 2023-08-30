@@ -1,0 +1,45 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  .space {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    column-gap: 16px;
+    width: 100%;
+    padding: 12px 8px;
+    margin-bottom: 40px;
+    background-color: var(--c-gray-100);
+    border-radius: 8px;
+
+    .thumbnail {
+      grid-area: 1 / 1 / 3 / 2;
+      width: 100%;
+      height: 48px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .name {
+      @include m.fontH4SemiBold;
+      color: var(--c-black);
+    }
+
+    .address {
+      @include m.fontCaptionLh170;
+      color: var(--c-gray-700);
+    }
+  }
+
+  .label {
+    @include m.fontBody1SemiBold;
+    color: var(--c-gray-500);
+
+    &:not(.firstItem) {
+      margin-top: 24px;
+    }
+  }
+}

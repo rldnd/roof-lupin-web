@@ -8,8 +8,7 @@ import type { ReservationDetail } from "@/common/types/reservation";
 import { useSuspenseQuery } from "@/hooks";
 import { getMyReservationApi } from "@/services/reservation";
 
-import { ReservationStatus } from "./_shared";
-import { LoadingReservationStatus } from "./_shared/ReservationStatus";
+import { LoadingSpaceInfo, LoadingStatus, SpaceInfo, Status } from "./_shared";
 
 // TODO: status에 따른 view 분기
 const View: React.FC = () => {
@@ -19,9 +18,14 @@ const View: React.FC = () => {
   );
 
   return (
-    <Suspense fallback={<LoadingReservationStatus />}>
-      <ReservationStatus reservation={reservation} />
-    </Suspense>
+    <>
+      <Suspense fallback={<LoadingStatus />}>
+        <Status reservation={reservation} />
+      </Suspense>
+      <Suspense fallback={<LoadingSpaceInfo />}>
+        <SpaceInfo reservation={reservation} />
+      </Suspense>
+    </>
   );
 };
 

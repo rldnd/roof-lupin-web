@@ -11,14 +11,14 @@ import {
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Tag } from "@/components";
 
-import styles from "./reservationStatus.module.scss";
+import styles from "./status.module.scss";
 
 interface Props {
   className?: string;
   reservation: ReservationDetail;
 }
 
-const ReservationStatus: React.FC<Props> = ({ className, reservation }) => {
+const Status: React.FC<Props> = ({ className, reservation }) => {
   const { code, status } = reservation;
 
   return (
@@ -37,9 +37,9 @@ const ReservationStatus: React.FC<Props> = ({ className, reservation }) => {
   );
 };
 
-export default ReservationStatus;
+export default Status;
 
-export const LoadingReservationStatus: React.FC<{ className?: string }> = ({ className }) => {
+export const LoadingStatus: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <section className={cx(styles.wrapper, className)}>
       <Skeleton className={styles.codeWrapper} width={120} height={24} />
