@@ -6,7 +6,7 @@ import Link from "next/link";
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
-import { RESERVATION_STATUS_MAPPER, TAG_RESERVATION_STATUS_MAPPER } from "@/common/constants/reservation";
+import { RESERVATION_STATUS_MAPPER, TAG_RESERVATION_COLOR_MAPPER } from "@/common/constants/reservation";
 import type { Reservation } from "@/common/types/reservation";
 import { Button, Tag } from "@/components/Common";
 import { dayjs } from "@/utils/date";
@@ -34,7 +34,7 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
         <div className={styles.imageWrapper}>
           <Image className={styles.image} src={reservation.space.thumbnail} alt="공간 이미지" width={88} height={88} />
           {status !== "USED" && (
-            <Tag size="big" color={TAG_RESERVATION_STATUS_MAPPER[status]} className={styles.tag}>
+            <Tag size="big" color={TAG_RESERVATION_COLOR_MAPPER[status]} className={styles.tag}>
               {RESERVATION_STATUS_MAPPER[status]}
             </Tag>
           )}
