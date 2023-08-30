@@ -1,4 +1,19 @@
-// TODO: 승인 대기, 승인 됨, 결제 완료, 사용 완료, 취소 신청 완, 환불 완료, 호스트 취소, 환불 완료 페이지 제작
+import dynamic from "next/dynamic";
+
+import { Header } from "./_shared";
+import { LoadingView } from "./View";
+
+import styles from "./reservationDetailContainer.module.scss";
+
+const View = dynamic(() => import("./View"), { ssr: false, loading: () => <LoadingView /> });
+
 export default async function ReservationDetailContainer() {
-  return null;
+  return (
+    <div className={styles.wrapper}>
+      <Header />
+      <main>
+        <View />
+      </main>
+    </div>
+  );
 }

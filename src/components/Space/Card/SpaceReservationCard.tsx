@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton";
 
 import { RESERVATION_STATUS_MAPPER, TAG_RESERVATION_STATUS_MAPPER } from "@/common/constants/reservation";
 import type { Reservation } from "@/common/types/reservation";
-import { Button } from "@/components/Common";
+import { Button, Tag } from "@/components/Common";
 import { dayjs } from "@/utils/date";
 import { getTimeWithDay } from "@/utils/time";
 
@@ -33,10 +33,10 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
       <Link href={href} className={styles.wrapper}>
         <div className={styles.imageWrapper}>
           <Image className={styles.image} src={reservation.space.thumbnail} alt="공간 이미지" width={88} height={88} />
-          {TAG_RESERVATION_STATUS_MAPPER[status] && (
-            <span className={cx(styles.tag, styles[TAG_RESERVATION_STATUS_MAPPER[status]!])}>
+          {status !== "USED" && (
+            <Tag size="big" color={TAG_RESERVATION_STATUS_MAPPER[status]} className={styles.tag}>
               {RESERVATION_STATUS_MAPPER[status]}
-            </span>
+            </Tag>
           )}
         </div>
         <div className={styles.content}>

@@ -38,7 +38,11 @@ const Header: React.FC<Props> = ({ review, className, menuHidden = false }) => {
           <p className={styles.profile}>
             <span className={styles.nickname}>{review.user.nickname}</span>
             <time dateTime={formatYYMMDD(review.createdAt)}>{formatYYMMDD(review.createdAt)}</time>
-            {review.isBest && <Tag>BEST</Tag>}
+            {review.isBest && (
+              <Tag size="small" color="secondary">
+                BEST
+              </Tag>
+            )}
           </p>
           <StarRating className={styles.star} score={review.score} />
         </div>

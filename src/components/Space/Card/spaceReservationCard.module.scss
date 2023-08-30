@@ -18,19 +18,6 @@
 
     .tag {
       @include m.absolute(0 auto auto 0);
-      @include m.fontCaptionSemiBold;
-      padding: 6px 8px;
-      border-radius: 4px;
-
-      &.primary {
-        color: var(--c-white);
-        background-color: var(--c-roof-orange);
-      }
-
-      &.secondary {
-        color: var(--c-gray-600);
-        background-color: var(--c-gray-200);
-      }
     }
   }
 

@@ -1,13 +1,59 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
+@mixin _size($size) {
+  @if $size == "small" {
+    @include m.fontCaption2;
+    padding: 4px 12px;
+    border-radius: 8px;
+  }
+
+  @if $size == "big" {
+    @include m.fontCaptionSemiBold;
+    padding: 6px 8px;
+    border-radius: 4px;
+  }
+}
+
+@mixin _color($color) {
+  @if $color == "primary" {
+    color: var(--c-white);
+    background-color: var(--c-roof-orange);
+  }
+
+  @if $color == "bw" {
+    color: var(--c-gray-600);
+    background-color: var(--c-gray-200);
+  }
+
+  @if $color == "secondary" {
+    color: var(--c-roof-orange);
+    background-color: var(--c-orange-bg);
+  }
+}
+
 .wrapper {
-  @include m.fontCaption2;
   display: inline-block;
   width: max-content;
-  padding: 4px 12px;
-  color: var(--c-roof-orange);
   white-space: nowrap;
-  background-color: var(--c-orange-bg);
-  border-radius: 8px;
+
+  &.small {
+    @include _size("small");
+  }
+
+  &.big {
+    @include _size("big");
+  }
+
+  &.primary {
+    @include _color("primary");
+  }
+
+  &.secondary {
+    @include _color("secondary");
+  }
+
+  &.bw {
+    @include _color("bw");
+  }
 }

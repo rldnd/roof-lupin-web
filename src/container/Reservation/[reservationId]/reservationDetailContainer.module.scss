@@ -3,11 +3,10 @@
 
 .wrapper {
   width: 100%;
-  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 40px;
+  padding-top: c.$S_BASE_HEADER_HEIGHT;
 
-  .button {
-    display: inline-block;
+  > main {
     width: 100%;
-    margin-top: 56px;
+    padding: 32px 0 132px;
   }
 }

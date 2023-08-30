@@ -2,6 +2,7 @@
 
 import { Fragment } from "react";
 
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import type { Reservation } from "@/common/types/reservation";
@@ -57,9 +58,11 @@ const BottomSection: React.FC = () => {
         </DataItem>
         <DataItem label="결제 예정 금액">{data.totalCost.toLocaleString("ko-KR")}원</DataItem>
       </DataList>
-      <Button type="button" color="secondary" full>
-        예약 내역 확인
-      </Button>
+      <Link href={`/reservations/${data.id}`} className={styles.button}>
+        <Button type="button" color="secondary" full>
+          예약 내역 확인
+        </Button>
+      </Link>
     </section>
   );
 };
@@ -74,7 +77,7 @@ export const LoadingBottomSection: React.FC = () => {
         <LoadingDataItem />
         <LoadingDataItem />
       </DataList>
-      <Button type="button" color="secondary" full disabled>
+      <Button type="button" color="secondary" full disabled className={styles.button}>
         예약 내역 확인
       </Button>
     </section>

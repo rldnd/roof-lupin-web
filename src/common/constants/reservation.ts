@@ -1,3 +1,5 @@
+import type { Color } from "@/components/Common/Tag";
+
 export const RESERVATION_STATUS_MAPPER = {
   /** 즉시 결제가 아닌, 호스트의 승인이 필요함으로 승인을 요청한 상태의 예약 */
   APPROVED_PENDING: "승인 대기",
@@ -13,14 +15,11 @@ export const RESERVATION_STATUS_MAPPER = {
   BEFORE_USAGE: "예약 확정",
 } as const;
 
-export const TAG_RESERVATION_STATUS_MAPPER: Record<
-  keyof typeof RESERVATION_STATUS_MAPPER,
-  "primary" | "secondary" | null
-> = {
+export const TAG_RESERVATION_STATUS_MAPPER: Record<keyof typeof RESERVATION_STATUS_MAPPER, Color> = {
   BEFORE_USAGE: "primary",
-  APPROVED_PENDING: "secondary",
-  USED: null,
-  APPROVED: "secondary",
+  APPROVED_PENDING: "bw",
+  USED: "bw",
+  APPROVED: "bw",
   HOST_CANCELED: "primary",
   REFUND: "primary",
 };

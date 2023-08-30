@@ -5,7 +5,9 @@
   width: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 40px;
 
-  button {
+  .button {
+    display: inline-block;
+    width: 100%;
     margin-top: 56px;
   }
 }
