@@ -1,0 +1,33 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  .title {
+    @include m.fontH3SemiBold;
+    margin-bottom: 32px;
+    color: var(--c-black);
+  }
+
+  .list {
+    .label {
+      @include m.fontBody1SemiBold;
+      display: inline-block;
+      color: var(--c-gray-500);
+    }
+
+    .value {
+      @include m.fontBody1SemiBold;
+      display: inline-block;
+      padding-left: 8px;
+      color: var(--c-gray-800);
+    }
+  }
+
+  .loadingList {
+    @include m.flex(flex-start, flex-start, column);
+    gap: 8px;
+  }
+}
