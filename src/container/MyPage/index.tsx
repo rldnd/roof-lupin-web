@@ -15,7 +15,7 @@ export default async function MyContainer() {
           <div className={styles.content}>
             <CloseReservation />
             <Title className={styles.firstTitle}>고객지원</Title>
-            <Item>공지사항</Item>
+            <Item href="/announcements">공지사항</Item>
             <Item>자주 묻는 질문 / FAQ</Item>
             <Item>카카오톡 1:1 문의</Item>
             <Item>이벤트</Item>
