@@ -131,3 +131,9 @@ textarea {
   color: var(--c-white);
   background-color: var(--c-roof-orange-65);
 }
+
+details summary::-webkit-details-marker,
+details summary::marker {
+  display: none;
+  content: "";
+}
