@@ -46,7 +46,6 @@ const DataHandler: React.FC = () => {
     () => getClientSpaceApi(reservation.spaceId!),
     {
       enabled: Boolean(reservation.spaceId),
-      suspense: false,
     },
   );
 
@@ -64,7 +63,7 @@ const DataHandler: React.FC = () => {
   });
 
   useEffect(() => {
-    if (!space || isSuccess) return;
+    if (isSuccess) return;
     if (!orderId || !paymentKey || !amount || !paymentType) throw Error("잘못된 접근입니다.");
 
     const paymentInfo = getPrepareReservationBody(
