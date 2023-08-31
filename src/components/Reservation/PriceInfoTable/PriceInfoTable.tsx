@@ -28,6 +28,7 @@ const PriceInfoTable: React.FC<Props> = ({ items, totalTitle, totalDtClassName, 
           key={`${item.title} - ${item.price}`}
           title={item.title}
           price={item.price}
+          isMinus={item.isMinus}
           dtClassName={item.dtClassName}
           ddClassName={item.ddClassName}
         />

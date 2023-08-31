@@ -21,5 +21,5 @@ export const getTimeWithDay = (hour: number) => {
 export const formatHourToAHHMM = (hour: number) => {
   const time = getTime(hour);
   const isAfternoon = time >= 12;
-  return `${getNextDayText(hour)} ${isAfternoon ? "오후" : "오전"} ${isAfternoon ? time - 12 : time}시`;
+  return `${getNextDayText(hour)} ${isAfternoon ? "오후" : "오전"} ${isAfternoon && time !== 12 ? time - 12 : time}시`;
 };

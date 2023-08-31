@@ -16,7 +16,10 @@ const PriceInfoTableItem: React.FC<Props> = ({ title, price, ddClassName, dtClas
   return (
     <>
       <dt className={cx(styles.dt, dtClassName)}>{title}</dt>
-      <dd className={cx(styles.dd, ddClassName)}>{price.toLocaleString("ko-KR")}원</dd>
+      <dd className={cx(styles.dd, ddClassName)}>
+        {isMinus && Boolean(price) && "-"}
+        {price.toLocaleString("ko-KR")}원
+      </dd>
     </>
   );
 };
