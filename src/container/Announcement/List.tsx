@@ -5,14 +5,14 @@ import { range } from "lodash-es";
 import { Announcement } from "@/common/types/announcement";
 import { UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
-import { getAnnouncementsApi } from "@/services/announcement";
+import { paginateAnnouncementsApi } from "@/services/announcement";
 
 import Item, { LoadingItem } from "./Item";
 
 const List: React.FC = () => {
   const { data, isFetching, hasNextPage, isSuccess, fetchNextPage } = useSuspenseInfiniteQuery<Announcement>(
-    ["getAnnouncements"],
-    ({ pageParam = 1 }) => getAnnouncementsApi({ page: pageParam, limit: 10 }),
+    ["paginateAnnouncements"],
+    ({ pageParam = 1 }) => paginateAnnouncementsApi({ page: pageParam, limit: 10 }),
   );
 
   return (
