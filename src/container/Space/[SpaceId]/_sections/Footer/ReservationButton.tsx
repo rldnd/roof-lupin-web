@@ -50,7 +50,10 @@ const ReservationButton: React.FC = () => {
       <Button
         color="primary"
         onClick={onClickButton}
-        disabled={!rentalTypes?.time && (!Array.isArray(rentalTypes?.package) || rentalTypes.package.length === 0)}
+        disabled={
+          !rentalTypes?.time &&
+          (!Array.isArray(rentalTypes?.package) || rentalTypes.package.filter((item) => item.isPossible).length === 0)
+        }
       >
         {space.isImmediateReservation ? "예약하기" : "예약 요청하기"}
       </Button>
