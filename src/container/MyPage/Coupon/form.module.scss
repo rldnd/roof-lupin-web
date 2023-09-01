@@ -1,0 +1,20 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-end);
+  gap: 8px;
+  width: 100%;
+
+  .inputWrapper {
+    flex: 1;
+
+    > input {
+      width: 100%;
+    }
+  }
+
+  > button {
+    width: max-content;
+  }
+}

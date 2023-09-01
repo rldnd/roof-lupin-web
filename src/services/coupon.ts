@@ -8,3 +8,5 @@ export const getCouponsCountApi = () => apiClient.get<UserCouponCount>("/coupons
 /** [CLIENT] 사용자 쿠폰 목록 조회 */
 export const paginateCouponsApi = (params: BasePaginationQueryParams) =>
   apiClient.get<PagingDTO<UserCoupon>>("/coupons/users", { params });
+
+export const createCouponApi = (code: string) => apiClient.post<{ id: string }>("/coupons/register", { code });
