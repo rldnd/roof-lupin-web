@@ -5,14 +5,13 @@ import { Button } from "@/components";
 
 import { ExpectedPriceInfo, Info, Responsive, SpaceInfo, Status } from "../../_shared";
 
-import styles from "./approvedPendingView.module.scss";
+import styles from "./approvedView.module.scss";
 
 interface Props {
   reservation: ReservationDetail;
 }
 
-// TODO: 요청 취소 view
-const ApprovedPendingView: React.FC<Props> = ({ reservation }) => {
+const ApprovedView: React.FC<Props> = ({ reservation }) => {
   return (
     <>
       <Status reservation={reservation} />
@@ -22,14 +21,17 @@ const ApprovedPendingView: React.FC<Props> = ({ reservation }) => {
       <hr />
       <ExpectedPriceInfo reservation={reservation} />
       <hr />
-      <section className={styles.cancelWrapper}>
-        <Button full color="bw" type="button" className={styles.cancel}>
-          요청 취소
+      <menu className={styles.buttonWrapper}>
+        <Button type="button" color="bw" full>
+          예약 취소
         </Button>
-      </section>
+        <Button type="button" color="primary" full>
+          결제하기
+        </Button>
+      </menu>
       <Responsive />
     </>
   );
 };
 
-export default ApprovedPendingView;
+export default ApprovedView;
