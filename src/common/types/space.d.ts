@@ -77,6 +77,8 @@ export interface Space {
   overflowUserCost: number;
   /** 초과 사용자 수 */
   overflowUserCount: number;
+  /** 환불 정책 목록 */
+  refundPolicies: RefundPolicy[];
 }
 
 export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "timeCost" | "packageCost"> {
@@ -102,8 +104,6 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   host: Host;
   /** 공간 이미지 목록 */
   images: ImageDTO[];
-  /** 환불 정책 목록 */
-  refundPolicies: RefundPolicy[];
   /** 주의 사항 목록 */
   cautions: Caution[];
   /** 리뷰 목록 */
