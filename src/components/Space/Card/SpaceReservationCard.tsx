@@ -10,6 +10,7 @@ import { RESERVATION_STATUS_MAPPER, TAG_RESERVATION_COLOR_MAPPER } from "@/commo
 import type { Reservation } from "@/common/types/reservation";
 import { Button, Tag } from "@/components/Common";
 import { dayjs } from "@/utils/date";
+import { isTimeRentalType } from "@/utils/rentalType";
 import { getTimeWithDay } from "@/utils/time";
 
 import { IconGrayRightChevronLargeThick } from "public/icons";
@@ -41,11 +42,15 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
         </div>
         <div className={styles.content}>
           <h3 className={styles.spaceName}>{reservation.space.title}</h3>
-          {rentalTypes.map((rentalType) => (
-            <time className={styles.time} key={rentalType.rentalTypeId}>{`${date} ${getTimeWithDay(
-              rentalType.startAt,
-            )}-${getTimeWithDay(rentalType.endAt)}시`}</time>
-          ))}
+          {rentalTypes.map((rentalType) => {
+            const isTime = isTimeRentalType(rentalType.rentalType);
+            const endAt = isTime ? rentalType.endAt + 1 : rentalType.endAt;
+            return (
+              <time className={styles.time} key={rentalType.rentalTypeId}>{`${date} ${getTimeWithDay(
+                rentalType.startAt,
+              )}-${getTimeWithDay(endAt)}시`}</time>
+            );
+          })}
           <span className={styles.numberWrapper}>
             예약번호
             <span className={styles.number}>{reservation.code}</span>

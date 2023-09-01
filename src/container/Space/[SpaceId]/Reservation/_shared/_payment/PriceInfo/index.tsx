@@ -23,8 +23,6 @@ import { getDiffHour } from "@/utils/time";
 
 import styles from "./priceInfo.module.scss";
 
-const ADDITIONAL_USER_TITLE = "인원 추가 금액";
-
 const PriceInfo: React.FC = () => {
   const { spaceId } = useParams();
   const { data: space } = useSuspenseQuery<SpaceDetail>(["getClientSpace", spaceId], () => getClientSpaceApi(spaceId));
@@ -57,7 +55,7 @@ const PriceInfo: React.FC = () => {
     const { overflowUserCost, overflowUserCount } = space;
     const price = getAdditionalUserPrice(userCount, overflowUserCost, overflowUserCount);
 
-    return [{ title: ADDITIONAL_USER_TITLE, price }];
+    return [{ title: "인원 추가 금액", price }];
   }, [reservation, space]);
 
   const couponPrice = useMemo<Item[]>(() => {
