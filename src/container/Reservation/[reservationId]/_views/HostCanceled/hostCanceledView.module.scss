@@ -1,0 +1,24 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.cancelWrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 16px;
+    color: var(--c-black);
+  }
+
+  > p {
+    @include m.fontBody1SemiBold;
+    color: var(--c-gray-500);
+  }
+}
+
+.spaceButton {
+  display: inline-block;
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+}
