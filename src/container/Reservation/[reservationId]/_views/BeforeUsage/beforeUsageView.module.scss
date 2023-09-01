@@ -1,0 +1,45 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.refundMessageWrapper {
+  width: 100%;
+  padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 40px;
+
+  .refundMessage {
+    @include m.fontCaptionSemiBold;
+    width: 100%;
+    padding: 12px 8px;
+    color: var(--c-roof-orange);
+    text-align: center;
+    background-color: var(--c-orange-bg);
+    border-radius: 4px;
+  }
+}
+
+.refundWrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+  h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 24px;
+    color: var(--c-black);
+  }
+
+  p {
+    @include m.fontBody1Regular;
+    margin-bottom: 8px;
+    color: var(--c-gray-600);
+  }
+
+  button {
+    @include m.fontBody1Regular;
+    color: var(--c-gray-700);
+    text-decoration: underline;
+  }
+}
+
+.cancelWrapper {
+  width: 100%;
+  padding: 64px c.$S_PAGE_HORIZONTAL_PADDING 0;
+}

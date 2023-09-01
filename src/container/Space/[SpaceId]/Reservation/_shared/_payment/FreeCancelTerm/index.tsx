@@ -1,5 +1,7 @@
 "use client";
 
+import Skeleton from "react-loading-skeleton";
+
 import styles from "./freeCancelTerm.module.scss";
 
 const FreeCancelTerm: React.FC = () => {
@@ -13,3 +15,13 @@ const FreeCancelTerm: React.FC = () => {
 };
 
 export default FreeCancelTerm;
+
+export const LoadingFreeCancelTerm: React.FC = () => {
+  return (
+    <section className={styles.wrapper}>
+      <h2>환불 규정</h2>
+      <Skeleton width={150} />
+      <Skeleton width={60} />
+    </section>
+  );
+};

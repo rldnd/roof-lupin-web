@@ -7,8 +7,9 @@ import { useSuspenseQuery } from "@/hooks";
 import { getMyReservationApi } from "@/services/reservation";
 
 import { LoadingInfo, LoadingSpaceInfo, LoadingStatus } from "./_shared";
-import { ApprovedPendingView, ApprovedView, HostCanceledView } from "./_views";
+import { ApprovedPendingView, ApprovedView, BeforeUsageView, HostCanceledView } from "./_views";
 
+// TODO: loading view skeleton
 const View: React.FC = () => {
   const { reservationId } = useParams();
   const { data: reservation } = useSuspenseQuery<ReservationDetail>(["getMyReservation", reservationId], () =>
@@ -20,6 +21,7 @@ const View: React.FC = () => {
       {reservation.status === "APPROVED_PENDING" && <ApprovedPendingView reservation={reservation} />}
       {reservation.status === "APPROVED" && <ApprovedView reservation={reservation} />}
       {reservation.status === "HOST_CANCELED" && <HostCanceledView reservation={reservation} />}
+      {reservation.status === "BEFORE_USAGE" && <BeforeUsageView reservation={reservation} />}
     </>
   );
 };
