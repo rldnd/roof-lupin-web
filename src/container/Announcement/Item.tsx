@@ -18,7 +18,7 @@ const Item: React.FC<Props> = ({ announcement }) => {
 
   return (
     <details className={styles.wrapper}>
-      <div className={styles.content}>{announcement.content}</div>
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html: announcement.content }} />
       <summary className={styles.titleWrapper}>
         <strong className={styles.title}>{announcement.title}</strong>
         <div className={styles.chevronWrapper}>

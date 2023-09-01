@@ -9,19 +9,30 @@
   .totalDd {
     @include m.fontButton1;
     padding-top: 16px;
+    margin-top: 12px;
     border-top: 1px solid var(--c-gray-200);
+  }
+
+  .dd {
+    & + .dt + .dd {
+      margin-top: 12px;
+    }
+  }
+
+  .dt {
+    & + .dd + .dt {
+      margin-top: 12px;
+    }
   }
 
   .totalDt {
     padding-top: 16px;
+    margin-top: 12px;
     border-top: 1px solid var(--c-gray-200);
   }
 
-  :is(dt, dd):not(:first-of-type, :last-of-type) {
+  .bottomDt,
+  .bottomDd {
     margin-top: 12px;
-  }
-
-  :is(dt, dd):nth-last-of-type(2) {
-    margin-bottom: 24px;
   }
 }

@@ -13,8 +13,10 @@ import {
   Info,
   LoadingExpectedPriceInfo,
   LoadingInfo,
+  LoadingPriceInfo,
   LoadingSpaceInfo,
   LoadingStatus,
+  PriceInfo,
   SpaceInfo,
   Status,
 } from "./_shared";
@@ -39,6 +41,9 @@ const View: React.FC = () => {
       </Suspense>
       <Suspense fallback={<LoadingExpectedPriceInfo />}>
         <ExpectedPriceInfo reservation={reservation} />
+      </Suspense>
+      <Suspense fallback={<LoadingPriceInfo />}>
+        <PriceInfo reservation={reservation} />
       </Suspense>
     </>
   );
