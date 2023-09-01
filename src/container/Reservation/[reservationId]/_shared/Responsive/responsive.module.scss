@@ -1,0 +1,9 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontCaptionLh170;
+  width: 100%;
+  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  color: var(--c-gray-500);
+}
