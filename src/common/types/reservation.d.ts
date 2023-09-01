@@ -32,11 +32,11 @@ export interface CreateReservationRentalType {
 
 export interface CreateReservation {
   /** 예약 연도 */
-  year: string;
+  year: number;
   /** 예약 월 */
-  month: string;
+  month: number;
   /** 예약 일 */
-  day: string;
+  day: number;
   /** 예약자 이름 */
   userName: string;
   /** 예약자 전화번호 */
@@ -85,11 +85,11 @@ export interface BaseReservation extends Omit<DateDTO, "deletedAt"> {
   /** 예약 아이디 */
   id: string;
   /** 예약 년도 */
-  year: string;
+  year: number;
   /** 예약 월 */
-  month: string;
+  month: number;
   /** 예약 일 */
-  day: string;
+  day: number;
   /** 예약 코드 */
   code: string;
   /** 결제 금액 ( originalCost - discountCost ) */

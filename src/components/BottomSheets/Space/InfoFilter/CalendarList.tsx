@@ -17,17 +17,17 @@ import MonthCalendar, {
 
 import styles from "./calendarList.module.scss";
 
-const getMonthInfos = (year: string, month: string, holidays: Holiday[]): DateInfo[] => {
+const getMonthInfos = (year: number, month: number, holidays: Holiday[]): DateInfo[] => {
   const days = dayjs(`${year}-${month}-01`).daysInMonth();
   return range(1, days + 1).map((day) => {
-    const isHoliday = holidays.find((holiday) => holiday.day === day.toString());
-    return { day: day.toString(), isHoliday: Boolean(isHoliday), isPossible: true };
+    const isHoliday = holidays.find((holiday) => holiday.day === day);
+    return { day, isHoliday: Boolean(isHoliday), isPossible: true };
   });
 };
 
 interface Props {
   activeDate: ActiveDate;
-  onClickDay: (year: string, month: string, day: string) => MouseEventHandler<HTMLButtonElement>;
+  onClickDay: (year: number, month: number, day: number) => MouseEventHandler<HTMLButtonElement>;
 }
 
 const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
@@ -38,8 +38,8 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
         page: pageParam,
         limit: 1,
         maxSize: 6,
-        startYear: dayjs().year().toString(),
-        startMonth: (dayjs().month() + 1).toString(),
+        startYear: dayjs().year(),
+        startMonth: dayjs().month() + 1,
       }),
   );
 

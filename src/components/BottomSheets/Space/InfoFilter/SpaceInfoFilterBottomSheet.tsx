@@ -59,7 +59,7 @@ const SpaceInfoFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
   };
 
   const onClickDay = useCallback(
-    (year: string, month: string, day: string): MouseEventHandler<HTMLButtonElement> =>
+    (year: number, month: number, day: number): MouseEventHandler<HTMLButtonElement> =>
       () => {
         setLocalInfo((prev) => ({ ...prev, year, month, day }));
       },

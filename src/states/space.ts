@@ -8,9 +8,9 @@ export interface SpaceReservationInfo
   extends NotNullable<Pick<PaginateSpacesQueryParams, "year" | "month" | "day" | "userCount">> {}
 
 export const initialSpaceReservationInfo: SpaceReservationInfo = {
-  year: dayjs().year().toString(),
-  day: dayjs().date().toString(),
-  month: (dayjs().month() + 1).toString(),
+  year: dayjs().year(),
+  day: dayjs().date(),
+  month: dayjs().month() + 1,
   userCount: 2,
 };
 
@@ -26,12 +26,12 @@ export type SpaceSortMenu = NotNullable<Pick<BaseSpaceSortMenu, "year" | "month"
 export const initialSpaceSortMenu: SpaceSortMenu = {
   categoryIds: null,
   category: null,
-  day: dayjs().date().toString(),
+  day: dayjs().date(),
   distance: null,
   lat: null,
   lng: null,
   locationName: null,
-  month: (dayjs().month() + 1).toString(),
+  month: dayjs().month() + 1,
   sort: "RECENT",
   startAt: null,
   endAt: null,
@@ -44,7 +44,7 @@ export const initialSpaceSortMenu: SpaceSortMenu = {
   maxPrice: null,
   serviceIds: null,
   userCount: 2,
-  year: dayjs().year().toString(),
+  year: dayjs().year(),
 };
 
 export const spaceSortMenuState = sessionPersistenceAtom<SpaceSortMenu>(SPACE_SORT_MENU, initialSpaceSortMenu);

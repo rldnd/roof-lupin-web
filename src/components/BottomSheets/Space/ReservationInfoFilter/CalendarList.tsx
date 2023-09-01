@@ -16,7 +16,7 @@ import styles from "./calendarList.module.scss";
 
 interface Props {
   activeDate: ActiveDate;
-  onClickDay: (year: string, month: string, day: string) => MouseEventHandler<HTMLButtonElement>;
+  onClickDay: (year: number, month: number, day: number) => MouseEventHandler<HTMLButtonElement>;
 }
 
 const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
@@ -30,8 +30,8 @@ const CalendarList: React.FC<Props> = ({ activeDate, onClickDay }) => {
           limit: 1,
           maxSize: 6,
           page: pageParam,
-          startYear: dayjs().year().toString(),
-          startMonth: (dayjs().month() + 1).toString(),
+          startYear: dayjs().year(),
+          startMonth: dayjs().month() + 1,
           spaceId,
         }),
     );

@@ -98,14 +98,14 @@ export interface PossibleRentalTypes {
 }
 
 export interface PossibleRentalTypeByMonth {
-  day: string;
+  day: number;
   isHoliday: boolean;
   isPossible: boolean;
   rentalType: PossibleRentalTypes;
 }
 
 export interface PossibleRentalTypesByMonth {
-  year: string;
-  month: string;
+  year: number;
+  month: number;
   days: PossibleRentalTypeByMonth[];
 }

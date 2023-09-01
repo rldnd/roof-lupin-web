@@ -6,22 +6,22 @@ import { apiClient, fetchClient } from "@/services/apiClient";
 export interface PaginateSpaceRentalTypePossibleMonthParams extends BasePaginationQueryParams {
   spaceId: string;
   maxSize: number;
-  startYear: string;
-  startMonth: string;
+  startYear: number;
+  startMonth: number;
 }
 
 export interface GetSpaceRentalTypePossibleParams {
   spaceId: string;
-  year: string;
-  month: string;
-  day: string;
+  year: number;
+  month: number;
+  day: number;
 }
 
 export interface GetSpaceRentalTypeParams {
   spaceId: string;
-  year?: string;
-  month?: string;
-  day?: string;
+  year?: number;
+  month?: number;
+  day?: number;
 }
 
 /** [CLIENT] 공간 대여 타입 조회하기 */

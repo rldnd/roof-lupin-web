@@ -86,7 +86,14 @@ const DataHandler: React.FC = () => {
     }
 
     if (tab.toLocaleLowerCase().includes("reservation")) resetReservationInfo();
-    setReservation((prev) => ({ ...prev, year, month, day, userCount: Number(userCount), spaceId }));
+    setReservation((prev) => ({
+      ...prev,
+      year: Number(year),
+      month: Number(month),
+      day: Number(day),
+      userCount: Number(userCount),
+      spaceId,
+    }));
   });
 
   useEffect(() => {

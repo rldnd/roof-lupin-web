@@ -19,11 +19,11 @@ export interface PaginateSpacesQueryParams extends BasePaginationQueryParams {
   /** 지역 명 */
   locationName: string | null;
   /** 예약 가능 연도 */
-  year: string | null;
+  year: number | null;
   /** 예약 가능 월 */
-  month: string | null;
+  month: number | null;
   /** 예약 가능 일 */
-  day: string | null;
+  day: number | null;
   /** 예약 가능 시작 시간 */
   startAt: number | null;
   /** 예약 가능 종료 시간 */

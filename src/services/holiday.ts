@@ -3,14 +3,14 @@ import type { Holiday, MonthHoliday } from "@/common/types/holiday";
 import { apiClient } from "@/services/apiClient";
 
 interface GetHolidaysParams {
-  year: string;
-  month: string;
+  year: number;
+  month: number;
 }
 
 interface PaginateHolidaysParams extends BasePaginationQueryParams {
   maxSize: number;
-  startYear: string;
-  startMonth: string;
+  startYear: number;
+  startMonth: number;
 }
 
 /** [CLIENT] 휴일 조회하기 */

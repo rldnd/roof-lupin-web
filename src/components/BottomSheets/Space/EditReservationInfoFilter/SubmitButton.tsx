@@ -13,19 +13,15 @@ import { dayjs } from "@/utils/date";
 import styles from "./submitButton.module.scss";
 
 interface Props {
-  year?: string;
-  month?: string;
-  day?: string;
+  year?: number;
+  month?: number;
+  day?: number;
   userCount?: number;
 }
 
 const SubmitButton: React.FC<Props> = ({ year, month, day, userCount }) => {
   const { spaceId } = useParams();
-  const [todayYear, todayMonth, todayDate] = [
-    dayjs().year().toString(),
-    (dayjs().month() + 1).toString(),
-    dayjs().date().toString(),
-  ];
+  const [todayYear, todayMonth, todayDate] = [dayjs().year(), dayjs().month() + 1, dayjs().date()];
 
   const { data: rentalTypes } = useSuspenseQuery<PossibleRentalTypes>(
     ["getSpaceRentalTypePossible", spaceId, todayYear, todayMonth, todayDate],

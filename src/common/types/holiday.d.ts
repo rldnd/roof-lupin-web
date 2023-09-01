@@ -1,13 +1,13 @@
 export interface Holiday {
   id: string;
   name: string;
-  year: string;
-  month: string;
-  day: string;
+  year: number;
+  month: number;
+  day: number;
 }
 
 export interface MonthHoliday {
-  year: string;
-  month: string;
+  year: number;
+  month: number;
   holidays: Holiday[];
 }

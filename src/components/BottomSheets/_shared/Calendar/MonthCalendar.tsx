@@ -12,23 +12,23 @@ import MonthCalendarItem from "./MonthCalendarItem";
 import styles from "./monthCalendar.module.scss";
 
 export interface ActiveDate {
-  year: string;
-  month: string;
-  day: string;
+  year: number;
+  month: number;
+  day: number;
 }
 
 export interface DateInfo {
-  day: string;
+  day: number;
   isHoliday: boolean;
   isPossible: boolean;
 }
 
 interface Props {
-  year: string;
-  month: string;
+  year: number;
+  month: number;
   infos: DateInfo[];
   activeDate: ActiveDate;
-  onClickDay: (year: string, month: string, day: string) => MouseEventHandler<HTMLButtonElement>;
+  onClickDay: (year: number, month: number, day: number) => MouseEventHandler<HTMLButtonElement>;
 }
 
 const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClickDay }) => {
@@ -36,8 +36,7 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
   const { month: firstDayOfWeekMonth, day: firstDayOfWeekDay } = getFirstDayOfWeek();
 
   const isTodayFirstWeek =
-    ((dayjs().set("date", 1).day() === 0 && firstDayOfWeekMonth.toString() === month) ||
-      (firstDayOfWeekMonth + 1).toString() === month) &&
+    ((dayjs().set("date", 1).day() === 0 && firstDayOfWeekMonth === month) || firstDayOfWeekMonth + 1 === month) &&
     dayjs().date() <= 7 - dayjs().startOf("month").day();
 
   return (
@@ -50,22 +49,22 @@ const MonthCalendar: React.FC<Props> = ({ year, month, infos, activeDate, onClic
           range(dayjs(`${year}-${month}-1`).startOf("month").day()).map((value) => <li key={`empty-day-${value}`} />)}
         {range(dayjs(`${year}-${month}-1`).daysInMonth()).map((value) => {
           const day = value + 1;
-          const active = activeDate.year === year && activeDate.month === month && activeDate.day === day.toString();
-          const info = infos.find((info) => info.day === day.toString());
+          const active = activeDate.year === year && activeDate.month === month && activeDate.day === day;
+          const info = infos.find((info) => info.day === day);
 
-          if (isCurrentMonth && month === firstDayOfWeekMonth.toString() && day < firstDayOfWeekDay) return null;
+          if (isCurrentMonth && month === firstDayOfWeekMonth && day < firstDayOfWeekDay) return null;
 
           return (
             <MonthCalendarItem
               active={active}
-              isBeforeToday={month === (dayjs().month() + 1).toString() && day < dayjs().date()}
+              isBeforeToday={month === dayjs().month() + 1 && day < dayjs().date()}
               isHoliday={info?.isHoliday ?? false}
               isPossible={info?.isPossible ?? true}
               key={`${year}-${month}-${day}`}
               year={year}
               month={month}
-              day={day.toString()}
-              onClick={onClickDay(year, month, day.toString())}
+              day={day}
+              onClick={onClickDay(year, month, day)}
             />
           );
         })}

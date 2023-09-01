@@ -7,9 +7,9 @@ import cx from "clsx";
 import styles from "./monthCalendarItem.module.scss";
 
 export interface Props {
-  year: string;
-  month: string;
-  day: string;
+  year: number;
+  month: number;
+  day: number;
   isBeforeToday: boolean;
   active: boolean;
   isPossible: boolean;
