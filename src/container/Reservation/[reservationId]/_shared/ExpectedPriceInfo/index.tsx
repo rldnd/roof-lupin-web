@@ -18,20 +18,21 @@ interface Props {
 }
 
 const ExpectedPriceInfo: React.FC<Props> = ({ reservation, className }) => {
-  const { discountCost, totalCost, userCount, space } = reservation;
-  const rentalTypes = reservation.rentalTypes.map((rentalType) => rentalType.rentalType);
-  const additionalServices = rentalTypes.flatMap((rentalType) => rentalType.additionalServices);
-
-  const isTimeRental = reservation.rentalTypes.length === 1 && isTimeRentalType(reservation.rentalTypes[0].rentalType);
+  const { discountCost, totalCost, userCount, space, additionalServices } = reservation;
 
   const timePrice = useMemo<Item[]>(() => {
-    if (!isTimeRental) return [];
-    const time = reservation.rentalTypes[0];
-    return [{ title: `시간 단위 예약 (${getDiffHour(time.startAt, time.endAt)}시간)`, price: 0 }];
-  }, [isTimeRental, reservation.rentalTypes]);
+    if (reservation.rentalTypes.length !== 1 || !isTimeRentalType(reservation.rentalTypes[0].rentalType)) return [];
+    const { rentalType: time, startAt, endAt } = reservation.rentalTypes[0];
+    const price = time.timeCostInfos.reduce<number>((acc, cur) => {
+      if (cur.time >= startAt && cur.time <= endAt) return acc + cur.cost;
+      return acc;
+    }, 0);
+
+    return [{ title: `시간 단위 예약 (${getDiffHour(startAt, endAt + 1)}시간)`, price }];
+  }, [reservation.rentalTypes]);
 
   const additionalServicesPrice = useMemo<Item[]>(() => {
-    return additionalServices.map((service) => ({ title: service.name, price: service.cost }));
+    return additionalServices.map((service) => ({ title: service.name, price: service.cost * service.count }));
   }, [additionalServices]);
 
   return (

@@ -20,11 +20,9 @@ interface Props {
 }
 
 const SpaceInfo: React.FC<Props> = ({ reservation, className }) => {
-  const { space, year, month, day, userCount } = reservation;
+  const { space, year, month, day, userCount, additionalServices, rentalTypes } = reservation;
 
   const date = dayjs(`${year}-${month}-${day}`).format("YYYY년 MM월 DD일 (ddd)");
-  const rentalTypes = reservation.rentalTypes.map((rentalType) => rentalType.rentalType);
-  const additionalServices = rentalTypes.flatMap((rentalType) => rentalType.additionalServices);
 
   return (
     <section className={cx(styles.wrapper, className)}>
@@ -43,27 +41,30 @@ const SpaceInfo: React.FC<Props> = ({ reservation, className }) => {
           {userCount}명
         </DataItem>
         <DataItem label="상품 및 부가서비스" dtClassName={styles.label}>
-          {rentalTypes.map((rentalType) => (
-            <Fragment key={rentalType.id}>
-              {isTimeRentalType(rentalType) && (
-                <>
-                  시간 단위 예약 ({getTimeWithDay(rentalType.startAt)}-{getTimeWithDay(rentalType.endAt)},
-                  {getDiffHour(rentalType.startAt, rentalType.endAt)}시간)
-                </>
-              )}
-              {isPackageRentalType(rentalType) && (
-                <>
-                  {rentalType.name} ({rentalType.startAt}-{rentalType.endAt}시)
-                </>
-              )}
-              {additionalServices.length > 0 && (
-                <>
-                  <br />
-                  부가서비스: {additionalServices.map((item) => item.name).join(",")}
-                </>
-              )}
-            </Fragment>
-          ))}
+          {rentalTypes.map((item) => {
+            const { startAt, endAt, rentalType, rentalTypeId } = item;
+            return (
+              <Fragment key={rentalTypeId}>
+                {isTimeRentalType(rentalType) && (
+                  <>
+                    시간 단위 예약 ({getTimeWithDay(startAt)}-{getTimeWithDay(endAt + 1)},
+                    {getDiffHour(startAt, endAt + 1)}시간)
+                  </>
+                )}
+                {isPackageRentalType(rentalType) && (
+                  <>
+                    {rentalType.name} ({startAt}-{endAt}시)
+                  </>
+                )}
+                {additionalServices.length > 0 && (
+                  <>
+                    <br />
+                    부가서비스: {additionalServices.map((item) => item.name).join(",")}
+                  </>
+                )}
+              </Fragment>
+            );
+          })}
         </DataItem>
       </DataList>
     </section>

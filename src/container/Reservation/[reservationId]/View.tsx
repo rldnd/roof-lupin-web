@@ -26,8 +26,6 @@ const View: React.FC = () => {
     getMyReservationApi(reservationId),
   );
 
-  console.log({ reservation });
-
   return (
     <>
       <Suspense fallback={<LoadingStatus />}>

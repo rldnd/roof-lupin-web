@@ -23,8 +23,6 @@ const BottomSection: React.FC = () => {
   );
 
   const date = dayjs(`${data.year}-${data.month}-${data.day}`).format("YYYY년 MM월 DD일 (ddd)");
-  const rentalTypes = data.rentalTypes.map((rentalType) => rentalType.rentalType);
-  const additionalServices = rentalTypes.flatMap((rentalType) => rentalType.additionalServices);
 
   return (
     <section className={styles.wrapper}>
@@ -34,27 +32,30 @@ const BottomSection: React.FC = () => {
         </DataItem>
         <DataItem label="인원">{data.userCount}명</DataItem>
         <DataItem label="상품 및 부가서비스">
-          {rentalTypes.map((rentalType) => (
-            <Fragment key={rentalType.id}>
-              {isTimeRentalType(rentalType) && (
-                <>
-                  시간 단위 예약 ({getTimeWithDay(rentalType.startAt)}-{getTimeWithDay(rentalType.endAt)},
-                  {getDiffHour(rentalType.startAt, rentalType.endAt)}시간)
-                </>
-              )}
-              {isPackageRentalType(rentalType) && (
-                <>
-                  {rentalType.name} ({rentalType.startAt}-{rentalType.endAt}시)
-                </>
-              )}
-              {additionalServices.length > 0 && (
-                <>
-                  <br />
-                  부가서비스: {additionalServices.map((item) => item.name).join(",")}
-                </>
-              )}
-            </Fragment>
-          ))}
+          {data.rentalTypes.map((item) => {
+            const { startAt, endAt, rentalType, rentalTypeId } = item;
+            return (
+              <Fragment key={rentalTypeId}>
+                {isTimeRentalType(rentalType) && (
+                  <>
+                    시간 단위 예약 ({getTimeWithDay(startAt)}-{getTimeWithDay(endAt + 1)},
+                    {getDiffHour(startAt, endAt + 1)}시간)
+                  </>
+                )}
+                {isPackageRentalType(rentalType) && (
+                  <>
+                    {rentalType.name} ({startAt}-{endAt}시)
+                  </>
+                )}
+                {data.additionalServices.length > 0 && (
+                  <>
+                    <br />
+                    부가서비스: {data.additionalServices.map((item) => item.name).join(",")}
+                  </>
+                )}
+              </Fragment>
+            );
+          })}
         </DataItem>
         <DataItem label="결제 예정 금액">{data.totalCost.toLocaleString("ko-KR")}원</DataItem>
       </DataList>

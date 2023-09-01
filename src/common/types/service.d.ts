@@ -37,3 +37,8 @@ export interface ServiceTitle {
   /** 서비스 리스트 */
   services: Service[];
 }
+
+export interface ReservationAdditionalService extends AdditionalService {
+  /** 추가 서비스 개수 */
+  count: number;
+}

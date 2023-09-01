@@ -2,7 +2,7 @@ import type { DateDTO } from "./common";
 import type { Host } from "./host";
 import type { Refund } from "./refund";
 import type { RentalType } from "./rentalType";
-import type { AdditionalServiceReservation } from "./service";
+import type { AdditionalServiceReservation, ReservationAdditionalService } from "./service";
 import type { Space } from "./space";
 import type { CommonUser } from "./user";
 
@@ -133,6 +133,8 @@ export interface Reservation extends BaseReservation {
   refund: Refund;
   /** 취소 정보 */
   cancel: ReservationCancel | null;
+  /** 부가 서비스 정보 */
+  additionalServices: ReservationAdditionalService[];
 }
 
 export interface ReservationDetail extends Reservation {

@@ -69,6 +69,14 @@ export interface Space {
   publicTransportations: Transportation[];
   /** 공간 위치 */
   location: Location | null;
+  /** 공간이 속한 카테고리 */
+  categories: SpaceCategory[];
+  /** 공간 순서 */
+  orderNo: number | null;
+  /** 초과 사용자 비용 */
+  overflowUserCost: number;
+  /** 초과 사용자 수 */
+  overflowUserCount: number;
 }
 
 export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "timeCost" | "packageCost"> {
@@ -88,10 +96,6 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   minUser: number;
   /** 공간 최대 인원 */
   maxUser: number;
-  /** 초가 인원 당 추가 금액 */
-  overflowUserCost: number;
-  /** 초과 인원 */
-  overflowUserCount: number;
   /** 공간 Q&A 개수 */
   qnaCount: number;
   /** 호스트 정보 */
@@ -108,8 +112,6 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   buildings: Building[];
   /** 서비스 목록 */
   services: Service[];
-  /** 공간 카테고리 목록 */
-  categories: SpaceCategory[];
   /** 공간 크기 목록 */
   sizes: Size[];
   /** 베스트 포토 */
