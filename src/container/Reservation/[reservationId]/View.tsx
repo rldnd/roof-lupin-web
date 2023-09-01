@@ -45,6 +45,7 @@ const View: React.FC = () => {
       <Suspense fallback={<LoadingPriceInfo />}>
         <PriceInfo reservation={reservation} />
       </Suspense>
+      <LoadingPriceInfo />
     </>
   );
 };

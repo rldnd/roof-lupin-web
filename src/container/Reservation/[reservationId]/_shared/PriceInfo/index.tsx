@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button, PriceInfoTable } from "@/components";
@@ -77,5 +78,11 @@ const PriceInfo: React.FC<Props> = ({ reservation, className }) => {
 export default PriceInfo;
 
 export const LoadingPriceInfo: React.FC<{ className?: string }> = ({ className }) => {
-  return null;
+  return (
+    <section className={cx(styles.wrapper, className)}>
+      <h2 className={styles.title}>결제 정보</h2>
+      <Skeleton width={120} height={24} className={styles.dateInfo} />
+      <Skeleton width="100%" height={150} />
+    </section>
+  );
 };
