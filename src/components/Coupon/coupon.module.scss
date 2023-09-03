@@ -2,5 +2,41 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  @include m.flex(flex-start, flex-start, column);
   width: 100%;
+  padding: 16px;
+  background-color: var(--c-white);
+  border-radius: 8px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 15%);
+
+  .percent {
+    @include m.fontH1;
+    margin-bottom: 12px;
+    color: var(--c-roof-orange);
+  }
+
+  .name {
+    @include m.fontH4SemiBold;
+    margin-bottom: 8px;
+    color: var(--c-black);
+  }
+
+  .bottom {
+    @include m.flex(flex-start);
+
+    .dueDays {
+      @include m.fontCaptionSemiBold;
+      color: var(--c-roof-orange);
+    }
+
+    .time {
+      @include m.fontCaptionSemiBold;
+      color: var(--c-gray-500);
+
+      &::before {
+        margin: 0 8px;
+        content: "•";
+      }
+    }
+  }
 }

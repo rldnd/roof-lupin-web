@@ -1,1 +1,2 @@
-export { default as CouponMenu } from "./CouponMenu";
+export { default as CouponMenu, LoadingCouponMenu } from "./CouponMenu";
+export { default as Coupon, LoadingCoupon } from "./Coupon";

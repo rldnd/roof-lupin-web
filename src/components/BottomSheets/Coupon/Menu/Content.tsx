@@ -5,8 +5,7 @@ import type { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import { range } from "lodash-es";
 
 import type { UserCoupon } from "@/common/types/coupon";
-import { CouponMenu } from "@/components/Coupon";
-import { LoadingCouponMenu } from "@/components/Coupon/CouponMenu";
+import { CouponMenu, LoadingCouponMenu } from "@/components/Coupon";
 import { UnorderedInfiniteScroll } from "@/components/InfiniteScroll";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateCouponsApi } from "@/services/coupon";
