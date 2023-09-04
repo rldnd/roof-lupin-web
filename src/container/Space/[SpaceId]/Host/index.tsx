@@ -19,8 +19,8 @@ export default async function SpaceHostInfoContainer({ params }: Props) {
       <main>
         <DataList>
           <DataItem label="대표자명">{host.name}</DataItem>
-          <DataItem label="상호명">{host.name}</DataItem>
-          <DataItem label="사업자 등록번호">{host.name}</DataItem>
+          <DataItem label="상호명">{host.account.businessName}</DataItem>
+          <DataItem label="사업자 등록번호">{host.account.businessRegistrationNumber}</DataItem>
           <DataItem label="이메일 주소">{host.email}</DataItem>
           <DataItem label="연락처">{host.phoneNumber}</DataItem>
         </DataList>
