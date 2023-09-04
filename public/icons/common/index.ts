@@ -56,3 +56,4 @@ export { default as IconInfo } from "./info.svg";
 export { default as IconLocation } from "./location.svg";
 export { default as IconAvatar } from "./avatar.svg";
 export { default as IconBell } from "./bell.svg";
+export { default as IconHelp } from "./help.svg";
