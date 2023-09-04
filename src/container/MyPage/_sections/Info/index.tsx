@@ -45,13 +45,13 @@ const Info: React.FC = () => {
         </span>
       </div>
       <nav className={styles.countInfoList}>
-        <Link href="/" className={styles.item}>
+        <Link href="/my-page/reservations" className={styles.item}>
           <IconGraySchedule />
           <span className={styles.name}>
             예약<span className={styles.count}>{countInfo.reservationCount}</span>
           </span>
         </Link>
-        <Link href="/" className={styles.item}>
+        <Link href="/my-page/qnas" className={styles.item}>
           <IconGrayQna />
           <span className={styles.name}>
             Q&A<span className={styles.count}>{countInfo.qnaCount}</span>

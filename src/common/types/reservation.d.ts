@@ -6,7 +6,9 @@ import type { AdditionalServiceReservation, ReservationAdditionalService } from 
 import type { Space } from "./space";
 import type { CommonUser } from "./user";
 
-import { RESERVATION_STATUS_MAPPER } from "../constants/reservation";
+import { MY_RESERVATION_TABS, RESERVATION_STATUS_MAPPER } from "../constants/reservation";
+
+export type MyReservationTab = (typeof MY_RESERVATION_TABS)[number];
 
 export interface ReservationRentalType {
   /** 대여 id */
