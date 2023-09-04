@@ -23,6 +23,8 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
       max-width: calc(c.$S_CONTENT_WIDTH - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
       padding: 8px 16px;
       color: var(--c-white);
+      text-align: center;
+      white-space: pre-wrap;
       background-color: $BACKGROUND_COLOR;
       border-radius: 4px;
       opacity: 0;
@@ -30,6 +32,7 @@ $BACKGROUND_COLOR: rgba(0, 0, 0, 80%);
 
       &.hasButton {
         justify-content: space-between;
+        text-align: left;
       }
 
       & + .toast {
