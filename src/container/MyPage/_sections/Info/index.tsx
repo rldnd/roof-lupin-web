@@ -63,7 +63,7 @@ const Info: React.FC = () => {
             쿠폰<span className={styles.count}>{countInfo.couponCount}</span>
           </span>
         </Link>
-        <Link href="/" className={styles.item}>
+        <Link href="/my-page/reviews" className={styles.item}>
           <IconGrayReview />
           <span className={styles.name}>
             후기<span className={styles.count}>{countInfo.reviewCount}</span>
