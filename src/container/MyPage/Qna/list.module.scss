@@ -4,4 +4,13 @@
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
   width: 100%;
+
+  .item {
+    margin-bottom: 32px;
+
+    & + .item {
+      padding-top: 32px;
+      border-top: 2px solid var(--c-gray-150);
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import type { BasePaginationQueryParams, PagingDTO } from "@/common/types/common";
-import type { QnA } from "@/common/types/qna";
+import type { QnA, QnACount } from "@/common/types/qna";
 import { apiClient } from "@/services/apiClient";
 
 export interface PaginateQnasParams extends BasePaginationQueryParams {
@@ -22,5 +22,8 @@ export const paginateSpaceQnasApi = ({ spaceId, ...params }: PaginateQnasParams)
 /** [CLIENT] 내 Q&A 조회 */
 export const paginateMyQnasApi = (params: PaginateMyQnasParams) =>
   apiClient.get<PagingDTO<QnA>>("/qnas/paging", { params });
+
+/** [CLIENT] 내 Q&A 개수 조회 */
+export const getMyQnasCountApi = () => apiClient.get<QnACount>("/qnas/count");
 
 export const createSpaceQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);

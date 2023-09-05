@@ -4,19 +4,18 @@ import dynamic from "next/dynamic";
 
 import Header from "./Header";
 import { LoadingList } from "./List";
-import TabBar from "./TabBar";
+import { LoadingTabBar } from "./TabBar";
 
 import styles from "./myQnaContainer.module.scss";
 
+const TabBar = dynamic(() => import("./TabBar"), { ssr: false, loading: () => <LoadingTabBar /> });
 const List = dynamic(() => import("./List"), { ssr: false, loading: () => <LoadingList /> });
 
 export default async function MyQnaContainer() {
   return (
     <div className={styles.wrapper}>
       <Header />
-      <Suspense fallback={null}>
-        <TabBar />
-      </Suspense>
+      <TabBar />
       <main>
         <List />
       </main>

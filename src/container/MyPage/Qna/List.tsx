@@ -2,8 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 
+import { range } from "lodash-es";
+
 import type { QnA } from "@/common/types/qna";
-import { QnaItem, UnorderedInfiniteScroll } from "@/components";
+import { LoadingMyQnaItem, MyQnaItem, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyQnasApi } from "@/services/qna";
 
@@ -25,9 +27,10 @@ const List: React.FC = () => {
       isFetching={isFetching}
       isSuccess={isSuccess}
       fetchNextPage={fetchNextPage}
+      loadingComponentInList={<LoadingItems />}
     >
       {data.pages.map((qna) => (
-        <QnaItem key={qna.id} qna={qna} />
+        <MyQnaItem key={qna.id} qna={qna} className={styles.item} />
       ))}
     </UnorderedInfiniteScroll>
   );
@@ -35,6 +38,20 @@ const List: React.FC = () => {
 
 export default List;
 
+export const LoadingItems: React.FC = () => {
+  return (
+    <>
+      {range(10).map((value) => (
+        <LoadingMyQnaItem key={value} className={styles.item} />
+      ))}
+    </>
+  );
+};
+
 export const LoadingList: React.FC = () => {
-  return null;
+  return (
+    <div className={styles.wrapper}>
+      <LoadingItems />
+    </div>
+  );
 };

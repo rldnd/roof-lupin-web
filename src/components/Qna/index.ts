@@ -1,1 +1,2 @@
-export { default as QnaItem } from "./QnaItem";
+export { default as QnaItem, LoadingQnaItem } from "./QnaItem";
+export { default as MyQnaItem, LoadingMyQnaItem } from "./MyQnaItem";

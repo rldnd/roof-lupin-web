@@ -26,3 +26,10 @@ export interface QnA extends Omit<DateDTO, "deletedAt"> {
   /** 공간 */
   space: Space;
 }
+
+export interface QnACount {
+  /** 미답변 개수 */
+  notAnsweredCount: number;
+  /** 답변 개수 */
+  answeredCount: number;
+}

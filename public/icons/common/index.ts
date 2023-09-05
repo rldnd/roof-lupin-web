@@ -7,6 +7,7 @@ export { default as IconHome } from "./home.svg";
 export { default as IconGrayHome } from "./gray-home.svg";
 
 // NOTE: CHEVRON
+export { default as IconGrayRightChevronSmall } from "./gray-right-chevron-small.svg";
 export { default as IconGrayRightChevron } from "./gray-right-chevron.svg";
 export { default as IconGrayRightChevronLarge } from "./gray-right-chevron-large.svg";
 export { default as IconGrayRightChevronLargeThick } from "./gray-right-chevron-large-thick.svg";

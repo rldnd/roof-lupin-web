@@ -5,8 +5,7 @@ import { useParams } from "next/navigation";
 import { range } from "lodash-es";
 
 import type { QnA } from "@/common/types/qna";
-import { QnaItem, UnorderedInfiniteScroll } from "@/components";
-import { LoadingQnaItem } from "@/components/Qna/QnaItem";
+import { LoadingQnaItem, QnaItem, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceQnasApi } from "@/services/qna";
 
