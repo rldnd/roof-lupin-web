@@ -14,7 +14,9 @@
 
   .title {
     @include m.fontH3SemiBold;
+    @include m.posCenter;
     color: var(--c-black);
+    transform: translate(-50%, calc(-50% + 4px));
   }
 
   .helpWrapper {

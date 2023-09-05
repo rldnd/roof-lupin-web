@@ -13,12 +13,15 @@ import { createCouponApi } from "@/services/coupon";
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
+  const [code, setCode] = useState("");
+
   const { addToast } = useToast();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(createCouponApi, {
     onSuccess: () => {
       addToast({ message: "쿠폰이 등록되었어요." });
       queryClient.refetchQueries(["paginateCoupons"]);
+      setCode("");
     },
     onError: (data) => {
       if (isAxiosError<ErrorDTO>(data)) {
@@ -28,8 +31,6 @@ const Form: React.FC = () => {
       }
     },
   });
-
-  const [code, setCode] = useState("");
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setCode(e.currentTarget.value);

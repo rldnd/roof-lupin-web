@@ -1,5 +1,10 @@
 import type { ReviewSort } from "../types/review";
 
+export const MY_REVIEW_TABS_MAPPER = {
+  write: "리뷰 작성",
+  list: "작성한 리뷰",
+} as const;
+
 export const REVIEW_SORT = ["CREATED_AT", "SCORE_HIGH", "SCORE_LOW"] as const;
 
 export const REVIEW_SORT_MAPPER: Record<ReviewSort, string> = {
