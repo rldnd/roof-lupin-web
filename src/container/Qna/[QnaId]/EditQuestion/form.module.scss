@@ -1,0 +1,24 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  flex: 1;
+  width: 100%;
+  padding: 24px c.$S_PAGE_HORIZONTAL_PADDING 0;
+
+  .textarea {
+    flex: 1;
+    width: 100%;
+
+    &::placeholder {
+      white-space: pre-wrap;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    padding: 16px 0;
+    background-color: var(--c-white);
+  }
+}

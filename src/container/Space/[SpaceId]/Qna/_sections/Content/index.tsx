@@ -8,6 +8,7 @@ import type { QnA } from "@/common/types/qna";
 import { LoadingQnaItem, QnaItem, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceQnasApi } from "@/services/qna";
+import { revalidateApi } from "@/services/revalidate";
 
 import styles from "./content.module.scss";
 
@@ -15,6 +16,7 @@ const Content: React.FC = () => {
   const { spaceId } = useParams();
   const {
     data: qnas,
+    refetch,
     fetchNextPage,
     isFetching,
     isSuccess,
@@ -22,6 +24,11 @@ const Content: React.FC = () => {
   } = useSuspenseInfiniteQuery<QnA>(["paginateSpaceQnas", spaceId], ({ pageParam = 1 }) =>
     paginateSpaceQnasApi({ spaceId, page: pageParam, limit: 10 }),
   );
+
+  const afterDelete = async () => {
+    refetch();
+    await revalidateApi({ tag: `/spaces/${spaceId}` });
+  };
 
   return (
     <UnorderedInfiniteScroll
@@ -33,7 +40,7 @@ const Content: React.FC = () => {
       loadingComponentInList={<LoadingItems />}
     >
       {qnas.pages.map((qna) => (
-        <QnaItem key={qna.id} qna={qna} className={styles.item} />
+        <QnaItem key={qna.id} qna={qna} className={styles.item} refetch={afterDelete} />
       ))}
     </UnorderedInfiniteScroll>
   );

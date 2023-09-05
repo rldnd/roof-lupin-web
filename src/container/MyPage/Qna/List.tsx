@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { range } from "lodash-es";
 
 import type { QnA } from "@/common/types/qna";
@@ -12,13 +13,19 @@ import { paginateMyQnasApi } from "@/services/qna";
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
+  const queryClient = useQueryClient();
   const { get } = useSearchParams();
   const isAnswered = get("isAnswered") === "true";
 
-  const { data, hasNextPage, isFetching, isSuccess, fetchNextPage } = useSuspenseInfiniteQuery<QnA>(
+  const { data, hasNextPage, isFetching, isSuccess, fetchNextPage, refetch } = useSuspenseInfiniteQuery<QnA>(
     ["paginateMyQnas", isAnswered],
     ({ pageParam = 1 }) => paginateMyQnasApi({ page: pageParam, limit: 10, isAnswered }),
   );
+
+  const afterDelete = () => {
+    refetch();
+    queryClient.invalidateQueries(["myQnasCount"]);
+  };
 
   return (
     <UnorderedInfiniteScroll
@@ -30,7 +37,7 @@ const List: React.FC = () => {
       loadingComponentInList={<LoadingItems />}
     >
       {data.pages.map((qna) => (
-        <MyQnaItem key={qna.id} qna={qna} className={styles.item} />
+        <MyQnaItem key={qna.id} qna={qna} className={styles.item} refetch={afterDelete} />
       ))}
     </UnorderedInfiniteScroll>
   );

@@ -27,3 +27,5 @@ export const paginateMyQnasApi = (params: PaginateMyQnasParams) =>
 export const getMyQnasCountApi = () => apiClient.get<QnACount>("/qnas/count");
 
 export const createSpaceQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);
+
+export const deleteSpaceQnaApi = (qnaId: string) => apiClient.delete(`/qnas/${qnaId}`);
