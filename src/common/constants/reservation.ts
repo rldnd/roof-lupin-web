@@ -1,6 +1,10 @@
 import type { Color } from "@/components/Common/Tag";
 
-export const MY_RESERVATION_TABS = ["isApproaching", "used", "isCanceled"] as const;
+export const MY_RESERVATION_TAB_MAPPER = {
+  isApproaching: "isApproaching",
+  isUsed: "isUsed",
+  isCanceled: "isCanceled",
+} as const;
 
 export const RESERVATION_STATUS_MAPPER = {
   /** 즉시 결제가 아닌, 호스트의 승인이 필요함으로 승인을 요청한 상태의 예약 */

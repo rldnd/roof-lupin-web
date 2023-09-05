@@ -3,15 +3,16 @@ import type { CreateReservation, Reservation, ReservationDetail, ReservationStat
 import { apiClient } from "@/services/apiClient";
 
 export interface PaginateMyReservationsParams extends BasePaginationQueryParams {
-  year: number | null;
-  month: number | null;
-  day: number | null;
-  spaceId: string | null;
-  isApproved: boolean | null;
-  isCanceled: boolean | null;
-  isReviewed: boolean | null;
-  isApproaching: boolean | null;
-  status: ReservationStatus;
+  year?: number;
+  month?: number;
+  day?: number;
+  spaceId?: string;
+  isApproved?: boolean;
+  isCanceled?: boolean;
+  isReviewed?: boolean;
+  isUsed?: boolean;
+  isApproaching?: boolean;
+  status?: ReservationStatus;
 }
 
 /** [CLIENT] 내 예약 상세 조회 */

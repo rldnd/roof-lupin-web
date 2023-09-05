@@ -3,5 +3,10 @@
 
 .wrapper {
   width: 100%;
-  padding-top: c.$S_BASE_HEADER_HEIGHT;
+  padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_MY_RESERVATION_TAB_BAR_HEIGHT);
+
+  main {
+    width: 100%;
+    padding: 36px c.$S_PAGE_HORIZONTAL_PADDING;
+  }
 }
