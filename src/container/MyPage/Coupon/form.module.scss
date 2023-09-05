@@ -3,6 +3,7 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-end);
+  position: relative;
   gap: 8px;
   width: 100%;
   margin-bottom: 40px;
@@ -17,5 +18,11 @@
 
   > button {
     width: max-content;
+  }
+
+  .errorMessage {
+    @include m.absolute(calc(100% + 4px) auto auto 0);
+    @include m.fontCaptionLh170;
+    color: var(--c-roof-orange);
   }
 }

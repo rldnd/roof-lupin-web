@@ -14,6 +14,7 @@ import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
   const [code, setCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { addToast } = useToast();
   const queryClient = useQueryClient();
@@ -26,13 +27,14 @@ const Form: React.FC = () => {
     onError: (data) => {
       if (isAxiosError<ErrorDTO>(data)) {
         const status = data.response?.data.statusCode;
-        if (status === 404) addToast({ message: "유효하지 않은 코드입니다.\n쿠폰코드를 다시 확인해주세요." });
-        if (status === 409) addToast({ message: "이미 등록된 쿠폰코드입니다." });
+        if (status === 404) setErrorMessage("유효하지 않은 코드입니다. 코드를 다시 확인해주세요.");
+        if (status === 409) setErrorMessage("이미 등록된 코드입니다.");
       }
     },
   });
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setErrorMessage("");
     setCode(e.currentTarget.value);
   };
 
@@ -53,6 +55,7 @@ const Form: React.FC = () => {
       <Button color="primary" size="small" type="submit">
         등록
       </Button>
+      <span className={styles.errorMessage}>{errorMessage}</span>
     </form>
   );
 };
