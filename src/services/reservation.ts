@@ -17,14 +17,14 @@ export interface PaginateMyReservationsParams extends BasePaginationQueryParams 
 
 /** [CLIENT] 내 예약 상세 조회 */
 export const getMyReservationApi = (reservationId: string) =>
-  apiClient.get<ReservationDetail>(`/reservations/${reservationId}/me`);
+  apiClient.get<ReservationDetail>(`/reservations/${reservationId}/detail`);
 
 /** [CLIENT] 내 근접한 예약 조회 */
-export const getMyCloseReservationApi = () => apiClient.get<Reservation>("/reservations/me/close");
+export const getMyCloseReservationApi = () => apiClient.get<Reservation>("/reservations/close");
 
 /** [CLIENT] 내 예약 조회 */
 export const paginateMyReservationsApi = (params: PaginateMyReservationsParams) =>
-  apiClient.get<PagingDTO<Reservation>>("/reservations/me/paging", { params });
+  apiClient.get<PagingDTO<Reservation>>("/reservations/paging", { params });
 
 export const prepareReservationApi = (body: CreateReservation) =>
   apiClient.post<{ id: string }>("/reservations/prepare", body);

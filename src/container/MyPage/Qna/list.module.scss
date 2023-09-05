@@ -3,10 +3,5 @@
 
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
-  gap: 36px;
   width: 100%;
-
-  > li {
-    width: 100%;
-  }
 }

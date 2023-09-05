@@ -21,6 +21,6 @@ export const paginateSpaceQnasApi = ({ spaceId, ...params }: PaginateQnasParams)
 
 /** [CLIENT] 내 Q&A 조회 */
 export const paginateMyQnasApi = (params: PaginateMyQnasParams) =>
-  apiClient.get<PagingDTO<QnA>>("/qnas/me/paging", { params });
+  apiClient.get<PagingDTO<QnA>>("/qnas/paging", { params });
 
 export const createSpaceQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);

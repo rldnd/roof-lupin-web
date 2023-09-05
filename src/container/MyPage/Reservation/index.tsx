@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import dynamic from "next/dynamic";
 
 import Header from "./Header";
@@ -13,7 +15,9 @@ export default async function MyReservationContainer() {
   return (
     <div className={styles.wrapper}>
       <Header />
-      <TabBar />
+      <Suspense fallback={null}>
+        <TabBar />
+      </Suspense>
       <main>
         <List />
       </main>

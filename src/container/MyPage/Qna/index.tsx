@@ -1,9 +1,14 @@
 import { Suspense } from "react";
 
+import dynamic from "next/dynamic";
+
 import Header from "./Header";
+import { LoadingList } from "./List";
 import TabBar from "./TabBar";
 
 import styles from "./myQnaContainer.module.scss";
+
+const List = dynamic(() => import("./List"), { ssr: false, loading: () => <LoadingList /> });
 
 export default async function MyQnaContainer() {
   return (
@@ -12,7 +17,9 @@ export default async function MyQnaContainer() {
       <Suspense fallback={null}>
         <TabBar />
       </Suspense>
-      <main></main>
+      <main>
+        <List />
+      </main>
     </div>
   );
 }

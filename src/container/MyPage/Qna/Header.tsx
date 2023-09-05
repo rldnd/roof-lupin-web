@@ -1,17 +1,19 @@
 "use client";
 
-import { BackButton } from "@/components";
+import { useRouter } from "next/navigation";
 
 import { IconBlackLeftChevronLarge } from "public/icons";
 
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
+  const { replace } = useRouter();
+
   return (
     <header className={styles.wrapper}>
-      <BackButton className={styles.backButton}>
+      <button type="button" className={styles.backButton} onClick={() => replace("/my-page")}>
         <IconBlackLeftChevronLarge />
-      </BackButton>
+      </button>
       <span className={styles.title}>내 Q&A</span>
     </header>
   );
