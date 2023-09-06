@@ -2,9 +2,7 @@ import type { DateDTO, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { CommonUser } from "./user";
 
-import { MY_REVIEW_TABS_MAPPER, REVIEW_SORT } from "../constants/review";
-
-export type MyReviewTab = keyof typeof MY_REVIEW_TABS_MAPPER;
+import { REVIEW_SORT } from "../constants/review";
 
 export type ReviewSort = (typeof REVIEW_SORT)[number];
 
