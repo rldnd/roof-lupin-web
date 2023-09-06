@@ -3,6 +3,23 @@ import type { DateDTO } from "./common";
 
 export type Gender = "MALE" | "FEMALE";
 
+export interface UserSetting {
+  /** id */
+  id: string;
+  /** 성인 인증 여부 */
+  isAdult: boolean;
+  /** 알림 수신 동의 여부 */
+  isAlarmAccepted: boolean;
+  /** 위치 정보 수집 동의 여부 */
+  isLocationInfoAccepted: boolean;
+  /** 이메일 수신 동의 여부 */
+  isEmailAccepted: boolean;
+  /** 카카오톡 알림 수신 동의 여부 */
+  isKakaoTalkAccepted: boolean;
+  /** 푸시 알림 수신 동의 여부 */
+  isPushAccepted: boolean;
+}
+
 export interface CommonUser extends DateDTO {
   id: string;
   name: string | null;
@@ -14,12 +31,10 @@ export interface CommonUser extends DateDTO {
   birthDay: string | null;
   gender: Gender | null;
   profileImage: string | null;
-  /** 성인 인증 여부 */
-  isAdult: boolean;
-  /** 알림 승인 여부 */
-  isAlarmAccepted: boolean;
   /** 유저 소셜 타입 */
   socialType: SocialType;
+  /** 설정 */
+  setting: UserSetting;
 }
 
 export interface PushToken {
