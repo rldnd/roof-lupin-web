@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding-top: calc(c.$S_BASE_HEADER_HEIGHT + c.$S_MY_REVIEW_TAB_BAR_HEIGHT);
+
+  > main {
+    width: 100%;
+  }
+}

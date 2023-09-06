@@ -33,3 +33,8 @@ export interface ReviewSummary {
   /** 리뷰 개수 */
   count: number;
 }
+
+export interface ReviewCount {
+  /** 리뷰 갯수 */
+  count: number;
+}

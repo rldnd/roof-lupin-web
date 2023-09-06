@@ -1,18 +1,16 @@
-import dynamic from "next/dynamic";
+import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
+import { ToastPositioner } from "@/components";
 
-import Header from "./Header";
-import { LoadingTabBar } from "./TabBar";
+import { MyReviewLayout } from "./_shared";
 
 import styles from "./myReviewContainer.module.scss";
 
-const TabBar = dynamic(() => import("./TabBar"), { ssr: false, loading: () => <LoadingTabBar /> });
-
 export default async function MyReviewContainer() {
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <TabBar />
-      <main></main>
-    </div>
+    <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
+      <MyReviewLayout>
+        <main className={styles.wrapper}></main>
+      </MyReviewLayout>
+    </ToastPositioner>
   );
 }

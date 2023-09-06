@@ -38,7 +38,16 @@ export interface CommonUser extends DateDTO {
 }
 
 export interface PushToken {
+  /** 유저 아이디 */
+  id: string;
+  /** 유저 닉네임 */
+  nickname: string | null;
+  /** 유저 이름 */
+  name: string | null;
+  /** 푸시 토큰 */
   pushToken: string | null;
+  /** 유저 설정 */
+  setting: UserSetting;
 }
 
 export interface CountInfo {
