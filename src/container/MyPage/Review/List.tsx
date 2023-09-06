@@ -5,6 +5,7 @@ import { MySpaceReview, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyReviewsApi } from "@/services/review";
 
+// TODO: MySpaceReview 컴포넌트 제작
 const List: React.FC = () => {
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
     ["paginateMyReviews"],
