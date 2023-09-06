@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button, Textarea } from "@/components";
 import { useToast } from "@/hooks";
-import { createSpaceQnaApi } from "@/services/qna";
+import { createQnaApi } from "@/services/qna";
 import { revalidateApi } from "@/services/revalidate";
 
 import styles from "./form.module.scss";
@@ -21,7 +21,7 @@ const Form: React.FC = () => {
 
   const [value, setValue] = useState("");
 
-  const { mutate } = useMutation(createSpaceQnaApi, {
+  const { mutate } = useMutation(createQnaApi, {
     onSuccess: async () => {
       await Promise.all([
         queryClient.refetchQueries(["paginateSpaceQnas", spaceId]),

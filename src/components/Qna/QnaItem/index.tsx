@@ -10,7 +10,7 @@ import type { QnA } from "@/common/types/qna";
 import { MyQnaMenuBottomSheet, OtherQnaMenuBottomSheet } from "@/components/BottomSheets/Qna";
 import { usePopConfirm, useToast } from "@/hooks";
 import { useMe } from "@/hooks/queries";
-import { deleteSpaceQnaApi } from "@/services/qna";
+import { deleteQnaApi } from "@/services/qna";
 
 import Answer from "./Answer";
 import Title from "./Title";
@@ -29,7 +29,7 @@ const QnaItem: React.FC<Props> = ({ qna, className, refetch }) => {
   const { isLogined, me } = useMe();
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
 
-  const { mutate } = useMutation(deleteSpaceQnaApi, {
+  const { mutate } = useMutation(deleteQnaApi, {
     onSuccess: () => {
       addToast({ message: "질문이 삭제되었어요!" });
       refetch();

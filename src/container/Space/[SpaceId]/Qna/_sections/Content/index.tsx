@@ -27,7 +27,7 @@ const Content: React.FC = () => {
 
   const afterDelete = async () => {
     refetch();
-    await revalidateApi({ tag: `/spaces/${spaceId}` });
+    await revalidateApi({ tag: `/spaces/${spaceId}/detail` });
   };
 
   return (

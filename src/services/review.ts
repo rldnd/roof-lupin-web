@@ -17,3 +17,6 @@ export const paginateReviewsApi = ({ spaceId, ...params }: PaginateReviewsParams
 
 /** [CLIENT] 리뷰 자세히 불러오기 */
 export const getReviewApi = (reviewId: string) => apiClient.get<Review>(`/reviews/${reviewId}/detail`);
+
+/** [CLIENT] 내가 작성한 리뷰 개수를 불러옵니다. */
+export const getMyReviewsCountApi = () => apiClient.get("/reviews/count");

@@ -11,7 +11,7 @@ import Skeleton from "react-loading-skeleton";
 import type { QnA } from "@/common/types/qna";
 import { MyQnaMenuBottomSheet } from "@/components/BottomSheets/Qna";
 import { usePopConfirm, useToast } from "@/hooks";
-import { deleteSpaceQnaApi } from "@/services/qna";
+import { deleteQnaApi } from "@/services/qna";
 import { dayjs } from "@/utils/date";
 
 import { IconGrayRightChevronSmall, IconThreeDotsLarge } from "public/icons";
@@ -33,7 +33,7 @@ const MyQnaItem: React.FC<Props> = ({ qna, className, refetch }) => {
 
   const [isShowMenu, setIsShowMenu] = useState(false);
 
-  const { mutate } = useMutation(deleteSpaceQnaApi, {
+  const { mutate } = useMutation(deleteQnaApi, {
     onSuccess: () => {
       addToast({ message: "질문이 삭제되었어요!" });
       refetch();

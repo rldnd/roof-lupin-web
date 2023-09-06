@@ -15,6 +15,11 @@ export interface CreateSpaceQnaBody {
   spaceId: string;
 }
 
+export interface UpdateSpaceQnaBody {
+  content: string;
+  qnaId: string;
+}
+
 /** [CLIENT] 공간 Q&A 조회 */
 export const paginateSpaceQnasApi = ({ spaceId, ...params }: PaginateQnasParams) =>
   apiClient.get<PagingDTO<QnA>>(`/qnas/${spaceId}/paging`, { params });
@@ -26,6 +31,11 @@ export const paginateMyQnasApi = (params: PaginateMyQnasParams) =>
 /** [CLIENT] 내 Q&A 개수 조회 */
 export const getMyQnasCountApi = () => apiClient.get<QnACount>("/qnas/count");
 
-export const createSpaceQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);
+/** [CLIENT] 내 Q&A 상세 조회 */
+export const getMyQnaApi = (qnaId: string) => apiClient.get<QnA>(`/qnas/${qnaId}/detail`);
 
-export const deleteSpaceQnaApi = (qnaId: string) => apiClient.delete(`/qnas/${qnaId}`);
+export const createQnaApi = (body: CreateSpaceQnaBody) => apiClient.post<{ id: string }>("/qnas", body);
+
+export const updateQnaApi = ({ content, qnaId }: UpdateSpaceQnaBody) => apiClient.patch(`/qnas/${qnaId}`, { content });
+
+export const deleteQnaApi = (qnaId: string) => apiClient.delete(`/qnas/${qnaId}`);

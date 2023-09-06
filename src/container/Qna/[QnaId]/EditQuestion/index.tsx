@@ -1,9 +1,13 @@
+import dynamic from "next/dynamic";
+
 import { HeightFitLayout } from "@/components/Layout";
 
-import Form from "./Form";
+import { LoadingForm } from "./Form";
 import Header from "./Header";
 
 import styles from "./editQuestionContainer.module.scss";
+
+const Form = dynamic(() => import("./Form"), { ssr: false, loading: () => <LoadingForm /> });
 
 export default async function EditQuestionContainer() {
   return (
