@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import cx from "clsx";
 
 import type { Review as ReviewType } from "@/common/types/review";
-import Header from "@/components/Space/Review/Header";
+import Header from "@/components/Space/Review/Item/Header";
 import { useClientEffect, useSuspenseQuery } from "@/hooks";
 import { getReviewApi } from "@/services/review";
 

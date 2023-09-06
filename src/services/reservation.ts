@@ -12,6 +12,7 @@ export interface PaginateMyReservationsParams extends BasePaginationQueryParams 
   isReviewed?: boolean;
   isUsed?: boolean;
   isApproaching?: boolean;
+  isReviewable?: boolean;
   status?: ReservationStatus;
 }
 
