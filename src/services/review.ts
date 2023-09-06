@@ -11,6 +11,9 @@ export interface PaginateReviewsParams extends BasePaginationQueryParams {
 /** [CLIENT] 공간의 리뷰 요약을 불러옵니다. */
 export const getReviewsSummaryApi = (spaceId: string) => apiClient.get<ReviewSummary>(`/reviews/${spaceId}/summary`);
 
+export const paginateMyReviewsApi = (params: BasePaginationQueryParams) =>
+  apiClient.get<PagingDTO<Review>>("/reviews/paging", { params });
+
 /** [CLIENT] 공간의 리뷰 목록을 불러옵니다. */
 export const paginateReviewsApi = ({ spaceId, ...params }: PaginateReviewsParams) =>
   apiClient.get<PagingDTO<Review>>(`/reviews/${spaceId}/paging`, { params });
