@@ -1,0 +1,53 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: calc(64px + c.$S_PAGE_HORIZONTAL_PADDING) 1fr max-content;
+  gap: 16px 12px;
+  width: 100%;
+
+  .image {
+    justify-self: right;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .contentWrapper {
+    @include m.makeEllipsis;
+    @include m.flex(flex-start, flex-start, column);
+    gap: 2px;
+    align-self: center;
+    width: 100%;
+
+    .title {
+      @include m.fontButton1;
+      @include m.makeEllipsis;
+      width: 100%;
+      color: var(--c-black);
+    }
+
+    .usedDate {
+      @include m.fontBody1SemiBold;
+      @include m.makeEllipsis;
+      color: var(--c-gray-800);
+    }
+  }
+
+  .reviewLink {
+    align-self: center;
+    margin-right: c.$S_PAGE_HORIZONTAL_PADDING;
+  }
+
+  .rentalTypes {
+    @include m.flex(flex-start);
+    grid-area: 2 / 1 / 3 / 4;
+    gap: 8px;
+    width: 100%;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+    .tag {
+      @include m.chipOutlined;
+    }
+  }
+}

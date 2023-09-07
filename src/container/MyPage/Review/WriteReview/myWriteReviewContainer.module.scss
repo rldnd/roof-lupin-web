@@ -3,4 +3,16 @@
 
 .wrapper {
   width: 100%;
+  @include m.flex(flex-start, center, column);
+
+  .guideWrapper {
+    @include m.fontCaptionSemiBold;
+    @include m.flex;
+    width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+    padding: 12px 8px;
+    margin: 24px 0 32px;
+    color: var(--c-roof-orange);
+    background-color: var(--c-orange-bg);
+    border-radius: 4px;
+  }
 }

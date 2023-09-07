@@ -75,10 +75,14 @@ export interface ReservationCancel {
   id: string;
   /** 취소 사유 */
   reason: string;
+  /** 환불 비용 */
+  refundCost: number | null;
   /** 유저 */
   user: CommonUser;
   /** 호스트 */
   host: Host;
+  /** 생성일 */
+  createdAt: Date;
 }
 
 export interface BaseReservation extends Omit<DateDTO, "deletedAt"> {
@@ -127,10 +131,10 @@ export interface Reservation extends BaseReservation {
   space: Space;
   /** 리뷰 작성 여부 */
   isReviewed: boolean;
+  /** 리뷰 작성 가능 여부 */
+  isReviewable: boolean;
   /** 예약 상태 */
   status: ReservationStatus;
-  /** 환불 정보 */
-  refund: Refund;
   /** 취소 정보 */
   cancel: ReservationCancel | null;
   /** 부가 서비스 정보 */
