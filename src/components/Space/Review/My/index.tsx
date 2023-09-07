@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 
 import type { Review } from "@/common/types/review";
 
+import Answer from "./Answer";
 import Header, { LoadingHeader } from "./Header";
 import Images, { LoadingImages } from "./Images";
 import RentalTypes, { LoadingRentalTypes } from "./RentalTypes";
@@ -26,6 +27,7 @@ const MySpaceReview: React.FC<Props> = ({ review, className }) => {
         <p className={styles.content}>{review.content}</p>
         <Images images={review.images} reviewId={review.id} />
         <RentalTypes review={review} />
+        {review.answer && <Answer answer={review.answer} />}
       </li>
     </>
   );
@@ -37,7 +39,7 @@ export const LoadingMySpaceReview: React.FC<{ className?: string }> = ({ classNa
   return (
     <div className={cx(styles.wrapper, className)}>
       <LoadingHeader />
-      <Skeleton width="100%" className={styles.content} height={80} />
+      <Skeleton className={styles.loadingContent} height={80} />
       <LoadingImages />
       <LoadingRentalTypes />
     </div>

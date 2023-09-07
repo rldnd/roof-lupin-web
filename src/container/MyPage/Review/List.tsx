@@ -37,7 +37,7 @@ export const LoadingItems: React.FC = () => {
   return (
     <>
       {range(10).map((value) => (
-        <LoadingMySpaceReview key={value} />
+        <LoadingMySpaceReview key={value} className={styles.item} />
       ))}
     </>
   );

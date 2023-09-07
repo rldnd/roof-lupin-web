@@ -6,8 +6,14 @@
 
   .content {
     @include m.fontBody1Regular;
+    width: 100%;
     padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-gray-900);
     white-space: pre-wrap;
+  }
+
+  .loadingContent {
+    width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+    margin-left: c.$S_PAGE_HORIZONTAL_PADDING;
   }
 }
