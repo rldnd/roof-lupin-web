@@ -15,7 +15,7 @@ const OtherQnaMenuBottomSheet: React.FC<Props> = ({ qnaId, isShow, onClose }) =>
     <BaseBottomSheet isShow={isShow} onClose={onClose} hideHeader blockWindowScroll>
       <SortMenu>
         <NavigateMenuItem href={`/qnas/${qnaId}/reports`} isActive={false}>
-          후기 신고
+          문의 신고
         </NavigateMenuItem>
       </SortMenu>
     </BaseBottomSheet>

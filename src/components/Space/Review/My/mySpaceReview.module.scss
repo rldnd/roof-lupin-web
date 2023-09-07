@@ -4,10 +4,10 @@
 .wrapper {
   width: 100%;
 
-  .titleWrapper {
-    display: grid;
-    grid-template-columns: 1fr 40px;
-    width: 100%;
-    margin-bottom: 20px;
+  .content {
+    @include m.fontBody1Regular;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+    color: var(--c-gray-900);
+    white-space: pre-wrap;
   }
 }

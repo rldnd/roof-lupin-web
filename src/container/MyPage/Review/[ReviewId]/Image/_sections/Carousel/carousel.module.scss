@@ -1,0 +1,48 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  height: calc(100vh - c.$S_BASE_HEADER_HEIGHT);
+  background-color: var(--c-black);
+
+  .slider {
+    width: 100%;
+    height: calc(100vh - c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
+    padding-top: calc(c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
+
+    .image {
+      width: 100%;
+      height: calc(100vh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
+      object-fit: cover;
+    }
+
+    .arrow {
+      @include m.absolute(
+        calc(50% + c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT) c.$S_PAGE_HORIZONTAL_PADDING auto
+          auto
+      );
+      @include m.flex;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 50%);
+      border-radius: 50%;
+
+      &.left {
+        right: auto;
+        left: c.$S_PAGE_HORIZONTAL_PADDING;
+
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .skeleton {
+    height: calc(100vh - 2 * c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT);
+    margin-top: calc(c.$S_REVIEW_IMAGE_BOTTOM_REVIEW_HEIGHT - c.$S_BASE_HEADER_HEIGHT);
+    border-radius: 0;
+  }
+}

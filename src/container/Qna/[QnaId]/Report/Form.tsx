@@ -64,7 +64,7 @@ const Form: React.FC = () => {
         사실과 다르거나 비방성 내용
       </Radio>
       <Radio
-        value={4}
+        value={5}
         checked={checked === 5}
         title="동일한 내용을 반복적으로 나열하는 도배성 게시글"
         onChange={onChangeRadio}

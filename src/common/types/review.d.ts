@@ -1,10 +1,51 @@
 import type { DateDTO, ImageDTO } from "./common";
 import type { Host } from "./host";
+import type { Location } from "./location";
+import type { SpaceCategory, Transportation } from "./space";
 import type { CommonUser } from "./user";
 
 import { REVIEW_SORT } from "../constants/review";
 
 export type ReviewSort = (typeof REVIEW_SORT)[number];
+
+export interface ReviewSpace {
+  /** 공간 id */
+  id: string;
+  /** 공간 제목 */
+  title: string;
+  /** 공간 평점 */
+  averageScore: number;
+  /** 공간 리뷰 개수 */
+  reviewCount: number;
+  /** 공간 신고 개수 */
+  reportCount: number;
+  /** 공간 시간 최소 가격 */
+  timeCost: number | null;
+  /** 공간 패키지 최소 가격 */
+  packageCost: number | null;
+  /** 찜 여부 */
+  isInterested: boolean;
+  /** 노출 여부 */
+  isPublic: boolean;
+  /** 승인 여부 */
+  isApproved: boolean;
+  /** 찜 개수 */
+  interestCount: number;
+  /** 즉각 예약 여부 */
+  isImmediateReservation: boolean;
+  /** 공간 썸네일 */
+  thumbnail: string;
+  /** 호스트 id */
+  hostId: string;
+  /** 공간 대중 교통 */
+  publicTransportations: Transportation[];
+  /** 공간 위치 */
+  location: Location | null;
+  /** 공간 순서 */
+  orderNo: number | null;
+  /** 공간이 속한 카테고리 */
+  categories: SpaceCategory[];
+}
 
 export interface Review extends DateDTO {
   id: string;
@@ -13,7 +54,13 @@ export interface Review extends DateDTO {
   images: ImageDTO[];
   isBest: boolean;
   user: CommonUser;
+  /** 예약 id */
+  reservationId: string;
   answer: ReviewAnswer | null;
+  /** 수정 가능 여부 */
+  isEditable: boolean;
+  /** 공간 정보 */
+  space: ReviewSpace;
 }
 
 export interface ReviewAnswer {

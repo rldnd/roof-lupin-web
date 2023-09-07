@@ -1,11 +1,14 @@
 "use client";
 
+import { range } from "lodash-es";
+
 import type { Review } from "@/common/types/review";
-import { MySpaceReview, UnorderedInfiniteScroll } from "@/components";
+import { LoadingMySpaceReview, MySpaceReview, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyReviewsApi } from "@/services/review";
 
-// TODO: MySpaceReview 컴포넌트 제작
+import styles from "./list.module.scss";
+
 const List: React.FC = () => {
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
     ["paginateMyReviews"],
@@ -18,10 +21,11 @@ const List: React.FC = () => {
       isSuccess={isSuccess}
       isFetching={isFetching}
       fetchNextPage={fetchNextPage}
-      loadingComponent={<LoadingList />}
+      className={styles.wrapper}
+      loadingComponentInList={<LoadingItems />}
     >
       {data.pages.map((review) => (
-        <MySpaceReview key={review.id} review={review} />
+        <MySpaceReview key={review.id} review={review} className={styles.item} />
       ))}
     </UnorderedInfiniteScroll>
   );
@@ -29,6 +33,20 @@ const List: React.FC = () => {
 
 export default List;
 
+export const LoadingItems: React.FC = () => {
+  return (
+    <>
+      {range(10).map((value) => (
+        <LoadingMySpaceReview key={value} />
+      ))}
+    </>
+  );
+};
+
 export const LoadingList: React.FC = () => {
-  return null;
+  return (
+    <ul className={styles.wrapper}>
+      <LoadingItems />
+    </ul>
+  );
 };

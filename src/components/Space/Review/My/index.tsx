@@ -2,11 +2,14 @@
 
 import { memo } from "react";
 
-import Link from "next/link";
-
 import cx from "clsx";
+import Skeleton from "react-loading-skeleton";
 
 import type { Review } from "@/common/types/review";
+
+import Header, { LoadingHeader } from "./Header";
+import Images, { LoadingImages } from "./Images";
+import RentalTypes, { LoadingRentalTypes } from "./RentalTypes";
 
 import styles from "./mySpaceReview.module.scss";
 
@@ -19,10 +22,24 @@ const MySpaceReview: React.FC<Props> = ({ review, className }) => {
   return (
     <>
       <li className={cx(styles.wrapper, className)}>
-        <div className={styles.titleWrapper}>{/* <Link className={styles.spaceTitle} href={}></Link> */}</div>
+        <Header review={review} />
+        <p className={styles.content}>{review.content}</p>
+        <Images images={review.images} reviewId={review.id} />
+        <RentalTypes review={review} />
       </li>
     </>
   );
 };
 
 export default memo(MySpaceReview);
+
+export const LoadingMySpaceReview: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <div className={cx(styles.wrapper, className)}>
+      <LoadingHeader />
+      <Skeleton width="100%" className={styles.content} height={80} />
+      <LoadingImages />
+      <LoadingRentalTypes />
+    </div>
+  );
+};

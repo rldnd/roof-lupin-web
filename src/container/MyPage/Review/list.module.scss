@@ -3,4 +3,16 @@
 
 .wrapper {
   width: 100%;
+
+  .item {
+    &:first-of-type {
+      padding-top: c.$S_PAGE_HORIZONTAL_PADDING;
+    }
+
+    & + .item {
+      padding-top: 40px;
+      margin-top: 40px;
+      border-top: 4px solid var(--c-gray-150);
+    }
+  }
 }

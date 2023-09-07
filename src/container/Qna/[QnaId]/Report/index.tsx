@@ -14,7 +14,7 @@ export default async function QnaReportContainer() {
         <Header />
         <main>
           <p className={styles.info}>
-            이 문의/답변을 신고하시는
+            이 문의를 신고하시는
             <br />
             이유를 선택해주세요.
           </p>

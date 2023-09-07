@@ -7,11 +7,11 @@ import { IconBlackLeftChevronLarge, IconHelp } from "public/icons";
 import styles from "./header.module.scss";
 
 const Header: React.FC = () => {
-  const { back } = useRouter();
+  const { replace } = useRouter();
 
   return (
     <header className={styles.wrapper}>
-      <button type="button" aria-label="뒤로 가기" onClick={back}>
+      <button type="button" aria-label="뒤로 가기" onClick={() => replace("/my-page")}>
         <IconBlackLeftChevronLarge />
       </button>
       <p className={styles.title}>내 후기</p>

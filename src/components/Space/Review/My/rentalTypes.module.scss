@@ -3,18 +3,12 @@
 
 .wrapper {
   @include m.flex(flex-start);
-  gap: 6px;
+  gap: 8px;
   width: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-  margin-bottom: 12px;
+  margin-top: 16px;
 
-  li {
-    width: 128px;
-    height: 128px;
-
-    a {
-      width: 100%;
-      height: 100%;
-    }
+  .tag {
+    @include m.chipOutlined;
   }
 }

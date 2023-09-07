@@ -23,11 +23,8 @@ interface Props {
 }
 
 const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
-  const { year, month, day, rentalTypes, status, isReviewed } = reservation;
-  const date = dayjs(`${year}-${month}-${day}`).format("YYYY.MM.DD (ddd),");
-  const today = dayjs(`${dayjs().year()}-${dayjs().month() + 1}-${dayjs().date()}`);
-
-  const isNotTakenTwoWeeks = today.isBefore(dayjs(`${year}-${month}-${day}`).add(2, "week"));
+  const { year, month, day, rentalTypes, status, isReviewable } = reservation;
+  const date = dayjs(`${year}-${month}-${day}`).format("YYYY.MM.DD (ddd)");
 
   return (
     <>
@@ -60,8 +57,7 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
           <IconGrayRightChevronLargeThick />
         </button>
       </Link>
-      {status === "USED" && !isReviewed && isNotTakenTwoWeeks && (
-        // TODO: 리뷰 쓰기
+      {isReviewable && (
         <div className={styles.reviewWrapper}>
           <Link href={"/"} className={styles.review}>
             <Button type="button" color="primary" size="small">

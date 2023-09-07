@@ -1,0 +1,7 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
