@@ -21,7 +21,7 @@ import styles from "./header.module.scss";
 
 interface Props {
   review: Review;
-  refetch: () => void;
+  refetch?: () => void;
   menuHidden?: boolean;
   className?: string;
 }
@@ -35,7 +35,7 @@ const Header: React.FC<Props> = ({ review, className, refetch, menuHidden = fals
   const { mutate } = useMutation(deleteReviewApi, {
     onSuccess: () => {
       addToast({ message: "리뷰가 삭제되었어요!" });
-      refetch();
+      refetch?.();
     },
   });
 
