@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import type { Review as ReviewType } from "@/common/types/review";
 import { SpaceReview } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
+import { revalidateApi } from "@/services/revalidate";
 
 import MoreButton from "./MoreButton";
 
@@ -18,6 +19,10 @@ interface Props {
 
 const Review: React.FC<Props> = ({ averageScore, reviewCount, reviews }) => {
   const { spaceId } = useParams();
+
+  const refetch = async () => {
+    await revalidateApi({ tag: `/spaces/${spaceId}/detail` });
+  };
 
   return (
     <section id="review-section" className={styles.wrapper}>
@@ -33,7 +38,7 @@ const Review: React.FC<Props> = ({ averageScore, reviewCount, reviews }) => {
       </h2>
       <ul className={styles.reviewList}>
         {reviews.map((review) => (
-          <SpaceReview spaceId={spaceId} key={review.id} review={review} />
+          <SpaceReview spaceId={spaceId} key={review.id} review={review} refetch={refetch} />
         ))}
       </ul>
       {reviewCount - reviews.length > 0 && <MoreButton count={reviewCount - reviews.length} />}

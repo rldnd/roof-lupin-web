@@ -17,7 +17,7 @@ import styles from "./content.module.scss";
 const Content: React.FC = () => {
   const { spaceId } = useParams();
   const reviewSortMenu = useAtomValue(reviewSortMenuState);
-  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Review>(
     ["paginateReviews", reviewSortMenu],
     ({ pageParam = 1 }) => paginateReviewsApi({ page: pageParam, limit: 10, ...reviewSortMenu, spaceId }),
   );
@@ -33,7 +33,14 @@ const Content: React.FC = () => {
         loadingComponent={<LoadingContent />}
       >
         {data.pages.map((review) => (
-          <SpaceReview spaceId={spaceId} className={styles.review} key={review.id} isShowAll review={review} />
+          <SpaceReview
+            spaceId={spaceId}
+            className={styles.review}
+            key={review.id}
+            isShowAll
+            review={review}
+            refetch={refetch}
+          />
         ))}
       </UnorderedInfiniteScroll>
     </main>

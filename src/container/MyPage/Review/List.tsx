@@ -10,7 +10,7 @@ import { paginateMyReviewsApi } from "@/services/review";
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
-  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Review>(
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Review>(
     ["paginateMyReviews"],
     ({ pageParam = 1 }) => paginateMyReviewsApi({ page: pageParam, limit: 10 }),
   );
@@ -25,7 +25,7 @@ const List: React.FC = () => {
       loadingComponentInList={<LoadingItems />}
     >
       {data.pages.map((review) => (
-        <MySpaceReview key={review.id} review={review} className={styles.item} />
+        <MySpaceReview key={review.id} review={review} className={styles.item} refetch={refetch} />
       ))}
     </UnorderedInfiniteScroll>
   );

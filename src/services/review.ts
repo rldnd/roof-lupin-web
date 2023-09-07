@@ -23,3 +23,5 @@ export const getReviewApi = (reviewId: string) => apiClient.get<Review>(`/review
 
 /** [CLIENT] 내가 작성한 리뷰 개수를 불러옵니다. */
 export const getMyReviewsCountApi = () => apiClient.get<ReviewCount>("/reviews/count");
+
+export const deleteReviewApi = (reviewId: string) => apiClient.delete(`/reviews/${reviewId}`);

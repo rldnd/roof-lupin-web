@@ -16,20 +16,19 @@ import styles from "./mySpaceReview.module.scss";
 
 interface Props {
   review: Review;
+  refetch: () => void;
   className?: string;
 }
 
-const MySpaceReview: React.FC<Props> = ({ review, className }) => {
+const MySpaceReview: React.FC<Props> = ({ review, className, refetch }) => {
   return (
-    <>
-      <li className={cx(styles.wrapper, className)}>
-        <Header review={review} />
-        <p className={styles.content}>{review.content}</p>
-        <Images images={review.images} reviewId={review.id} />
-        <RentalTypes review={review} />
-        {review.answer && <Answer answer={review.answer} />}
-      </li>
-    </>
+    <li className={cx(styles.wrapper, className)}>
+      <Header review={review} refetch={refetch} />
+      <p className={styles.content}>{review.content}</p>
+      <Images images={review.images} reviewId={review.id} />
+      <RentalTypes review={review} />
+      {review.answer && <Answer answer={review.answer} />}
+    </li>
   );
 };
 
