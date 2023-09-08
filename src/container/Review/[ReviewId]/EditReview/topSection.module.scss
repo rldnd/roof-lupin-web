@@ -1,0 +1,21 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  width: 100%;
+  padding: 28px c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING;
+  border-bottom: 4px solid var(--c-gray-150);
+
+  .dateInfo {
+    @include m.fontBody1Regular;
+    color: var(--c-gray-700);
+  }
+
+  .title {
+    @include m.fontH2;
+    margin: 4px 0 16px;
+    color: var(--c-black);
+    white-space: pre-wrap;
+  }
+}

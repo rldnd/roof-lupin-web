@@ -101,3 +101,5 @@ export interface CreateReview {
   /** 예약 아이디 */
   reservationId: string;
 }
+
+export type UpdateReview = Omit<CreateReview, "spaceId" | "reservationId">;

@@ -1,0 +1,51 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  width: 100%;
+
+  .textarea {
+    width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+    height: 180px;
+    margin-top: 16px;
+  }
+
+  .images {
+    @include m.flex(flex-start);
+    gap: 8px;
+    width: 100%;
+    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+
+    .imageWrapper {
+      position: relative;
+
+      .deleteImage {
+        @include m.flex;
+        @include m.absolute(8px 8px auto auto);
+        width: 24px;
+        height: 24px;
+        background-color: rgba(0, 0, 0, 50%);
+        border-radius: 50%;
+      }
+
+      .image {
+        object-fit: cover;
+      }
+    }
+  }
+
+  .addImageWrapper {
+    width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+    padding: 0;
+    margin-top: 16px;
+    cursor: pointer;
+
+    .addImage {
+      @include m.flex;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 24px;
+    }
+  }
+}
