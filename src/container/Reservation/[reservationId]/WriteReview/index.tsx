@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 
+import BottomSection from "./BottomSection";
 import Header from "./Header";
 import { LoadingTopSection } from "./TopSection";
 
@@ -12,6 +13,7 @@ export default async function WriteReviewContainer() {
     <div className={styles.wrapper}>
       <Header />
       <TopSection />
+      <BottomSection />
     </div>
   );
 }

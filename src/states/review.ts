@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 
+import type { CreateReview } from "@/common/types/review";
 import type { PaginateReviewsParams } from "@/services/review";
 
 export type ReviewSortMenu = Omit<PaginateReviewsParams, "page" | "limit" | "spaceId">;
@@ -9,9 +10,18 @@ export const initialReviewSortMenu: ReviewSortMenu = {
   sort: "CREATED_AT",
 };
 
+export const initialCreateReviewBody: CreateReview = {
+  content: "",
+  images: [],
+  reservationId: "",
+  score: 0,
+  spaceId: "",
+};
+
 export const reviewSortMenuState = atom<ReviewSortMenu>(initialReviewSortMenu);
 
 export type ReviewImageIndex = number;
 export type ReviewImageTotalCount = number | null;
 export const reviewImageIndexState = atom<ReviewImageIndex>(0);
 export const reviewImageTotalCountState = atom<ReviewImageTotalCount>(null);
+export const createReviewBodyState = atom<CreateReview>(initialCreateReviewBody);

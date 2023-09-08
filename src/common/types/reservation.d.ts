@@ -1,6 +1,5 @@
 import type { DateDTO } from "./common";
 import type { Host } from "./host";
-import type { Refund } from "./refund";
 import type { RentalType } from "./rentalType";
 import type { AdditionalServiceReservation, ReservationAdditionalService } from "./service";
 import type { Space } from "./space";

@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 
 import type { Review } from "@/common/types/review";
 import HorizonDraggable from "@/components/HorizonDraggable";
+import { isTimeRentalType } from "@/utils/rentalType";
 
 import styles from "./rentalTypes.module.scss";
 
@@ -15,12 +16,11 @@ interface Props {
 const RentalTypes: React.FC<Props> = ({ review }) => {
   return (
     <HorizonDraggable className={styles.wrapper}>
-      {/* {review.rentalTypes.map((item) => (
+      {review.reservationRentalTypes.map((item) => (
         <li className={styles.tag} key={item.rentalTypeId}>
           {isTimeRentalType(item.rentalType) ? "시간 단위 예약" : item.rentalType.name}
         </li>
-      ))} */}
-      <li className={styles.tag}>필요합니당</li>
+      ))}
     </HorizonDraggable>
   );
 };

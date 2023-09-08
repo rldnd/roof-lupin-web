@@ -1,6 +1,7 @@
 import type { DateDTO, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { Location } from "./location";
+import type { ReservationRentalType } from "./reservation";
 import type { SpaceCategory, Transportation } from "./space";
 import type { CommonUser } from "./user";
 
@@ -61,6 +62,8 @@ export interface Review extends DateDTO {
   isEditable: boolean;
   /** 공간 정보 */
   space: ReviewSpace;
+  /** 예약 타입 정보 */
+  reservationRentalTypes: ReservationRentalType[];
 }
 
 export interface ReviewAnswer {
@@ -84,4 +87,17 @@ export interface ReviewSummary {
 export interface ReviewCount {
   /** 리뷰 갯수 */
   count: number;
+}
+
+export interface CreateReview {
+  /** 리뷰 내용 */
+  content: string;
+  /** 이미지 url */
+  images: string[];
+  /** 별점 */
+  score: number;
+  /** 공간 아이디 */
+  spaceId: string;
+  /** 예약 아이디 */
+  reservationId: string;
 }

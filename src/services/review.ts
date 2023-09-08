@@ -1,5 +1,5 @@
 import type { BasePaginationQueryParams, PagingDTO } from "@/common/types/common";
-import type { Review, ReviewCount, ReviewSort, ReviewSummary } from "@/common/types/review";
+import type { CreateReview, Review, ReviewCount, ReviewSort, ReviewSummary } from "@/common/types/review";
 import { apiClient } from "@/services/apiClient";
 
 export interface PaginateReviewsParams extends BasePaginationQueryParams {
@@ -23,5 +23,7 @@ export const getReviewApi = (reviewId: string) => apiClient.get<Review>(`/review
 
 /** [CLIENT] 내가 작성한 리뷰 개수를 불러옵니다. */
 export const getMyReviewsCountApi = () => apiClient.get<ReviewCount>("/reviews/count");
+
+export const createReviewApi = (body: CreateReview) => apiClient.post<{ id: string }>("/reviews", body);
 
 export const deleteReviewApi = (reviewId: string) => apiClient.delete(`/reviews/${reviewId}`);
