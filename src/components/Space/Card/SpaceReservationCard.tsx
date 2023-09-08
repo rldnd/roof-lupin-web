@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
-import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
 import { RESERVATION_STATUS_MAPPER, TAG_RESERVATION_COLOR_MAPPER } from "@/common/constants/reservation";
@@ -30,7 +28,7 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
     <>
       <Link href={href} className={styles.wrapper}>
         <div className={styles.imageWrapper}>
-          <Image className={styles.image} src={reservation.space.thumbnail} alt="공간 이미지" width={88} height={88} />
+          <img className={styles.image} src={reservation.space.thumbnail} alt="공간 이미지" width={88} height={88} />
           {status !== "USED" && (
             <Tag size="big" color={TAG_RESERVATION_COLOR_MAPPER[status]} className={styles.tag}>
               {RESERVATION_STATUS_MAPPER[status]}
@@ -59,7 +57,7 @@ const SpaceReservationCard: React.FC<Props> = ({ reservation, href }) => {
       </Link>
       {isReviewable && (
         <div className={styles.reviewWrapper}>
-          <Link href={"/"} className={styles.review}>
+          <Link href={`/reservations/${reservation.id}/write-review`} className={styles.review}>
             <Button type="button" color="primary" size="small">
               리뷰쓰기
             </Button>

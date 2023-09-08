@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import cx from "clsx";
@@ -25,14 +24,14 @@ const Item: React.FC<Props> = ({ reservation, className }) => {
 
   return (
     <li className={cx(styles.wrapper, className)}>
-      <Image width={64} height={64} src={space.thumbnail} alt="공간 이미지" className={styles.image} />
+      <img width={64} height={64} src={space.thumbnail} alt="공간 이미지" className={styles.image} />
       <div className={styles.contentWrapper}>
         <span className={styles.title}>{space.title}</span>
         <div className={styles.usedDate}>
           이용일 : <time dateTime={date}>{date}</time>
         </div>
       </div>
-      <Link href="/" className={styles.reviewLink}>
+      <Link href={`/reservations/${reservation.id}/write-review`} className={styles.reviewLink}>
         <Button type="button" color="primary" size="small">
           리뷰쓰기
         </Button>

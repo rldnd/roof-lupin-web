@@ -1,0 +1,25 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(space-between);
+  @include m.fixed(0 auto auto 50%);
+  z-index: c.$Z_HEADER;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_BASE_HEADER_HEIGHT;
+  padding: 18px c.$S_PAGE_HORIZONTAL_PADDING 10px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+
+  .closeButton {
+    @include m.flex;
+    width: 40px;
+    height: 40px;
+  }
+
+  .submitButton {
+    @include m.fontH4SemiBold;
+    color: var(--c-roof-orange);
+  }
+}

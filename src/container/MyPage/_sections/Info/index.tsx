@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { range } from "lodash-es";
@@ -34,7 +33,7 @@ const Info: React.FC = () => {
           안녕하세요.
         </h1>
         {me.profileImage && (
-          <Image className={styles.thumbnail} src={me.profileImage} width={60} height={60} alt="프로필 이미지" />
+          <img className={styles.thumbnail} src={me.profileImage} width={60} height={60} alt="프로필 이미지" />
         )}
         {!me.profileImage && <div className={styles.emptyImage} />}
         {/* //TODO: 누를 시 내 정보 수정으로 이동 */}

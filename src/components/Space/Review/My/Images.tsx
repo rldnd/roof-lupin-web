@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { range } from "lodash-es";
@@ -22,7 +21,7 @@ const Images: React.FC<Props> = ({ images, reviewId }) => {
       {images.map((image, index) => (
         <li key={image.url}>
           <Link href={`/my-page/reviews/${reviewId}/images?index=${index}`}>
-            <Image width={128} height={128} src={image.url} alt="이미지" />
+            <img width={128} height={128} src={image.url} alt="이미지" />
           </Link>
         </li>
       ))}
