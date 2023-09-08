@@ -9,7 +9,8 @@ import { getMyReservationApi } from "@/services/reservation";
 import { LoadingInfo, LoadingSpaceInfo, LoadingStatus } from "./_shared";
 import { ApprovedPendingView, ApprovedView, BeforeUsageView, HostCanceledView, RefundView, UsedView } from "./_views";
 
-// TODO: loading view skeleton
+import styles from "./view.module.scss";
+
 const View: React.FC = () => {
   const { reservationId } = useParams();
   const { data: reservation } = useSuspenseQuery<ReservationDetail>(["getMyReservation", reservationId], () =>
@@ -34,7 +35,8 @@ export const LoadingView: React.FC = () => {
   return (
     <>
       <LoadingStatus />
-      <LoadingSpaceInfo />
+      <LoadingSpaceInfo className={styles.spaceInfo} />
+      <hr />
       <LoadingInfo />
     </>
   );

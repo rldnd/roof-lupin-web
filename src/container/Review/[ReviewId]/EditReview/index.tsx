@@ -8,6 +8,7 @@ import styles from "./editReviewContainer.module.scss";
 
 const TopSection = dynamic(() => import("./TopSection"), { ssr: false, loading: () => <LoadingTopSection /> });
 
+// TODO: 해야함
 export default async function WriteReviewContainer() {
   return (
     <div className={styles.wrapper}>
