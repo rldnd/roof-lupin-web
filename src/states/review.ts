@@ -10,12 +10,22 @@ export const initialReviewSortMenu: ReviewSortMenu = {
   sort: "CREATED_AT",
 };
 
-export const initialCreateReviewBody: CreateReview = {
+export interface TempImage {
+  file: File;
+  preview: string;
+}
+
+export interface TempCreateReviewBody extends CreateReview {
+  tempImages: TempImage[];
+}
+
+export const initialCreateReviewBody: TempCreateReviewBody = {
   content: "",
   images: [],
   reservationId: "",
   score: 0,
   spaceId: "",
+  tempImages: [],
 };
 
 export const initialUpdateReviewBody: UpdateReview = {
@@ -30,5 +40,5 @@ export type ReviewImageIndex = number;
 export type ReviewImageTotalCount = number | null;
 export const reviewImageIndexState = atom<ReviewImageIndex>(0);
 export const reviewImageTotalCountState = atom<ReviewImageTotalCount>(null);
-export const createReviewBodyState = atom<CreateReview>(initialCreateReviewBody);
+export const createReviewBodyState = atom<TempCreateReviewBody>(initialCreateReviewBody);
 export const updateReviewBodyState = atom<UpdateReview>(initialUpdateReviewBody);

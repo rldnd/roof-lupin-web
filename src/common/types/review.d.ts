@@ -48,6 +48,19 @@ export interface ReviewSpace {
   categories: SpaceCategory[];
 }
 
+export interface ReviewReservation {
+  /** 예약 아이디 */
+  id: string;
+  /** 예약 년도 */
+  year: number;
+  /** 예약 월 */
+  month: number;
+  /** 예약 일 */
+  day: number;
+  /** 예약 타입 정보 */
+  rentalTypes: ReservationRentalType[];
+}
+
 export interface Review extends DateDTO {
   id: string;
   content: string;
@@ -63,7 +76,7 @@ export interface Review extends DateDTO {
   /** 공간 정보 */
   space: ReviewSpace;
   /** 예약 타입 정보 */
-  reservationRentalTypes: ReservationRentalType[];
+  reservation: ReviewReservation;
 }
 
 export interface ReviewAnswer {

@@ -35,6 +35,7 @@
     &.isExpanded {
       padding-bottom: 32px;
       overflow: scroll;
+      white-space: pre-wrap;
     }
   }
 }

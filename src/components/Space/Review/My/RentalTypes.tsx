@@ -16,7 +16,7 @@ interface Props {
 const RentalTypes: React.FC<Props> = ({ review }) => {
   return (
     <HorizonDraggable className={styles.wrapper}>
-      {review.reservationRentalTypes.map((item) => (
+      {review.reservation.rentalTypes.map((item) => (
         <li className={styles.tag} key={item.rentalTypeId}>
           {isTimeRentalType(item.rentalType) ? "시간 단위 예약" : item.rentalType.name}
         </li>

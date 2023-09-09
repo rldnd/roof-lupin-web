@@ -2,12 +2,9 @@
 
 import { ChangeEventHandler } from "react";
 
-import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
 import { Button, HorizonDraggable, Textarea } from "@/components";
-import { useToast } from "@/hooks";
-import { uploadImagesApi } from "@/services/file";
 import { createReviewBodyState } from "@/states";
 
 import { IconCloseWithOverlay, IconOrangeCamera } from "public/icons";
@@ -17,14 +14,6 @@ import styles from "./bottomSection.module.scss";
 const BottomSection: React.FC = () => {
   const [body, setBody] = useAtom(createReviewBodyState);
 
-  const { addToast } = useToast();
-  const { mutate } = useMutation(uploadImagesApi, {
-    onSuccess: ({ data }) => {
-      setBody((prev) => ({ ...prev, images: [...prev.images, ...data.map((item) => item.url)] }));
-    },
-    onError: () => addToast({ message: "지원하지 않는 확장자 파일이 포함되어 있습니다!" }),
-  });
-
   const onChangeTextarea: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
     setBody((prev) => ({ ...prev, content: value }));
@@ -33,16 +22,12 @@ const BottomSection: React.FC = () => {
   const onChangeFile: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     if (!files || Array.from(files).length === 0) return;
-
-    const formData = new FormData();
-    for (const file of Array.from(files)) {
-      formData.append("images", file);
-    }
-    mutate(formData);
+    const tempImages = Array.from(files).map((file) => ({ file, preview: URL.createObjectURL(file) }));
+    setBody((prev) => ({ ...prev, tempImages: [...prev.tempImages, ...tempImages] }));
   };
 
-  const onClickDeleteImage = (image: string) => {
-    setBody((prev) => ({ ...prev, images: prev.images.filter((item) => item !== image) }));
+  const onClickDeleteImage = (preview: string) => {
+    setBody((prev) => ({ ...prev, tempImages: prev.tempImages.filter((image) => image.preview !== preview) }));
   };
 
   return (
@@ -53,14 +38,14 @@ const BottomSection: React.FC = () => {
         onChange={onChangeTextarea}
         placeholder={` •  솔직한 리뷰를 남겨주세요!\n •  사진은 몇 장까지 첨부할 수 있어요.`}
       />
-      {body.images.length > 0 && (
+      {body.tempImages.length > 0 && (
         <HorizonDraggable className={styles.images}>
-          {body.images.map((image) => (
-            <div className={styles.imageWrapper} key={image}>
-              <button type="button" className={styles.deleteImage} onClick={() => onClickDeleteImage(image)}>
+          {body.tempImages.map((image) => (
+            <div className={styles.imageWrapper} key={image.preview}>
+              <button type="button" className={styles.deleteImage} onClick={() => onClickDeleteImage(image.preview)}>
                 <IconCloseWithOverlay />
               </button>
-              <img width={128} height={128} src={image} alt="공간 이미지" className={styles.image} />
+              <img width={128} height={128} src={image.preview} alt="공간 이미지" className={styles.image} />
             </div>
           ))}
         </HorizonDraggable>

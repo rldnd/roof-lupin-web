@@ -2,7 +2,9 @@
 
 import { useParams } from "next/navigation";
 
+import cx from "clsx";
 import { useAtom } from "jotai";
+import Skeleton from "react-loading-skeleton";
 import { useUnmount } from "react-use";
 
 import type { ReservationDetail } from "@/common/types/reservation";
@@ -52,5 +54,14 @@ const TopSection: React.FC = () => {
 export default TopSection;
 
 export const LoadingTopSection: React.FC = () => {
-  return null;
+  return (
+    <section className={styles.wrapper}>
+      <Skeleton className={styles.dateInfo} width={120} />
+      <div className={styles.titleWrapper}>
+        <Skeleton className={cx(styles.title, styles.loading)} width={130} />
+        <Skeleton className={styles.title} width={60} />
+      </div>
+      <Skeleton width={150} />
+    </section>
+  );
 };
