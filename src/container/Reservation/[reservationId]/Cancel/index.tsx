@@ -7,7 +7,6 @@ import Header from "./Header";
 
 import styles from "./reservationCancelContainer.module.scss";
 
-// TODO: 해야함
 export default async function ReservationCancelContainer() {
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>

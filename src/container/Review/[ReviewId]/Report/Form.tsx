@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEventHandler, type FormEventHandler, useState } from "react";
+import { type ChangeEventHandler, type FormEventHandler, useRef, useState } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -19,6 +19,7 @@ const Form: React.FC = () => {
   const { back } = useRouter();
   const [checked, setChecked] = useState(0);
   const [input, setInput] = useState("");
+  const contentRef = useRef("");
 
   const { mutate } = useMutation(createReviewReportApi, {
     onSuccess: () => {
@@ -29,6 +30,7 @@ const Form: React.FC = () => {
 
   const onChangeRadio: ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(Number(e.currentTarget.value));
+    contentRef.current = e.currentTarget.title;
     setInput("");
   };
 
@@ -40,7 +42,7 @@ const Form: React.FC = () => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const content = checked === 6 ? input : e.currentTarget.title;
+    const content = checked === 6 ? input : contentRef.current;
 
     openPopConfirm({
       title: "선택한 사유로 신고하시겠어요?",

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
 
@@ -11,7 +13,6 @@ interface Props {
   reservation: ReservationDetail;
 }
 
-// TODO: 요청 취소 view
 const ApprovedPendingView: React.FC<Props> = ({ reservation }) => {
   return (
     <>
@@ -23,9 +24,11 @@ const ApprovedPendingView: React.FC<Props> = ({ reservation }) => {
       <ExpectedPriceInfo reservation={reservation} />
       <hr />
       <section className={styles.cancelWrapper}>
-        <Button full color="bw" type="button" className={styles.cancel}>
-          요청 취소
-        </Button>
+        <Link href={`/reservations/${reservation.id}/cancel`}>
+          <Button full color="bw" type="button" className={styles.cancel}>
+            요청 취소
+          </Button>
+        </Link>
       </section>
       <Responsive />
     </>

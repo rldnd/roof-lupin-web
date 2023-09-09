@@ -1,34 +1,38 @@
 "use client";
 
-import { type ChangeEventHandler, type FormEventHandler, useState } from "react";
+import { type ChangeEventHandler, type FormEventHandler, useRef, useState } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button, Radio, Textarea } from "@/components";
 import { usePopConfirm, useToast } from "@/hooks";
-import { createQnaReportApi } from "@/services/report";
+import { deleteReservationApi } from "@/services/reservation";
 
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
+  const queryClient = useQueryClient();
   const { openPopConfirm } = usePopConfirm();
   const { addToast } = useToast();
-  const { qnaId } = useParams();
+  const { reservationId } = useParams();
   const { back } = useRouter();
   const [checked, setChecked] = useState(0);
   const [input, setInput] = useState("");
+  const reasonRef = useRef("");
 
-  const { mutate } = useMutation(createQnaReportApi, {
+  const { mutate } = useMutation(deleteReservationApi, {
     onSuccess: () => {
-      addToast({ message: "신고가 정상적으로 접수되었습니다." });
+      addToast({ message: "예약이 취소되었습니다." });
+      queryClient.invalidateQueries(["getMyReservation"]);
       back();
     },
   });
 
   const onChangeRadio: ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(Number(e.currentTarget.value));
+    reasonRef.current = e.currentTarget.title;
     setInput("");
   };
 
@@ -40,12 +44,13 @@ const Form: React.FC = () => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const content = checked === 6 ? input : e.currentTarget.title;
+    const reason = checked === 6 ? input : reasonRef.current;
+    console.log({ reason });
 
     openPopConfirm({
       title: "선택한 사유로 취소하시겠어요?",
       description: "한 번 취소하면 돌이킬 수 없습니다.",
-      onConfirm: () => mutate({ qnaId, content }),
+      onConfirm: () => mutate({ reservationId, reason }),
     });
   };
 
