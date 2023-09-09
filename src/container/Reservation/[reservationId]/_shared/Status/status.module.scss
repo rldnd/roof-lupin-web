@@ -29,4 +29,8 @@
     @include m.flex(flex-start, flex-start, column);
     gap: 2px;
   }
+
+  &.isRefunding {
+    @include m.flex(flex-start, flex-start, column);
+  }
 }

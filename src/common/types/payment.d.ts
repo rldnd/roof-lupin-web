@@ -75,3 +75,12 @@ export interface ConfirmTossPayment {
   /** 결제 정보 */
   paymentInfo: CreatePaymentPayload;
 }
+
+export interface RefundPayment {
+  /** 예약 id */
+  reservationId: string;
+  /** 주문번호 (포트원) */
+  merchant_uid?: string;
+  /** 취소 사유 */
+  cancelReason: string;
+}

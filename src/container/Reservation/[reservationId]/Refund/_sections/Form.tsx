@@ -4,31 +4,20 @@ import { type ChangeEventHandler, type FormEventHandler, useRef, useState } from
 
 import { useParams, useRouter } from "next/navigation";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSetAtom } from "jotai";
 
 import { Button, Radio, Textarea } from "@/components";
-import { usePopConfirm, useToast } from "@/hooks";
-import { deleteReservationApi } from "@/services/reservation";
+import { paymentRefundState } from "@/states";
 
 import styles from "./form.module.scss";
 
 const Form: React.FC = () => {
-  const queryClient = useQueryClient();
-  const { openPopConfirm } = usePopConfirm();
-  const { addToast } = useToast();
   const { reservationId } = useParams();
-  const { back } = useRouter();
+  const { push } = useRouter();
   const [checked, setChecked] = useState(0);
   const [input, setInput] = useState("");
   const reasonRef = useRef("");
-
-  const { mutate } = useMutation(deleteReservationApi, {
-    onSuccess: () => {
-      addToast({ message: "예약이 취소되었습니다." });
-      queryClient.invalidateQueries(["getMyReservation"]);
-      back();
-    },
-  });
+  const setPaymentRefund = useSetAtom(paymentRefundState);
 
   const onChangeRadio: ChangeEventHandler<HTMLInputElement> = (e) => {
     setChecked(Number(e.currentTarget.value));
@@ -44,13 +33,9 @@ const Form: React.FC = () => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const reason = checked === 6 ? input : reasonRef.current;
-
-    openPopConfirm({
-      title: "선택한 사유로 취소하시겠어요?",
-      description: "한 번 취소하면 돌이킬 수 없습니다.",
-      onConfirm: () => mutate({ reservationId, reason }),
-    });
+    const cancelReason = checked === 6 ? input : reasonRef.current;
+    setPaymentRefund({ reservationId, cancelReason });
+    push(`/reservations/${reservationId}/refund/confirm`);
   };
 
   return (

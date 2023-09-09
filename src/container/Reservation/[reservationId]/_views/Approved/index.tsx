@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
 
@@ -22,9 +24,11 @@ const ApprovedView: React.FC<Props> = ({ reservation }) => {
       <ExpectedPriceInfo reservation={reservation} />
       <hr />
       <menu className={styles.buttonWrapper}>
-        <Button type="button" color="bw" full>
-          예약 취소
-        </Button>
+        <Link href={`/reservations/${reservation.id}/cancel`}>
+          <Button type="button" color="bw" full>
+            예약 취소
+          </Button>
+        </Link>
         <Button type="button" color="primary" full>
           결제하기
         </Button>

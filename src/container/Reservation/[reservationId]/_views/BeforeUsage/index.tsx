@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
 
@@ -32,9 +34,11 @@ const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
       </section>
       <hr />
       <section className={styles.cancelWrapper}>
-        <Button type="button" color="secondary" full>
-          예약 취소
-        </Button>
+        <Link href={`/reservations/${reservation.id}/refund`}>
+          <Button type="button" color="secondary" full>
+            예약 취소
+          </Button>
+        </Link>
       </section>
     </>
   );

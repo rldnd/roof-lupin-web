@@ -43,7 +43,6 @@ const Form: React.FC = () => {
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const content = checked === 6 ? input : contentRef.current;
-    console.log(content);
 
     openPopConfirm({
       title: "선택한 사유로 신고하시겠어요?",

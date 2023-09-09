@@ -3,48 +3,42 @@
 
 .refundMessageWrapper {
   width: 100%;
-  padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 40px;
+  padding: 20px c.$S_PAGE_HORIZONTAL_PADDING 0;
 
   .refundMessage {
     @include m.fontCaptionSemiBold;
-    width: 100%;
     padding: 12px 8px;
     color: var(--c-roof-orange);
-    text-align: center;
     background-color: var(--c-orange-bg);
     border-radius: 4px;
   }
 }
 
-.refundWrapper {
+.cancelWrapper {
   width: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
   h2 {
     @include m.fontH3SemiBold;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     color: var(--c-black);
   }
 
   p {
-    @include m.fontBody1Regular;
-    margin-bottom: 8px;
-    color: var(--c-gray-600);
-  }
-
-  button {
-    @include m.fontBody1Regular;
-    color: var(--c-gray-700);
-    text-decoration: underline;
+    @include m.fontBody1SemiBold;
+    color: var(--c-gray-500);
   }
 }
 
-.cancelWrapper {
+.refundPriceInfoWrapper {
   width: 100%;
-  padding: 64px c.$S_PAGE_HORIZONTAL_PADDING 0;
+  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING;
+  margin-top: 32px;
+  background-color: var(--c-orange-bg);
 
-  > a {
-    display: inline-block;
-    width: 100%;
+  h2 {
+    @include m.fontH3SemiBold;
+    margin-bottom: 8px;
+    color: var(--c-black);
   }
 }
