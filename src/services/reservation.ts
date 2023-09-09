@@ -16,6 +16,12 @@ export interface PaginateMyReservationsParams extends BasePaginationQueryParams 
   status?: ReservationStatus;
 }
 
+export interface DeleteReservationParams {
+  reservationId: string;
+  /** 이유 */
+  reason: string;
+}
+
 /** [CLIENT] 내 예약 상세 조회 */
 export const getMyReservationApi = (reservationId: string) =>
   apiClient.get<ReservationDetail>(`/reservations/${reservationId}/detail`);
@@ -29,3 +35,6 @@ export const paginateMyReservationsApi = (params: PaginateMyReservationsParams) 
 
 export const prepareReservationApi = (body: CreateReservation) =>
   apiClient.post<{ id: string }>("/reservations/prepare", body);
+
+export const deleteReservationApi = ({ reservationId, reason }: DeleteReservationParams) =>
+  apiClient.delete(`/reservations/${reservationId}`, { params: { reason } });
