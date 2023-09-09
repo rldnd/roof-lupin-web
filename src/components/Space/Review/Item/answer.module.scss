@@ -27,6 +27,7 @@
     @include m.fontBody1Regular;
     position: relative;
     color: var(--c-gray-900);
+    white-space: pre-wrap;
 
     &:not(.isClickedViewMore) {
       @include m.makeEllipsis(3);
