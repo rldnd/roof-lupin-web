@@ -15,6 +15,11 @@ export interface TempImage {
   preview: string;
 }
 
+export interface UpdateTempImage {
+  file?: File;
+  preview: string;
+}
+
 export interface TempCreateReviewBody extends CreateReview {
   tempImages: TempImage[];
 }
@@ -28,10 +33,16 @@ export const initialCreateReviewBody: TempCreateReviewBody = {
   tempImages: [],
 };
 
-export const initialUpdateReviewBody: UpdateReview = {
+export interface TempUpdateReviewBody extends UpdateReview {
+  tempImages: UpdateTempImage[];
+}
+
+export const initialUpdateReviewBody: TempUpdateReviewBody = {
   content: "",
   images: [],
   score: 0,
+  tempImages: [],
+  reviewId: "",
 };
 
 export const reviewSortMenuState = atom<ReviewSortMenu>(initialReviewSortMenu);
@@ -41,4 +52,4 @@ export type ReviewImageTotalCount = number | null;
 export const reviewImageIndexState = atom<ReviewImageIndex>(0);
 export const reviewImageTotalCountState = atom<ReviewImageTotalCount>(null);
 export const createReviewBodyState = atom<TempCreateReviewBody>(initialCreateReviewBody);
-export const updateReviewBodyState = atom<UpdateReview>(initialUpdateReviewBody);
+export const updateReviewBodyState = atom<TempUpdateReviewBody>(initialUpdateReviewBody);

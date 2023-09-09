@@ -2,7 +2,7 @@
 
 import { BaseBottomSheet } from "@/components/Common";
 
-import { SortMenu, SortMenuItem } from "../_shared";
+import { NavigateMenuItem, SortMenu, SortMenuItem } from "../_shared";
 
 interface Props {
   reviewId: string;
@@ -15,7 +15,9 @@ const MyReviewMenuBottomSheet: React.FC<Props> = ({ isShow, onClose, onClickDele
   return (
     <BaseBottomSheet isShow={isShow} onClose={onClose} hideHeader blockWindowScroll>
       <SortMenu>
-        <SortMenuItem isActive={false}>수정하기</SortMenuItem>
+        <NavigateMenuItem isActive={false} href={`/reviews/${reviewId}/edit-review`}>
+          수정하기
+        </NavigateMenuItem>
         <SortMenuItem isActive={false} onClick={onClickDelete}>
           삭제하기
         </SortMenuItem>

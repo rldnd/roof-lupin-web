@@ -24,8 +24,9 @@ const TopSection: React.FC = () => {
     () => getMyReservationApi(reservationId),
     {
       onSuccess: (res) => {
-        setBody((prev) => ({ ...prev, spaceId: res.space.id, reservationId }));
+        setBody({ ...initialCreateReviewBody, spaceId: res.space.id, reservationId });
       },
+      refetchOnMount: true,
     },
   );
 

@@ -12,10 +12,18 @@
     color: var(--c-gray-700);
   }
 
+  .titleWrapper {
+    @include m.flex(flex-start, flex-start, column);
+  }
+
   .title {
     @include m.fontH2;
     margin: 4px 0 16px;
     color: var(--c-black);
     white-space: pre-wrap;
+
+    &.loading {
+      margin: 4px 0 0;
+    }
   }
 }

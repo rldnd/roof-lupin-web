@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -22,8 +24,9 @@ const Header: React.FC = () => {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
   const [body, setBody] = useAtom(createReviewBodyState);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { mutate, isLoading: isLoadingMutate } = useMutation(createReviewApi, {
+  const { mutate } = useMutation(createReviewApi, {
     onSuccess: () => {
       setBody(initialCreateReviewBody);
       addToast({ message: "리뷰가 등록되었어요!" });
@@ -34,14 +37,15 @@ const Header: React.FC = () => {
       replace("/my-page/reviews");
     },
     onError: (data) => {
-      if (isAxiosError<ErrorDTO>(data)) {
-        addToast({ message: data.response?.data.message || "리뷰 등록에 실패했어요!" });
-      }
+      const message = isAxiosError<ErrorDTO>(data) ? data.response!.data.message : "리뷰 등록에 실패했어요!";
+      addToast({ message });
+      setIsLoading(false);
     },
   });
 
   const { mutate: uploadImage, isLoading: isLoadingUploadImage } = useMutation(uploadImagesApi, {
     onSuccess: ({ data }) => {
+      setIsLoading(true);
       const images = data.map((item) => item.url);
       const { content, reservationId, score, spaceId } = body;
       mutate({ content, images, reservationId, score, spaceId });
@@ -67,7 +71,7 @@ const Header: React.FC = () => {
           완료
         </button>
       </header>
-      <Loading isShow={isLoadingUploadImage || isLoadingMutate} />
+      <Loading isShow={isLoadingUploadImage || isLoading} />
     </>
   );
 };

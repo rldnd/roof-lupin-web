@@ -115,4 +115,6 @@ export interface CreateReview {
   reservationId: string;
 }
 
-export type UpdateReview = Omit<CreateReview, "spaceId" | "reservationId">;
+export type UpdateReview = Omit<CreateReview, "spaceId" | "reservationId"> & {
+  reviewId: string;
+};
