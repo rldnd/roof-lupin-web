@@ -30,7 +30,11 @@ const Submit: React.FC = () => {
   const { requestPayment } = useTossPayment();
 
   const { mutate: createPayload } = useMutation(createPaymentPayloadApi, {
-    onSuccess: (data) => requestPayment(data.data),
+    onSuccess: (data) =>
+      requestPayment({
+        ...data.data,
+        successUrl: data.data.successUrl.replace("https://web.rooflupin.com", "http://localhost:3000"),
+      }),
   });
 
   const reservation = useAtomValue(reservationState);

@@ -46,3 +46,12 @@
 .refundPriceInfo {
   margin-top: 32px;
 }
+
+.checkWrapper {
+  width: 100%;
+  padding: 40px c.$S_PAGE_HORIZONTAL_PADDING 0;
+
+  .requestButton {
+    margin-top: 40px;
+  }
+}

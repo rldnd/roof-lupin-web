@@ -79,8 +79,6 @@ export interface ConfirmTossPayment {
 export interface RefundPayment {
   /** 예약 id */
   reservationId: string;
-  /** 주문번호 (포트원) */
-  merchant_uid?: string;
   /** 취소 사유 */
   cancelReason: string;
 }

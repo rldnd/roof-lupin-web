@@ -14,7 +14,8 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
 
   return (
     <div>
-      <h2>{JSON.stringify(error)}</h2>
+      <h2>{error.name}</h2>
+      <p>{error.message}</p>
       <Button full color="primary" onClick={onClickButton}>
         재시도
       </Button>

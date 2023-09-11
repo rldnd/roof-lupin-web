@@ -14,11 +14,13 @@ interface Props {
   totalTitle: string;
   totalDtClassName?: string;
   totalDdClassName?: string;
+  className?: string;
 }
 
 const PriceInfoTable: React.FC<Props> = ({
   items,
   totalTitle,
+  className,
   totalDtClassName,
   totalDdClassName,
   bottomItems = [],
@@ -30,7 +32,7 @@ const PriceInfoTable: React.FC<Props> = ({
   }, 0);
 
   return (
-    <dl className={styles.wrapper}>
+    <dl className={cx(styles.wrapper, className)}>
       {items.map((item) => (
         <PriceInfoTableItem
           key={`${item.title} - ${item.price}`}

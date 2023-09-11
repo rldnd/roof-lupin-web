@@ -30,15 +30,6 @@
   }
 }
 
-.refundPriceInfoWrapper {
-  width: 100%;
-  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING;
+.refundPriceInfo {
   margin-top: 32px;
-  background-color: var(--c-orange-bg);
-
-  h2 {
-    @include m.fontH3SemiBold;
-    margin-bottom: 8px;
-    color: var(--c-black);
-  }
 }

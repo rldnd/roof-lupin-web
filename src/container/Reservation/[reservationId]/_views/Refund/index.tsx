@@ -3,6 +3,7 @@
 import type { ReservationDetail } from "@/common/types/reservation";
 
 import { Info, PriceInfo, Responsive, SpaceInfo, Status } from "../../_shared";
+import RefundPriceInfo from "../../_shared/RefundPriceInfo";
 
 import styles from "./refundView.module.scss";
 
@@ -29,9 +30,7 @@ const RefundView: React.FC<Props> = ({ reservation }) => {
       <Info reservation={reservation} />
       <hr />
       <PriceInfo reservation={reservation} />
-      <section className={styles.refundPriceInfoWrapper}>
-        <h2>취소/환불 정보</h2>
-      </section>
+      <RefundPriceInfo reservation={reservation} className={styles.refundPriceInfo} />
       <Responsive />
     </>
   );
