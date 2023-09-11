@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
+import { dayjs } from "@/utils/date";
+import { getRefundAllDate, getRefundPolicySectionText } from "@/utils/refund";
 
 import { Info, PriceInfo, SpaceInfo, Status } from "../../_shared";
 
@@ -13,13 +15,18 @@ interface Props {
   reservation: ReservationDetail;
 }
 
-// TODO: refund policy
 const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
+  const { year, month, day } = reservation;
+  const refundAllDate = getRefundAllDate(reservation.space.refundPolicies, dayjs(`${year}-${month}-${day}`));
+  const refundMessage = refundAllDate
+    ? `${refundAllDate.month() + 1}월 ${refundAllDate.date()}일까지는`
+    : "결제 후 2시간 이내에는";
+
   return (
     <>
       <Status reservation={reservation} />
       <section className={styles.refundMessageWrapper}>
-        <div className={styles.refundMessage}>까지는 총 금액의 100%를 환불해드려요.</div>
+        <div className={styles.refundMessage}>{refundMessage} 총 금액의 100%를 환불해드려요.</div>
       </section>
       <SpaceInfo reservation={reservation} />
       <hr />
@@ -29,7 +36,7 @@ const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
       <hr />
       <section className={styles.refundWrapper}>
         <h2>환불 규정</h2>
-        <p>2023년 9월 12일까지 수수료 없이 취소가 가능합니다. 9월 13일 이후로는 부분 환불이 가능합니다.</p>
+        <p>{getRefundPolicySectionText(reservation.space.refundPolicies, dayjs(`${year}-${month}-${day}`))}</p>
         <button type="button">취소 및 환불 규정</button>
       </section>
       <hr />
