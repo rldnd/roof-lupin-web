@@ -1,17 +1,28 @@
+"use client";
+
 import { Fragment } from "react";
 
 import type { RefundPolicy } from "@/common/types/refund";
+import { BaseBottomSheet } from "@/components/Common";
 
-import styles from "./refund.module.scss";
+import styles from "./refundPolicyBottomSheet.module.scss";
 
 interface Props {
+  isShow: boolean;
   refundPolicies: RefundPolicy[];
+  onClose(): void;
 }
 
-const Refund: React.FC<Props> = ({ refundPolicies }) => {
+const RefundPolicyBottomSheet: React.FC<Props> = ({ isShow, onClose, refundPolicies }) => {
   return (
-    <section id="refund-section" className={styles.wrapper}>
-      <h2>취소 및 환불 정책</h2>
+    <BaseBottomSheet
+      isShow={isShow}
+      onClose={onClose}
+      blockWindowScroll
+      isHeightMax
+      title="취소 및 환불 규정"
+      className={styles.wrapper}
+    >
       <p>
         {[...refundPolicies]
           .sort((a, b) => a.daysBefore - b.daysBefore)
@@ -23,8 +34,8 @@ const Refund: React.FC<Props> = ({ refundPolicies }) => {
           ))}
         {`\n결제 후 2시간 내 취소할 경우 취소 수수료가 발생하지 않아요. (단, 사용시간 경과 후 제외)\n\n취소 가능일은 영업일(주말 및 공휴일 제외)기준으로 선정됩니다.`}
       </p>
-    </section>
+    </BaseBottomSheet>
   );
 };
 
-export default Refund;
+export default RefundPolicyBottomSheet;

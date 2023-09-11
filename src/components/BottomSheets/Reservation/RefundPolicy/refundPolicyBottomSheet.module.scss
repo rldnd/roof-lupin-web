@@ -2,12 +2,8 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  width: 100%;
-  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-
   p {
     @include m.fontBody1Regular;
-    margin-top: 20px;
     color: var(--c-gray-800);
     white-space: pre-wrap;
   }

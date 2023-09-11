@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
 
 import type { ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
+import { RefundPolicyBottomSheet } from "@/components/BottomSheets/Reservation";
 import { dayjs } from "@/utils/date";
 import { getRefundAllDate, getRefundPolicySectionText } from "@/utils/refund";
 
@@ -16,6 +19,8 @@ interface Props {
 }
 
 const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
+  const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
+
   const { year, month, day } = reservation;
   const refundAllDate = getRefundAllDate(reservation.space.refundPolicies, dayjs(`${year}-${month}-${day}`));
   const refundMessage = refundAllDate
@@ -37,7 +42,9 @@ const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
       <section className={styles.refundWrapper}>
         <h2>환불 규정</h2>
         <p>{getRefundPolicySectionText(reservation.space.refundPolicies, dayjs(`${year}-${month}-${day}`))}</p>
-        <button type="button">취소 및 환불 규정</button>
+        <button type="button" onClick={() => setIsShowBottomSheet(true)}>
+          취소 및 환불 규정
+        </button>
       </section>
       <hr />
       <section className={styles.cancelWrapper}>
@@ -47,6 +54,11 @@ const BeforeUsageView: React.FC<Props> = ({ reservation }) => {
           </Button>
         </Link>
       </section>
+      <RefundPolicyBottomSheet
+        isShow={isShowBottomSheet}
+        onClose={() => setIsShowBottomSheet(false)}
+        refundPolicies={reservation.space.refundPolicies}
+      />
     </>
   );
 };
