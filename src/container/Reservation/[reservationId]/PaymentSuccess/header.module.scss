@@ -9,6 +9,7 @@
   max-width: c.$S_CONTENT_WIDTH;
   height: c.$S_BASE_HEADER_HEIGHT;
   padding: 10px calc(c.$S_PAGE_HORIZONTAL_PADDING / 2);
+  background-color: var(--c-white);
   border-bottom: 1px solid var(--c-gray-300);
   transform: translateX(-50%);
 
