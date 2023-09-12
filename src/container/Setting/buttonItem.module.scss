@@ -2,10 +2,8 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
+  @include m.flex(flex-start);
+  @include m.fontH4SemiBold;
   width: 100%;
-  padding-top: c.$S_BASE_HEADER_HEIGHT;
-
-  > main {
-    width: 100%;
-  }
+  color: var(--c-black);
 }

@@ -10,6 +10,7 @@
   height: c.$S_BASE_HEADER_HEIGHT;
   padding: 18px calc(40px + c.$S_PAGE_HORIZONTAL_PADDING / 2) 10px;
   background-color: var(--c-white);
+  border-bottom: 1px solid var(--c-gray-200);
   transform: translateX(-50%);
 
   .backButton {
