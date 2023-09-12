@@ -3,14 +3,11 @@ import { useCallback } from "react";
 import { type QueryObserverResult, useQuery, useQueryClient, type UseQueryOptions } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
-import { LOGOUT_EVENT_NAME } from "@/common/constants";
 import type { CommonUser } from "@/common/types/user";
 import { getMeApi } from "@/services/user";
 import { meState } from "@/states";
 import { removeTokens } from "@/utils/auth";
 import { isClient } from "@/utils/next";
-
-import useClientEffect from "../useClientEffect";
 
 type Options = Omit<
   UseQueryOptions<CommonUser, unknown, CommonUser, string[]>,
@@ -51,14 +48,6 @@ const useMe = (options?: Options): UseMeReturn => {
       predicate: (query) => !["getMe", "getMyPushToken"].includes(query.queryKey[0] as string),
     });
   }, [queryClient, setMe]);
-
-  // TODO: migrate when alert completes
-  useClientEffect(() => {
-    window.addEventListener(LOGOUT_EVENT_NAME, onLogout);
-    return () => {
-      window.removeEventListener(LOGOUT_EVENT_NAME, onLogout);
-    };
-  }, [onLogout]);
 
   return {
     me,

@@ -3,11 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
+import { useRouter } from "next/navigation";
+
 import cx from "clsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useUnmount, useUpdateEffect } from "react-use";
 
+import { LOGOUT_EVENT_NAME } from "@/common/constants";
 import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
+import { useMe } from "@/hooks/queries";
 
 import ToastEventEmitter from "./ToastEventEmitter";
 import {
@@ -23,6 +27,9 @@ import styles from "./toast.module.scss";
 const toastRoot = document.querySelector("#toast") as HTMLDivElement;
 
 const Toast: React.FC = () => {
+  const { onLogout } = useMe();
+  const { replace } = useRouter();
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const timers = useRef<Record<string, NodeJS.Timer>>({});
 
@@ -51,6 +58,12 @@ const Toast: React.FC = () => {
     setPosition({ bottom: position.bottom });
   }, []);
 
+  const onLogoutEvent = useCallback(() => {
+    onLogout();
+    addToast({ message: "세션이 만료되어 로그아웃 되었습니다.", action: toastAction.ADD, id: "logout", visible: true });
+    replace("/");
+  }, [addToast, onLogout, replace]);
+
   useEffect(() => {
     const eventCallback: CallbackType = (toast: any) => {
       if (toast.action === toastAction.ADD) {
@@ -72,6 +85,13 @@ const Toast: React.FC = () => {
       ToastEventEmitter.removeChangeListener(eventCallback);
     };
   }, [addToast, changePosition, clear, remove]);
+
+  useEffect(() => {
+    window.addEventListener(LOGOUT_EVENT_NAME, onLogoutEvent);
+    return () => {
+      window.removeEventListener(LOGOUT_EVENT_NAME, onLogoutEvent);
+    };
+  }, [onLogoutEvent]);
 
   useUpdateEffect(() => {
     wrapperRef.current?.scrollTo({
