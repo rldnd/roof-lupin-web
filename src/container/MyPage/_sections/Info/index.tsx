@@ -36,12 +36,13 @@ const Info: React.FC = () => {
           <img className={styles.thumbnail} src={me.profileImage} width={60} height={60} alt="프로필 이미지" />
         )}
         {!me.profileImage && <div className={styles.emptyImage} />}
-        {/* //TODO: 누를 시 내 정보 수정으로 이동 */}
-        <span className={styles.email}>
-          {SOCIAL_ICON_MAPPER[me.socialType]}
-          {me.email}
-          <IconGrayRightChevron />
-        </span>
+        <Link href="/my-page/profile">
+          <span className={styles.email}>
+            {SOCIAL_ICON_MAPPER[me.socialType]}
+            {me.email}
+            <IconGrayRightChevron />
+          </span>
+        </Link>
       </div>
       <nav className={styles.countInfoList}>
         <Link href="/my-page/reservations" className={styles.item}>

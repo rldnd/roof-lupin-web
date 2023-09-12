@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding-top: c.$S_PAGE_HORIZONTAL_PADDING;
+
+  > main {
+    width: 100%;
+  }
+}

@@ -1,15 +1,17 @@
-import type { CommonUser, CountInfo, PushToken } from "@/common/types/user";
+import type { CommonUser, CountInfo, Gender, PushToken } from "@/common/types/user";
 import { apiClient } from "@/services/apiClient";
-import type { Nullable } from "@/utils/types";
 
 export interface UpdateUserBody {
   nickname: string;
   email: string;
   phoneNumber: string;
-  birth: string;
-  gender: string;
+  birthDay: string;
+  birthYear: string;
+  gender: Gender;
   profileImage: string;
   pushToken: string;
+  isAdult: boolean;
+  isAlarmAccepted: boolean;
 }
 
 /** [CLIENT] 내 정보 불러오기 */
@@ -21,4 +23,4 @@ export const getMyPushTokenApi = () => apiClient.get<PushToken>("/users/me/push-
 /** [CLIENT] 내 정보 카운트 정보 불러오기 */
 export const getMyCountInfoApi = () => apiClient.get<CountInfo>("/users/me/count-info");
 
-export const updateMeApi = (body: Partial<Nullable<UpdateUserBody>>) => apiClient.patch("/users", body);
+export const updateMeApi = (body: Partial<UpdateUserBody>) => apiClient.patch("/users", body);
