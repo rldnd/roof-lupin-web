@@ -25,7 +25,7 @@ export default async function MyContainer() {
             </Item>
             <hr className={styles.divider} />
             <Title>설정</Title>
-            <Item>설정</Item>
+            <Item href="/settings">설정</Item>
             <Item>약관 및 정책</Item>
             <AppVersionItem />
           </div>
