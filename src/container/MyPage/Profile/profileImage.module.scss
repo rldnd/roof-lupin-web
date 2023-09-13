@@ -1,0 +1,23 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  position: relative;
+  margin-top: 20px;
+
+  .image {
+    width: 100px;
+    height: 100px;
+    background-color: var(--c-gray-200);
+    border-radius: 50%;
+  }
+
+  .editWrapper {
+    @include m.flex;
+    @include m.absolute(auto 0 0 auto);
+    padding: 8px;
+    background-color: var(--c-white);
+    border: 1px solid var(--c-gray-300);
+    border-radius: 50%;
+  }
+}
