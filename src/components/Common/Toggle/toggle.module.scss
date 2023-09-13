@@ -10,13 +10,13 @@
   transition: all 0.2s ease-in-out;
 
   .circle {
-    @include m.posCenterY;
-    left: 2px;
+    @include m.absolute(50% auto auto 30px);
     width: 28px;
     height: 28px;
     background-color: var(--c-white);
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
+    transform: translate(-100%, -50%);
   }
 
   &.checked {
@@ -24,7 +24,6 @@
 
     .circle {
       left: calc(100% - 2px);
-      transform: translate(-100%, -50%);
     }
   }
 }

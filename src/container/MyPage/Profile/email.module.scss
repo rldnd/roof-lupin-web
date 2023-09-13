@@ -6,8 +6,4 @@
   @include m.fontBody1Regular;
   gap: 4px;
   color: var(--c-gray-500);
-
-  > svg {
-    @include m.filterGray500;
-  }
 }

@@ -3,6 +3,8 @@
 import { useMe } from "@/hooks/queries";
 import { getBirthDay, getBirthYearTwoDigits } from "@/utils/time";
 
+import { IconGrayRightChevronLargeThick } from "public/icons";
+
 import Item from "./Item";
 
 const Birth: React.FC = () => {
@@ -17,7 +19,7 @@ const Birth: React.FC = () => {
       : "";
 
   return (
-    <Item label="생년월일" placeholder="YY.MM.DD">
+    <Item label="생년월일" placeholder="YY.MM.DD" right={<IconGrayRightChevronLargeThick />}>
       {birth}
     </Item>
   );

@@ -24,6 +24,10 @@
     }
   }
 
+  svg {
+    @include m.filterGray500;
+  }
+
   & + .wrapper {
     border-top: 1px solid var(--c-gray-200);
   }
