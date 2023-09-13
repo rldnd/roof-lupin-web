@@ -1,0 +1,30 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, flex-start, column);
+  width: 100%;
+  padding: 8px 0;
+
+  .label {
+    @include m.fontBody1Regular;
+    color: var(--c-gray-500);
+  }
+
+  .button {
+    @include m.flex(space-between);
+    @include m.fontH4Regular;
+    width: 100%;
+    height: 44px;
+    color: var(--c-gray-900);
+
+    &.placeholder,
+    &:disabled {
+      color: var(--c-gray-500);
+    }
+  }
+
+  & + .wrapper {
+    border-top: 1px solid var(--c-gray-200);
+  }
+}

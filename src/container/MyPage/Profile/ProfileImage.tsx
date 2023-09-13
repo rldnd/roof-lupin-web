@@ -3,6 +3,7 @@
 import type { ChangeEventHandler } from "react";
 
 import { useMutation } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
 
 import { useToast } from "@/hooks";
 import { useMe } from "@/hooks/queries";
@@ -62,5 +63,12 @@ const ProfileImage: React.FC = () => {
 export default ProfileImage;
 
 export const LoadingProfileImage: React.FC = () => {
-  return null;
+  return (
+    <div className={styles.wrapper}>
+      <Skeleton className={styles.image} />
+      <div className={styles.editWrapper}>
+        <IconEdit />
+      </div>
+    </div>
+  );
 };

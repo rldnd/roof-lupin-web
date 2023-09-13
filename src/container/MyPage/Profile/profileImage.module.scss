@@ -10,12 +10,12 @@
     height: 100px;
     background-color: var(--c-gray-200);
     border-radius: 50%;
-    object-fit: cover;
   }
 
   .editWrapper {
     @include m.flex;
     @include m.absolute(auto 0 0 auto);
+    z-index: 1;
     padding: 8px;
     background-color: var(--c-white);
     border: 1px solid var(--c-gray-300);
