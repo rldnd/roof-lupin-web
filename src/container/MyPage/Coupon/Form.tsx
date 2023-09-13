@@ -51,11 +51,11 @@ const Form: React.FC = () => {
         onChange={onChange}
         value={code}
         wrapperClassName={styles.inputWrapper}
+        errorMessage={errorMessage}
       />
       <Button color="primary" size="small" type="submit">
         등록
       </Button>
-      <span className={styles.errorMessage}>{errorMessage}</span>
     </form>
   );
 };

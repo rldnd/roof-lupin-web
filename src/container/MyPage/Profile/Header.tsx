@@ -9,7 +9,7 @@ import styles from "./header.module.scss";
 const Header: React.FC = () => {
   return (
     <header className={styles.wrapper}>
-      <BackButton className={styles.backButton}>
+      <BackButton className={styles.backButton} replaceUrl="/my-page">
         <IconBlackLeftChevronLarge />
       </BackButton>
       <span className={styles.title}>프로필 편집</span>

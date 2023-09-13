@@ -4,6 +4,7 @@
 .wrapper {
   @include m.flex(flex-start, flex-start, column);
   @include m.fontBody1Regular;
+  position: relative;
   gap: 4px;
   color: var(--c-gray-500);
 
@@ -22,5 +23,11 @@
     &::placeholder {
       color: var(--c-gray-500);
     }
+  }
+
+  .errorMessage {
+    @include m.absolute(calc(100% + 4px) auto auto 0);
+    @include m.fontCaptionLh170;
+    color: var(--c-roof-orange);
   }
 }

@@ -19,10 +19,4 @@
   > button {
     width: max-content;
   }
-
-  .errorMessage {
-    @include m.absolute(calc(100% + 4px) auto auto 0);
-    @include m.fontCaptionLh170;
-    color: var(--c-roof-orange);
-  }
 }
