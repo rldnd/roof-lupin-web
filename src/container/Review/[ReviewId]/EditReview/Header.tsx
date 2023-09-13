@@ -5,12 +5,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
 import { useAtom } from "jotai";
 
-import type { ErrorDTO } from "@/common/types/common";
 import { BackButton, Loading } from "@/components";
 import { useToast } from "@/hooks";
+import { getErrorMessage } from "@/services/apiClient";
 import { uploadImagesApi } from "@/services/file";
 import { updateReviewApi } from "@/services/review";
 import { initialUpdateReviewBody, type TempUpdateReviewBody, updateReviewBodyState } from "@/states";
@@ -52,9 +51,8 @@ const Header: React.FC = () => {
       queryClient.refetchQueries(["paginateMyReservations"]);
       replace("/my-page/reviews");
     },
-    onError: (data) => {
-      const message = isAxiosError<ErrorDTO>(data) ? data.response!.data.message : "리뷰 수정에 실패했어요!";
-      addToast({ message });
+    onError: (err) => {
+      addToast({ message: getErrorMessage(err, "리뷰 수정에 실패했어요!") });
       setIsLoading(false);
     },
   });

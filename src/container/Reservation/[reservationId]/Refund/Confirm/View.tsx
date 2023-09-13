@@ -8,11 +8,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import Skeleton from "react-loading-skeleton";
 
-import type { ErrorDTO } from "@/common/types/common";
 import { ReservationDetail } from "@/common/types/reservation";
 import { Button, Checkbox, Loading } from "@/components";
 import { usePopConfirm, useSuspenseQuery, useToast } from "@/hooks";
-import { isAxiosError } from "@/services/apiClient";
+import { getErrorMessage } from "@/services/apiClient";
 import { refundPaymentApi } from "@/services/payment";
 import { getMyReservationApi } from "@/services/reservation";
 import { initialPaymentRefund, paymentRefundState } from "@/states";
@@ -51,8 +50,7 @@ const RefundView: React.FC = () => {
       replace(`/reservations/${reservationId}`);
     },
     onError: (err) => {
-      const message = isAxiosError<ErrorDTO>(err) ? err.response!.data.message : "예약 취소에 실패하였습니다.";
-      addToast({ message });
+      addToast({ message: getErrorMessage(err, "예약 취소에 실패하였습니다.") });
       setIsLoading(false);
     },
   });

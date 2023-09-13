@@ -108,3 +108,7 @@ apiClient.interceptors.response.use(
 export const isAxiosError = <T>(err: unknown | AxiosError<T>): err is AxiosError<T> => {
   return isAxiosErrorApp(err);
 };
+
+export const getErrorMessage = (err: unknown, fallbackMessage: string) => {
+  return isAxiosError<ErrorDTO>(err) && err.response ? err.response.data.message : fallbackMessage;
+};
