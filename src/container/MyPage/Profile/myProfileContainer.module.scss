@@ -15,4 +15,11 @@
     width: 100%;
     padding: 36px 0 80px;
   }
+
+  .resign {
+    @include m.fontBody1Medium;
+    margin-right: auto;
+    color: var(--c-gray-500);
+    text-decoration: underline;
+  }
 }

@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
@@ -13,6 +14,11 @@ const ProfileImage = dynamic(() => import("./ProfileImage"), { ssr: false, loadi
 const Nickname = dynamic(() => import("./Nickname"), { ssr: false, loading: () => <LoadingItem label="닉네임" /> });
 const Email = dynamic(() => import("./Email"), { ssr: false, loading: () => <LoadingItem label="이메일" /> });
 const Gender = dynamic(() => import("./Gender"), { ssr: false, loading: () => <LoadingItem label="성별" /> });
+const Birth = dynamic(() => import("./Birth"), { ssr: false, loading: () => <LoadingItem label="생년월일" /> });
+const PhoneNumber = dynamic(() => import("./PhoneNumber"), {
+  ssr: false,
+  loading: () => <LoadingItem label="전화번호" />,
+});
 
 export default async function MyProfileContainer() {
   return (
@@ -25,7 +31,12 @@ export default async function MyProfileContainer() {
             <Nickname />
             <Email />
             <Gender />
+            <Birth />
+            <PhoneNumber />
           </section>
+          <Link href="/" className={styles.resign}>
+            서비스 탈퇴
+          </Link>
         </main>
       </div>
     </ToastPositioner>

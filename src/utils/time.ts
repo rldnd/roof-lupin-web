@@ -1,3 +1,8 @@
+export interface BirthDay {
+  month: string;
+  day: string;
+}
+
 /** 서버에서의 endAt은 11이라면, 프론트에서 봤을 때 12시까지임을 의미하기 때문에 시간을 +1 해준다 */
 export const getDiffHour = (startAt: number, endAt: number): number => {
   return endAt - startAt + 1;
@@ -22,4 +27,16 @@ export const formatHourToAHHMM = (hour: number) => {
   const time = getTime(hour);
   const isAfternoon = time >= 12;
   return `${getNextDayText(hour)} ${isAfternoon ? "오후" : "오전"} ${isAfternoon && time !== 12 ? time - 12 : time}시`;
+};
+
+export const getBirthYearTwoDigits = (birthYear: string | null): string | null => {
+  if (!birthYear) return null;
+  return birthYear.slice(2);
+};
+
+export const getBirthDay = (birthDay: string | null): BirthDay | null => {
+  if (!birthDay) return null;
+  const month = birthDay.slice(0, 2);
+  const day = birthDay.slice(2);
+  return { month, day };
 };
