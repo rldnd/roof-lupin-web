@@ -16,7 +16,7 @@ interface Props extends Omit<ComponentProps<"input">, "onSubmit" | "onReset"> {
 const SearchInput: React.FC<Props> = ({ className, onSubmit, onReset, value, ...props }) => {
   return (
     <form className={cx(styles.wrapper, className)} onSubmit={onSubmit} onReset={onReset}>
-      <input type="search" value={value} {...props} />
+      <input type="search" inputMode="search" value={value} {...props} />
       {!value && (
         <button type="submit" className={styles.searchButton}>
           <IconGraySearch />

@@ -29,6 +29,7 @@ const ReservationClerkInfo: React.FC = () => {
         onChange={onChange}
       />
       <UnderlinedInput
+        inputMode="tel"
         label="전화번호"
         className={styles.input}
         name="userPhoneNumber"
