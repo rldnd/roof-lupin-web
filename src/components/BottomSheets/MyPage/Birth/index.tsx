@@ -1,9 +1,8 @@
 "use client";
 
-import { ChangeEventHandler, FormEventHandler, useEffect, useState } from "react";
+import { type ChangeEventHandler, FormEventHandler, useEffect, useState } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import { useUnmount } from "react-use";
 
 import type { CommonUser } from "@/common/types/user";
 import { BaseBottomSheet, Button, UnderlinedInput } from "@/components/Common";
@@ -65,7 +64,7 @@ const MyBirthBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
       onClose();
     },
     onError: (err) => {
-      addToast({ message: getErrorMessage(err, "생년월일 변경에 실패하였습니다.") });
+      addToast({ message: getErrorMessage(err, "생년월일 수정에 실패하였습니다.") });
     },
   });
   const [input, setInput] = useState("");
@@ -90,8 +89,6 @@ const MyBirthBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
     if (isShow && me) setInput(getInitialInput(me));
     if (!isShow) setInput("");
   }, [isShow, me]);
-
-  if (!me) return null;
 
   return (
     <BaseBottomSheet
