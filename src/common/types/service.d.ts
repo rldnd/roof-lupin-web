@@ -20,6 +20,8 @@ export interface AdditionalService {
   tooltip: string | null;
   /** 추가 서비스 최대 개수 */
   maxCount: number | null;
+  /** 대여 상품 id */
+  rentalTypeId: string;
 }
 
 export interface AdditionalServiceReservation {

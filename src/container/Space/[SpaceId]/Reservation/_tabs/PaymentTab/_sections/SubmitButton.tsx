@@ -51,7 +51,7 @@ const Submit: React.FC = () => {
 
   const disabled = !reservation.userName || !reservation.userPhoneNumber || !checkedRequired;
 
-  const onClickButton = async () => {
+  const onClickButton = () => {
     if (!body) return;
     createPayload(body);
   };

@@ -29,9 +29,11 @@ const ApprovedView: React.FC<Props> = ({ reservation }) => {
             예약 취소
           </Button>
         </Link>
-        <Button type="button" color="primary" full>
-          결제하기
-        </Button>
+        <Link href={`/spaces/${reservation.space.id}/reservations/${reservation.id}/request-reservation-payment`}>
+          <Button type="button" color="primary" full>
+            결제하기
+          </Button>
+        </Link>
       </menu>
       <Responsive />
     </>

@@ -1,6 +1,8 @@
 import type { CreateReservation } from "./reservation";
 
-export interface CreatePayment extends CreateReservation {}
+export interface CreatePayment extends CreateReservation {
+  reservationId?: string;
+}
 
 export interface CreatePaymentPayload extends CreatePayment {}
 
