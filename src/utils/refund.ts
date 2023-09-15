@@ -5,7 +5,9 @@ import { dayjs } from "@/utils/date";
 export const getRefundAllDate = (refundPolicies: RefundPolicy[], useDate: Date | dayjs.Dayjs): dayjs.Dayjs | null => {
   const today = dayjs();
 
-  const allRefundItem = refundPolicies.find((policy) => policy.refundRate === 100);
+  const allRefundItem = [...refundPolicies]
+    .sort((a, b) => a.daysBefore - b.daysBefore)
+    .find((policy) => policy.refundRate === 100);
   const beforeEightDays = dayjs(useDate).subtract(8, "day");
   const isBeforeEightDays = dayjs(`${today.year()}-${today.month() + 1}-${today.date()}`)
     .subtract(1, "day")
@@ -16,8 +18,6 @@ export const getRefundAllDate = (refundPolicies: RefundPolicy[], useDate: Date |
     const allRefundItemDate = dayjs(
       `${useDateDayjs.year()}-${useDateDayjs.month() + 1}-${useDateDayjs.date()}`,
     ).subtract(allRefundItem.daysBefore, "day");
-
-    if (isBeforeEightDays) return beforeEightDays;
     return allRefundItemDate;
   }
 
