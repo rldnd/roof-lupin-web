@@ -24,15 +24,16 @@ const RefundPolicyBottomSheet: React.FC<Props> = ({ isShow, onClose, refundPolic
       className={styles.wrapper}
     >
       <p>
+        {`예약일 기준 8일 전 : 100% 환불\n`}
         {[...refundPolicies]
-          .sort((a, b) => a.daysBefore - b.daysBefore)
+          .sort((a, b) => b.daysBefore - a.daysBefore)
           .map((policy) => (
             <Fragment key={policy.id}>
               예약일 {policy.daysBefore === 0 ? "당일" : `${policy.daysBefore}일 전`} {policy.refundRate}% 환불
               <br />
             </Fragment>
           ))}
-        {`\n결제 후 2시간 내 취소할 경우 취소 수수료가 발생하지 않아요. (단, 사용시간 경과 후 제외)\n\n취소 가능일은 영업일(주말 및 공휴일 제외)기준으로 선정됩니다.`}
+        {`\n결제 후 2시간 내 취소할 경우 취소 수수료가 발생하지 않아요. (단, 사용시간 경과 후 제외)`}
       </p>
     </BaseBottomSheet>
   );
