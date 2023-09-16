@@ -16,6 +16,7 @@ interface Props {
   title: ReactNode;
   right?: ReactNode;
   replaceUrl?: string;
+  href?: string;
   onClickBack?: MouseEventHandler<HTMLButtonElement>;
   backHidden?: boolean;
 }
@@ -25,6 +26,7 @@ const BaseHeader: React.FC<Props> = ({
   style,
   title,
   right,
+  href,
   replaceUrl,
   backHidden = false,
   onClickBack,
@@ -32,7 +34,7 @@ const BaseHeader: React.FC<Props> = ({
   return (
     <header className={cx(styles.wrapper, className, { [styles.backHidden]: backHidden })} style={style}>
       {!backHidden && !onClickBack && (
-        <BackButton className={styles.backButton} replaceUrl={replaceUrl}>
+        <BackButton className={styles.backButton} replaceUrl={replaceUrl} href={href}>
           <IconBlackLeftChevronLarge />
         </BackButton>
       )}

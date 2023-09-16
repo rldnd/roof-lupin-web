@@ -8,16 +8,21 @@ import { getBeforeNavigationUrl } from "@/utils/navigation";
 
 interface Props extends ComponentProps<"button"> {
   replaceUrl?: string;
+  href?: string;
 }
 
-const BackButton: React.FC<Props> = ({ className, onClick: onClickProps, replaceUrl = "/", ...props }) => {
+const BackButton: React.FC<Props> = ({ className, onClick: onClickProps, replaceUrl = "/", href, ...props }) => {
   const { back, replace } = useRouter();
 
   const handleRoute = useCallback(() => {
+    if (href) {
+      replace(href);
+      return;
+    }
     const beforeUrl = getBeforeNavigationUrl();
     if (!beforeUrl) replace(replaceUrl);
     else back();
-  }, [back, replace, replaceUrl]);
+  }, [back, href, replace, replaceUrl]);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {

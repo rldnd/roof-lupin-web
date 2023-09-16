@@ -2,7 +2,8 @@ import { Suspense } from "react";
 
 import dynamic from "next/dynamic";
 
-import Header from "./Header";
+import { BaseCenterHeader } from "@/components/Layout";
+
 import { LoadingList } from "./List";
 import TabBar from "./TabBar";
 
@@ -14,7 +15,7 @@ const List = dynamic(() => import("./List"), { ssr: false, loading: () => <Loadi
 export default async function MyReservationContainer() {
   return (
     <div className={styles.wrapper}>
-      <Header />
+      <BaseCenterHeader title="예약 내역" href="/my-page" />
       <Suspense fallback={null}>
         <TabBar />
       </Suspense>

@@ -2,7 +2,8 @@ import { type ReactNode } from "react";
 
 import dynamic from "next/dynamic";
 
-import Header from "./Header";
+import { BaseCenterHeader } from "@/components/Layout";
+
 import { LoadingTabBar } from "./TabBar";
 
 import styles from "./myReviewLayout.module.scss";
@@ -16,7 +17,7 @@ interface Props {
 const MyReviewContainer: React.FC<Props> = ({ children }) => {
   return (
     <div className={styles.wrapper}>
-      <Header />
+      <BaseCenterHeader title="내 후기" href="/my-page" />
       <TabBar />
       {children}
     </div>
