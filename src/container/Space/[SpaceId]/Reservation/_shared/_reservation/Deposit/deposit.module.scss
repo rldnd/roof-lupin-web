@@ -7,27 +7,15 @@
   margin-top: 72px;
   background-color: var(--c-gray-100);
 
-  .titleWrapper {
+  h2 {
     @include m.flex(flex-start);
-    gap: 8px;
+    @include m.fontH3SemiBold;
     width: 100%;
     margin-bottom: 12px;
+    color: var(--c-gray-900);
 
-    h2 {
-      @include m.fontH3SemiBold;
-      color: gray-900;
-
-      strong {
-        color: var(--c-roof-orange);
-      }
-    }
-
-    button {
-      @include m.flex;
-
-      svg {
-        @include m.filterGray500;
-      }
+    strong {
+      color: var(--c-roof-orange);
     }
   }
 

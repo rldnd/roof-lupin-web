@@ -13,6 +13,8 @@ import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { spaceSortMenuState } from "@/states";
 
+import Empty from "../Empty";
+
 import styles from "./content.module.scss";
 
 const Content: React.FC = () => {
@@ -35,6 +37,8 @@ const Content: React.FC = () => {
         className={styles.spaceList}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
+        isEmpty={data.pages.length === 0}
+        emptyComponent={<Empty />}
         isFetching={isFetching}
         isSuccess={isSuccess}
         loadingComponentInList={<LoadingContentItems />}

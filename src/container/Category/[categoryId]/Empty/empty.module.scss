@@ -1,0 +1,27 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(0 0 0 0);
+  @include m.flex(center, center, column);
+  width: 100%;
+  margin-top: 120px;
+
+  .searchEmptyImage {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 44px;
+  }
+
+  .title {
+    @include m.fontButton1;
+    margin-bottom: 8px;
+    color: var(--c-gray-600);
+  }
+
+  .description {
+    @include m.fontCaption;
+    color: var(--c-gray-600);
+  }
+}

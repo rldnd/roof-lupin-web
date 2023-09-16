@@ -9,10 +9,12 @@ interface Props {
   root?: HTMLElement;
   isFetching: boolean;
   isSuccess: boolean;
+  isEmpty?: boolean;
   hasNextPage?: boolean;
   children: ReactNode;
   loadingComponent?: ReactNode;
   loadingComponentInList?: ReactNode;
+  emptyComponent?: ReactNode;
   id?: string;
   isRootContainer?: boolean;
   fetchNextPage: () => unknown | Promise<unknown>;
@@ -26,6 +28,8 @@ const UnorderedInfiniteScroll: React.FC<Props> = ({
   loadingComponent,
   loadingComponentInList,
   hasNextPage,
+  emptyComponent,
+  isEmpty = false,
   isFetching,
   isSuccess,
   id,
@@ -42,12 +46,17 @@ const UnorderedInfiniteScroll: React.FC<Props> = ({
 
   return (
     <>
-      <ul className={className} ref={ulRef} id={id}>
-        {children}
-        {isFetching && loadingComponentInList}
-        <div ref={inViewRef} />
-      </ul>
-      {isFetching && loadingComponent}
+      {isEmpty && emptyComponent}
+      {!isEmpty && (
+        <>
+          <ul className={className} ref={ulRef} id={id}>
+            {children}
+            {isFetching && loadingComponentInList}
+            <div ref={inViewRef} />
+          </ul>
+          {isFetching && loadingComponent}
+        </>
+      )}
     </>
   );
 };

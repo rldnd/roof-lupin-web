@@ -12,8 +12,6 @@ import { useSuspenseQuery } from "@/hooks";
 import { getClientSpaceApi } from "@/services/space";
 import { reservationDepositConfirmState } from "@/states";
 
-import { IconInfo } from "public/icons";
-
 import styles from "./deposit.module.scss";
 
 const Deposit: React.FC = () => {
@@ -30,14 +28,9 @@ const Deposit: React.FC = () => {
 
   return (
     <section className={styles.wrapper}>
-      <div className={styles.titleWrapper}>
-        <h2>
-          보증금 <strong>{data.deposit.toLocaleString("ko-KR")}원</strong>
-        </h2>
-        <button type="button">
-          <IconInfo />
-        </button>
-      </div>
+      <h2>
+        보증금 <strong>{data.deposit.toLocaleString("ko-KR")}원</strong>
+      </h2>
       <p>
         디난트 루프탑은 계좌이체로 보증금 100,000원을 받고 있어요. 보증금 지급은 예약 하루 전 문자로 알려드려요. 대관
         종료 후 문제없을 시 24시간 이내 예약자 계좌로 반환됩니다.

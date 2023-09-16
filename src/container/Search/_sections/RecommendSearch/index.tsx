@@ -10,8 +10,6 @@ import { HorizonDraggable } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
 import { getSearchRecommendsApi } from "@/services/search";
 
-import { IconInfo } from "public/icons";
-
 import styles from "./recommendSearch.module.scss";
 
 const RecommendSearch: React.FC = () => {
@@ -22,12 +20,7 @@ const RecommendSearch: React.FC = () => {
 
   return (
     <section className={styles.wrapper}>
-      <div className={styles.titleWrapper}>
-        <h2>루프루팡 추천 검색어</h2>
-        <button type="button">
-          <IconInfo />
-        </button>
-      </div>
+      <h2>루프루팡 추천 검색어</h2>
       <HorizonDraggable component="menu" className={styles.list}>
         {recommends.map((recommend) => (
           <li key={recommend.id}>
@@ -50,12 +43,7 @@ export default RecommendSearch;
 export const LoadingRecommendSearch: React.FC = () => {
   return (
     <section className={styles.wrapper}>
-      <div className={styles.titleWrapper}>
-        <h2>루프루팡 추천 검색어</h2>
-        <button type="button">
-          <IconInfo />
-        </button>
-      </div>
+      <h2>루프루팡 추천 검색어</h2>
       <menu className={styles.list}>
         {range(3).map((value) => (
           <Skeleton width={60} className={styles.loadingButton} key={value} />
