@@ -8,6 +8,8 @@ import { Coupon, LoadingCoupon } from "@/components/Coupon";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateCouponsApi } from "@/services/coupon";
 
+import Empty from "./Empty";
+
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
@@ -24,6 +26,8 @@ const List: React.FC = () => {
       isSuccess={isSuccess}
       fetchNextPage={fetchNextPage}
       loadingComponent={<LoadingList />}
+      isEmpty={data.pages.length === 0}
+      emptyComponent={<Empty />}
     >
       {data.pages.map((userCoupon) => (
         <Coupon key={userCoupon.id} userCoupon={userCoupon} />

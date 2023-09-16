@@ -7,6 +7,8 @@ import { LoadingMySpaceReview, MySpaceReview, UnorderedInfiniteScroll } from "@/
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyReviewsApi } from "@/services/review";
 
+import Empty from "./Empty";
+
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
@@ -23,6 +25,8 @@ const List: React.FC = () => {
       fetchNextPage={fetchNextPage}
       className={styles.wrapper}
       loadingComponentInList={<LoadingItems />}
+      isEmpty={data.pages.length === 0}
+      emptyComponent={<Empty />}
     >
       {data.pages.map((review) => (
         <MySpaceReview key={review.id} review={review} className={styles.item} refetch={refetch} />

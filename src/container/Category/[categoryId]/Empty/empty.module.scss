@@ -2,10 +2,13 @@
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.fixed(0 0 0 0);
+  @include m.fixed(50% auto auto 50%);
   @include m.flex(center, center, column);
-  width: 100%;
-  margin-top: 120px;
+  transform: translate(-50%, -50%);
+
+  @include m.mobileOnly {
+    margin-top: 60px;
+  }
 
   .searchEmptyImage {
     width: 100px;

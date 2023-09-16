@@ -7,6 +7,7 @@ import { UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyReservationsApi } from "@/services/reservation";
 
+import Empty from "./Empty";
 import Item, { LoadingItem } from "./Item";
 
 import styles from "./list.module.scss";
@@ -25,6 +26,8 @@ const List: React.FC = () => {
       fetchNextPage={fetchNextPage}
       className={styles.wrapper}
       loadingComponentInList={<LoadingItems />}
+      isEmpty={data.pages.length === 0}
+      emptyComponent={<Empty />}
     >
       {data.pages.map((reservation) => (
         <Item key={reservation.id} reservation={reservation} className={styles.item} />

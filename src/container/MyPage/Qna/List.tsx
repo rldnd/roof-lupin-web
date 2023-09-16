@@ -10,6 +10,8 @@ import { LoadingMyQnaItem, MyQnaItem, UnorderedInfiniteScroll } from "@/componen
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyQnasApi } from "@/services/qna";
 
+import Empty from "./Empty";
+
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
@@ -35,6 +37,8 @@ const List: React.FC = () => {
       isSuccess={isSuccess}
       fetchNextPage={fetchNextPage}
       loadingComponentInList={<LoadingItems />}
+      isEmpty={data.pages.length === 0}
+      emptyComponent={<Empty isAnswered={isAnswered} />}
     >
       {data.pages.map((qna) => (
         <MyQnaItem key={qna.id} qna={qna} className={styles.item} refetch={afterDelete} />
