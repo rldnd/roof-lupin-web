@@ -1,0 +1,17 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  position: relative;
+
+  &.isUnread {
+    &::after {
+      @include m.absolute(10px 9px auto auto);
+      width: 4px;
+      height: 4px;
+      content: "";
+      background-color: var(--c-white);
+      border-radius: 50%;
+    }
+  }
+}

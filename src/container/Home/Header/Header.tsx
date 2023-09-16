@@ -2,6 +2,7 @@
 
 import { CSSProperties } from "react";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
 import cx from "clsx";
@@ -10,9 +11,16 @@ import { useHeaderScrollOpacity } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { getNumberFromPixel } from "@/utils/styles";
 
-import { IconBell, IconMainLogo, IconSearch } from "public/icons";
+import { IconMainLogo, IconSearch } from "public/icons";
+
+import { LoadingAlarm } from "./Alarm";
 
 import styles from "./header.module.scss";
+
+const Alarm = dynamic(() => import("./Alarm"), {
+  ssr: false,
+  loading: () => <LoadingAlarm className={styles.alarmIcon} />,
+});
 
 const Header: React.FC = () => {
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
@@ -46,9 +54,7 @@ const Header: React.FC = () => {
         <Link href="/search" title="검색 페이지">
           <IconSearch />
         </Link>
-        <Link href="/" title="알림 페이지">
-          <IconBell />
-        </Link>
+        <Alarm className={styles.alarmIcon} />
       </nav>
     </header>
   );

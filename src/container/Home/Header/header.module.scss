@@ -21,6 +21,11 @@
   }
 
   &.breakpoint {
+    .alarmIcon::after {
+      background-color: var(--c-roof-orange);
+      opacity: var(--opacity);
+    }
+
     svg {
       @include m.filterGray900;
       opacity: var(--opacity);
