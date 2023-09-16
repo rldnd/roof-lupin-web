@@ -1,0 +1,15 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.footer {
+  @include m.fixed(auto auto 0 50%);
+  display: grid;
+  grid-template-columns: 11fr 5fr;
+  gap: 8px;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_RESIGN_FOOTER_HEIGHT;
+  padding: 16px c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+}

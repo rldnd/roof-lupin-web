@@ -1,12 +1,12 @@
 "use client";
 
-import ButtonItem from "../ButtonItem";
+import AnchorItem from "../AnchorItem";
 import Section from "../Section";
 
 const ResignSection: React.FC = () => {
   return (
     <Section>
-      <ButtonItem onClick={() => {}}>서비스 탈퇴</ButtonItem>
+      <AnchorItem href="/my-page/resign">서비스 탈퇴</AnchorItem>
     </Section>
   );
 };

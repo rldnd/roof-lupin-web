@@ -34,7 +34,7 @@ export default async function MyProfileContainer() {
             <Birth />
             <PhoneNumber />
           </section>
-          <Link href="/" className={styles.resign}>
+          <Link href="/my-page/resign" className={styles.resign}>
             서비스 탈퇴
           </Link>
         </main>

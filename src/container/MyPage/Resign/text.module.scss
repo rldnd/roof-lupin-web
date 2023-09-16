@@ -1,0 +1,14 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontBody1Regular;
+  width: 100%;
+  padding-left: c.$S_PAGE_HORIZONTAL_PADDING;
+  margin: 24px 0 44px;
+  color: var(--c-gray-600);
+
+  > li {
+    list-style: disc outside;
+  }
+}
