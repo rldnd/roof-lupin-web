@@ -6,3 +6,4 @@ export * from "./EditReservationInfoFilter";
 export * from "./ReservationInfoFilter";
 export { default as SpaceLocationFilterBottomSheet } from "./LocationFilter";
 export { default as SpaceURLBottomSheet } from "./URL";
+export { default as SpaceCallBottomSheet } from "./Call";

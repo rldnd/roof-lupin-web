@@ -25,6 +25,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ space }) => {
   const [isShowURL, setIsShowURL] = useState(false);
+
   const { sendMessage } = useWebview();
 
   const [isActive, setIsActive] = useState(false);

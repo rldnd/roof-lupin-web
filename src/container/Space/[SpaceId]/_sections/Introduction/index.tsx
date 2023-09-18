@@ -29,6 +29,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
     isImmediateReservation,
     overflowUserCount,
     maxUser,
+    host,
   } = space;
 
   return (
@@ -45,7 +46,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
             <StarRatingItem score={averageScore} reviewCount={reviewCount} viewReviewCount={false} />
             {reviewCount !== 0 && <ReviewButton reviewCount={reviewCount} />}
           </div>
-          <CallButton />
+          <CallButton phoneNumber={host.phoneNumber} />
         </div>
       </div>
       <HorizonDraggable className={styles.tagList}>

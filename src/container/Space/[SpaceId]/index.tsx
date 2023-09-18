@@ -33,7 +33,6 @@ interface Props {
 }
 
 // TODO: 지도 구현
-// TODO: 판매자 정보 구현
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getServerSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);
