@@ -1,0 +1,14 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  .url {
+    @include m.makeEllipsis;
+  }
+
+  .button {
+    margin-top: 32px;
+  }
+}

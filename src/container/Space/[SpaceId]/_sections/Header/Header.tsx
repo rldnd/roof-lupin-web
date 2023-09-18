@@ -8,6 +8,7 @@ import cx from "clsx";
 import type { SpaceDetail } from "@/common/types/space";
 import { WebScreenSharePayload } from "@/common/types/webview/screen";
 import { AuthChecker, BackButton, PlatformButton } from "@/components";
+import { SpaceURLBottomSheet } from "@/components/BottomSheets/Space";
 import { useDataToggle, useHeaderScrollOpacity, useWebview } from "@/hooks";
 import { createSpaceInterestApi, deleteSpaceInterestApi, getSpaceInterestedApi } from "@/services/space";
 import sizes from "@/styles/constants/sizes.module.scss";
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ space }) => {
+  const [isShowURL, setIsShowURL] = useState(false);
   const { sendMessage } = useWebview();
 
   const [isActive, setIsActive] = useState(false);
@@ -75,33 +77,40 @@ const Header: React.FC<Props> = ({ space }) => {
   }, [isInterested]);
 
   return (
-    <header
-      className={cx(styles.wrapper, {
-        [styles.breakpoint]: breakpoint,
-        [styles.backgroundBreakpoint]: backgroundBreakpoint,
-      })}
-      style={style}
-    >
-      <BackButton>
-        <IconBack />
-      </BackButton>
-      {isClient && breakpoint && <p className={styles.title}>{space.title}</p>}
-      <menu>
-        <li>
-          <PlatformButton desktop={() => {}} mobile={() => {}} webview={onClickShareWebview}>
-            <IconShare />
-          </PlatformButton>
-        </li>
-        <li>
-          <AuthChecker>
-            <button type="button" onClick={handleClick} className={styles.bookmark}>
-              {isActive && <IconBookmarkActive className={styles.active} />}
-              {!isActive && <IconBookmarkInactive className={styles.inactive} />}
-            </button>
-          </AuthChecker>
-        </li>
-      </menu>
-    </header>
+    <>
+      <header
+        className={cx(styles.wrapper, {
+          [styles.breakpoint]: breakpoint,
+          [styles.backgroundBreakpoint]: backgroundBreakpoint,
+        })}
+        style={style}
+      >
+        <BackButton>
+          <IconBack />
+        </BackButton>
+        {isClient && breakpoint && <p className={styles.title}>{space.title}</p>}
+        <menu>
+          <li>
+            <PlatformButton
+              desktop={() => setIsShowURL(true)}
+              mobile={() => setIsShowURL(true)}
+              webview={onClickShareWebview}
+            >
+              <IconShare />
+            </PlatformButton>
+          </li>
+          <li>
+            <AuthChecker>
+              <button type="button" onClick={handleClick} className={styles.bookmark}>
+                {isActive && <IconBookmarkActive className={styles.active} />}
+                {!isActive && <IconBookmarkInactive className={styles.inactive} />}
+              </button>
+            </AuthChecker>
+          </li>
+        </menu>
+      </header>
+      <SpaceURLBottomSheet isShow={isShowURL} onClose={() => setIsShowURL(false)} />
+    </>
   );
 };
 

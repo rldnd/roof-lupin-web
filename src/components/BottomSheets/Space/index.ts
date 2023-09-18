@@ -5,3 +5,4 @@ export { SpaceInfoFilterBottomSheet } from "./InfoFilter";
 export * from "./EditReservationInfoFilter";
 export * from "./ReservationInfoFilter";
 export { default as SpaceLocationFilterBottomSheet } from "./LocationFilter";
+export { default as SpaceURLBottomSheet } from "./URL";
