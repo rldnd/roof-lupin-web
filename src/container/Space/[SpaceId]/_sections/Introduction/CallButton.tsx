@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 
+import { WebCommonCallPayload } from "@/common/types/webview/common";
+import { PlatformButton } from "@/components";
 import { SpaceCallBottomSheet } from "@/components/BottomSheets/Space";
+import { useWebview } from "@/hooks";
 
 import { IconPhone } from "public/icons";
 
@@ -13,14 +16,25 @@ interface Props {
 }
 
 const CallButton: React.FC<Props> = ({ phoneNumber }) => {
+  const { sendMessage } = useWebview();
   const [isShowCall, setIsShowCall] = useState(false);
+
+  const onClickCallWebview = () => {
+    sendMessage<WebCommonCallPayload>({ type: "web-common/call", data: { phoneNumber } });
+  };
 
   return (
     <>
-      <button type="button" className={styles.call} onClick={() => setIsShowCall(true)}>
+      <PlatformButton
+        type="button"
+        className={styles.call}
+        mobile={() => setIsShowCall(true)}
+        desktop={() => setIsShowCall(true)}
+        webview={onClickCallWebview}
+      >
         <IconPhone />
         문의하기
-      </button>
+      </PlatformButton>
       <SpaceCallBottomSheet isShow={isShowCall} onClose={() => setIsShowCall(false)} phoneNumber={phoneNumber} />
     </>
   );
