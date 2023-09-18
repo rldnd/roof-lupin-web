@@ -24,3 +24,5 @@ export const getMyPushTokenApi = () => apiClient.get<PushToken>("/users/me/push-
 export const getMyCountInfoApi = () => apiClient.get<CountInfo>("/users/me/count-info");
 
 export const updateMeApi = (body: Partial<UpdateUserBody>) => apiClient.patch("/users", body);
+
+export const resignApi = () => apiClient.delete("/users");
