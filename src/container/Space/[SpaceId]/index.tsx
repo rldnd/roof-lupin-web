@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants/toast";
+import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
 import { getSpaceRentalTypeDetailApi } from "@/services/rentalType";
 import { getServerSpaceApi } from "@/services/space";
@@ -40,7 +40,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
   const [space, spaceRentalType] = await Promise.all([spacePromise, spaceRentalTypePromise]);
 
   return (
-    <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
+    <ToastPositioner position={TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION}>
       <main className={styles.wrapper}>
         <Header space={space} />
         <Suspense fallback={<LoadingCarousel />}>

@@ -11,21 +11,27 @@ interface Props {
   packageCost: number | null;
   rows: 1 | 2;
   size?: Size;
+  className?: string;
 }
 
 type PriceOption = "Prefix" | "Cost" | "Suffix";
+
+interface PriceDefaultProps {
+  className?: string;
+  size: Size;
+}
 
 type PriceProps<T extends string> = {
   [K in T as `${T}${PriceOption}`]: string | number;
 };
 
-type TimePriceProps = PriceProps<"time"> & { size: Size };
-type PackagePriceProps = PriceProps<"package"> & { size: Size };
-type TwoLinePriceProps = TimePriceProps & PackagePriceProps & { size: Size };
+type TimePriceProps = PriceProps<"time"> & PriceDefaultProps;
+type PackagePriceProps = PriceProps<"package"> & PriceDefaultProps;
+type TwoLinePriceProps = TimePriceProps & PackagePriceProps & PriceDefaultProps;
 
-const OneLineTimePrice: React.FC<TimePriceProps> = memo(({ timePrefix, timeCost, timeSuffix, size }) => {
+const OneLineTimePrice: React.FC<TimePriceProps> = memo(({ timePrefix, timeCost, timeSuffix, size, className }) => {
   return (
-    <span className={cx(styles.oneRowWrapper, styles[size])}>
+    <span className={cx(styles.oneRowWrapper, className, styles[size])}>
       {timePrefix}
       <span>
         {timeCost.toLocaleString("ko-KR")}
@@ -35,22 +41,24 @@ const OneLineTimePrice: React.FC<TimePriceProps> = memo(({ timePrefix, timeCost,
   );
 });
 
-const OneLinePackagePrice: React.FC<PackagePriceProps> = memo(({ packageCost, packagePrefix, packageSuffix, size }) => {
-  return (
-    <span className={cx(styles.oneRowWrapper, styles[size])}>
-      {packagePrefix}
-      <span>
-        {packageCost.toLocaleString("ko-KR")}
-        {packageSuffix}
+const OneLinePackagePrice: React.FC<PackagePriceProps> = memo(
+  ({ packageCost, packagePrefix, packageSuffix, size, className }) => {
+    return (
+      <span className={cx(styles.oneRowWrapper, className, styles[size])}>
+        {packagePrefix}
+        <span>
+          {packageCost.toLocaleString("ko-KR")}
+          {packageSuffix}
+        </span>
       </span>
-    </span>
-  );
-});
+    );
+  },
+);
 
 const TwoLinePrice: React.FC<TwoLinePriceProps> = memo(
-  ({ packageCost, packagePrefix, packageSuffix, timeCost, timePrefix, timeSuffix, size }) => {
+  ({ packageCost, packagePrefix, packageSuffix, timeCost, timePrefix, timeSuffix, size, className }) => {
     return (
-      <div className={cx(styles.twoRowsWrapper, styles[size])}>
+      <div className={cx(styles.twoRowsWrapper, className, styles[size])}>
         <span className={styles.firstRow}>
           {timePrefix}
           <span>
@@ -70,13 +78,21 @@ const TwoLinePrice: React.FC<TwoLinePriceProps> = memo(
   },
 );
 
-const SpacePrice: React.FC<Props> = ({ packageCost, timeCost, rows, size = "medium" }) => {
+const SpacePrice: React.FC<Props> = ({ packageCost, timeCost, rows, size = "medium", className }) => {
   const [hasTimeCost, hasPriceCost] = [timeCost !== null, packageCost !== null];
   const [timePrefix, timeSuffix] = ["1시간 /", "원"];
   const [packagePrefix, packageSuffix] = ["패키지 /", "원~"];
 
   if ((rows === 1 && hasTimeCost) || (rows === 2 && !hasPriceCost))
-    return <OneLineTimePrice timePrefix={timePrefix} timeCost={timeCost!} timeSuffix={timeSuffix} size={size} />;
+    return (
+      <OneLineTimePrice
+        timePrefix={timePrefix}
+        timeCost={timeCost!}
+        timeSuffix={timeSuffix}
+        size={size}
+        className={className}
+      />
+    );
 
   if ((rows === 1 && !hasTimeCost) || (rows === 2 && !hasTimeCost))
     return (
@@ -85,6 +101,7 @@ const SpacePrice: React.FC<Props> = ({ packageCost, timeCost, rows, size = "medi
         packagePrefix={packagePrefix}
         packageSuffix={packageSuffix}
         size={size}
+        className={className}
       />
     );
 
@@ -98,6 +115,7 @@ const SpacePrice: React.FC<Props> = ({ packageCost, timeCost, rows, size = "medi
         timePrefix={timePrefix}
         timeSuffix={timeSuffix}
         size={size}
+        className={className}
       />
     );
 

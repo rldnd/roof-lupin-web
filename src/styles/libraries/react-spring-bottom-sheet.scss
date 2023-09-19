@@ -84,7 +84,7 @@
 
 [data-rsbs-header] {
   z-index: 1;
-  padding-top: calc(20px + env(safe-area-inset-top));
+  padding-top: calc(40px + env(safe-area-inset-top));
   padding-bottom: 8px;
   text-align: center;
   user-select: none;
@@ -94,7 +94,7 @@
 
 [data-rsbs-header]::before {
   position: absolute;
-  top: calc(12px + env(safe-area-inset-top));
+  top: 12px;
   left: 50%;
   display: block;
   width: 44px;
@@ -115,7 +115,7 @@
 }
 
 [data-rsbs-has-header="false"] [data-rsbs-header] {
-  padding-top: calc(12px + env(safe-area-inset-top));
+  padding-top: calc(40px + env(safe-area-inset-top));
   box-shadow: none;
 }
 

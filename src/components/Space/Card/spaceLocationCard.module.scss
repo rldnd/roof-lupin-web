@@ -1,0 +1,47 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+$IMAGE_SIZE: 132px;
+
+.wrapper {
+  width: 100%;
+
+  .anchor {
+    display: grid;
+    grid-template-columns: $IMAGE_SIZE 1fr;
+    gap: 16px;
+    width: 100%;
+
+    .image {
+      width: 100%;
+      height: $IMAGE_SIZE;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .content {
+      @include m.flex(flex-start, flex-start, column);
+      width: 100%;
+
+      .categoryWrapper {
+        @include m.flex(flex-start);
+        flex-wrap: wrap;
+        gap: 4px;
+        width: 100%;
+        margin-bottom: 8px;
+      }
+
+      .title {
+        @include m.fontH4SemiBold;
+        @include m.makeEllipsis(2);
+        margin-bottom: 2px;
+        color: var(--c-black);
+      }
+    }
+
+    .priceInfo {
+      width: 100%;
+      margin-top: 12px;
+    }
+  }
+}

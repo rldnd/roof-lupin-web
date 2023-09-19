@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
-import { SpaceBookmark, SpaceDetailCard, UnorderedInfiniteScroll } from "@/components";
+import { SpaceBookmark, SpaceDetailCard, SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
@@ -61,9 +61,7 @@ const SpaceList: React.FC = () => {
       isRootContainer
     >
       {spaces.map((space) => (
-        <SpaceDetailCard key={space.id} href={`/spaces/${space.id}`} space={space}>
-          <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
-        </SpaceDetailCard>
+        <SpaceLocationCard key={space.id} space={space} />
       ))}
     </UnorderedInfiniteScroll>
   );

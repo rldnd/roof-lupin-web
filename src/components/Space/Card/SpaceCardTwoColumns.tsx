@@ -20,7 +20,6 @@ interface Props {
   children?: ReactNode;
 }
 
-// TODO: skeleton
 /** children => bookmark component */
 const SpaceCardTwoColumns: React.FC<Props> = ({ className, space, href, children }) => {
   return (
