@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
-import { SpaceBookmark, SpaceDetailCard, SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
+import { SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useUnmount, useWindowSize } from "react-use";
+import { useUnmount } from "react-use";
 
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
@@ -8,7 +8,6 @@ import { useClientEffect } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 const Map: React.FC = () => {
-  const { height } = useWindowSize();
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useClientEffect(() => {
