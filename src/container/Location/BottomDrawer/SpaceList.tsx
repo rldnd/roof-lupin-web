@@ -30,7 +30,7 @@ const SpaceList: React.FC = () => {
     height: mapSize[LOCATION_PAGE_MAP_ID]?.height,
   });
 
-  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Space>(
     ["paginateSpaces", mapCenter[LOCATION_PAGE_MAP_ID], locationCategoryIds, distance],
     ({ pageParam = 1 }) =>
       paginateSpacesApi({
