@@ -72,6 +72,8 @@ export interface Space {
   location: Location | null;
   /** 공간이 속한 카테고리 */
   categories: SpaceCategory[];
+  /** 옥상 유일 여부 */
+  isRoofOnly: boolean;
   /** 공간 순서 */
   orderNo: number | null;
   /** 초과 사용자 비용 */
