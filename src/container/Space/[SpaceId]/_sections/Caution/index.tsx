@@ -11,9 +11,9 @@ const Caution: React.FC<Props> = ({ cautions }) => {
     <section id="caution-section" className={styles.wrapper}>
       <h2>예약 시 주의사항</h2>
       <ol>
-        {cautions.map((caution) => (
+        {/* {cautions.map((caution) => (
           <li key={caution.id}>{caution.content}</li>
-        ))}
+        ))} */}
       </ol>
     </section>
   );

@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import type { SpaceDetail } from "@/common/types/space";
 import { HorizonDraggable } from "@/components";
 import { StarRatingItem } from "@/components/Common/StarRating";
+import { getHomeCategoryIconPath } from "@/utils/category";
 
 import { IconApprove, IconMaximum, IconStandard } from "public/icons";
 
@@ -56,7 +57,7 @@ const Introduction: React.FC<Props> = ({ space }) => {
         {categories.map((category) => (
           <TagItem
             key={category.id}
-            icon={<img src={category.iconPath as string} alt={`${category.name} 카테고리 이미지`} />}
+            icon={<img src={getHomeCategoryIconPath(category)} alt={`${category.name} 카테고리 이미지`} />}
             name={category.name}
           />
         ))}
