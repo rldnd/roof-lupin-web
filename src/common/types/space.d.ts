@@ -106,7 +106,7 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   /** 공간 이미지 목록 */
   images: ImageDTO[];
   /** 주의 사항 목록 */
-  cautions: Caution[];
+  caution: string;
   /** 리뷰 목록 */
   reviews: Review[];
   /** 시설 목록 */

@@ -5,17 +5,10 @@
   width: 100%;
   padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
-  ol {
-    @include m.flex(flex-end, flex-start, column);
-    gap: 10px;
-    width: 100%;
-    padding-left: 20px;
+  > p {
+    @include m.fontBody1Regular;
     margin-top: 16px;
-
-    li {
-      @include m.fontBody1Regular;
-      color: var(--c-gray-800);
-      list-style: decimal outside;
-    }
+    color: var(--c-gray-800);
+    white-space: pre-wrap;
   }
 }

@@ -1,20 +1,14 @@
-import type { Caution as CautionType } from "@/common/types/caution";
-
 import styles from "./caution.module.scss";
 
 interface Props {
-  cautions: CautionType[];
+  caution: string;
 }
 
-const Caution: React.FC<Props> = ({ cautions }) => {
+const Caution: React.FC<Props> = ({ caution }) => {
   return (
     <section id="caution-section" className={styles.wrapper}>
       <h2>예약 시 주의사항</h2>
-      <ol>
-        {/* {cautions.map((caution) => (
-          <li key={caution.id}>{caution.content}</li>
-        ))} */}
-      </ol>
+      <p>{caution}</p>
     </section>
   );
 };

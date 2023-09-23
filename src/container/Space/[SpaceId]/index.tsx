@@ -61,7 +61,7 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Building buildings={space.buildings} sizes={space.sizes} />
         <hr />
-        <Caution cautions={space.cautions} />
+        <Caution caution={space.caution} />
         <hr />
         <Location />
         <hr />
