@@ -1,8 +1,19 @@
+export interface ServiceIcon {
+  /** 서비스 아이디 */
+  serviceId: string;
+  /** 아이콘 아이디 */
+  iconId: string;
+  /** 아이콘 */
+  iconPath: string;
+  /** 선택용 여부 */
+  isSelected: boolean;
+}
+
 export interface Service {
   /** 시설 id */
   id: string;
   /** 시설 아이콘 경로 */
-  iconPath: string;
+  icons: ServiceIcon[];
   /** 시설 이름 */
   name: string;
 }
