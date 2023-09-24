@@ -8,6 +8,7 @@ import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceInterestsApi } from "@/services/space";
 
 import Bookmark from "./Bookmark";
+import Empty from "./Empty";
 
 import styles from "./interestList.module.scss";
 
@@ -28,6 +29,8 @@ const InterestList: React.FC = () => {
       fetchNextPage={fetchNextPage}
       isFetching={isFetching}
       isSuccess={isSuccess}
+      isEmpty={interests.pages.length === 0}
+      emptyComponent={<Empty />}
       hasNextPage={hasNextPage}
       loadingComponentInList={<LoadingInterestItems />}
     >

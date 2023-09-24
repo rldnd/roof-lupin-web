@@ -1,0 +1,25 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(50% auto auto 50%);
+  @include m.flex(flex-start, center, column);
+  transform: translate(-50%, -50%);
+
+  .image {
+    width: 75px;
+    height: 79.73px;
+    object-fit: contain;
+  }
+
+  .text {
+    @include m.fontButton1;
+    margin: 44px 0 8px;
+    color: var(--c-gray-600);
+  }
+
+  .desc {
+    @include m.fontCaption;
+    color: var(--c-gray-600);
+  }
+}
