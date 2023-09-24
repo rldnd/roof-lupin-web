@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 
 import { BottomSheetPortal } from "@/components/Common";
 import { useToast } from "@/hooks";
-import { SpaceReservationInfo, spaceReservationInfoState } from "@/states";
+import { initialSpaceReservationInfo, SpaceReservationInfo, spaceReservationInfoState } from "@/states";
 import { NotNullable } from "@/utils/types";
 
 import CalendarList, { LoadingCalendarList } from "./CalendarList";
@@ -44,8 +44,8 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
   };
 
   const onReset = useCallback(() => {
-    setLocalInfo(info);
-  }, [info]);
+    setLocalInfo(initialSpaceReservationInfo);
+  }, []);
 
   const onClickPlus = () => {
     if (localInfo.userCount === maxUser || localInfo.userCount === 99) {
@@ -71,8 +71,8 @@ const SpaceReservationInfoFilterBottomSheet: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    if (!isShow) onReset();
-  }, [isShow, onReset]);
+    if (!isShow) setLocalInfo(info);
+  }, [info, isShow]);
 
   return (
     <BottomSheetPortal
