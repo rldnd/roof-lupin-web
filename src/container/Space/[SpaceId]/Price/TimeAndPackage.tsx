@@ -14,6 +14,8 @@ import { spaceReservationInfoState } from "@/states";
 import { isPackageRentalType, isTimeRentalType } from "@/utils/rentalType";
 import { formatHourToAHHMM } from "@/utils/time";
 
+import Empty from "./Empty";
+
 import styles from "./timeAndPackage.module.scss";
 
 const TimeAndPackage: React.FC = () => {
@@ -25,6 +27,8 @@ const TimeAndPackage: React.FC = () => {
 
   const time = rentalTypes.find(isTimeRentalType);
   const packages = rentalTypes.filter(isPackageRentalType);
+
+  if (!time && packages.length === 0) return <Empty isShow />;
 
   return (
     <>
