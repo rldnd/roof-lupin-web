@@ -1,0 +1,32 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.flex(flex-start, center, column);
+  @include m.fixed(calc(50% + c.$S_BASE_HEADER_HEIGHT) auto auto 50%);
+  width: 100%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+
+  .image {
+    width: 96.748px;
+    height: 86.813px;
+    object-fit: contain;
+  }
+
+  .title {
+    @include m.fontButton1;
+    margin: 44px 0 8px;
+    color: var(--c-gray-600);
+    text-align: center;
+
+    > strong {
+      color: var(--c-roof-orange);
+    }
+  }
+
+  .desc {
+    @include m.fontCaption;
+    color: var(--c-gray-600);
+  }
+}
