@@ -2,7 +2,7 @@ import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
 import { BaseCenterHeader } from "@/components/Layout";
 
-import { AlarmSection, EventSection, LocationSection, LogoutSection, ResignSection } from "./_sections";
+import { AlarmSection, EventSection, LocationSection } from "./_sections";
 
 import styles from "./settingContainer.module.scss";
 
@@ -15,8 +15,6 @@ export default async function SettingContainer() {
           <AlarmSection />
           <LocationSection />
           <EventSection />
-          <LogoutSection />
-          <ResignSection />
         </main>
       </div>
     </ToastPositioner>

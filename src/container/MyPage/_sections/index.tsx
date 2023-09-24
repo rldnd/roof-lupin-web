@@ -11,3 +11,4 @@ export const CloseReservation = dynamic(() => import("./CloseReservation"), {
 export const AppVersionItem = dynamic(() => import("./AppVersionItem"), { ssr: false });
 
 export * from "./Menu";
+export { default as Logout } from "./Logout";

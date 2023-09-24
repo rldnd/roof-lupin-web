@@ -8,8 +8,7 @@ import { Loading } from "@/components";
 import { usePopConfirm } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 
-import ButtonItem from "../ButtonItem";
-import Section from "../Section";
+import { Item } from "../Menu";
 
 const LogoutSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,17 +23,15 @@ const LogoutSection: React.FC = () => {
       description: "로그인하고 다양한 혜택 소식을 받아보세요!",
       onConfirm: () => {
         setIsLoading(true);
-        onLogout();
         replace("/");
+        onLogout();
       },
     });
   };
 
   return (
     <>
-      <Section>
-        <ButtonItem onClick={onClickLogout}>로그아웃</ButtonItem>
-      </Section>
+      <Item onClick={onClickLogout}>로그아웃</Item>
       <Loading isShow={isLoading} />
     </>
   );

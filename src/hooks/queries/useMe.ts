@@ -45,7 +45,7 @@ const useMe = (options?: Options): UseMeReturn => {
     removeTokens();
     setMe(null);
     queryClient.invalidateQueries({
-      predicate: (query) => !["getMe", "getMyPushToken"].includes(query.queryKey[0] as string),
+      predicate: (query) => !["getMe", "getMyPushToken", "getMyCloseReservation"].includes(query.queryKey[0] as string),
     });
   }, [queryClient, setMe]);
 

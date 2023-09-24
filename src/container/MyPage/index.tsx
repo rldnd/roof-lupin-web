@@ -2,7 +2,7 @@ import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
 import { BottomNavigation, Footer } from "@/components/Layout";
 
-import { AppVersionItem, CloseReservation, Info, Item, Title } from "./_sections";
+import { AppVersionItem, CloseReservation, Info, Item, Logout, Title } from "./_sections";
 
 import styles from "./myPage.module.scss";
 
@@ -28,6 +28,7 @@ export default async function MyContainer() {
             <Item href="/settings">설정</Item>
             <Item>약관 및 정책</Item>
             <AppVersionItem />
+            <Logout />
           </div>
         </main>
         <Footer className={styles.footer} />
