@@ -10,6 +10,8 @@ import { LoadingSpaceReservationCard, SpaceReservationCard, UnorderedInfiniteScr
 import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateMyReservationsApi } from "@/services/reservation";
 
+import Empty from "./Empty";
+
 import styles from "./list.module.scss";
 
 const List: React.FC = () => {
@@ -33,6 +35,8 @@ const List: React.FC = () => {
       hasNextPage={hasNextPage}
       isSuccess={isSuccess}
       isFetching={isFetching}
+      isEmpty={data.pages.length === 0}
+      emptyComponent={<Empty activeTab={activeTab} />}
       className={styles.wrapper}
       fetchNextPage={fetchNextPage}
       loadingComponent={<LoadingList />}
