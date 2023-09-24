@@ -11,6 +11,7 @@ import {
   Carousel,
   CarouselItem,
   Caution,
+  EmptyReview,
   Footer,
   Header,
   Introduction,
@@ -65,7 +66,10 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Location />
         <hr />
-        <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
+        {space.reviews.length === 0 && <EmptyReview />}
+        {space.reviews.length !== 0 && (
+          <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
+        )}
         <hr />
         <MenuItem title={`Q&A (${space.qnaCount})`} href={`/spaces/${params.spaceId}/qnas`} />
         <hr />

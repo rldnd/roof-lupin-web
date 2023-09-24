@@ -1,0 +1,24 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING 68px;
+
+  .title {
+    @include m.flex(flex-start);
+    @include m.fontH3SemiBold;
+    gap: 4px;
+    width: 100%;
+    padding-bottom: 16px;
+    color: var(--c-black);
+    border-bottom: 2px solid var(--c-gray-150);
+  }
+
+  .text {
+    @include m.fontButton1;
+    margin-top: 100px;
+    color: var(--c-gray-600);
+    text-align: center;
+  }
+}

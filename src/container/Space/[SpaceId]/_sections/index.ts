@@ -9,7 +9,7 @@ export { default as Introduction } from "./Introduction";
 export { default as Location } from "./Location";
 export { default as Price } from "./Price";
 export { default as ReportButton } from "./ReportButton";
-export { default as Review } from "./Review";
+export { Review, EmptyReview } from "./Review";
 export { default as TabBar } from "./TabBar";
 export { default as Refund } from "./Refund";
 export { default as OpenHourAndHoliday } from "./OpenHourAndHoliday";
