@@ -11,7 +11,8 @@ import type { ActionOmitter, AddMarkerParameter } from "@/components/NaverMap/ty
 import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
-import { getDistance } from "@/utils/naverMap";
+import { getMapCategoryIconPath } from "@/utils/category";
+import { getDistance, getMapMarkerIconWithOrderNoSorting } from "@/utils/naverMap";
 
 import styles from "./spaceList.module.scss";
 
@@ -65,13 +66,31 @@ const SpaceList: React.FC = () => {
         if (acc.some((item) => lat === item.lat && lng === item.lng)) {
           return acc.reduce<AddMarkerParameterWithoutAction[]>((tempAcc, tempCur) => {
             if (tempCur.lat === lat && tempCur.lng === lng) {
-              return [...tempAcc, { ...tempCur, spaceId: [...tempCur.spaceId, cur.id], title: undefined }];
+              // TODO: 카테고리 여러개일 때 icon
+              return [
+                ...tempAcc,
+                { ...tempCur, spaceId: [...tempCur.spaceId, cur.id], title: undefined, orderNo: cur.orderNo },
+              ];
             }
             return tempAcc;
           }, []);
         }
 
-        return [...acc, { spaceId: [cur.id], title: cur.title, icon: "", replaceDuplicateLocation: true, lat, lng }];
+        const category = getMapMarkerIconWithOrderNoSorting(cur.categories);
+        if (!category) return acc;
+
+        return [
+          ...acc,
+          {
+            spaceId: [cur.id],
+            title: cur.title,
+            icon: getMapCategoryIconPath(category),
+            replaceDuplicateLocation: true,
+            lat,
+            lng,
+            orderNo: cur.orderNo,
+          },
+        ];
       }, []);
 
       addMarkers({ markers, clearBeforeMarkers: true });

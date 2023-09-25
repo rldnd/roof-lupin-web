@@ -1,6 +1,5 @@
 import type { Building } from "./building";
 import type { CategoryIcon } from "./category";
-import type { Caution } from "./caution";
 import type { Day, ImageDTO } from "./common";
 import type { Host } from "./host";
 import type { Location } from "./location";
@@ -29,6 +28,8 @@ export interface SpaceCategory {
   id: string;
   /** 카테고리 이름 */
   name: string;
+  /** 공간 순서 */
+  orderNo: number | null;
   /** 아이콘 이미지 경로 */
   icons: CategoryIcon[];
 }

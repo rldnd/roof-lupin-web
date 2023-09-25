@@ -16,7 +16,7 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
-import { useClientEffect, useThrottleSetAtom } from "@/hooks";
+import { useThrottleSetAtom } from "@/hooks";
 import { clickedMapMarkerState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
@@ -206,7 +206,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const addMarker = useCallback(
     (data: BaseNaverMapEventParameter<AddMarkerParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
-      const { lat, lng, icon, title } = data;
+      const { lat, lng, icon, title, spaceId } = data;
       if (!data.replaceDuplicateLocation && checkMarkerLocationDuplicates(markers.current, { lat, lng })) return;
 
       const marker = new naver.maps.Marker({
@@ -223,7 +223,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const listener = marker.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
         window.dispatchEvent(
           new CustomEvent<MarkerClickedCustomEvent>(`${MARKER_CLICKED_EVENT_NAME}-${id}`, {
-            detail: { location: { lat, lng }, icon, title, spaceId: data.spaceId },
+            detail: { location: { lat, lng }, icon, title, spaceId },
           }),
         );
       });

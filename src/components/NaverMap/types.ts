@@ -29,6 +29,7 @@ export interface AddMarkerParameter extends Pick<Location, "lat" | "lng"> {
   spaceId: string[];
   title?: string;
   icon: string;
+  orderNo: number | null;
   replaceDuplicateLocation: boolean;
 }
 

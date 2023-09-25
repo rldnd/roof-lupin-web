@@ -1,6 +1,7 @@
 import type { MutableRefObject } from "react";
 
 import { MAP_SCALE_MAPPER } from "@/common/constants";
+import { SpaceCategory } from "@/common/types/space";
 import type { MarkerValue } from "@/components/NaverMap/types";
 
 type LocationObject = {
@@ -65,14 +66,19 @@ export const checkMarkerLocationDuplicates = (
 };
 
 export const getMapMarkerContent = (icon: string) => {
-  return `<div style="position: relative; width:38px; height:38px; display: flex; align-items: center; justify-contents: center;"><img src="/icons/map/map-marker.svg" width="27.636px" height="34.545px" alt="마커" /><img src=${icon} width="20px" height="20px" alt="마커 이미지" style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%);"/></div>`;
+  return `<div style="position: relative; width:38px; height:38px; display: flex; align-items: center; justify-content: center;"><img src="/icons/map/map-marker.svg" alt="마커" /><img src=${icon} width="20px" height="20px" alt="마커 이미지" object-fit: contain; style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%);"/></div>`;
 };
 
 export const getClickedMapMarkerContent = (icon: string, title?: string) => {
-  return `<div style="position: relative; display: flex; align-items: center; justify-contents: center; width:100px; flex-direction: column;"><img src="/icons/map/map-clicked-marker.svg" width="62px" height="72.333px" alt="마커" /><img src=${icon} width="20px" height="20px" alt="마커 이미지" style="position: absolute; top: 8.16px; left: 50%; transform: scale(1.6) translateX(-50%);"/>
+  return `<div style="position: relative; display: flex; align-items: center; justify-content: center; width:100px; flex-direction: column; margin-top: 32px;"><img src="/icons/map/map-clicked-marker.svg" width="62px" height="72.333px" alt="마커" /><img src=${icon} width="20px" height="20px" alt="마커 이미지" style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%) scale(1.6);"/>
   ${
     title &&
     `<span style="color: #212121; font-size: 12px; font-style: normal; font-weight: 600; line-height: 130%; text-align: center;">${title}<span/>`
   }
   </div>`;
+};
+
+export const getMapMarkerIconWithOrderNoSorting = (categories: SpaceCategory[]) => {
+  if (categories.length === 0) return null;
+  return [...categories].sort((a, b) => a.orderNo ?? 100 - (b.orderNo ?? 100))[0];
 };
