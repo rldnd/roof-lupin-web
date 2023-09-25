@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import "@/utils/ga";
 import "@/utils/naverMap";
 
+import EventEmitter from "events";
 import NextTopLoader from "nextjs-toploader";
 
 import { LoginBottomSheet } from "@/components/BottomSheets/Auth";
@@ -20,6 +21,8 @@ import WindowSizeHandler from "./WindowSizeHandler";
 
 import styles from "./layout.module.scss";
 import "@/styles/global.scss";
+
+EventEmitter.defaultMaxListeners = 30;
 
 export const metadata: Metadata = {
   title: {

@@ -151,7 +151,26 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         });
 
         if (!info.restorePosition) initializeCenterAndZoom();
-        initializeSizeAndClickedMarker();
+        if (info.restorePosition && !hasMapCenter) initializeSizeAndClickedMarker();
+
+        if (
+          info.restorePosition &&
+          !hasMapCenter &&
+          info?.options &&
+          info.options?.center &&
+          "lat" in info.options.center &&
+          "lng" in info.options.center
+        ) {
+          const { lat, lng } = info.options.center;
+          setMapCenter((prev) => ({
+            ...prev,
+            [info.mapId]: { lat: lat.toString(), lng: lng.toString() },
+          }));
+        }
+
+        if (info.restorePosition && !hasZoom && info?.options && "zoom" in info.options) {
+          setMapZoom((prev) => ({ ...prev, [info.mapId]: Number(info.options!.zoom) }));
+        }
 
         addCenterChangedListener();
         addZoomChangedListener();
@@ -169,6 +188,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       initializeSizeAndClickedMarker,
       mapCenter,
       mapZoom,
+      setMapCenter,
+      setMapZoom,
     ],
   );
 

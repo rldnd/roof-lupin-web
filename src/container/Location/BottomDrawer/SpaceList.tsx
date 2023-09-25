@@ -17,7 +17,7 @@ import styles from "./spaceList.module.scss";
 const LIMIT = 9999;
 
 const SpaceList: React.FC = () => {
-  const { addMarkers } = useNaverMap(LOCATION_PAGE_MAP_ID);
+  const { addMarkers, clearMarkers } = useNaverMap(LOCATION_PAGE_MAP_ID);
   const [spaces, setSpaces] = useState<Space[]>([]);
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
@@ -51,6 +51,10 @@ const SpaceList: React.FC = () => {
     if (!isSuccess) return;
     setSpaces(data?.pages);
   }, [data?.pages, isSuccess]);
+
+  useEffect(() => {
+    if (spaces.length === 0) clearMarkers();
+  }, [clearMarkers, spaces]);
 
   return (
     <UnorderedInfiniteScroll
