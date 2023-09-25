@@ -5,7 +5,9 @@ import type { Location } from "@/common/types/location";
 import { sessionPersistenceAtom } from "@/utils/jotai";
 
 interface ClickedMapMarkerValue {
-  spaceId: string;
+  spaceId: string[];
+  icon: string;
+  title?: string;
   location: Pick<Location, "lat" | "lng">;
 }
 

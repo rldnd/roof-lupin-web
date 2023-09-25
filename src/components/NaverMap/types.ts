@@ -26,7 +26,9 @@ export interface MoveCenterParameter extends Pick<Location, "lat" | "lng"> {
 
 export interface AddMarkerParameter extends Pick<Location, "lat" | "lng"> {
   action: "addMarker";
-  spaceId: string;
+  spaceId: string[];
+  title?: string;
+  icon: string;
   replaceDuplicateLocation: boolean;
 }
 
@@ -68,7 +70,9 @@ export interface MarkerClickedCustomEvent {
     lat: string;
     lng: string;
   };
-  spaceId: string;
+  title?: string;
+  icon: string;
+  spaceId: string[];
 }
 
 export interface MarkerValue {

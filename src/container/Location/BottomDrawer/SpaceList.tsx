@@ -7,12 +7,15 @@ import { useAtomValue } from "jotai";
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
 import { SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
+import type { ActionOmitter, AddMarkerParameter } from "@/components/NaverMap/types";
 import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { getDistance } from "@/utils/naverMap";
 
 import styles from "./spaceList.module.scss";
+
+type AddMarkerParameterWithoutAction = ActionOmitter<AddMarkerParameter>;
 
 const LIMIT = 9999;
 
@@ -54,7 +57,26 @@ const SpaceList: React.FC = () => {
 
   useEffect(() => {
     if (spaces.length === 0) clearMarkers();
-  }, [clearMarkers, spaces]);
+    if (spaces.length !== 0) {
+      const markers = spaces.reduce<AddMarkerParameterWithoutAction[]>((acc, cur) => {
+        if (!cur.location) return acc;
+
+        const { lat, lng } = cur.location;
+        if (acc.some((item) => lat === item.lat && lng === item.lng)) {
+          return acc.reduce<AddMarkerParameterWithoutAction[]>((tempAcc, tempCur) => {
+            if (tempCur.lat === lat && tempCur.lng === lng) {
+              return [...tempAcc, { ...tempCur, spaceId: [...tempCur.spaceId, cur.id], title: undefined }];
+            }
+            return tempAcc;
+          }, []);
+        }
+
+        return [...acc, { spaceId: [cur.id], title: cur.title, icon: "", replaceDuplicateLocation: true, lat, lng }];
+      }, []);
+
+      addMarkers({ markers, clearBeforeMarkers: true });
+    }
+  }, [addMarkers, clearMarkers, spaces]);
 
   return (
     <UnorderedInfiniteScroll
@@ -65,6 +87,7 @@ const SpaceList: React.FC = () => {
       isSuccess={isSuccess}
       isRootContainer
     >
+      <button type="button">마커 추가</button>
       {spaces.map((space) => (
         <SpaceLocationCard key={space.id} space={space} />
       ))}

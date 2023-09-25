@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
@@ -23,6 +23,8 @@ import {
   checkIsTargetMap,
   checkMapLoaded,
   checkMarkerLocationDuplicates,
+  getClickedMapMarkerContent,
+  getMapMarkerContent,
   getMarkerLocationObjectToString,
   loadNaverMapScript,
 } from "@/utils/naverMap";
@@ -31,9 +33,6 @@ import naverMapEventEmitter from "./NaverMapEventEmitter";
 
 const MARKER_Z_INDEX = 0;
 const MARKER_CLICKED_Z_INDEX = 1;
-
-const mapMarkerContent = `<img src="/icons/map/map-marker.svg" width="32" height="32" alt="마커" />`;
-const mapClickedMarkerContent = `<img src="/icons/map/map-clicked-marker.svg" width="56" height="56" alt="클릭된 마커" />`;
 
 interface Props {
   id: string;
@@ -61,24 +60,24 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 
-  // MEMO: 지도의 실제 픽셀 크기와 선택된 마커 초기화
-  const initializeSizeAndClickedMarker = useCallback(() => {
+  // MEMO: 지도의 실제 픽셀 크기 초기화
+  const initializeSize = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
     const size = mapController.current.getSize();
 
     setMapSize((prev) => ({ ...prev, [id]: { width: size.width, height: size.height } }));
-    setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
-  }, [id, setClickedMapMarker, setMapSize]);
+  }, [id, setMapSize]);
 
-  // MEMO: 지도의 중심 좌표와 줌 초기화
-  const initializeCenterAndZoom = useCallback(() => {
+  // MEMO: 지도의 중심 좌표와 줌과 선택된 마커 초기화
+  const initializeCenterAndZoomAndClickedMarker = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
     const center = mapController.current.getCenter();
     const zoom = mapController.current.getZoom();
     setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
     setMapZoom((prev) => ({ ...prev, [id]: zoom }));
-  }, [id, setMapCenter, setMapZoom]);
+    setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
+  }, [id, setClickedMapMarker, setMapCenter, setMapZoom]);
 
   // MEMO: 지도의 중심 좌표가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addCenterChangedListener = useCallback(() => {
@@ -99,10 +98,11 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     const zoomChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.ZOOM_CHANGED, () => {
       const zoom = mapController.current.getZoom();
       setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+      setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     });
 
     listeners.current.push(zoomChangedListener);
-  }, [id, setMapZoom]);
+  }, [id, setClickedMapMarker, setMapZoom]);
 
   // MEMO: 지도의 실제 width, height가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addResizeListener = useCallback(() => {
@@ -150,8 +150,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
             }),
         });
 
-        if (!info.restorePosition) initializeCenterAndZoom();
-        if (info.restorePosition && !hasMapCenter) initializeSizeAndClickedMarker();
+        initializeSize();
+        if (!info.restorePosition || (info.restorePosition && !hasMapCenter)) initializeCenterAndZoomAndClickedMarker();
 
         if (
           info.restorePosition &&
@@ -184,8 +184,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       addResizeListener,
       addZoomChangedListener,
       id,
-      initializeCenterAndZoom,
-      initializeSizeAndClickedMarker,
+      initializeCenterAndZoomAndClickedMarker,
+      initializeSize,
       mapCenter,
       mapZoom,
       setMapCenter,
@@ -206,7 +206,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const addMarker = useCallback(
     (data: BaseNaverMapEventParameter<AddMarkerParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
-      const { lat, lng } = data;
+      const { lat, lng, icon, title } = data;
       if (!data.replaceDuplicateLocation && checkMarkerLocationDuplicates(markers.current, { lat, lng })) return;
 
       const marker = new naver.maps.Marker({
@@ -214,8 +214,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         map: mapController.current,
         clickable: true,
         icon: {
-          content: mapMarkerContent,
-          size: new naver.maps.Size(32, 32),
+          content: getMapMarkerContent(icon),
+          size: new naver.maps.Size(38, 38),
         },
         zIndex: MARKER_Z_INDEX,
       });
@@ -223,7 +223,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const listener = marker.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CLICK, () => {
         window.dispatchEvent(
           new CustomEvent<MarkerClickedCustomEvent>(`${MARKER_CLICKED_EVENT_NAME}-${id}`, {
-            detail: { location: { lat, lng }, spaceId: data.spaceId },
+            detail: { location: { lat, lng }, icon, title, spaceId: data.spaceId },
           }),
         );
       });
@@ -296,7 +296,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   );
 
   // MEMO: event emitter listener
-  useClientEffect(() => {
+  useEffect(() => {
     const callback: NaverMapEventCallback = (event) => {
       if (event.action === "load") load(event);
       if (event.action === "moveCenter") moveCenter(event);
@@ -311,34 +311,34 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     return () => {
       naverMapEventEmitter.removeEventListener(callback);
     };
-  }, [addMarker, addMarkers, destroy, id, load, moveCenter]);
+  }, [addMarker, addMarkers, clearMarkers, deleteMarker, destroy, id, load, moveCenter]);
 
-  useClientEffect(() => {
+  useEffect(() => {
     // MEMO: 마커를 클릭할 시 이미 활성화 되어있는 마커가 있는 경우 해당 마커를 원복시키고, 클릭한 마커를 활성화 시킨다.
     const markerClickedHandler = (event: CustomEvent<MarkerClickedCustomEvent>) => {
-      const { location, spaceId } = event.detail;
+      const { location, spaceId, icon, title } = event.detail;
       const { lat, lng } = location;
 
       const clickedMarker = markers.current[getMarkerLocationObjectToString({ lat, lng })];
       clickedMarker.marker.setIcon({
-        content: mapClickedMarkerContent,
-        size: new naver.maps.Size(56, 56),
+        content: getClickedMapMarkerContent(icon, title),
+        size: new naver.maps.Size(100, 100),
       });
       clickedMarker.marker.setZIndex(MARKER_CLICKED_Z_INDEX);
 
       const prevClickedMapMarker = clickedMapMarker?.[id];
       if (prevClickedMapMarker) {
-        const marker = markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)].marker;
-        marker.setIcon({
-          content: mapMarkerContent,
-          size: new naver.maps.Size(32, 32),
+        const marker = markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)]?.marker;
+        marker?.setIcon({
+          content: getMapMarkerContent(icon),
+          size: new naver.maps.Size(38, 38),
         });
-        marker.setZIndex(MARKER_Z_INDEX);
+        marker?.setZIndex(MARKER_Z_INDEX);
       }
 
       setClickedMapMarker((prev) => ({
         ...prev,
-        [id]: { spaceId, location: { lat, lng } },
+        [id]: { spaceId, icon, title, location: { lat, lng } },
       }));
     };
 
@@ -348,8 +348,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (!prevClickedMapMarker) return;
 
       markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)].marker.setIcon({
-        content: mapMarkerContent,
-        size: new naver.maps.Size(32, 32),
+        content: getMapMarkerContent(prevClickedMapMarker.icon),
+        size: new naver.maps.Size(38, 38),
       });
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     };
