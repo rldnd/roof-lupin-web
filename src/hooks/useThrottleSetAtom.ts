@@ -4,7 +4,7 @@ import { type PrimitiveAtom, useSetAtom } from "jotai";
 import { type DebouncedFunc, throttle, type ThrottleSettings } from "lodash-es";
 
 interface WithInitialValue<T> {
-  init: T;
+  init?: T;
 }
 
 const useThrottleSetAtom = <T>(

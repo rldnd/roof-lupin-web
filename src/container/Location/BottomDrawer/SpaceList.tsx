@@ -7,16 +7,17 @@ import { useAtomValue } from "jotai";
 import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
 import { SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
-import { useSuspenseInfiniteQuery } from "@/hooks";
+import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
 import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { getDistance } from "@/utils/naverMap";
 
 import styles from "./spaceList.module.scss";
 
-const LIMIT = 10;
+const LIMIT = 9999;
 
 const SpaceList: React.FC = () => {
+  const { addMarkers } = useNaverMap(LOCATION_PAGE_MAP_ID);
   const [spaces, setSpaces] = useState<Space[]>([]);
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);

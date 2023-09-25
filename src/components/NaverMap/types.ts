@@ -12,6 +12,7 @@ export type NaverMapEventAction =
 
 export interface LoadParameter {
   action: "load";
+  restorePosition: boolean;
   options?: naver.maps.MapOptions;
 }
 

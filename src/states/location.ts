@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 
+import { MAP_CENTER, MAP_ZOOM } from "@/common/constants";
 import type { Location } from "@/common/types/location";
+import { sessionPersistenceAtom } from "@/utils/jotai";
 
 interface ClickedMapMarkerValue {
   spaceId: string;
@@ -14,10 +16,10 @@ export type MapSize = Record<string, { width: number; height: number }>;
 export type ClickedMapMarker = Record<string, ClickedMapMarkerValue | null>;
 
 export const initialMapZoom: MapZoom = {};
-export const mapZoomState = atom<MapZoom>(initialMapZoom);
+export const mapZoomState = sessionPersistenceAtom<MapZoom>(MAP_ZOOM, initialMapZoom);
 
 export const initialMapCenter: MapCenter = {};
-export const mapCenterState = atom<MapCenter>(initialMapCenter);
+export const mapCenterState = sessionPersistenceAtom<MapCenter>(MAP_CENTER, initialMapCenter);
 
 export const initialLocationCategoryIds: string[] = [];
 export const locationCategoryIdsState = atom<string[]>(initialLocationCategoryIds);

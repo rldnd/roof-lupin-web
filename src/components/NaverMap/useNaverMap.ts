@@ -5,13 +5,14 @@ import type {
   AddMarkerParameter,
   AddMarkersParameter,
   DeleteMarkerParameter,
+  LoadParameter,
   MoveCenterParameter,
 } from "./types";
 
 import naverMapEventEmitter from "./NaverMapEventEmitter";
 
 type ReturnUseNaverMap = {
-  load(options?: naver.maps.MapOptions): void;
+  load(options?: ActionOmitter<LoadParameter>): void;
   moveCenter(position: ActionOmitter<MoveCenterParameter>): void;
   addMarker(data: ActionOmitter<AddMarkerParameter>): void;
   addMarkers(data: ActionOmitter<AddMarkersParameter>): void;
@@ -22,8 +23,13 @@ type ReturnUseNaverMap = {
 
 const useNaverMap = (mapId: string): ReturnUseNaverMap => {
   const load = useCallback(
-    (options?: naver.maps.MapOptions) => {
-      naverMapEventEmitter.load({ action: "load", mapId, options });
+    (data: ActionOmitter<LoadParameter>) => {
+      naverMapEventEmitter.load({
+        action: "load",
+        mapId,
+        options: data.options,
+        restorePosition: data.restorePosition,
+      });
     },
     [mapId],
   );

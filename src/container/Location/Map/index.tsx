@@ -11,7 +11,7 @@ const Map: React.FC = () => {
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useClientEffect(() => {
-    load({ center: { lat: 37.3595704, lng: 127.105399 }, zoom: 16 });
+    load({ options: { center: { lat: 37.3595704, lng: 127.105399 }, zoom: 16 }, restorePosition: true });
   }, [load]);
 
   useUnmount(() => {

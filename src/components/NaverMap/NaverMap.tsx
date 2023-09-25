@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useRef } from "react";
 
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import type {
   AddMarkerParameter,
@@ -50,25 +50,35 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: Record<'${lat},${lng}', value>
   const markers = useRef<Record<string, MarkerValue>>({});
 
+  const mapCenter = useAtomValue(mapCenterState);
+  const mapZoom = useAtomValue(mapZoomState);
+
   // MEMO: 하단 3개의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
-  const setMapCenter = useThrottleSetAtom(mapCenterState);
+  const setMapCenter = useThrottleSetAtom(mapCenterState, 100);
   const setMapSize = useThrottleSetAtom(mapSizeState);
   const setMapZoom = useSetAtom(mapZoomState);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 
-  // MEMO: atom 초기화
-  const initializeAtom = useCallback(() => {
+  // MEMO: 지도의 실제 픽셀 크기와 선택된 마커 초기화
+  const initializeSizeAndClickedMarker = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
-    const center = mapController.current.getCenter();
-    const zoom = mapController.current.getZoom();
     const size = mapController.current.getSize();
-    setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
-    setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+
     setMapSize((prev) => ({ ...prev, [id]: { width: size.width, height: size.height } }));
     setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
-  }, [id, setClickedMapMarker, setMapCenter, setMapSize, setMapZoom]);
+  }, [id, setClickedMapMarker, setMapSize]);
+
+  // MEMO: 지도의 중심 좌표와 줌 초기화
+  const initializeCenterAndZoom = useCallback(() => {
+    if (!checkMapLoaded(mapController)) return;
+
+    const center = mapController.current.getCenter();
+    const zoom = mapController.current.getZoom();
+    setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
+    setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+  }, [id, setMapCenter, setMapZoom]);
 
   // MEMO: 지도의 중심 좌표가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addCenterChangedListener = useCallback(() => {
@@ -125,9 +135,23 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (!checkIsTargetMap(info.mapId, id)) return;
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
-        mapController.current = new naver.maps.Map(id, info.options);
+        const hasMapCenter = info.mapId in mapCenter;
+        const hasZoom = info.mapId in mapZoom;
 
-        initializeAtom();
+        mapController.current = new naver.maps.Map(id, {
+          ...info.options,
+          ...(info.restorePosition &&
+            hasMapCenter && {
+              center: { lat: Number(mapCenter[info.mapId].lat), lng: Number(mapCenter[info.mapId].lng) },
+            }),
+          ...(info.restorePosition &&
+            hasZoom && {
+              zoom: Number(mapZoom[info.mapId]),
+            }),
+        });
+
+        if (!info.restorePosition) initializeCenterAndZoom();
+        initializeSizeAndClickedMarker();
 
         addCenterChangedListener();
         addZoomChangedListener();
@@ -135,7 +159,17 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         addMouseDownListener();
       };
     },
-    [addCenterChangedListener, addMouseDownListener, addResizeListener, addZoomChangedListener, id, initializeAtom],
+    [
+      addCenterChangedListener,
+      addMouseDownListener,
+      addResizeListener,
+      addZoomChangedListener,
+      id,
+      initializeCenterAndZoom,
+      initializeSizeAndClickedMarker,
+      mapCenter,
+      mapZoom,
+    ],
   );
 
   // MEMO: 지도의 중심 좌표를 변경하기 위한 emit 함수
