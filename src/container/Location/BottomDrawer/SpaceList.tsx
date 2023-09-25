@@ -106,7 +106,6 @@ const SpaceList: React.FC = () => {
       isSuccess={isSuccess}
       isRootContainer
     >
-      <button type="button">마커 추가</button>
       {spaces.map((space) => (
         <SpaceLocationCard key={space.id} space={space} />
       ))}

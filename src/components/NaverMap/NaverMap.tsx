@@ -2,6 +2,8 @@
 
 import { memo, useCallback, useEffect, useRef } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import type {
@@ -16,7 +18,7 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
-import { useThrottleSetAtom } from "@/hooks";
+import { useDebounceCallback, useThrottleSetAtom } from "@/hooks";
 import { clickedMapMarkerState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
@@ -41,7 +43,9 @@ interface Props {
   className?: string;
 }
 
+// TODO: mapCenter, mapZoom 쿼리로 변경하기
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
+  const { replace } = useRouter();
   const listeners = useRef<naver.maps.MapEventListener[]>([]);
   const naverMapScript = useRef<HTMLScriptElement>();
   const mapController = useRef<naver.maps.Map>();
@@ -59,6 +63,15 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const setMapZoom = useSetAtom(mapZoomState);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
+
+  const replaceLocationQuery = useCallback(
+    (lat: string, lng: string) => {
+      replace(`/locations?lat=${lat}&lng=${lng}`);
+    },
+    [replace],
+  );
+
+  const replaceLocationQueryDebounce = useDebounceCallback(replaceLocationQuery);
 
   // MEMO: 지도의 실제 픽셀 크기 초기화
   const initializeSize = useCallback(() => {
@@ -86,10 +99,11 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     const centerChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CENTER_CHANGED, () => {
       const center = mapController.current.getCenter();
       setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
+      replaceLocationQueryDebounce(center.y.toString(), center.x.toString());
     });
 
     listeners.current.push(centerChangedListener);
-  }, [id, setMapCenter]);
+  }, [id, replaceLocationQueryDebounce, setMapCenter]);
 
   // MEMO: 지도의 줌 레벨이 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addZoomChangedListener = useCallback(() => {
@@ -198,8 +212,9 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     (position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(position.mapId, id)) return;
       mapController.current.setCenter({ lat: Number(position.lat), lng: Number(position.lng) });
+      replace(`/locations?lat=${position.lat}&lng=${position.lng}`);
     },
-    [id],
+    [id, replace],
   );
 
   // MEMO: 지도에 마커를 추가하기 위한 emit 함수
