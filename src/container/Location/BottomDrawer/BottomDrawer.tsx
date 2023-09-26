@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, useEffect, useRef } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 
 import { useAtomValue } from "jotai";
 import { type BottomSheetRef } from "react-spring-bottom-sheet";
@@ -23,29 +23,40 @@ const HAS_TWO_CARD_SIZE = ONE_CARD_SIZE * 2 + MIN_SIZE;
 const MAX_SIZE = (maxHeight: number) =>
   maxHeight - getNumberFromPixel(sizes.baseHeaderHeight) - getNumberFromPixel(sizes.locationCategoryHeight) - 40;
 
+const getSnapPoints = (markerCount: number, maxHeight: number) => {
+  const maxSize = MAX_SIZE(maxHeight);
+  if (markerCount === 0) return [MIN_SIZE, maxSize];
+  if (markerCount === 1) return [HAS_ONE_CARD_SIZE];
+  if (markerCount === 2) return [MIN_SIZE, HAS_TWO_CARD_SIZE];
+  return [MIN_SIZE, maxSize];
+};
+
+const getSnapToPoint = (markerCount: number) => {
+  if (markerCount === 0) return MIN_SIZE;
+  if (markerCount === 1) return HAS_ONE_CARD_SIZE;
+  if (markerCount === 2) return HAS_TWO_CARD_SIZE;
+  return MIN_SIZE;
+};
+
 const BottomDrawer: React.FC = () => {
   const sheetRef = useRef<BottomSheetRef>(null);
   const maxHeightRef = useRef(0);
   const clickedMapMarker = useAtomValue(clickedMapMarkerState);
 
+  const [snapPoints, setSnapPoints] = useState<number[]>([MIN_SIZE]);
+
+  const hasMap = LOCATION_PAGE_MAP_ID in clickedMapMarker;
+  const hasClickedMarker =
+    hasMap && clickedMapMarker[LOCATION_PAGE_MAP_ID] && clickedMapMarker[LOCATION_PAGE_MAP_ID].spaceId.length !== 0;
+  const markerCount = !hasMap || !hasClickedMarker ? 0 : clickedMapMarker[LOCATION_PAGE_MAP_ID]?.spaceId.length ?? 0;
+
   useEffect(() => {
-    if (!(LOCATION_PAGE_MAP_ID in clickedMapMarker)) return;
-    if (!clickedMapMarker[LOCATION_PAGE_MAP_ID] || clickedMapMarker[LOCATION_PAGE_MAP_ID].spaceId.length === 0) {
-      sheetRef.current?.snapTo(MIN_SIZE);
-      return;
-    }
+    setSnapPoints(getSnapPoints(markerCount, maxHeightRef.current));
+  }, [clickedMapMarker, hasClickedMarker, hasMap, markerCount]);
 
-    const cardCount = clickedMapMarker[LOCATION_PAGE_MAP_ID].spaceId.length;
-    if (cardCount === 1) sheetRef.current?.snapTo(HAS_ONE_CARD_SIZE);
-    else if (cardCount === 2) sheetRef.current?.snapTo(HAS_TWO_CARD_SIZE);
-    else sheetRef.current?.snapTo(MAX_SIZE(maxHeightRef.current));
-  }, [clickedMapMarker]);
-
-  // TODO: snap points 세팅
-  // 0개 선택일 때에는 최소, 최대
-  // 1개 선택일 때에는 1개 사이즈
-  // 2개 선택일 때에는 최소 사이즈, 2개 사이즈
-  // 3개 일때부턴 최소, 최대
+  useEffect(() => {
+    sheetRef.current?.snapTo(getSnapToPoint(markerCount));
+  }, [markerCount, snapPoints]);
 
   return (
     <BottomSheet
@@ -56,7 +67,7 @@ const BottomDrawer: React.FC = () => {
       defaultSnap={MIN_SIZE}
       snapPoints={({ maxHeight }) => {
         maxHeightRef.current = maxHeight;
-        return [MIN_SIZE, HAS_ONE_CARD_SIZE, HAS_TWO_CARD_SIZE, MAX_SIZE(maxHeight)];
+        return snapPoints;
       }}
       expandOnContentDrag
       blocking={false}

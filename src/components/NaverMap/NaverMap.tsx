@@ -105,10 +105,12 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     const centerChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CENTER_CHANGED, () => {
       const center = mapController.current.getCenter();
       replaceLocationQueryDebounce(center.y.toString(), center.x.toString());
+      setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     });
 
     listeners.current.push(centerChangedListener);
-  }, [replaceLocationQueryDebounce]);
+  }, [id, replaceLocationQueryDebounce, setClickedMapMarker]);
+
   // MEMO: 지도의 줌 레벨이 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addZoomChangedListener = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
@@ -353,8 +355,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const prevClickedMapMarker = clickedMapMarker?.[id];
       if (!prevClickedMapMarker) return;
 
-      markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)].marker.setIcon({
-        content: getMapMarkerContent(prevClickedMapMarker.icon, 1),
+      markers.current?.[getMarkerLocationObjectToString(prevClickedMapMarker.location)]?.marker?.setIcon({
+        content: getMapMarkerContent(prevClickedMapMarker?.icon, 1),
         size: new naver.maps.Size(38, 38),
       });
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));

@@ -129,15 +129,15 @@ export const MAP_SCALE_MAPPER: Record<number, MapScale> = {
   },
   16: {
     unitPixel: 53,
-    realDistancePerUnit: 100,
+    realDistancePerUnit: 130,
   },
   17: {
     unitPixel: 53,
-    realDistancePerUnit: 50,
+    realDistancePerUnit: 85,
   },
   18: {
     unitPixel: 63,
-    realDistancePerUnit: 35,
+    realDistancePerUnit: 45,
   },
   19: {
     unitPixel: 84,
