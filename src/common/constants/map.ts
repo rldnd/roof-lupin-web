@@ -137,11 +137,11 @@ export const MAP_SCALE_MAPPER: Record<number, MapScale> = {
   },
   18: {
     unitPixel: 63,
-    realDistancePerUnit: 30,
+    realDistancePerUnit: 35,
   },
   19: {
     unitPixel: 84,
-    realDistancePerUnit: 20,
+    realDistancePerUnit: 23,
   },
   20: {
     unitPixel: 84,

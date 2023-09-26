@@ -319,6 +319,14 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const { lat, lng } = location;
 
       const clickedMarker = markers.current[getMarkerLocationObjectToString({ lat, lng })];
+      // MEMO: 선택한 마커가 기존 선택된 마커와 동일할 경우 유지
+      if (
+        clickedMapMarker?.[id] &&
+        getMarkerLocationObjectToString({ lat, lng }) ===
+          getMarkerLocationObjectToString(clickedMapMarker[id]!.location)
+      )
+        return;
+
       clickedMarker.marker.setIcon({
         content: getClickedMapMarkerContent(icon, title),
         size: new naver.maps.Size(100, 100),

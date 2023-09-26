@@ -1,6 +1,6 @@
 "use client";
 
-import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
+import { INITIAL_LOCATION, LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { useNaverMap } from "@/hooks";
 
 import { IconCurrentPosition } from "public/icons";
@@ -11,7 +11,7 @@ const CurrentPositionButton: React.FC = () => {
   const { moveCenter } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   const onClick = () => {
-    moveCenter({ lat: "37.3595704", lng: "127.105399" });
+    moveCenter(INITIAL_LOCATION);
   };
 
   return (
