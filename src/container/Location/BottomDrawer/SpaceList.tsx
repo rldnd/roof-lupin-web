@@ -10,7 +10,7 @@ import { SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
 import type { ActionOmitter, AddMarkerParameter } from "@/components/NaverMap/types";
 import { useMapInfo, useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { locationCategoryIdsState, mapSizeState } from "@/states";
+import { clickedMapMarkerState, locationCategoryIdsState, mapSizeState } from "@/states";
 import { getMapCategoryIconPath } from "@/utils/category";
 import { getDistance, getMapMarkerIconWithOrderNoSorting } from "@/utils/naverMap";
 
@@ -26,6 +26,9 @@ const SpaceList: React.FC = () => {
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
   const mapSize = useAtomValue(mapSizeState);
+  const clickedMapMarker = useAtomValue(clickedMapMarkerState);
+
+  const hasClickedMapMarker = LOCATION_PAGE_MAP_ID in clickedMapMarker && clickedMapMarker[LOCATION_PAGE_MAP_ID];
 
   const { lat, lng, zoom } = useMapInfo();
 
@@ -107,9 +110,11 @@ const SpaceList: React.FC = () => {
       isSuccess={isSuccess}
       isRootContainer
     >
-      {spaces.map((space) => (
-        <SpaceLocationCard key={space.id} space={space} />
-      ))}
+      {!hasClickedMapMarker && spaces.map((space) => <SpaceLocationCard key={space.id} space={space} />)}
+      {hasClickedMapMarker &&
+        spaces
+          .filter((space) => clickedMapMarker[LOCATION_PAGE_MAP_ID]?.spaceId.includes(space.id))
+          .map((space) => <SpaceLocationCard key={space.id} space={space} />)}
     </UnorderedInfiniteScroll>
   );
 };

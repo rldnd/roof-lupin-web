@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
 import { BottomNavigation } from "@/components/Layout";
@@ -19,7 +21,9 @@ export default async function LocationContainer() {
       <main className={styles.wrapper}>
         <Header />
         <Category categories={categories} />
-        <Map />
+        <Suspense fallback={null}>
+          <Map />
+        </Suspense>
         <CurrentPositionButton />
         <BottomNavigation blockScrollInteraction />
       </main>
