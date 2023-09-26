@@ -215,7 +215,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         map: mapController.current,
         clickable: true,
         icon: {
-          content: getMapMarkerContent(icon),
+          content: getMapMarkerContent(icon, 1),
           size: new naver.maps.Size(38, 38),
         },
         zIndex: MARKER_Z_INDEX,
@@ -328,7 +328,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         return;
 
       clickedMarker.marker.setIcon({
-        content: getClickedMapMarkerContent(icon, title),
+        content: getClickedMapMarkerContent(icon, 1, title),
         size: new naver.maps.Size(100, 100),
       });
       clickedMarker.marker.setZIndex(MARKER_CLICKED_Z_INDEX);
@@ -337,7 +337,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (prevClickedMapMarker) {
         const marker = markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)]?.marker;
         marker?.setIcon({
-          content: getMapMarkerContent(icon),
+          content: getMapMarkerContent(icon, 1),
           size: new naver.maps.Size(38, 38),
         });
         marker?.setZIndex(MARKER_Z_INDEX);
@@ -355,7 +355,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (!prevClickedMapMarker) return;
 
       markers.current[getMarkerLocationObjectToString(prevClickedMapMarker.location)].marker.setIcon({
-        content: getMapMarkerContent(prevClickedMapMarker.icon),
+        content: getMapMarkerContent(prevClickedMapMarker.icon, 1),
         size: new naver.maps.Size(38, 38),
       });
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));

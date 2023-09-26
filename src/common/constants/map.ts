@@ -158,4 +158,4 @@ export const INITIAL_LOCATION: Pick<Location, "lat" | "lng"> = {
   lng: "127.057213",
 } as const;
 
-export const INITIAL_ZOOM = 16 as const;
+export const INITIAL_ZOOM = 14 as const;
