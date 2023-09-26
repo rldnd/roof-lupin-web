@@ -70,10 +70,28 @@ const SpaceList: React.FC = () => {
         if (acc.some((item) => lat === item.lat && lng === item.lng)) {
           return acc.reduce<AddMarkerParameterWithoutAction[]>((tempAcc, tempCur) => {
             if (tempCur.lat === lat && tempCur.lng === lng) {
-              // TODO: 카테고리 여러개일 때 icon
+              const primaryOrderCurCategory = getMapMarkerIconWithOrderNoSorting(cur.categories);
+              const icon = !primaryOrderCurCategory
+                ? tempCur.icon
+                : tempCur.orderNo ?? 100 > (primaryOrderCurCategory.orderNo ?? 100)
+                ? getMapCategoryIconPath(primaryOrderCurCategory)
+                : tempCur.icon;
+
+              const orderNo = !primaryOrderCurCategory
+                ? tempCur.orderNo
+                : tempCur.orderNo ?? 100 > (primaryOrderCurCategory.orderNo ?? 100)
+                ? primaryOrderCurCategory.orderNo
+                : tempCur.orderNo;
+
               return [
                 ...tempAcc,
-                { ...tempCur, spaceId: [...tempCur.spaceId, cur.id], title: undefined, orderNo: cur.orderNo },
+                {
+                  ...tempCur,
+                  spaceId: [...tempCur.spaceId, cur.id],
+                  title: undefined,
+                  orderNo,
+                  icon,
+                },
               ];
             }
             return tempAcc;
