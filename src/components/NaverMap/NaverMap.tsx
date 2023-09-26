@@ -43,7 +43,6 @@ interface Props {
   className?: string;
 }
 
-// TODO: mapCenter, mapZoom 쿼리로 변경하기
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const { replace } = useRouter();
   const { set, getQueryStringWithPath, getCurrentParams } = useQueryString();

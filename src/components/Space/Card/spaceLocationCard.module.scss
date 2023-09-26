@@ -1,20 +1,18 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
-$IMAGE_SIZE: 132px;
-
 .wrapper {
   width: 100%;
 
   .anchor {
     display: grid;
-    grid-template-columns: $IMAGE_SIZE 1fr;
+    grid-template-columns: c.$S_SPACE_LOCATION_CARD_IMAGE_SIZE 1fr;
     gap: 16px;
     width: 100%;
 
     .image {
       width: 100%;
-      height: $IMAGE_SIZE;
+      height: c.$S_SPACE_LOCATION_CARD_IMAGE_SIZE;
       border-radius: 4px;
       object-fit: cover;
     }
