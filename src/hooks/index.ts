@@ -21,6 +21,7 @@ export { default as usePlatform } from "./usePlatform";
 export { default as useTossPayment, isPaymentWidgetInstance } from "./useTossPayment";
 
 export { useNaverMap } from "@/components/NaverMap";
+export { default as useMapInfo } from "./useMapInfo";
 
 export { useToast } from "@/components/Common/Toast";
 export { default as useLoginSheet } from "@/components/BottomSheets/Auth/LoginBottomSheet/useLoginSheet";

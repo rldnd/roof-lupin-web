@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 
 import type {
   AddMarkerParameter,
@@ -18,8 +18,8 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
-import { useDebounceCallback, useThrottleSetAtom } from "@/hooks";
-import { clickedMapMarkerState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
+import { useDebounceCallback, useQueryString, useThrottleSetAtom } from "@/hooks";
+import { clickedMapMarkerState, mapSizeState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
   checkIsTargetMap,
@@ -46,6 +46,14 @@ interface Props {
 // TODO: mapCenter, mapZoom 쿼리로 변경하기
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const { replace } = useRouter();
+  const { set, getQueryStringWithPath, getCurrentParams } = useQueryString();
+  const searchParams = getCurrentParams();
+  const isRestorePosition = useRef(false);
+
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+  const zoom = searchParams.get("zoom");
+
   const listeners = useRef<naver.maps.MapEventListener[]>([]);
   const naverMapScript = useRef<HTMLScriptElement>();
   const mapController = useRef<naver.maps.Map>();
@@ -53,25 +61,28 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: Record<'${lat},${lng}', value>
   const markers = useRef<Record<string, MarkerValue>>({});
 
-  const mapCenter = useAtomValue(mapCenterState);
-  const mapZoom = useAtomValue(mapZoomState);
-
-  // MEMO: 하단 3개의 atom은 Record<[mapId], value> 형태로 관리된다.
+  // MEMO: 하단의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
-  const setMapCenter = useThrottleSetAtom(mapCenterState, 100);
   const setMapSize = useThrottleSetAtom(mapSizeState);
-  const setMapZoom = useSetAtom(mapZoomState);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 
   const replaceLocationQuery = useCallback(
     (lat: string, lng: string) => {
-      replace(`/locations?lat=${lat}&lng=${lng}`);
+      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ lat, lng })));
     },
-    [replace],
+    [getQueryStringWithPath, replace, set],
+  );
+
+  const replaceZoomQuery = useCallback(
+    (zoom: number) => {
+      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ zoom })));
+    },
+    [getQueryStringWithPath, replace, set],
   );
 
   const replaceLocationQueryDebounce = useDebounceCallback(replaceLocationQuery);
+  const replaceZoomQueryDebounce = useDebounceCallback(replaceZoomQuery);
 
   // MEMO: 지도의 실제 픽셀 크기 초기화
   const initializeSize = useCallback(() => {
@@ -85,12 +96,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const initializeCenterAndZoomAndClickedMarker = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
-    const center = mapController.current.getCenter();
-    const zoom = mapController.current.getZoom();
-    setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
-    setMapZoom((prev) => ({ ...prev, [id]: zoom }));
     setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
-  }, [id, setClickedMapMarker, setMapCenter, setMapZoom]);
+  }, [id, setClickedMapMarker]);
 
   // MEMO: 지도의 중심 좌표가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addCenterChangedListener = useCallback(() => {
@@ -98,25 +105,23 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
     const centerChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.CENTER_CHANGED, () => {
       const center = mapController.current.getCenter();
-      setMapCenter((prev) => ({ ...prev, [id]: { lat: center.y.toString(), lng: center.x.toString() } }));
       replaceLocationQueryDebounce(center.y.toString(), center.x.toString());
     });
 
     listeners.current.push(centerChangedListener);
-  }, [id, replaceLocationQueryDebounce, setMapCenter]);
-
+  }, [replaceLocationQueryDebounce]);
   // MEMO: 지도의 줌 레벨이 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addZoomChangedListener = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
     const zoomChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.ZOOM_CHANGED, () => {
       const zoom = mapController.current.getZoom();
-      setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+      replaceZoomQueryDebounce(zoom);
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     });
 
     listeners.current.push(zoomChangedListener);
-  }, [id, setClickedMapMarker, setMapZoom]);
+  }, [id, replaceZoomQueryDebounce, setClickedMapMarker]);
 
   // MEMO: 지도의 실제 width, height가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addResizeListener = useCallback(() => {
@@ -149,42 +154,24 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (!checkIsTargetMap(info.mapId, id)) return;
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
-        const hasMapCenter = info.mapId in mapCenter;
-        const hasZoom = info.mapId in mapZoom;
+        isRestorePosition.current = info.restorePosition;
+        const hasMapCenter = lat && lng;
+        const hasZoom = Boolean(zoom);
 
         mapController.current = new naver.maps.Map(id, {
           ...info.options,
           ...(info.restorePosition &&
             hasMapCenter && {
-              center: { lat: Number(mapCenter[info.mapId].lat), lng: Number(mapCenter[info.mapId].lng) },
+              center: { lat: Number(lat), lng: Number(lng) },
             }),
           ...(info.restorePosition &&
             hasZoom && {
-              zoom: Number(mapZoom[info.mapId]),
+              zoom: Number(zoom),
             }),
         });
 
         initializeSize();
         if (!info.restorePosition || (info.restorePosition && !hasMapCenter)) initializeCenterAndZoomAndClickedMarker();
-
-        if (
-          info.restorePosition &&
-          !hasMapCenter &&
-          info?.options &&
-          info.options?.center &&
-          "lat" in info.options.center &&
-          "lng" in info.options.center
-        ) {
-          const { lat, lng } = info.options.center;
-          setMapCenter((prev) => ({
-            ...prev,
-            [info.mapId]: { lat: lat.toString(), lng: lng.toString() },
-          }));
-        }
-
-        if (info.restorePosition && !hasZoom && info?.options && "zoom" in info.options) {
-          setMapZoom((prev) => ({ ...prev, [info.mapId]: Number(info.options!.zoom) }));
-        }
 
         addCenterChangedListener();
         addZoomChangedListener();
@@ -200,10 +187,9 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       id,
       initializeCenterAndZoomAndClickedMarker,
       initializeSize,
-      mapCenter,
-      mapZoom,
-      setMapCenter,
-      setMapZoom,
+      lat,
+      lng,
+      zoom,
     ],
   );
 
@@ -212,9 +198,9 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     (position: BaseNaverMapEventParameter<MoveCenterParameter>) => {
       if (!checkMapLoaded(mapController) || !checkIsTargetMap(position.mapId, id)) return;
       mapController.current.setCenter({ lat: Number(position.lat), lng: Number(position.lng) });
-      replace(`/locations?lat=${position.lat}&lng=${position.lng}`);
+      replaceLocationQueryDebounce(position.lat, position.lng);
     },
-    [id, replace],
+    [id, replaceLocationQueryDebounce],
   );
 
   // MEMO: 지도에 마커를 추가하기 위한 emit 함수
@@ -302,12 +288,10 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       markers.current = {};
 
       naverMapScript.current?.remove();
-      setMapCenter((prev) => deletePropertyInObject(prev, id));
-      setMapZoom((prev) => deletePropertyInObject(prev, id));
       setMapSize((prev) => deletePropertyInObject(prev, id));
       setClickedMapMarker((prev) => deletePropertyInObject(prev, id));
     },
-    [id, setClickedMapMarker, setMapCenter, setMapSize, setMapZoom],
+    [id, setClickedMapMarker, setMapSize],
   );
 
   // MEMO: event emitter listener

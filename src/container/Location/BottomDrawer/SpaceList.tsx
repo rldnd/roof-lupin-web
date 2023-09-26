@@ -8,9 +8,9 @@ import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type { Space } from "@/common/types/space";
 import { SpaceLocationCard, UnorderedInfiniteScroll } from "@/components";
 import type { ActionOmitter, AddMarkerParameter } from "@/components/NaverMap/types";
-import { useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
+import { useMapInfo, useNaverMap, useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpacesApi } from "@/services/space";
-import { locationCategoryIdsState, mapCenterState, mapSizeState, mapZoomState } from "@/states";
+import { locationCategoryIdsState, mapSizeState } from "@/states";
 import { getMapCategoryIconPath } from "@/utils/category";
 import { getDistance, getMapMarkerIconWithOrderNoSorting } from "@/utils/naverMap";
 
@@ -25,28 +25,29 @@ const SpaceList: React.FC = () => {
   const [spaces, setSpaces] = useState<Space[]>([]);
 
   const locationCategoryIds = useAtomValue(locationCategoryIdsState);
-  const mapCenter = useAtomValue(mapCenterState);
-  const mapZoom = useAtomValue(mapZoomState);
   const mapSize = useAtomValue(mapSizeState);
 
+  const { lat, lng, zoom } = useMapInfo();
+
   const distance = getDistance({
-    zoom: mapZoom[LOCATION_PAGE_MAP_ID],
+    zoom,
     width: mapSize[LOCATION_PAGE_MAP_ID]?.width,
     height: mapSize[LOCATION_PAGE_MAP_ID]?.height,
   });
 
   const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Space>(
-    ["paginateSpaces", mapCenter[LOCATION_PAGE_MAP_ID], locationCategoryIds, distance],
+    ["paginateSpaces", lat, lng, locationCategoryIds, distance],
     ({ pageParam = 1 }) =>
       paginateSpacesApi({
         page: pageParam,
         limit: LIMIT,
         categoryIds: locationCategoryIds.join(","),
         distance,
-        ...mapCenter[LOCATION_PAGE_MAP_ID],
+        lat,
+        lng,
       }),
     {
-      enabled: LOCATION_PAGE_MAP_ID in mapCenter && Boolean(distance),
+      enabled: Boolean(distance),
       suspense: false,
     },
   );

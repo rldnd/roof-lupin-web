@@ -1,3 +1,4 @@
+import type { Location } from "../types/location";
 import type { MapScale } from "@/common/types/map";
 
 export const LOCATION_PAGE_MAP_ID = "location-page-naver-map";
@@ -151,3 +152,10 @@ export const MAP_SCALE_MAPPER: Record<number, MapScale> = {
     realDistancePerUnit: 5,
   },
 };
+
+export const INITIAL_LOCATION: Pick<Location, "lat" | "lng"> = {
+  lat: "37.530207",
+  lng: "127.057213",
+} as const;
+
+export const INITIAL_ZOOM = 16 as const;

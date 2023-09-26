@@ -2,7 +2,7 @@
 
 import { useUnmount } from "react-use";
 
-import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
+import { INITIAL_LOCATION, LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
 import { useClientEffect } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
@@ -11,7 +11,8 @@ const Map: React.FC = () => {
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useClientEffect(() => {
-    load({ options: { center: { lat: 37.3595704, lng: 127.105399 }, zoom: 16 }, restorePosition: true });
+    const { lat, lng } = INITIAL_LOCATION;
+    load({ options: { center: { lat: Number(lat), lng: Number(lng) }, zoom: 16 }, restorePosition: true });
   }, [load]);
 
   useUnmount(() => {
