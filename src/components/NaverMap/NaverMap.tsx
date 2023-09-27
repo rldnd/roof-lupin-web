@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import type {
   AddMarkerParameter,
@@ -19,7 +19,7 @@ import type {
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
 import { useDebounceCallback, useQueryString, useThrottleSetAtom } from "@/hooks";
-import { clickedMapMarkerState, mapSizeState } from "@/states";
+import { clickedMapMarkerState, hasInitNaverMapEventEmitter, mapSizeState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
   checkIsTargetMap,
@@ -30,6 +30,7 @@ import {
   getMarkerLocationObjectToString,
   loadNaverMapScript,
 } from "@/utils/naverMap";
+import { isClient } from "@/utils/next";
 
 import naverMapEventEmitter from "./NaverMapEventEmitter";
 
@@ -63,6 +64,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: 하단의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
   const setMapSize = useThrottleSetAtom(mapSizeState);
+  const setHasInitNaverMapEventEmitter = useSetAtom(hasInitNaverMapEventEmitter);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 
@@ -152,7 +154,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: listener를 등록하며, 지도의 중심 좌표, 줌 레벨, 실제 width, height를 atom에 등록한다.
   const load = useCallback(
     async (info: BaseNaverMapEventParameter<LoadParameter>) => {
-      if (!checkIsTargetMap(info.mapId, id)) return;
+      if (!isClient || !checkIsTargetMap(info.mapId, id)) return;
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
         isRestorePosition.current = info.restorePosition;
@@ -308,10 +310,22 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     };
 
     naverMapEventEmitter.addEventListener(callback);
+    setHasInitNaverMapEventEmitter((prev) => ({ ...prev, [id]: true }));
     return () => {
       naverMapEventEmitter.removeEventListener(callback);
+      setHasInitNaverMapEventEmitter((prev) => ({ ...prev, [id]: false }));
     };
-  }, [addMarker, addMarkers, clearMarkers, deleteMarker, destroy, id, load, moveCenter]);
+  }, [
+    addMarker,
+    addMarkers,
+    clearMarkers,
+    deleteMarker,
+    destroy,
+    id,
+    load,
+    moveCenter,
+    setHasInitNaverMapEventEmitter,
+  ]);
 
   useEffect(() => {
     // MEMO: 마커를 클릭할 시 이미 활성화 되어있는 마커가 있는 경우 해당 마커를 원복시키고, 클릭한 마커를 활성화 시킨다.
