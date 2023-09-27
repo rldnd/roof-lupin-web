@@ -21,9 +21,7 @@ export default async function LocationContainer() {
       <main className={styles.wrapper}>
         <Header />
         <Category categories={categories} />
-        <Suspense fallback={null}>
-          <Map />
-        </Suspense>
+        <Map />
         <CurrentPositionButton />
         <BottomNavigation blockScrollInteraction />
       </main>
