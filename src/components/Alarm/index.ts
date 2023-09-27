@@ -1,1 +1,1 @@
-export { default as AlarmItem } from "./Item";
+export { default as AlarmItem, LoadingAlarmItem } from "./Item";

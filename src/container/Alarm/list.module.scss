@@ -12,3 +12,11 @@
     }
   }
 }
+
+.autoDeleteText {
+  margin-top: 24px;
+
+  &.hasAlarm {
+    margin: 52px 0 220px;
+  }
+}

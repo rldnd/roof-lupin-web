@@ -4,7 +4,11 @@
 
 .wrapper {
   width: 100%;
-  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  background-color: var(--c-orange-bg);
+
+  &.isRead {
+    background-color: var(--c-white);
+  }
 
   .iconWrapper {
     @include m.flex;
@@ -38,4 +42,5 @@
   grid-template-columns: 40px 1fr;
   gap: 8px 16px;
   width: 100%;
+  padding: c.$S_PAGE_HORIZONTAL_PADDING;
 }

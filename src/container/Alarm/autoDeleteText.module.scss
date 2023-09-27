@@ -1,0 +1,12 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fontBody1Medium;
+  width: calc(100% - 2 * c.$S_PAGE_HORIZONTAL_PADDING);
+  padding: 12px 8px;
+  color: var(--c-gray-600);
+  text-align: center;
+  background-color: var(--c-gray-150);
+  border-radius: 4px;
+}

@@ -2,10 +2,11 @@ import dynamic from "next/dynamic";
 
 import { BaseCenterHeader } from "@/components/Layout";
 
+import { LoadingList } from "./List";
+
 import styles from "./alarmContainer.module.scss";
 
-// TODO: loading
-const List = dynamic(() => import("./List"), { ssr: false });
+const List = dynamic(() => import("./List"), { ssr: false, loading: () => <LoadingList /> });
 
 export default async function AlarmContainer() {
   return (
