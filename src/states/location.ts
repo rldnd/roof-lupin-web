@@ -26,4 +26,4 @@ export const initialClickedMapMarker: ClickedMapMarker = {};
 export const clickedMapMarkerState = atom<ClickedMapMarker>(initialClickedMapMarker);
 
 export const initialHasInitNaverMapEventEmitter: HasInitNaverMapEventEmitter = {};
-export const hasInitNaverMapEventEmitter = atom<HasInitNaverMapEventEmitter>(initialHasInitNaverMapEventEmitter);
+export const hasInitNaverMapEventEmitterState = atom<HasInitNaverMapEventEmitter>(initialHasInitNaverMapEventEmitter);

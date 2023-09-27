@@ -19,7 +19,7 @@ import type {
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
 import { useDebounceCallback, useQueryString, useThrottleSetAtom } from "@/hooks";
-import { clickedMapMarkerState, hasInitNaverMapEventEmitter, mapSizeState } from "@/states";
+import { clickedMapMarkerState, hasInitNaverMapEventEmitterState, mapSizeState } from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
   checkIsTargetMap,
@@ -64,7 +64,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: 하단의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
   const setMapSize = useThrottleSetAtom(mapSizeState);
-  const setHasInitNaverMapEventEmitter = useSetAtom(hasInitNaverMapEventEmitter);
+  const setHasInitNaverMapEventEmitter = useSetAtom(hasInitNaverMapEventEmitterState);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 

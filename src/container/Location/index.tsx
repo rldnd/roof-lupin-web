@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants/toast";
 import { ToastPositioner } from "@/components";
 import { BottomNavigation } from "@/components/Layout";

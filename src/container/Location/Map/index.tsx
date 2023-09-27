@@ -7,12 +7,12 @@ import { useUnmount } from "react-use";
 
 import { INITIAL_LOCATION, INITIAL_ZOOM, LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
-import { hasInitNaverMapEventEmitter } from "@/states";
+import { hasInitNaverMapEventEmitterState } from "@/states";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 // TODO: 앱에서 위치 받아오는 방식
 const Map: React.FC = () => {
-  const hasInit = useAtomValue(hasInitNaverMapEventEmitter);
+  const hasInit = useAtomValue(hasInitNaverMapEventEmitterState);
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useEffect(() => {
