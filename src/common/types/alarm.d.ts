@@ -1,5 +1,17 @@
 import type { CommonUser } from "./user";
 
+export type AlarmType =
+  | "SPACE_TIME"
+  | "RESERVATION_APPROVED"
+  | "RESERVATION_REJECTED"
+  | "RESERVATION_AUTO_CANCELED"
+  | "RESERVATION_HOST_CANCELED"
+  | "REVIEW_RECOMMEND"
+  | "COUPON_DURATION"
+  | "QNA"
+  | "REVIEW_ANSWER"
+  | "MARKETING_EXHIBITION";
+
 export interface UnReadAlarm {
   /** 안읽은 알람이 존재하는지 여부 */
   isExists: boolean;
@@ -24,4 +36,6 @@ export interface Alarm {
   isPushed: boolean;
   /** 유저 정보 */
   user: CommonUser;
+  /** 알람 타입 */
+  alarmType: AlarmType;
 }
