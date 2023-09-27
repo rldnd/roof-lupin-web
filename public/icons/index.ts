@@ -7,3 +7,4 @@ export * from "./reservation";
 export * from "./category";
 export * from "./setting";
 export * from "./review";
+export * from "./alarm";

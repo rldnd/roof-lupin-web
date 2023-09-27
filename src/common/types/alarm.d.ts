@@ -12,6 +12,13 @@ export type AlarmType =
   | "REVIEW_ANSWER"
   | "MARKETING_EXHIBITION";
 
+export type AlarmIconMapperBackgroundColor = "roof-orange" | "gray-600";
+
+export interface AlarmIconMapperValue {
+  backgroundColor: AlarmIconMapperBackgroundColor | null;
+  icon: any;
+}
+
 export interface UnReadAlarm {
   /** 안읽은 알람이 존재하는지 여부 */
   isExists: boolean;
