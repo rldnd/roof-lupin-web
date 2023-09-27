@@ -1,8 +1,41 @@
+/* stylelint-disable selector-class-pattern */
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
 .wrapper {
-  @include m.flex(flex-start);
   width: 100%;
   padding: c.$S_PAGE_HORIZONTAL_PADDING;
+
+  .iconWrapper {
+    @include m.flex;
+    grid-area: 1 / 1 / 3 / 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    &.roof-orange {
+      background-color: var(--c-roof-orange);
+    }
+
+    &.gray-200 {
+      background-color: var(--c-gray-200);
+    }
+  }
+
+  .content {
+    @include m.fontBody1Medium;
+    color: var(--c-gray-900);
+  }
+
+  .date {
+    @include m.fontCaption;
+    color: var(--c-gray-600);
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 8px 16px;
+  width: 100%;
 }

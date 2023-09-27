@@ -1,3 +1,4 @@
+export * from "./Alarm";
 export * from "./Category";
 export * from "./Common";
 export * from "./Reservation";

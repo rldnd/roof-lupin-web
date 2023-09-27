@@ -12,7 +12,7 @@ export type AlarmType =
   | "REVIEW_ANSWER"
   | "MARKETING_EXHIBITION";
 
-export type AlarmIconMapperBackgroundColor = "roof-orange" | "gray-600";
+export type AlarmIconMapperBackgroundColor = "roof-orange" | "gray-200";
 
 export interface AlarmIconMapperValue {
   backgroundColor: AlarmIconMapperBackgroundColor | null;

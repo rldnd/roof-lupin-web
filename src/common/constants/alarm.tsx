@@ -38,7 +38,7 @@ export const ALARM_ICON_MAPPER: Record<AlarmType, AlarmIconMapperValue> = {
     icon: null,
   },
   COUPON_DURATION: {
-    backgroundColor: "gray-600",
+    backgroundColor: "gray-200",
     icon: <IconAlarmCouponDuration />,
   },
   QNA: {
@@ -50,7 +50,7 @@ export const ALARM_ICON_MAPPER: Record<AlarmType, AlarmIconMapperValue> = {
     icon: <IconAlarmReviewAnswer />,
   },
   MARKETING_EXHIBITION: {
-    backgroundColor: "gray-600",
+    backgroundColor: "gray-200",
     icon: <IconAlarmMarketingExhibition />,
   },
 } as const;

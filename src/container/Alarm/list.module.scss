@@ -1,0 +1,14 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  .item {
+    border-top: 1px solid var(--c-gray-200);
+
+    &:last-of-type {
+      border-bottom: 1px solid var(--c-gray-200);
+    }
+  }
+}
