@@ -21,8 +21,8 @@ export const loadNaverMapScript = () => {
 
   const isExists = scripts.find((script) => script.src.includes("map.naver"));
   if (!isExists) {
-    const s4 = document.getElementsByTagName("script")[0];
-    s4.parentNode?.insertBefore(naverMap, s4);
+    const $head = document.getElementsByTagName("head")[0];
+    $head.appendChild(naverMap);
   }
 
   return naverMap;

@@ -6,8 +6,8 @@ if (isClient) {
   ga4.async = true;
   ga4.src = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`;
 
-  const s4 = document.getElementsByTagName("script")[0];
-  s4.parentNode?.insertBefore(ga4, s4);
+  const $head = document.getElementsByTagName("head")[0];
+  $head.appendChild(ga4);
 
   window.dataLayer = window.dataLayer || [];
 
