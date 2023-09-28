@@ -75,15 +75,15 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [getQueryStringWithPath, replace, set],
   );
 
-  const replaceZoomQuery = useCallback(
-    (zoom: number) => {
-      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ zoom })));
+  const replaceLocationAndZoomQuery = useCallback(
+    (lat: string, lng: string, zoom: number) => {
+      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ lat, lng, zoom })));
     },
     [getQueryStringWithPath, replace, set],
   );
 
   const replaceLocationQueryDebounce = useDebounceCallback(replaceLocationQuery);
-  const replaceZoomQueryDebounce = useDebounceCallback(replaceZoomQuery);
+  const replaceLocationAndZoomQueryDebounce = useDebounceCallback(replaceLocationAndZoomQuery);
 
   // MEMO: 지도의 실제 픽셀 크기 초기화
   const initializeSize = useCallback(() => {
@@ -119,12 +119,14 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
     const zoomChangedListener = mapController.current.addListener(NAVER_MAP_EVENT_NAME_MAPPER.ZOOM_CHANGED, () => {
       const zoom = mapController.current.getZoom();
-      replaceZoomQueryDebounce(zoom);
+      const center = mapController.current.getCenter();
+
+      replaceLocationAndZoomQueryDebounce(center.y.toString(), center.x.toString(), zoom);
       setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
     });
 
     listeners.current.push(zoomChangedListener);
-  }, [id, replaceZoomQueryDebounce, setClickedMapMarker]);
+  }, [id, replaceLocationAndZoomQueryDebounce, setClickedMapMarker]);
 
   // MEMO: 지도의 실제 width, height가 변경 되는 것을 감지하기 위한 이벤트 리스너
   const addResizeListener = useCallback(() => {
