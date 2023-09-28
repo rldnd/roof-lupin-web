@@ -1,0 +1,16 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(auto auto 0 50%);
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  padding: c.$S_PAGE_HORIZONTAL_PADDING c.$S_PAGE_HORIZONTAL_PADDING 100px;
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+
+  > a {
+    display: inline-block;
+    width: 100%;
+  }
+}

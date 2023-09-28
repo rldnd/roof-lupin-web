@@ -1,58 +1,23 @@
-"use client";
+import { HeightFitLayout } from "@/components/Layout";
 
-import { useEffect } from "react";
-
-import { useRouter, useSearchParams } from "next/navigation";
-
-import { useSetAtom } from "jotai";
-
-import { Button } from "@/components";
-import {
-  initialReservation,
-  initialReservationTime,
-  reservationAdditionalServicesState,
-  reservationCouponState,
-  reservationDepositConfirmState,
-  reservationPackageState,
-  reservationState,
-  reservationTimeState,
-} from "@/states";
+import RetryButton from "./RetryButton";
 
 import styles from "./tossPayFailContainer.module.scss";
 
-// TODO: server component & client component 분리
 const TossPayFailContainer: React.FC = () => {
-  const { replace } = useRouter();
-  const { get } = useSearchParams();
-
-  const setReservation = useSetAtom(reservationState);
-  const setTime = useSetAtom(reservationTimeState);
-  const setPackages = useSetAtom(reservationPackageState);
-  const setAdditionalServices = useSetAtom(reservationAdditionalServicesState);
-  const setDepositConfirm = useSetAtom(reservationDepositConfirmState);
-  const setCoupon = useSetAtom(reservationCouponState);
-
-  const onClickButton = () => {
-    replace("/");
-  };
-
-  useEffect(() => {
-    setAdditionalServices({});
-    setTime(initialReservationTime);
-    setPackages([]);
-    setDepositConfirm(false);
-    setReservation(initialReservation);
-    setCoupon([]);
-  }, [setAdditionalServices, setCoupon, setDepositConfirm, setPackages, setReservation, setTime]);
-
   return (
-    <main className={styles.wrapper}>
-      <h1>{get("code")}</h1>
-      <p>{get("message")}</p>
-      <Button type="button" full color="primary" onClick={onClickButton}>
-        홈으로 돌아가기
-      </Button>
-    </main>
+    <>
+      <HeightFitLayout className={styles.wrapper}>
+        <img src="/images/payment/payment-error.png" className={styles.image} alt="결제 실패 이미지" />
+        <h2 className={styles.title}>결제 오류가 발생했어요.</h2>
+        <p className={styles.desc}>
+          결제가 정상적으로 처리되지 않았어요.
+          <br />
+          주문 내역과 결제 수단 확인 후 다시 시도해주세요.
+        </p>
+        <RetryButton />
+      </HeightFitLayout>
+    </>
   );
 };
 

@@ -4,15 +4,25 @@
 .wrapper {
   @include m.flex(center, center, column);
   width: 100%;
-  height: 100%;
-  padding: c.$S_PAGE_HORIZONTAL_PADDING;
+  padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
 
-  h1 {
-    @include m.fontH1;
-    color: var(--c-gray-900);
+  .image {
+    width: 94px;
+    height: 74px;
+    margin-bottom: 40px;
+    margin-left: 16px;
+    object-fit: contain;
   }
 
-  button {
-    margin-top: 40px;
+  .title {
+    @include m.fontH3SemiBold;
+    margin-bottom: 12px;
+    color: var(--c-black);
+  }
+
+  .desc {
+    @include m.fontBody1Medium;
+    color: var(--c-gray-500);
+    text-align: center;
   }
 }
