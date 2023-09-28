@@ -1,7 +1,8 @@
 import type { Location } from "../types/location";
 import type { MapScale } from "@/common/types/map";
 
-export const LOCATION_PAGE_MAP_ID = "location-page-naver-map";
+export const LOCATION_PAGE_MAP_ID = "location-page-naver-map" as const;
+export const SPACE_PAGE_MAP_ID = "space-page-naver-map" as const;
 
 export const NAVER_MAP_EVENT_NAME_MAPPER = {
   /** 지도 레이어가 추가되면 이벤트가 발생합니다. */

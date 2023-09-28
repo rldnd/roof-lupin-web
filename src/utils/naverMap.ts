@@ -19,11 +19,8 @@ export const loadNaverMapScript = () => {
   naverMap.async = true;
   naverMap.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}`;
 
-  const isExists = scripts.find((script) => script.src.includes("map.naver"));
-  if (!isExists) {
-    const $head = document.getElementsByTagName("head")[0];
-    $head.appendChild(naverMap);
-  }
+  const $head = document.getElementsByTagName("head")[0];
+  $head.appendChild(naverMap);
 
   return naverMap;
 };

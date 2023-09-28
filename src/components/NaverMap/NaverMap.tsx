@@ -182,6 +182,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
         addZoomChangedListener();
         addResizeListener();
         addMouseDownListener();
+
+        info?.onLoad?.();
       };
     },
     [
@@ -215,6 +217,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       const { lat, lng, icon, title, spaceId } = data;
       if (!data.replaceDuplicateLocation && checkMarkerLocationDuplicates(markers.current, { lat, lng })) return;
 
+      console.log("here?");
       const marker = new naver.maps.Marker({
         position: { lat: Number(lat), lng: Number(lng) },
         map: mapController.current,
@@ -302,6 +305,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: event emitter listener
   useEffect(() => {
     const callback: NaverMapEventCallback = (event) => {
+      console.log(event.action);
       if (event.action === "load") load(event);
       if (event.action === "moveCenter") moveCenter(event);
       if (event.action === "addMarker") addMarker(event);

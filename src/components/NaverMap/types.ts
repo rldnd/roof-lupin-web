@@ -14,6 +14,7 @@ export interface LoadParameter {
   action: "load";
   restorePosition: boolean;
   options?: naver.maps.MapOptions;
+  onLoad?(): void;
 }
 
 export interface DestroyParameter {

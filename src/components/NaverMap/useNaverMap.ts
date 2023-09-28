@@ -29,6 +29,7 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
         mapId,
         options: data.options,
         restorePosition: data.restorePosition,
+        onLoad: data.onLoad,
       });
     },
     [mapId],

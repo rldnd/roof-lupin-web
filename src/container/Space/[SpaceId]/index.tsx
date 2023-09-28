@@ -64,8 +64,16 @@ export default async function SpaceDetailContainer({ params }: Props) {
         <hr />
         <Caution caution={space.caution} />
         <hr />
-        <Location />
-        <hr />
+        {space.location && (
+          <>
+            <Location
+              location={space.location}
+              publicTransportations={space.publicTransportations}
+              categories={space.categories}
+            />
+            <hr />
+          </>
+        )}
         {space.reviews.length === 0 && <EmptyReview />}
         {space.reviews.length !== 0 && (
           <Review averageScore={space.averageScore} reviewCount={space.reviewCount} reviews={space.reviews} />
