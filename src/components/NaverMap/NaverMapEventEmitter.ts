@@ -3,6 +3,7 @@ import EventEmitter from "events";
 import type {
   AddMarkerParameter,
   AddMarkersParameter,
+  AddNonInteractionMarker,
   BaseNaverMapEventParameter,
   ClearMarkersParameter,
   DeleteMarkerParameter,
@@ -29,6 +30,10 @@ export class NaverMapEventEmitter extends EventEmitter {
 
   moveCenter(position: BaseNaverMapEventParameter<MoveCenterParameter>) {
     this.emit(this.eventName, position);
+  }
+
+  addNonInteractionMarker(data: BaseNaverMapEventParameter<AddNonInteractionMarker>) {
+    this.emit(this.eventName, data);
   }
 
   addMarker(data: BaseNaverMapEventParameter<AddMarkerParameter>) {

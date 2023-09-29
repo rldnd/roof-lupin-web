@@ -4,6 +4,7 @@ import type {
   ActionOmitter,
   AddMarkerParameter,
   AddMarkersParameter,
+  AddNonInteractionMarker,
   DeleteMarkerParameter,
   LoadParameter,
   MoveCenterParameter,
@@ -14,6 +15,7 @@ import naverMapEventEmitter from "./NaverMapEventEmitter";
 type ReturnUseNaverMap = {
   load(options?: ActionOmitter<LoadParameter>): void;
   moveCenter(position: ActionOmitter<MoveCenterParameter>): void;
+  addNonInteractionMarker(data: ActionOmitter<AddNonInteractionMarker>): void;
   addMarker(data: ActionOmitter<AddMarkerParameter>): void;
   addMarkers(data: ActionOmitter<AddMarkersParameter>): void;
   deleteMarker(data: ActionOmitter<DeleteMarkerParameter>): void;
@@ -38,6 +40,13 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
   const moveCenter = useCallback(
     (position: ActionOmitter<MoveCenterParameter>) => {
       naverMapEventEmitter.moveCenter({ ...position, mapId, action: "moveCenter" });
+    },
+    [mapId],
+  );
+
+  const addNonInteractionMarker = useCallback(
+    (data: ActionOmitter<AddNonInteractionMarker>) => {
+      naverMapEventEmitter.addNonInteractionMarker({ ...data, mapId, action: "addNonInteractionMarker" });
     },
     [mapId],
   );
@@ -74,6 +83,7 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
   return {
     load,
     moveCenter,
+    addNonInteractionMarker,
     addMarker,
     addMarkers,
     deleteMarker,

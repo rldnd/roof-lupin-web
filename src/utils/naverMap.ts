@@ -62,6 +62,13 @@ export const checkMarkerLocationDuplicates = (
   return Object.keys(markers).some((markerKey) => markerKey === locationString);
 };
 
+export const getMapNonInteractiveMarkerContent = (icon: string) => {
+  return `<div style="position: relative; width:45px; height:56px; display: flex; align-items: center; justify-content: center;">
+            <img src="/icons/map/map-non-interactive-marker.svg" alt="마커" />
+            <img src=${icon} width="32px" height="32px" alt="마커 이미지" object-fit: contain; style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%);"/>
+          </div>`;
+};
+
 export const getMapMarkerContent = (icon: string, count: number) => {
   const badge =
     count > 1

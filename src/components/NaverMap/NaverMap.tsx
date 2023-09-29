@@ -9,6 +9,7 @@ import { useAtom, useSetAtom } from "jotai";
 import type {
   AddMarkerParameter,
   AddMarkersParameter,
+  AddNonInteractionMarker,
   BaseNaverMapEventParameter,
   DeleteMarkerParameter,
   LoadParameter,
@@ -27,6 +28,7 @@ import {
   checkMarkerLocationDuplicates,
   getClickedMapMarkerContent,
   getMapMarkerContent,
+  getMapNonInteractiveMarkerContent,
   getMarkerLocationObjectToString,
   loadNaverMapScript,
 } from "@/utils/naverMap";
@@ -210,6 +212,27 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [id, replaceLocationQueryDebounce],
   );
 
+  // MEMO: 공간 페이지에서 마커를 추가하기 위한 emit 함수
+  const addNonInteractionMarker = useCallback(
+    (data: BaseNaverMapEventParameter<AddNonInteractionMarker>) => {
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
+      const { lat, lng, icon } = data;
+
+      new naver.maps.Marker({
+        position: { lat: Number(lat), lng: Number(lng) },
+        map: mapController.current,
+        clickable: false,
+        icon: {
+          content: getMapNonInteractiveMarkerContent(icon),
+          size: new naver.maps.Size(45, 56),
+        },
+        zIndex: MARKER_Z_INDEX,
+      });
+    },
+
+    [id],
+  );
+
   // MEMO: 지도에 마커를 추가하기 위한 emit 함수
   const addMarker = useCallback(
     (data: BaseNaverMapEventParameter<AddMarkerParameter>) => {
@@ -306,6 +329,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     const callback: NaverMapEventCallback = (event) => {
       if (event.action === "load") load(event);
       if (event.action === "moveCenter") moveCenter(event);
+      if (event.action === "addNonInteractionMarker") addNonInteractionMarker(event);
       if (event.action === "addMarker") addMarker(event);
       if (event.action === "addMarkers") addMarkers(event);
       if (event.action === "destroy") destroy(event);
@@ -322,6 +346,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   }, [
     addMarker,
     addMarkers,
+    addNonInteractionMarker,
     clearMarkers,
     deleteMarker,
     destroy,

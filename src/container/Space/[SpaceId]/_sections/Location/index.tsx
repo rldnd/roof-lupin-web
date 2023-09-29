@@ -8,7 +8,7 @@ import { SPACE_PAGE_MAP_ID } from "@/common/constants";
 import type { Location as LocationType } from "@/common/types/location";
 import type { SpaceCategory, Transportation } from "@/common/types/space";
 import { NaverMap } from "@/components/NaverMap";
-import { useNaverMap } from "@/hooks";
+import { useNaverMap, useToast } from "@/hooks";
 import { hasInitNaverMapEventEmitterState } from "@/states";
 import { getMapCategoryIconPath } from "@/utils/category";
 import { getMapMarkerIconWithOrderNoSorting } from "@/utils/naverMap";
@@ -22,8 +22,19 @@ interface Props {
 }
 
 const Location: React.FC<Props> = ({ location, publicTransportations, categories }) => {
+  const { addToast } = useToast();
   const hasInit = useAtomValue(hasInitNaverMapEventEmitterState);
-  const { load, addMarker } = useNaverMap(SPACE_PAGE_MAP_ID);
+  const { load, addNonInteractionMarker } = useNaverMap(SPACE_PAGE_MAP_ID);
+  const address = location?.roadAddress ?? location.jibunAddress;
+
+  const onClickCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(address);
+      addToast({ message: "주소를 복사하였습니다." });
+    } catch (err) {
+      addToast({ message: "주소 복사에 실패했습니다." });
+    }
+  };
 
   useEffect(() => {
     if (!(SPACE_PAGE_MAP_ID in hasInit) || !hasInit[SPACE_PAGE_MAP_ID]) return;
@@ -42,22 +53,30 @@ const Location: React.FC<Props> = ({ location, publicTransportations, categories
       },
       restorePosition: false,
       onLoad: () => {
-        addMarker({
+        addNonInteractionMarker({
           icon: category ? getMapCategoryIconPath(category) : "",
           lat,
           lng,
-          spaceId: [],
-          replaceDuplicateLocation: true,
-          orderNo: null,
         });
       },
     });
-  }, [addMarker, categories, hasInit, load, location]);
+  }, [addNonInteractionMarker, categories, hasInit, load, location]);
 
   return (
     <section id="location-section" className={styles.wrapper}>
       <h2 className={styles.title}>지도</h2>
       <NaverMap width="100%" height="250px" id={SPACE_PAGE_MAP_ID} />
+      <div className={styles.infoWrapper}>
+        <span className={styles.address}>{address}</span>
+        <button type="button" className={styles.copyButton} onClick={onClickCopy}>
+          주소복사
+        </button>
+        {publicTransportations.length > 0 && (
+          <p className={styles.publicTransportation}>
+            {publicTransportations[0].name} 도보 {publicTransportations[0].timeTaken}분
+          </p>
+        )}
+      </div>
     </section>
   );
 };

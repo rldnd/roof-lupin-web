@@ -7,4 +7,26 @@
   .title {
     margin: 0 0 12px c.$S_PAGE_HORIZONTAL_PADDING;
   }
+
+  .infoWrapper {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 12px 8px;
+    width: 100%;
+    padding: 12px c.$S_PAGE_HORIZONTAL_PADDING 0;
+
+    .address {
+      @include m.fontH4Regular;
+    }
+
+    .copyButton {
+      @include m.fontBody1Regular;
+      color: var(--c-roof-orange);
+    }
+
+    .publicTransportation {
+      @include m.fontBody1Regular;
+      color: var(--c-gray-800);
+    }
+  }
 }

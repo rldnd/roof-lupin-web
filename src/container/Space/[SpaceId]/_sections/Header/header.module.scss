@@ -4,7 +4,7 @@
 .wrapper {
   @include m.fixed(0 auto auto 50%);
   @include m.flex(space-between);
-  z-index: c.$Z_HEADER;
+  z-index: c.$Z_SPACE_DETAIL_HEADER;
   gap: 16px;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;

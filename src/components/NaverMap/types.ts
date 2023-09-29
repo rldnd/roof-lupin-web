@@ -25,6 +25,11 @@ export interface MoveCenterParameter extends Pick<Location, "lat" | "lng"> {
   action: "moveCenter";
 }
 
+export interface AddNonInteractionMarker extends Pick<Location, "lat" | "lng"> {
+  action: "addNonInteractionMarker";
+  icon: string;
+}
+
 export interface AddMarkerParameter extends Pick<Location, "lat" | "lng"> {
   action: "addMarker";
   spaceId: string[];
@@ -60,6 +65,7 @@ export type NaverMapEventParameter = BaseNaverMapEventParameter<
   | MoveCenterParameter
   | AddMarkerParameter
   | AddMarkersParameter
+  | AddNonInteractionMarker
   | DeleteMarkerParameter
   | ClearMarkersParameter
 >;
