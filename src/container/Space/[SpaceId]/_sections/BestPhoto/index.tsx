@@ -39,7 +39,7 @@ const BestPhoto: React.FC<Props> = ({ bestPhotos }) => {
           ))}
       </HorizonDraggable>
       {!isEmpty && <ProgressBar />}
-      <TotalButton />
+      <TotalButton isEmpty={isEmpty} />
     </section>
   );
 };
