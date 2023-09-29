@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 import { useAtomValue } from "jotai";
+import Skeleton from "react-loading-skeleton";
 
 import { SPACE_PAGE_MAP_ID } from "@/common/constants";
 import type { Location as LocationType } from "@/common/types/location";
@@ -84,5 +85,17 @@ const Location: React.FC<Props> = ({ location, publicTransportations, categories
 export default Location;
 
 export const LoadingLocation: React.FC = () => {
-  return null;
+  return (
+    <section id="location-section" className={styles.wrapper}>
+      <h2 className={styles.title}>지도</h2>
+      <Skeleton width="100%" height={250} />
+      <div className={styles.infoWrapper}>
+        <Skeleton width={120} />
+        <button type="button" className={styles.copyButton} disabled>
+          주소복사
+        </button>
+        <Skeleton width={60} />
+      </div>
+    </section>
+  );
 };

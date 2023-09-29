@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 
+import { LoadingLocation } from "./Location";
+
 export * from "./_shared";
 export { default as BestPhoto } from "./BestPhoto";
 export { default as Building } from "./Building";
@@ -15,5 +17,5 @@ export { default as TabBar } from "./TabBar";
 export { default as Refund } from "./Refund";
 export { default as OpenHourAndHoliday } from "./OpenHourAndHoliday";
 
-export const Location = dynamic(() => import("./Location"), { ssr: false });
+export const Location = dynamic(() => import("./Location"), { ssr: false, loading: () => <LoadingLocation /> });
 export { Footer } from "./Footer";

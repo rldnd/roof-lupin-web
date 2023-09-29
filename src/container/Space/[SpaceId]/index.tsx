@@ -33,7 +33,6 @@ interface Props {
   params: { spaceId: string };
 }
 
-// TODO: 지도 구현
 export default async function SpaceDetailContainer({ params }: Props) {
   const spacePromise = getServerSpaceApi(params.spaceId);
   const spaceRentalTypePromise = getSpaceRentalTypeDetailApi(params.spaceId);

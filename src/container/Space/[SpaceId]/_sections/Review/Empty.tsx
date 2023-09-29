@@ -9,7 +9,7 @@ const EmptyReview: React.FC = () => {
         <IconStar />
         리뷰 없음
       </h2>
-      <p className={styles.text}>아직 등록된 질문이 없어요</p>
+      <p className={styles.text}>아직 등록된 리뷰가 없어요</p>
     </section>
   );
 };

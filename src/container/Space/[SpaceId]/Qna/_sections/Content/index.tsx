@@ -10,6 +10,8 @@ import { useSuspenseInfiniteQuery } from "@/hooks";
 import { paginateSpaceQnasApi } from "@/services/qna";
 import { revalidateApi } from "@/services/revalidate";
 
+import Empty from "./Empty";
+
 import styles from "./content.module.scss";
 
 const Content: React.FC = () => {
@@ -35,6 +37,8 @@ const Content: React.FC = () => {
       fetchNextPage={fetchNextPage}
       isFetching={isFetching}
       isSuccess={isSuccess}
+      isEmpty={qnas.pages.length === 0}
+      emptyComponent={<Empty />}
       hasNextPage={hasNextPage}
       className={styles.wrapper}
       loadingComponentInList={<LoadingItems />}

@@ -22,6 +22,10 @@
     .copyButton {
       @include m.fontBody1Regular;
       color: var(--c-roof-orange);
+
+      &:disabled {
+        color: var(--c-gray-400);
+      }
     }
 
     .publicTransportation {
