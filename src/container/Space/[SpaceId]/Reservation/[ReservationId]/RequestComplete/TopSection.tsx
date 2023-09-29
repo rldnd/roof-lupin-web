@@ -15,7 +15,7 @@ const TopSection: React.FC<Props> = ({ space }) => {
       <h1 className={styles.title}>
         {space.title}
         <br />
-        예약 요청이 완료되었어요
+        호스트가 확인하고 있어요!
       </h1>
       <p className={styles.desc}>
         호스트가 승인을 완료하면 <span>결제 알림</span>을 보내드릴게요!
