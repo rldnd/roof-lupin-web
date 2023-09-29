@@ -101,7 +101,7 @@ const Header: React.FC<Props> = ({ space }) => {
             </PlatformButton>
           </li>
           <li>
-            <AuthChecker>
+            <AuthChecker afterLoginPath={`/spaces/${space.id}`}>
               <button type="button" onClick={handleClick} className={styles.bookmark}>
                 {isActive && <IconBookmarkActive className={styles.active} />}
                 {!isActive && <IconBookmarkInactive className={styles.inactive} />}

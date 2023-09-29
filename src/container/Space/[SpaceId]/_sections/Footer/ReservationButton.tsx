@@ -46,7 +46,7 @@ const ReservationButton: React.FC = () => {
   };
 
   return (
-    <AuthChecker>
+    <AuthChecker afterLoginPath={`/spaces/${spaceId}`}>
       <Button
         color="primary"
         onClick={onClickButton}

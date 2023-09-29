@@ -44,7 +44,7 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
   return (
     <>
       <footer className={styles.wrapper}>
-        <AuthChecker>
+        <AuthChecker afterLoginPath={`/spaces/${spaceId}`}>
           <button type="button" className={styles.left} onClick={() => setIsShowBottomSheet(true)}>
             <IconRepeat />
             {year && month && day && userCount && (

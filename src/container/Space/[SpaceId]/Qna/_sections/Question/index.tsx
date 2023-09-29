@@ -20,7 +20,7 @@ const Question: React.FC<Props> = ({ spaceId }) => {
   return (
     <section className={styles.wrapper}>
       <span>궁금한 내용을 남겨주시면, 호스트가 확인 후 빠르게 답변 드려요.</span>
-      <AuthChecker className={styles.authChecker}>
+      <AuthChecker className={styles.authChecker} afterLoginPath={`/spaces/${spaceId}/qnas/create-question`}>
         <Button type="button" color="secondary" full onClick={onClickButton}>
           호스트에게 문의하기
         </Button>

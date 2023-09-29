@@ -64,7 +64,7 @@ const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) =
           </div>
           <span>주변</span>
         </Link>
-        <AuthChecker>
+        <AuthChecker afterLoginPath="/interests">
           <button
             className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/interests") })}
             value="/interests"
@@ -76,7 +76,7 @@ const BottomNavigation: React.FC<Props> = ({ blockScrollInteraction = false }) =
             <span>찜</span>
           </button>
         </AuthChecker>
-        <AuthChecker>
+        <AuthChecker afterLoginPath="/my-page">
           <button
             className={cx(styles.item, { [styles.isActive]: checkIsActive(pathname, "/my-page") })}
             value="/my-page"

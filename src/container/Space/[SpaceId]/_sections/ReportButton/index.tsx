@@ -15,7 +15,7 @@ const ReportButton: React.FC = () => {
   };
 
   return (
-    <AuthChecker>
+    <AuthChecker afterLoginPath={`/spaces/${spaceId}/reports`}>
       <button type="button" onClick={onClick} className={styles.wrapper}>
         신고하기
       </button>

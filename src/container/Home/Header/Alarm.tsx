@@ -26,7 +26,7 @@ const Alarm: React.FC<Props> = ({ className }) => {
   });
 
   return (
-    <AuthChecker>
+    <AuthChecker afterLoginPath="/alarms">
       <button
         onClick={() => push("/alarms")}
         title="알림 페이지"

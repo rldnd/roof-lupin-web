@@ -2,15 +2,17 @@
 
 import { type MouseEventHandler, type ReactNode, useCallback } from "react";
 
-import { useLoginSheet } from "@/hooks";
+import { AFTER_LOGIN_REDIRECT_PATH } from "@/common/constants";
+import { useClientEffect, useLoginSheet } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 
 interface Props {
   className?: string;
   children: ReactNode;
+  afterLoginPath: string;
 }
 
-const AuthChecker: React.FC<Props> = ({ className, children }) => {
+const AuthChecker: React.FC<Props> = ({ className, children, afterLoginPath }) => {
   const { openSheet } = useLoginSheet();
   const { isLogined } = useMe();
 
@@ -23,6 +25,10 @@ const AuthChecker: React.FC<Props> = ({ className, children }) => {
     },
     [isLogined, openSheet],
   );
+
+  useClientEffect(() => {
+    sessionStorage.setItem(AFTER_LOGIN_REDIRECT_PATH, afterLoginPath);
+  }, [afterLoginPath]);
 
   return (
     <div className={className} onClickCapture={onClickCapture}>

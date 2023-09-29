@@ -1,30 +1,30 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Loading } from "@/components";
+import { AFTER_LOGIN_REDIRECT_PATH } from "@/common/constants";
+import { useClientEffect } from "@/hooks";
 import { setSocialType, setTokens } from "@/utils/auth";
 
-// TODO: server component & client component 분리
-const NaverContainer: React.FC = () => {
+const DataHandler: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+  useClientEffect(() => {
     const status = searchParams.get("status");
     const accessToken = searchParams.get("accessToken");
     const refreshToken = searchParams.get("refreshToken");
 
     if (status === "200" && accessToken && refreshToken) {
       setTokens({ accessToken, refreshToken });
-      setSocialType("naver");
-      router.replace("/");
+      setSocialType("kakao");
+      router.replace(sessionStorage.get(AFTER_LOGIN_REDIRECT_PATH));
     } else router.replace("/auth/failed");
   }, [searchParams, router]);
 
-  return <Loading isShow />;
+  return null;
 };
 
-export default NaverContainer;
+export default DataHandler;

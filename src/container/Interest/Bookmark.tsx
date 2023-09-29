@@ -33,7 +33,7 @@ const Bookmark: React.FC<Props> = ({ isInterested, spaceId }) => {
   });
 
   return (
-    <AuthChecker className={styles.wrapper}>
+    <AuthChecker className={styles.wrapper} afterLoginPath="/interests">
       <button type="button" onClick={handleClick} className={styles.bookmark}>
         {isActive && <IconBookmarkActive />}
         {!isActive && <IconBookmarkInactive />}
