@@ -18,6 +18,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   const [code, title, desc] = (() => {
     const isAxiosError = isAxiosErrorApp<ErrorDTO>(error);
     if (error.message.includes("canceled")) return [401, "권한이 없습니다.", ""];
+    if (error.message.includes("Unexpected token < in")) return [503, "Service Unavailable", "서버 점검 중입니다."];
     if (isAxiosError && error.response?.data) {
       return [error.response.data.statusCode, error.response.data.message, ""];
     }
