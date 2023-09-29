@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 "use client";
 
 import Link from "next/link";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
 import { ALARM_ICON_MAPPER } from "@/common/constants/alarm";
 import type { Alarm } from "@/common/types/alarm";
+import { readAlarmApi } from "@/services/alarm";
 import { dayjs } from "@/utils/date";
 
 import styles from "./alarmItem.module.scss";
@@ -32,8 +35,18 @@ const AlarmContent: React.FC<ContentProps> = ({ alarm }) => {
 };
 
 const AlarmLinkItem: React.FC<Props> = ({ alarm, className }) => {
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation(readAlarmApi, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["paginateAlarmsApi"]);
+    },
+  });
+
   return (
-    <li className={cx(styles.wrapper, className, { [styles.isRead]: alarm.isRead })}>
+    <li
+      className={cx(styles.wrapper, className, { [styles.isRead]: alarm.isRead })}
+      onClick={() => mutateAsync(alarm.id)}
+    >
       <Link href={alarm.link!} className={styles.layout}>
         <AlarmContent alarm={alarm} />
       </Link>

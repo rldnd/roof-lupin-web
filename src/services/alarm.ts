@@ -9,5 +9,4 @@ export const getUnReadAlarm = () => apiClient.get<UnReadAlarm>("/alarms/un-read"
 export const paginateAlarmsApi = (params: BasePaginationQueryParams) =>
   apiClient.get<PagingDTO<Alarm>>("/alarms", { params });
 
-/** [CLIENT] 알람 읽음 처리 */
 export const readAlarmApi = (alarmId: string) => apiClient.post(`/alarms/${alarmId}/read`);
