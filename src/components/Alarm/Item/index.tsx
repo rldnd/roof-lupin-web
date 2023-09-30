@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import cx from "clsx";
 import Skeleton from "react-loading-skeleton";
 
-import { ALARM_ICON_MAPPER } from "@/common/constants/alarm";
+import { ALARM_ICON_MAPPER, ALARM_TYPE_WITH_THUMBNAIL } from "@/common/constants/alarm";
 import type { Alarm } from "@/common/types/alarm";
 import { readAlarmApi } from "@/services/alarm";
 import { dayjs } from "@/utils/date";
@@ -25,9 +25,20 @@ const AlarmContent: React.FC<ContentProps> = ({ alarm }) => {
   const { backgroundColor, icon } = ALARM_ICON_MAPPER[alarm.alarmType];
   const date = dayjs(alarm.alarmAt).format("MM월 DD일");
 
+  const hasThumbnail = ALARM_TYPE_WITH_THUMBNAIL.includes(alarm.alarmType);
+
   return (
     <>
-      <div className={cx(styles.iconWrapper, styles[backgroundColor ?? ""])}>{icon}</div>
+      {!hasThumbnail && <div className={cx(styles.iconWrapper, styles[backgroundColor ?? ""])}>{icon}</div>}
+      {hasThumbnail && (
+        <div className={styles.iconWrapper}>
+          <img
+            src={alarm.alarmType === "REVIEW_RECOMMEND" ? alarm.thumbnail ?? "" : ""}
+            alt="공간 썸네일"
+            className={styles.img}
+          />
+        </div>
+      )}
       <p className={styles.content}>{alarm.content}</p>
       {Boolean(alarm.alarmAt) && <time dateTime={date}>{date}</time>}
     </>

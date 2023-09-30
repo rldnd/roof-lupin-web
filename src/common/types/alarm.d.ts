@@ -1,16 +1,11 @@
 import type { CommonUser } from "./user";
 
-export type AlarmType =
-  | "SPACE_TIME"
-  | "RESERVATION_APPROVED"
-  | "RESERVATION_REJECTED"
-  | "RESERVATION_AUTO_CANCELED"
-  | "RESERVATION_HOST_CANCELED"
-  | "REVIEW_RECOMMEND"
-  | "COUPON_DURATION"
-  | "QNA"
-  | "REVIEW_ANSWER"
-  | "MARKETING_EXHIBITION";
+import { ALARM_TYPE_WITH_THUMBNAIL, ALARM_TYPE_WITHOUT_THUMBNAIL } from "../constants/alarm";
+
+export type AlarmTypeWithoutThumbnail = (typeof ALARM_TYPE_WITHOUT_THUMBNAIL)[number];
+export type AlarmTypeWithThumbnail = (typeof ALARM_TYPE_WITH_THUMBNAIL)[number];
+
+export type AlarmType = AlarmTypeWithThumbnail | AlarmTypeWithoutThumbnail;
 
 export type AlarmIconMapperBackgroundColor = "roof-orange" | "gray-200";
 
@@ -24,7 +19,7 @@ export interface UnReadAlarm {
   isExists: boolean;
 }
 
-export interface Alarm {
+interface BaseAlarm {
   /** 알람 아이디 */
   id: string;
   /** 알람 제목 */
@@ -43,6 +38,17 @@ export interface Alarm {
   isPushed: boolean;
   /** 유저 정보 */
   user: CommonUser;
-  /** 알람 타입 */
-  alarmType: AlarmType;
 }
+
+interface AlarmWithoutThumbnail extends BaseAlarm {
+  /** 알람 타입 */
+  alarmType: Exclude<AlarmType, AlarmTypeWithThumbnail>;
+}
+
+interface AlarmWithThumbnail extends BaseAlarm {
+  /** 알람 타입 */
+  alarmType: Extract<AlarmType, AlarmTypeWithThumbnail>;
+  thumbnail: string | null;
+}
+
+export type Alarm = AlarmWithoutThumbnail | AlarmWithThumbnail;

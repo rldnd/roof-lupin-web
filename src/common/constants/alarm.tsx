@@ -54,3 +54,16 @@ export const ALARM_ICON_MAPPER: Record<AlarmType, AlarmIconMapperValue> = {
     icon: <IconAlarmMarketingExhibition />,
   },
 } as const;
+
+export const ALARM_TYPE_WITH_THUMBNAIL = ["REVIEW_RECOMMEND"] as const;
+export const ALARM_TYPE_WITHOUT_THUMBNAIL = [
+  "SPACE_TIME",
+  "RESERVATION_APPROVED",
+  "RESERVATION_REJECTED",
+  "RESERVATION_AUTO_CANCELED",
+  "RESERVATION_HOST_CANCELED",
+  "COUPON_DURATION",
+  "QNA",
+  "REVIEW_ANSWER",
+  "MARKETING_EXHIBITION",
+] as const;
