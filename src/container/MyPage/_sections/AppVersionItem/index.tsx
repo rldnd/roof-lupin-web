@@ -1,25 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useAtom } from "jotai";
 
 import { AppCommonAppVersionPayload, WebCommonAppVersionPayload } from "@/common/types/webview/common";
 import { usePlatform, useWebview } from "@/hooks";
+import { appVersionState } from "@/states/global";
 
 import { Item } from "../Menu";
 
 const AppVersionItem: React.FC = () => {
-  const [version, setVersion] = useState("");
+  const [version, setVersion] = useAtom(appVersionState);
   const { isWebview } = usePlatform();
   const { addListener, sendMessage, removeListener } = useWebview();
 
   useEffect(() => {
-    addListener<AppCommonAppVersionPayload>("app-common/appVersion", ({ version }) => setVersion(version));
-    sendMessage<WebCommonAppVersionPayload>({ type: "web-common/appVersion" });
+    addListener<AppCommonAppVersionPayload>("app-common/appVersion", ({ version }) => {
+      setVersion(version);
+    });
+    if (!version) sendMessage<WebCommonAppVersionPayload>({ type: "web-common/appVersion" });
 
     return () => {
       removeListener<AppCommonAppVersionPayload>("app-common/appVersion");
     };
-  }, [addListener, removeListener, sendMessage]);
+  }, [addListener, removeListener, sendMessage, setVersion, version]);
 
   if (!isWebview) return null;
 
