@@ -21,6 +21,7 @@
 
     .copyButton {
       @include m.fontBody1Regular;
+      align-self: flex-start;
       color: var(--c-roof-orange);
 
       &:disabled {
