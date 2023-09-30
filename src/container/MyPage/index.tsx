@@ -16,7 +16,7 @@ export default async function MyContainer() {
             <CloseReservation />
             <Title className={styles.firstTitle}>고객지원</Title>
             <Item href="/my-page/announcements">공지사항</Item>
-            <Item>자주 묻는 질문 / FAQ</Item>
+            <Item href="/my-page/frequent-questions">자주 묻는 질문 / FAQ</Item>
             <Item>카카오톡 1:1 문의</Item>
             <Item>이벤트</Item>
             <Item>고객센터</Item>

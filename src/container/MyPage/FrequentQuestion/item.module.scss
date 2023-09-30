@@ -1,0 +1,44 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  .titleWrapper {
+    display: grid;
+    grid-template-columns: 1fr 36px;
+    column-gap: 16px;
+    width: 100%;
+    padding: c.$S_PAGE_HORIZONTAL_PADDING;
+    cursor: pointer;
+    background-color: var(--c-white);
+    border-top: 1px solid var(--c-gray-200);
+
+    .title {
+      @include m.fontH4SemiBold;
+      align-self: center;
+      color: var(--c-black);
+    }
+
+    .chevronWrapper {
+      @include m.flex;
+      width: 100%;
+      height: 36px;
+    }
+  }
+
+  &[open] {
+    .chevronWrapper svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .content {
+    @include m.fontBody1Regular;
+    width: 100%;
+    padding: 32px c.$S_PAGE_HORIZONTAL_PADDING 20px;
+    color: var(--c-black);
+    white-space: pre-wrap;
+    background-color: var(--c-gray-150);
+  }
+}
