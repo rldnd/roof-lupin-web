@@ -11,17 +11,19 @@ import styles from "./toggleItem.module.scss";
 interface Props {
   className?: string;
   children: ReactNode;
+  disabled?: boolean;
+  name?: string;
   checked: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 type LoadingProps = Pick<Props, "className" | "children">;
 
-const ToggleItem: React.FC<Props> = ({ className, children, checked, onChange }) => {
+const ToggleItem: React.FC<Props> = ({ className, children, checked, name, onChange, disabled = false }) => {
   return (
     <div className={cx(styles.wrapper, className)}>
       <span className={styles.label}>{children}</span>
-      <Toggle checked={checked} onChange={onChange} />
+      <Toggle checked={checked} onChange={onChange} name={name} disabled={disabled} />
     </div>
   );
 };

@@ -40,7 +40,11 @@ const AppPermissionSection: React.FC = () => {
   const updateMySetting = useCallback(
     ({ alarm, location }: AppCommonGetPermissionData) => {
       setPermission({ alarm, location });
-      mutate({ isAlarmAccepted: alarm, isLocationInfoAccepted: location });
+      mutate({
+        isAlarmAccepted: alarm,
+        isLocationInfoAccepted: location,
+        isPushAccepted: !alarm ? false : undefined,
+      });
     },
     [mutate, setPermission],
   );
