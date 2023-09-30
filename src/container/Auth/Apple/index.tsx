@@ -1,16 +1,14 @@
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import { Loading } from "@/components";
 
-import DataHandler from "./DataHandler";
+const DataHandler = dynamic(() => import("./DataHandler"), { ssr: false });
 
 export default function AppleContainer() {
   return (
     <>
       <Loading isShow />
-      <Suspense fallback={null}>
-        <DataHandler />
-      </Suspense>
+      <DataHandler />
     </>
   );
 }

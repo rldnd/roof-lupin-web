@@ -20,7 +20,7 @@ const DataHandler: React.FC = () => {
     if (status === "200" && accessToken && refreshToken) {
       setTokens({ accessToken, refreshToken });
       setSocialType("kakao");
-      router.replace(sessionStorage.get(AFTER_LOGIN_REDIRECT_PATH));
+      router.replace(sessionStorage.getItem(AFTER_LOGIN_REDIRECT_PATH) ?? "/");
     } else router.replace("/auth/failed");
   }, [searchParams, router]);
 
