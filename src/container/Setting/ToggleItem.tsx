@@ -15,6 +15,8 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
+type LoadingProps = Pick<Props, "className" | "children">;
+
 const ToggleItem: React.FC<Props> = ({ className, children, checked, onChange }) => {
   return (
     <div className={cx(styles.wrapper, className)}>
@@ -25,3 +27,12 @@ const ToggleItem: React.FC<Props> = ({ className, children, checked, onChange })
 };
 
 export default ToggleItem;
+
+export const LoadingToggleItem: React.FC<LoadingProps> = ({ children, className }) => {
+  return (
+    <div className={cx(styles.wrapper, className)}>
+      <span className={styles.label}>{children}</span>
+      <Toggle disabled />
+    </div>
+  );
+};

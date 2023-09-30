@@ -2,7 +2,7 @@ import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
 import { BaseCenterHeader } from "@/components/Layout";
 
-import { AlarmSection, EventSection, LocationSection } from "./_sections";
+import { AppPermissionSection, EventSection } from "./_sections";
 
 import styles from "./settingContainer.module.scss";
 
@@ -12,8 +12,7 @@ export default async function SettingContainer() {
       <div className={styles.wrapper}>
         <BaseCenterHeader title="설정" hasBorderBottom />
         <main>
-          <AlarmSection />
-          <LocationSection />
+          <AppPermissionSection />
           <EventSection />
         </main>
       </div>

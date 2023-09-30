@@ -14,6 +14,15 @@ export interface UpdateUserBody {
   isAlarmAccepted: boolean;
 }
 
+export interface UpdateMySettingBody {
+  isAdult: boolean;
+  isAlarmAccepted: boolean;
+  isLocationInfoAccepted: boolean;
+  isEmailAccepted: boolean;
+  isKakaoTalkAccepted: boolean;
+  isPushAccepted: boolean;
+}
+
 /** [CLIENT] 내 정보 불러오기 */
 export const getMeApi = () => apiClient.get<CommonUser>("/users/me");
 
@@ -24,5 +33,7 @@ export const getMyPushTokenApi = () => apiClient.get<PushToken>("/users/me/push-
 export const getMyCountInfoApi = () => apiClient.get<CountInfo>("/users/me/count-info");
 
 export const updateMeApi = (body: Partial<UpdateUserBody>) => apiClient.patch("/users", body);
+
+export const updateMySettingApi = (body: Partial<UpdateMySettingBody>) => apiClient.patch("/users/settings", body);
 
 export const resignApi = () => apiClient.delete("/users");

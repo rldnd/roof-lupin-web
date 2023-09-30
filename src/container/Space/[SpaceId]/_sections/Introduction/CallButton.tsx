@@ -32,7 +32,7 @@ const CallButton: React.FC<Props> = ({ phoneNumber }) => {
         className={styles.call}
         mobile={() => setIsShowCall(true)}
         desktop={() => setIsShowCall(true)}
-        webview={() => setIsShowCall(true)}
+        webview={onClickCallWebview}
       >
         <IconPhone />
         문의하기
