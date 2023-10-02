@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useAtomValue } from "jotai";
 import Skeleton from "react-loading-skeleton";
 
-import { SPACE_PAGE_MAP_ID } from "@/common/constants";
+import { INITIAL_ZOOM, SPACE_PAGE_MAP_ID } from "@/common/constants";
 import type { Location as LocationType } from "@/common/types/location";
 import type { SpaceCategory, Transportation } from "@/common/types/space";
 import { NaverMap } from "@/components/NaverMap";
@@ -50,6 +50,8 @@ const Location: React.FC<Props> = ({ location, publicTransportations, categories
         disableTwoFingerTapZoom: true,
         disableKineticPan: true,
         draggable: false,
+        maxZoom: INITIAL_ZOOM,
+        minZoom: INITIAL_ZOOM,
         scrollWheel: false,
       },
       restorePosition: false,

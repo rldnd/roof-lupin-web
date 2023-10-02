@@ -10,7 +10,6 @@ import { NaverMap, useNaverMap } from "@/components/NaverMap";
 import { hasInitNaverMapEventEmitterState } from "@/states";
 import sizes from "@/styles/constants/sizes.module.scss";
 
-// TODO: 앱에서 위치 받아오는 방식
 const Map: React.FC = () => {
   const hasInit = useAtomValue(hasInitNaverMapEventEmitterState);
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
