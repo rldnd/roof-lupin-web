@@ -4,6 +4,8 @@
 .wrapper {
   @include m.flex(flex-start, center, column);
   @include m.fixed(50% auto auto 50%);
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
   transform: translate(-50%, -50%);
 
   .link {
