@@ -30,7 +30,7 @@ const SpaceList: React.FC = () => {
 
   const hasClickedMapMarker = LOCATION_PAGE_MAP_ID in clickedMapMarker && clickedMapMarker[LOCATION_PAGE_MAP_ID];
 
-  const { lat, lng, zoom } = useMapInfo();
+  const { lat, lng, zoom } = useMapInfo(LOCATION_PAGE_MAP_ID);
 
   const distance = getDistance({
     zoom,

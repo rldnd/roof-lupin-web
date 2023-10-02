@@ -2,8 +2,6 @@
 
 import { memo, useCallback, useEffect, useRef } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { useAtom, useSetAtom } from "jotai";
 
 import type {
@@ -19,8 +17,14 @@ import type {
   NaverMapEventCallback,
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
-import { useDebounceCallback, useQueryString, useThrottleSetAtom } from "@/hooks";
-import { clickedMapMarkerState, hasInitNaverMapEventEmitterState, mapSizeState } from "@/states";
+import { useDebounceCallback, useThrottleSetAtom } from "@/hooks";
+import {
+  clickedMapMarkerState,
+  hasInitNaverMapEventEmitterState,
+  mapCenterState,
+  mapSizeState,
+  mapZoomState,
+} from "@/states";
 import { deletePropertyInObject } from "@/utils/function";
 import {
   checkIsTargetMap,
@@ -30,7 +34,11 @@ import {
   getMapMarkerContent,
   getMapNonInteractiveMarkerContent,
   getMarkerLocationObjectToString,
+  getRestoreMapCenter,
+  getRestoreMapZoom,
   loadNaverMapScript,
+  setRestoreMapCenter,
+  setRestoreMapZoom,
 } from "@/utils/naverMap";
 import { isClient } from "@/utils/next";
 
@@ -47,14 +55,7 @@ interface Props {
 }
 
 const Map: React.FC<Props> = ({ id, width, height, className }) => {
-  const { replace } = useRouter();
-  const { set, getQueryStringWithPath, getCurrentParams } = useQueryString();
-  const searchParams = getCurrentParams();
   const isRestorePosition = useRef(false);
-
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-  const zoom = searchParams.get("zoom");
 
   const listeners = useRef<naver.maps.MapEventListener[]>([]);
   const naverMapScript = useRef<HTMLScriptElement>();
@@ -66,22 +67,38 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   // MEMO: 하단의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
   const setMapSize = useThrottleSetAtom(mapSizeState);
+  const setMapZoom = useSetAtom(mapZoomState);
+  const setMapCenter = useSetAtom(mapCenterState);
+
   const setHasInitNaverMapEventEmitter = useSetAtom(hasInitNaverMapEventEmitterState);
 
   const [clickedMapMarker, setClickedMapMarker] = useAtom(clickedMapMarkerState);
 
   const replaceLocationQuery = useCallback(
     (lat: string, lng: string) => {
-      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ lat, lng })));
+      if (isRestorePosition.current) {
+        setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
+        if (isRestorePosition.current) {
+          setRestoreMapCenter(id, { lat, lng });
+        }
+      }
     },
-    [getQueryStringWithPath, replace, set],
+    [id, setMapCenter],
   );
 
   const replaceLocationAndZoomQuery = useCallback(
     (lat: string, lng: string, zoom: number) => {
-      if (isRestorePosition.current) replace(getQueryStringWithPath(set({ lat, lng, zoom })));
+      if (isRestorePosition.current) {
+        setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
+        setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+
+        if (isRestorePosition.current) {
+          setRestoreMapCenter(id, { lat, lng });
+          setRestoreMapZoom(id, zoom);
+        }
+      }
     },
-    [getQueryStringWithPath, replace, set],
+    [id, setMapCenter, setMapZoom],
   );
 
   const replaceLocationQueryDebounce = useDebounceCallback(replaceLocationQuery);
@@ -96,7 +113,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   }, [id, setMapSize]);
 
   // MEMO: 지도의 중심 좌표와 줌과 선택된 마커 초기화
-  const initializeCenterAndZoomAndClickedMarker = useCallback(() => {
+  const initializeClickedMarker = useCallback(() => {
     if (!checkMapLoaded(mapController)) return;
 
     setClickedMapMarker((prev) => ({ ...prev, [id]: null }));
@@ -162,23 +179,30 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       naverMapScript.current = loadNaverMapScript();
       naverMapScript.current.onload = () => {
         isRestorePosition.current = info.restorePosition;
-        const hasMapCenter = lat && lng;
-        const hasZoom = Boolean(zoom);
+        const restoreMapCenter = getRestoreMapCenter(id);
+        const restoreMapZoom = getRestoreMapZoom(id);
 
         mapController.current = new naver.maps.Map(id, {
           ...info.options,
           ...(info.restorePosition &&
-            hasMapCenter && {
-              center: { lat: Number(lat), lng: Number(lng) },
+            restoreMapCenter && {
+              center: { lat: Number(restoreMapCenter.lat), lng: Number(restoreMapCenter.lng) },
             }),
           ...(info.restorePosition &&
-            hasZoom && {
-              zoom: Number(zoom),
+            restoreMapZoom && {
+              zoom: restoreMapZoom,
             }),
         });
 
         initializeSize();
-        if (!info.restorePosition || (info.restorePosition && !hasMapCenter)) initializeCenterAndZoomAndClickedMarker();
+        if (!info.restorePosition) initializeClickedMarker();
+        if (info.restorePosition && restoreMapCenter) {
+          setMapCenter((prev) => ({ ...prev, [id]: restoreMapCenter }));
+        }
+
+        if (info.restorePosition && restoreMapZoom) {
+          setMapZoom((prev) => ({ ...prev, [id]: restoreMapZoom }));
+        }
 
         addCenterChangedListener();
         addZoomChangedListener();
@@ -194,11 +218,10 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       addResizeListener,
       addZoomChangedListener,
       id,
-      initializeCenterAndZoomAndClickedMarker,
+      initializeClickedMarker,
       initializeSize,
-      lat,
-      lng,
-      zoom,
+      setMapCenter,
+      setMapZoom,
     ],
   );
 
@@ -306,6 +329,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   const destroy = useCallback(
     (data: BaseNaverMapEventParameter) => {
       if (!checkIsTargetMap(data.mapId, id)) return;
+
       mapController.current?.removeListener(listeners.current);
       mapController.current?.destroy();
       mapController.current = undefined;
@@ -318,10 +342,12 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       markers.current = {};
 
       naverMapScript.current?.remove();
+      setMapCenter((prev) => deletePropertyInObject(prev, id));
+      setMapZoom((prev) => deletePropertyInObject(prev, id));
       setMapSize((prev) => deletePropertyInObject(prev, id));
       setClickedMapMarker((prev) => deletePropertyInObject(prev, id));
     },
-    [id, setClickedMapMarker, setMapSize],
+    [id, setClickedMapMarker, setMapCenter, setMapSize, setMapZoom],
   );
 
   // MEMO: event emitter listener

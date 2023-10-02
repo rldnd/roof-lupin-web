@@ -1,8 +1,12 @@
 import type { MutableRefObject } from "react";
 
-import { MAP_SCALE_MAPPER } from "@/common/constants";
+import { MAP_SCALE_MAPPER, RESTORE_MAP_CENTER, RESTORE_MAP_ZOOM } from "@/common/constants";
+import { Location } from "@/common/types/location";
 import { SpaceCategory } from "@/common/types/space";
 import type { MarkerValue } from "@/components/NaverMap/types";
+import { MapCenter, MapZoom } from "@/states";
+
+import { isClient } from "./next";
 
 type LocationObject = {
   lat: string | number;
@@ -102,4 +106,46 @@ export const getClickedMapMarkerContent = (icon: string, count: number, title?: 
 export const getMapMarkerIconWithOrderNoSorting = (categories: SpaceCategory[]) => {
   if (categories.length === 0) return null;
   return [...categories].sort((a, b) => a.orderNo ?? 100 - (b.orderNo ?? 100))[0];
+};
+
+export const getRestoreMapZoom = (id: string): number | null => {
+  if (!isClient || !sessionStorage.getItem(RESTORE_MAP_ZOOM)) return null;
+
+  const restoreMapZoom = JSON.parse(sessionStorage.getItem(RESTORE_MAP_ZOOM) || "{}") as MapZoom;
+  if (restoreMapZoom && id in restoreMapZoom && restoreMapZoom[id]) {
+    return restoreMapZoom[id] as number;
+  }
+  return null;
+};
+
+export const setRestoreMapZoom = (id: string, zoom: number) => {
+  if (!isClient) return;
+
+  if (!sessionStorage.getItem(RESTORE_MAP_ZOOM)) {
+    sessionStorage.setItem(RESTORE_MAP_ZOOM, JSON.stringify({ [id]: zoom }));
+  } else {
+    const restoreMapZoom = JSON.parse(sessionStorage.getItem(RESTORE_MAP_ZOOM) || "{}") as MapZoom;
+    sessionStorage.setItem(RESTORE_MAP_ZOOM, JSON.stringify({ ...restoreMapZoom, [id]: zoom }));
+  }
+};
+
+export const getRestoreMapCenter = (id: string): Pick<Location, "lat" | "lng"> | null => {
+  if (!isClient || !sessionStorage.getItem(RESTORE_MAP_CENTER)) return null;
+  const restoreMapCenter = JSON.parse(sessionStorage.getItem(RESTORE_MAP_CENTER) || "{}") as MapCenter;
+
+  if (restoreMapCenter && id in restoreMapCenter && restoreMapCenter[id]) {
+    return restoreMapCenter[id] as Pick<Location, "lat" | "lng">;
+  }
+  return null;
+};
+
+export const setRestoreMapCenter = (id: string, position: Pick<Location, "lat" | "lng">) => {
+  if (!isClient) return;
+
+  if (!sessionStorage.getItem(RESTORE_MAP_CENTER)) {
+    sessionStorage.setItem(RESTORE_MAP_CENTER, JSON.stringify({ [id]: position }));
+  } else {
+    const restoreMapCenter = JSON.parse(sessionStorage.getItem(RESTORE_MAP_CENTER) || "{}") as MapCenter;
+    sessionStorage.setItem(RESTORE_MAP_CENTER, JSON.stringify({ ...restoreMapCenter, [id]: position }));
+  }
 };

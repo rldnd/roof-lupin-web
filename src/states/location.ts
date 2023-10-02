@@ -16,6 +16,12 @@ export type MapSize = Record<string, { width: number; height: number }>;
 export type ClickedMapMarker = Record<string, ClickedMapMarkerValue | null>;
 export type HasInitNaverMapEventEmitter = Record<string, boolean>;
 
+export const initialMapZoom: MapZoom = {};
+export const mapZoomState = atom<MapZoom>(initialMapZoom);
+
+export const initialMapCenter: MapCenter = {};
+export const mapCenterState = atom<MapCenter>(initialMapCenter);
+
 export const initialLocationCategoryIds: string[] = [];
 export const locationCategoryIdsState = atom<string[]>(initialLocationCategoryIds);
 

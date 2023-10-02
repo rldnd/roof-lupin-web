@@ -4,6 +4,7 @@ import { memo, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import { LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import { BaseHeader } from "@/components/Layout";
 import { useMapInfo } from "@/hooks";
 import { getLocationCoordinateApi } from "@/services/location";
@@ -15,7 +16,7 @@ import styles from "./header.module.scss";
 const Header: React.FC = () => {
   const [address, setAddress] = useState("");
 
-  const { lat, lng } = useMapInfo();
+  const { lat, lng } = useMapInfo(LOCATION_PAGE_MAP_ID);
 
   const { data } = useQuery(["getLocationCoordinate", lat, lng], () =>
     getLocationCoordinateApi({
