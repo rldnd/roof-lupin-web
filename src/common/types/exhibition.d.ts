@@ -1,3 +1,7 @@
+import type { ImageDTO } from "./common";
+import type { Coupon } from "./coupon";
+import type { Space } from "./space";
+
 export interface Exhibition {
   /** 기획전 id */
   id: string;
@@ -15,4 +19,14 @@ export interface Exhibition {
   endAt: Date;
   /** 기획전 생성일 */
   createdAt: Date;
+  /** 노출 여부 */
+  isShow: boolean;
+  /** 기획전 삭제일 */
+  deletedAt: Date | null;
+}
+
+export interface ExhibitionDetail extends Exhibition {
+  spaces: Space[];
+  coupons: Coupon[];
+  images: ImageDTO[];
 }

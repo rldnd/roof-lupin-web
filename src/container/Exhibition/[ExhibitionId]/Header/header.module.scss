@@ -17,10 +17,6 @@
   }
 
   &.breakpoint {
-    .bookmark .inactive path {
-      fill-opacity: 0;
-    }
-
     .title {
       @include m.makeEllipsis;
       @include m.fontButton1;
