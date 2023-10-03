@@ -40,7 +40,7 @@ const getSnapToPoint = (markerCount: number) => {
 
 const BottomDrawer: React.FC = () => {
   const sheetRef = useRef<BottomSheetRef>(null);
-  const maxHeightRef = useRef(0);
+  const [maxHeight, setMaxHeight] = useState(0);
   const clickedMapMarker = useAtomValue(clickedMapMarkerState);
 
   const [snapPoints, setSnapPoints] = useState<number[]>([MIN_SIZE]);
@@ -51,8 +51,8 @@ const BottomDrawer: React.FC = () => {
   const markerCount = !hasMap || !hasClickedMarker ? 0 : clickedMapMarker[LOCATION_PAGE_MAP_ID]?.spaceId.length ?? 0;
 
   useEffect(() => {
-    setSnapPoints(getSnapPoints(markerCount, maxHeightRef.current));
-  }, [clickedMapMarker, hasClickedMarker, hasMap, markerCount]);
+    setSnapPoints(getSnapPoints(markerCount, maxHeight));
+  }, [clickedMapMarker, hasClickedMarker, hasMap, markerCount, maxHeight]);
 
   useEffect(() => {
     sheetRef.current?.snapTo(getSnapToPoint(markerCount));
@@ -66,7 +66,7 @@ const BottomDrawer: React.FC = () => {
       ref={sheetRef}
       defaultSnap={MIN_SIZE}
       snapPoints={({ maxHeight }) => {
-        maxHeightRef.current = maxHeight;
+        setMaxHeight(maxHeight);
         return snapPoints;
       }}
       expandOnContentDrag
