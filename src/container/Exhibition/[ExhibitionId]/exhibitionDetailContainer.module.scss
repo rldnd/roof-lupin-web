@@ -12,5 +12,6 @@
 
   .content {
     @include m.htmlStyles;
+    overflow-x: hidden;
   }
 }
