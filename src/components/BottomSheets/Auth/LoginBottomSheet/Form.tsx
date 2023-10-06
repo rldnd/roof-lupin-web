@@ -2,13 +2,9 @@
 
 import React, { type MouseEventHandler, useState } from "react";
 
-import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
-import { Button, Loading, PlatformButton } from "@/components";
+import { Loading, PlatformButton } from "@/components";
 import { usePlatform, useWebview } from "@/hooks";
-import { useMe } from "@/hooks/queries";
-import { apiClient } from "@/services/apiClient";
-import { setTokens } from "@/utils/auth";
 
 import { IconApple, IconKakao, IconNaver } from "public/icons";
 
@@ -19,7 +15,7 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ close }) => {
-  const { refetchMe } = useMe();
+  // const { refetchMe } = useMe();
   const { isIosWebview } = usePlatform();
   const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useWebview();
@@ -34,14 +30,14 @@ const Form: React.FC<Props> = ({ close }) => {
     window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/social/${dataset.social}`, "_self");
   };
 
-  const onClickTestLogin = async () => {
-    setIsLoading(true);
-    const { data } = await apiClient.get<Token>("/auth/test");
-    setTokens(data);
-    setIsLoading(false);
-    refetchMe();
-    close();
-  };
+  // const onClickTestLogin = async () => {
+  //   setIsLoading(true);
+  //   const { data } = await apiClient.get<Token>("/auth/test");
+  //   setTokens(data);
+  //   setIsLoading(false);
+  //   refetchMe();
+  //   close();
+  // };
 
   return (
     <>
@@ -67,9 +63,9 @@ const Form: React.FC<Props> = ({ close }) => {
             Apple로 계속하기
           </button>
         )}
-        <Button type="button" color="primary" full onClick={onClickTestLogin}>
+        {/* <Button type="button" color="primary" full onClick={onClickTestLogin}>
           테스트 로그인
-        </Button>
+        </Button> */}
       </section>
       <Loading isShow={isLoading} />
     </>
