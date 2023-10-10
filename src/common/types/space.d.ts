@@ -88,6 +88,8 @@ export interface Space {
 export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "timeCost" | "packageCost"> {
   /** 보증금 */
   deposit: number | null;
+  /** 보증금 관련 설명 */
+  depositDescription: number | null;
   /** 공간 베스트 여부 */
   isBest: boolean;
   /** 찜 여부 */
@@ -98,8 +100,6 @@ export interface SpaceDetail extends Omit<Space, "isBest" | "isInterested" | "ti
   minSize: number;
   /** 건물 타입 */
   buildingType: number | null;
-  /** 공간 최소 인원 */
-  minUser: number;
   /** 공간 최대 인원 */
   maxUser: number;
   /** 공간 Q&A 개수 */
