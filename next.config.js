@@ -6,9 +6,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
-  experimental: {
-    appDir: true,
-  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
