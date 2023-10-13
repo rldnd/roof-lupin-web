@@ -27,13 +27,14 @@
       opacity: var(--opacity);
     }
 
-    svg {
+    nav {
       @include m.filterGray900;
       opacity: var(--opacity);
     }
 
-    & > button > svg {
+    & > button {
       @include m.filterRoofOrange;
+      opacity: var(--opacity);
     }
   }
 
