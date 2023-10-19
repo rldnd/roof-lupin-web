@@ -49,7 +49,7 @@ const Header: React.FC<Props> = ({ exhibition }) => {
     });
   }, [exhibition, sendMessage]);
 
-  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 100_000);
+  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 3_000);
 
   return (
     <>
