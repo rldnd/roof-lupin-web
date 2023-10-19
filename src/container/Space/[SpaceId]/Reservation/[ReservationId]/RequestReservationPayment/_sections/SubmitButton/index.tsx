@@ -2,9 +2,11 @@
 
 import { useMutation } from "@tanstack/react-query";
 
+import type { ErrorDTO } from "@/common/types/common";
 import type { CreateReservationRentalType, ReservationDetail } from "@/common/types/reservation";
 import { Button } from "@/components";
-import { useTossPayment } from "@/hooks";
+import { useToast, useTossPayment } from "@/hooks";
+import { isAxiosError } from "@/services/apiClient";
 import { createPaymentPayloadApi } from "@/services/payment";
 
 import styles from "./submitButton.module.scss";
@@ -30,12 +32,19 @@ const SubmitButton: React.FC<Props> = ({ disabled, reservation }) => {
     additionalServices,
     id: reservationId,
   } = reservation;
+  const { addToast } = useToast();
+
   const { id: spaceId } = space;
 
   const { requestPayment } = useTossPayment();
 
   const { mutate: createPayload } = useMutation(createPaymentPayloadApi, {
     onSuccess: (data) => requestPayment(data.data),
+    onError: (error) => {
+      if (isAxiosError<ErrorDTO>(error) && error.response?.data) {
+        addToast({ message: error.response.data.message });
+      }
+    },
   });
 
   const onClickButton = () => {
