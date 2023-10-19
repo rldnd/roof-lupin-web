@@ -4,6 +4,7 @@
 .wrapper {
   @include m.flex(space-between);
   @include m.fixed(auto auto 0 50%);
+  z-index: c.$Z_SPACE_DETAIL_FOOTER;
   flex-wrap: wrap;
   width: 100%;
   max-width: c.$S_CONTENT_WIDTH;
