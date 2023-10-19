@@ -22,13 +22,14 @@
   }
 
   &.breakpoint {
-    .alarmIcon::after {
-      background-color: var(--c-roof-orange);
+    nav > a,
+    nav button {
+      @include m.filterGray900;
       opacity: var(--opacity);
     }
 
-    nav {
-      @include m.filterGray900;
+    .alarmIcon::after {
+      background-color: var(--c-roof-orange);
       opacity: var(--opacity);
     }
 

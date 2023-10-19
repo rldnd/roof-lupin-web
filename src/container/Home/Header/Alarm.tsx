@@ -28,12 +28,11 @@ const Alarm: React.FC<Props> = ({ className }) => {
   });
 
   return (
-    <AuthChecker afterLoginPath="/alarms">
-      <button
-        onClick={() => push("/alarms")}
-        title="알림 페이지"
-        className={cx(styles.button, className, { [styles.isUnread]: data && data.isExists })}
-      >
+    <AuthChecker
+      afterLoginPath="/alarms"
+      className={cx(styles.wrapper, className, { [styles.isUnread]: data && data.isExists })}
+    >
+      <button onClick={() => push("/alarms")} title="알림 페이지">
         <IconBell />
       </button>
     </AuthChecker>
