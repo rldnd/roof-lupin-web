@@ -2,6 +2,7 @@
 
 import type { ReservationDetail } from "@/common/types/reservation";
 
+import WriteReviewButton from "./WriteReviewButton";
 import { Info, PriceInfo, SpaceInfo, Status } from "../../_shared";
 
 import styles from "./usedView.module.scss";
@@ -19,6 +20,8 @@ const UsedView: React.FC<Props> = ({ reservation }) => {
       <Info reservation={reservation} />
       <hr />
       <PriceInfo reservation={reservation} />
+      <hr />
+      <WriteReviewButton reservation={reservation} />
     </>
   );
 };
