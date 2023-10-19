@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { AuthChecker } from "@/components";
 import { useDataToggle } from "@/hooks";
@@ -15,11 +15,15 @@ import styles from "./spaceBookmark.module.scss";
 interface Props {
   id: string;
   initialIsInterested: boolean;
-  refetch: () => Promise<unknown>;
 }
 
-const SpaceBookmark: React.FC<Props> = ({ id, initialIsInterested, refetch }) => {
+const SpaceBookmark: React.FC<Props> = ({ id, initialIsInterested }) => {
+  const queryClient = useQueryClient();
   const [isActive, setIsActive] = useState(initialIsInterested);
+
+  const refetch = () => {
+    queryClient.refetchQueries(["interests"]);
+  };
 
   const { mutate: onCreate } = useMutation(createSpaceInterestApi, { onSuccess: () => refetch() });
   const { mutate: onDelete } = useMutation(deleteSpaceInterestApi, { onSuccess: () => refetch() });

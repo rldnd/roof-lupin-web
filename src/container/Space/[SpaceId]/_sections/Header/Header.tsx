@@ -2,7 +2,7 @@
 
 import { type CSSProperties, useCallback, useEffect, useState } from "react";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import cx from "clsx";
 
 import type { SpaceDetail } from "@/common/types/space";
@@ -24,16 +24,22 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ space }) => {
+  const queryClient = useQueryClient();
   const [isShowURL, setIsShowURL] = useState(false);
 
   const { sendMessage } = useWebview();
 
+  const refetch = () => {
+    queryClient.refetchQueries(["interests"]);
+  };
+
   const [isActive, setIsActive] = useState(false);
-  const { data: isInterested, refetch } = useQuery(
-    ["getSpaceInterested", space.id],
+  const { data: isInterested } = useQuery(
+    ["getSpaceInterested", "interests", space.id],
     () => getSpaceInterestedApi(space.id).then((res) => res.data),
     {
       select: (res) => res.isInterested ?? false,
+      refetchOnMount: true,
       useErrorBoundary: false,
     },
   );
@@ -73,7 +79,7 @@ const Header: React.FC<Props> = ({ space }) => {
     });
   }, [sendMessage, space]);
 
-  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 100_000);
+  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 3_000);
 
   useEffect(() => {
     if (typeof isInterested === "boolean") setIsActive(isInterested);

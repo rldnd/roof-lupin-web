@@ -22,8 +22,8 @@ const Content: React.FC = () => {
   const keyword = get("keyword") ?? "";
   const spaceSortMenu = useAtomValue(spaceSortMenuState);
 
-  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage, refetch } = useSuspenseInfiniteQuery<Space>(
-    ["paginateSpaces", spaceSortMenu, keyword],
+  const { data, isFetching, isSuccess, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery<Space>(
+    ["paginateSpaces", "interests", spaceSortMenu, keyword],
     ({ pageParam = 1 }) =>
       paginateSpacesApi({ page: pageParam, limit: 10, ...spaceSortMenu, categoryIds: null, keyword }),
   );
@@ -46,7 +46,7 @@ const Content: React.FC = () => {
       >
         {data.pages.map((space) => (
           <SpaceDetailCard className={styles.space} key={space.id} space={space} href={`/spaces/${space.id}`}>
-            <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} refetch={refetch} />
+            <SpaceBookmark id={space.id} initialIsInterested={space.isInterested} />
           </SpaceDetailCard>
         ))}
       </UnorderedInfiniteScroll>

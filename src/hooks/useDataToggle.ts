@@ -23,7 +23,7 @@ const useDataToggle = ({
   setIsActive,
   onCreate,
   onDelete,
-  debounceDelay = 1000,
+  debounceDelay = 500,
 }: UseDataToggleArgs): ReturnUseDataToggle => {
   const beforeClickStatus = useRef(isActive);
 
