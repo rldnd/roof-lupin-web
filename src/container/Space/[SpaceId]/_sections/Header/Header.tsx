@@ -9,7 +9,7 @@ import type { SpaceDetail } from "@/common/types/space";
 import { WebScreenSharePayload } from "@/common/types/webview/screen";
 import { AuthChecker, BackButton, PlatformButton } from "@/components";
 import { SpaceURLBottomSheet } from "@/components/BottomSheets/Space";
-import { useDataToggle, useHeaderScrollOpacity, useWebview } from "@/hooks";
+import { useDataToggle, useHeaderScrollOpacity, useThrottleCallback, useWebview } from "@/hooks";
 import { createSpaceInterestApi, deleteSpaceInterestApi, getSpaceInterestedApi } from "@/services/space";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
@@ -73,6 +73,8 @@ const Header: React.FC<Props> = ({ space }) => {
     });
   }, [sendMessage, space]);
 
+  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 100_000);
+
   useEffect(() => {
     if (typeof isInterested === "boolean") setIsActive(isInterested);
   }, [isInterested]);
@@ -95,7 +97,7 @@ const Header: React.FC<Props> = ({ space }) => {
             <PlatformButton
               desktop={() => setIsShowURL(true)}
               mobile={() => setIsShowURL(true)}
-              webview={onClickShareWebview}
+              webview={onClickShareWebviewThrottle}
             >
               <IconShare />
             </PlatformButton>

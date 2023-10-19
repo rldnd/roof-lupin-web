@@ -8,7 +8,7 @@ import type { ExhibitionDetail } from "@/common/types/exhibition";
 import { WebScreenSharePayload } from "@/common/types/webview/screen";
 import { BackButton, PlatformButton } from "@/components";
 import { SpaceURLBottomSheet } from "@/components/BottomSheets/Space";
-import { useHeaderScrollOpacity, useWebview } from "@/hooks";
+import { useHeaderScrollOpacity, useThrottleCallback, useWebview } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
@@ -49,6 +49,8 @@ const Header: React.FC<Props> = ({ exhibition }) => {
     });
   }, [exhibition, sendMessage]);
 
+  const onClickShareWebviewThrottle = useThrottleCallback(onClickShareWebview, 100_000);
+
   return (
     <>
       <header
@@ -65,7 +67,7 @@ const Header: React.FC<Props> = ({ exhibition }) => {
         <PlatformButton
           desktop={() => setIsShowURL(true)}
           mobile={() => setIsShowURL(true)}
-          webview={onClickShareWebview}
+          webview={onClickShareWebviewThrottle}
         >
           <IconShare />
         </PlatformButton>
