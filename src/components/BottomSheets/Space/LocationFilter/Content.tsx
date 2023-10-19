@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChangeEventHandler, Dispatch, SetStateAction } from "react";
+import { type ChangeEventHandler, type Dispatch, type SetStateAction, useMemo } from "react";
 
 import { xor } from "lodash-es";
 
@@ -19,11 +19,16 @@ interface Props {
 
 const Content: React.FC<Props> = ({ locationFilterTopicIds, setLocationFilterTopicIds }) => {
   const locationFilterTopics = locationFilterTopicIds === null ? [] : locationFilterTopicIds.split(",").filter(Boolean);
-  const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], () => getLocationFiltersApi());
+  const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], getLocationFiltersApi);
 
   const isChecked = (filter: LocationFilter) => {
     return filter.topics.every((topic) => locationFilterTopicIds?.includes(topic.id));
   };
+
+  const isCheckedSeoulAll = useMemo<boolean>(
+    () => locationFilterTopics.length === data.flatMap((item) => item.topics).length,
+    [data, locationFilterTopics.length],
+  );
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
@@ -32,14 +37,33 @@ const Content: React.FC<Props> = ({ locationFilterTopicIds, setLocationFilterTop
 
     const topics = item.topics.map((topic) => topic.id);
 
-    const topicIdsArray = xor(locationFilterTopics, topics);
-    if (topicIdsArray.length === data.flatMap((item) => item.topics).length) {
+    setLocationFilterTopicIds(xor(locationFilterTopics, topics).join(","));
+  };
+
+  const onChangeSeoulAll: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { checked } = e.currentTarget;
+    if (checked) {
+      setLocationFilterTopicIds(
+        data
+          .flatMap((item) => item.topics)
+          .map((topic) => topic.id)
+          .join(","),
+      );
+    } else {
       setLocationFilterTopicIds(null);
-    } else setLocationFilterTopicIds(xor(locationFilterTopics, topics).join(","));
+    }
   };
 
   return (
     <CheckMenu className={styles.wrapper}>
+      <CheckMenuItem
+        key="total"
+        wrapperClassName={styles.total}
+        checked={isCheckedSeoulAll}
+        onChange={onChangeSeoulAll}
+      >
+        서울 전체
+      </CheckMenuItem>
       {data.map((item) => (
         <CheckMenuItem key={item.id} checked={isChecked(item)} value={item.id} onChange={onChange}>
           {item.name}

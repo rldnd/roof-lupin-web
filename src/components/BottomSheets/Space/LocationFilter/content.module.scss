@@ -6,4 +6,9 @@
   width: 100%;
   padding: 32px c.$S_PAGE_HORIZONTAL_PADDING 40px;
   overflow-y: scroll;
+
+  .total {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--c-gray-300);
+  }
 }

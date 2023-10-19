@@ -21,7 +21,7 @@ const TagList: React.FC = () => {
   const [isShowLocationFilter, setIsShowLocationFilter] = useState(false);
   const { month, day, startAt, endAt, userCount, locationFilterTopicIds } = useAtomValue(spaceSortMenuState);
 
-  const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], () => getLocationFiltersApi());
+  const { data } = useSuspenseQuery<LocationFilter[]>(["getLocationFilters"], getLocationFiltersApi);
 
   const location = useMemo<string>(() => {
     const selectedTopicIds = locationFilterTopicIds === null ? [] : locationFilterTopicIds.split(",").filter(Boolean);
@@ -32,6 +32,7 @@ const TagList: React.FC = () => {
 
     if (selectedTopicIds.length === 0) return "전체 지역";
     const selectedTopicCount = selectedItems.flatMap((item) => item.topics).length;
+    if (selectedTopicCount === data.flatMap((item) => item.topics).length) return "서울 전체";
     return `${selectedItems[0].topics[0].name} 외 ${selectedTopicCount - 1}`;
   }, [locationFilterTopicIds, data]);
 
