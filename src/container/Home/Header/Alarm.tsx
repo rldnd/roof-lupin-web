@@ -8,6 +8,7 @@ import cx from "clsx";
 import type { UnReadAlarm } from "@/common/types/alarm";
 import { AuthChecker } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { getUnReadAlarm } from "@/services/alarm";
 
 import { IconBell } from "public/icons";
@@ -20,7 +21,8 @@ interface Props {
 
 const Alarm: React.FC<Props> = ({ className }) => {
   const { push } = useRouter();
-  const { data } = useSuspenseQuery<UnReadAlarm>(["getUnReadAlarm"], getUnReadAlarm, {
+  const { isLogined } = useMe();
+  const { data } = useSuspenseQuery<UnReadAlarm>(["getUnReadAlarm", isLogined], getUnReadAlarm, {
     refetchOnMount: true,
     useErrorBoundary: false,
   });

@@ -44,9 +44,7 @@ const useMe = (options?: Options): UseMeReturn => {
   const onLogout = useCallback(() => {
     removeTokens();
     setMe(null);
-    queryClient.invalidateQueries({
-      predicate: (query) => !["getMe", "getMyPushToken", "getMyCloseReservation"].includes(query.queryKey[0] as string),
-    });
+    queryClient.clear();
   }, [queryClient, setMe]);
 
   return {
