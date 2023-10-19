@@ -18,10 +18,7 @@
   }
 
   > button {
+    @include m.filterWhite;
     cursor: pointer;
-
-    svg {
-      @include m.filterWhite;
-    }
   }
 }
