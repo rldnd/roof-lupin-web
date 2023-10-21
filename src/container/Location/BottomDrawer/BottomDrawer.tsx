@@ -69,7 +69,6 @@ const BottomDrawer: React.FC = () => {
         setMaxHeight(maxHeight);
         return snapPoints;
       }}
-      expandOnContentDrag
       blocking={false}
       className={styles.wrapper}
     >

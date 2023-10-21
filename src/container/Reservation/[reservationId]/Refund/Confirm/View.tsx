@@ -63,7 +63,7 @@ const RefundView: React.FC = () => {
   const onClickRequest = () => {
     openPopConfirm({
       title: "예약을 취소하시겠어요?",
-      description: "환불은 어쩌고 저쩌고~",
+      description: "예약 취소 시 호스트가 지정한 환불 규정에 따라 환불이 진행됩니다",
       onConfirm: () => {
         setIsLoading(true);
         mutate({ reservationId, cancelReason: paymentRefund.cancelReason });
