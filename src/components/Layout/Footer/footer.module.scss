@@ -3,13 +3,15 @@
 
 .wrapper {
   width: 100%;
-  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING 88px;
+  min-height: c.$S_BASE_FOOTER_MIN_HEIGHT;
+  padding: 32px c.$S_PAGE_HORIZONTAL_PADDING calc(c.$S_BOTTOM_NAVIGATION_HEIGHT + 12px);
   margin-top: 278px;
   background-color: var(--c-gray-100);
 
   .title {
     @include m.flex(space-between);
     width: 100%;
+    margin-bottom: 24px;
 
     .toggleButton {
       @include m.flex;
@@ -25,9 +27,9 @@
 
   address {
     @include m.fontCaptionSemiBold;
-    margin-top: 24px;
+    display: none;
+    margin: 8px 0 24px;
     color: var(--c-gray-500);
-    visibility: hidden;
 
     p {
       @include m.flex(flex-start);
@@ -56,7 +58,25 @@
     }
 
     &.isOpen {
-      visibility: visible;
+      display: block;
     }
+  }
+
+  .policies {
+    @include m.flex(flex-start);
+    gap: 12px;
+    margin-top: 8px;
+
+    > button {
+      @include m.fontCaptionSemiBold;
+      color: var(--c-gray-500);
+      text-decoration: underline;
+    }
+  }
+
+  .bottomText {
+    @include m.fontCaption;
+    margin-top: 24px;
+    color: var(--c-gray-500);
   }
 }
