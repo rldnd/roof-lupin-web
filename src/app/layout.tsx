@@ -26,10 +26,11 @@ EventEmitter.defaultMaxListeners = 30;
 
 export const metadata: Metadata = {
   title: {
-    default: "루프루팡",
+    default: "루프루팡 | 루프탑 전문 공간 대여 플랫폼",
     template: "%s | 루프루팡",
   },
-  description: "도심 속 루프라이프의 시작, 루프루팡",
+  description:
+    "도심 속 루프라이프의 시작, 루프루팡 | 루프탑 파티룸, 스튜디오, 글램핑 바베큐 등 다양한 활동을 옥상에서 즐겨보세요!",
   viewport: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no",
   icons: {
     icon: [
@@ -38,8 +39,15 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
+  keywords: ["루프루팡", "루프탑", "파티룸", "스튜디오", "글램핑", "바베큐", "공간 대여", "옥상"],
   manifest: "/site.webmanifest",
   themeColor: "#ffffff",
+  openGraph: {
+    title: "루프루팡 | 루프탑 전문 공간 대여 플랫폼",
+    description: "도심 속 루프라이프의 시작, 루프루팡",
+    type: "website",
+    images: "/images/og.png",
+  },
   metadataBase: new URL(process.env.NEXT_PUBLIC_API_LOCAL_URL as string),
 };
 
