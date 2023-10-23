@@ -4,6 +4,7 @@
 .wrapper {
   @include m.flex(flex-start);
   @include m.fontH4SemiBold;
+  width: 100%;
   padding: 16px 0;
   color: var(--c-gray-800);
 

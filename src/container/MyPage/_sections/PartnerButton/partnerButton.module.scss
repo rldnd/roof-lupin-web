@@ -1,0 +1,9 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.chipSecondary {
+  @include m.chipSecondary;
+  @include m.fontCaptionSemiBold;
+  padding: 6px 8px;
+  margin-left: 12px;
+}

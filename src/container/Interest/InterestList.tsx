@@ -20,7 +20,7 @@ const InterestList: React.FC = () => {
     isSuccess,
     hasNextPage,
   } = useSuspenseInfiniteQuery<Space>(
-    ["paginateSpaceInterests", "interests"],
+    ["paginateSpaceInterests"],
     ({ pageParam = 1 }) => paginateSpaceInterestsApi({ page: pageParam, limit: 10 }),
     {
       refetchOnMount: true,

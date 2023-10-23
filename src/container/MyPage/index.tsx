@@ -1,14 +1,23 @@
-import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
+import { TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
 import { BottomNavigation, Footer } from "@/components/Layout";
 
-import { AppVersionItem, CloseReservation, Info, Item, Logout, Title } from "./_sections";
+import {
+  AppVersionItem,
+  CloseReservation,
+  Info,
+  Item,
+  Logout,
+  PartnerButton,
+  ServiceCenterItem,
+  Title,
+} from "./_sections";
 
 import styles from "./myPage.module.scss";
 
 export default async function MyContainer() {
   return (
-    <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
+    <ToastPositioner position={TOAST_BOTTOM_WITH_BOTTOM_NAVIGATION}>
       <div className={styles.wrapper}>
         <main>
           <Info />
@@ -18,11 +27,8 @@ export default async function MyContainer() {
             <Item href="/my-page/announcements">공지사항</Item>
             <Item href="/my-page/frequent-questions">자주 묻는 질문 / FAQ</Item>
             <Item>카카오톡 1:1 문의</Item>
-            <Item>이벤트</Item>
-            <Item>고객센터</Item>
-            <Item>
-              루프루팡 파트너스<span className={styles.chipSecondary}>호스트 전용</span>
-            </Item>
+            <ServiceCenterItem />
+            <PartnerButton />
             <hr className={styles.divider} />
             <Title>설정</Title>
             <Item href="/settings">설정</Item>

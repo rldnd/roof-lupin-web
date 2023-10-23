@@ -20,8 +20,8 @@ interface Props {
 const Bookmark: React.FC<Props> = ({ isInterested, spaceId }) => {
   const [isActive, setIsActive] = useState(isInterested);
 
-  const { mutate: onCreate } = useMutation(createSpaceInterestApi);
-  const { mutate: onDelete } = useMutation(deleteSpaceInterestApi);
+  const { mutateAsync: onCreate } = useMutation(createSpaceInterestApi);
+  const { mutateAsync: onDelete } = useMutation(deleteSpaceInterestApi);
 
   const handleClick = useDataToggle({
     id: spaceId,

@@ -9,6 +9,8 @@ export const CloseReservation = dynamic(() => import("./CloseReservation"), {
   loading: () => <LoadingCloseReservation />,
 });
 export const AppVersionItem = dynamic(() => import("./AppVersionItem"), { ssr: false });
+export { default as PartnerButton } from "./PartnerButton";
+export { default as ServiceCenterItem } from "./ServiceCenterItem";
 
 export * from "./Menu";
 export { default as Logout } from "./Logout";

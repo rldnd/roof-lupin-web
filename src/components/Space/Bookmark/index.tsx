@@ -25,8 +25,8 @@ const SpaceBookmark: React.FC<Props> = ({ id, initialIsInterested }) => {
     queryClient.refetchQueries(["interests"]);
   };
 
-  const { mutate: onCreate } = useMutation(createSpaceInterestApi, { onSuccess: () => refetch() });
-  const { mutate: onDelete } = useMutation(deleteSpaceInterestApi, { onSuccess: () => refetch() });
+  const { mutateAsync: onCreate } = useMutation(createSpaceInterestApi, { onSuccess: () => refetch() });
+  const { mutateAsync: onDelete } = useMutation(deleteSpaceInterestApi, { onSuccess: () => refetch() });
 
   const handleClick = useDataToggle({
     id,

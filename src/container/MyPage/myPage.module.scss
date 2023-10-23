@@ -28,13 +28,6 @@
         margin-bottom: 32px;
       }
     }
-
-    .chipSecondary {
-      @include m.chipSecondary;
-      @include m.fontCaptionSemiBold;
-      padding: 6px 8px;
-      margin-left: 12px;
-    }
   }
 
   .footer {

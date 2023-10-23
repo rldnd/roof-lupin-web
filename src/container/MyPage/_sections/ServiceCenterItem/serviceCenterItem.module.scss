@@ -1,0 +1,7 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.desc {
+  @include m.fontCaptionLh170;
+  color: var(--c-gray-600);
+}
