@@ -20,6 +20,10 @@ export interface AppCommonGetPermissionData {
   location: boolean;
 }
 
+export interface WebCommonOpenUrlData {
+  url: string;
+}
+
 /** 플랫폼 확인 요청 */
 export type WebCommonPlatformPayload = BaseWebCommonPayload<"platform", WithoutData>;
 /** 웹뷰 플랫폼 체크 */
@@ -40,3 +44,5 @@ export type WebCommonRequestAlarmPermissionPayload = BaseWebCommonPayload<"reque
 export type WebCommonOpenSettingsPayload = BaseWebCommonPayload<"openSettings", WithoutData>;
 /** 위치 정보 접근 권한 요청 */
 export type WebCommonRequestLocationPermissionPayload = BaseWebCommonPayload<"requestLocationPermission", WithoutData>;
+/** 앱에서 외부 웹을 켜도록 요청 */
+export type WebCommonOpenUrlPayload = BaseWebCommonPayload<"openUrl", WebCommonOpenUrlData>;

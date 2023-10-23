@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { type MouseEventHandler, useState } from "react";
 
 import cx from "clsx";
+
+import { URLS } from "@/common/constants/url";
+import type { WebCommonOpenUrlPayload } from "@/common/types/webview/common";
+import { usePlatform, useWebview } from "@/hooks";
 
 import { IconFooterLogo, IconGrayBottomChevron } from "public/icons";
 
@@ -13,7 +17,15 @@ interface Props {
 }
 
 const Footer: React.FC<Props> = ({ className }) => {
+  const { isWebview } = usePlatform();
+  const { sendMessage } = useWebview();
   const [isOpen, setIsOpen] = useState(true);
+
+  const onClickButton: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const url = e.currentTarget.dataset.url as string;
+    if (isWebview) sendMessage<WebCommonOpenUrlPayload>({ type: "web-common/openUrl", data: { url } });
+    else window.open(url, "_blank");
+  };
 
   return (
     <footer className={cx(styles.wrapper, className)}>
@@ -42,7 +54,9 @@ const Footer: React.FC<Props> = ({ className }) => {
       </address>
       <nav className={styles.policies}>
         <button type="button">이용약관</button>
-        <button type="button">개인정보처리방침</button>
+        <button type="button" data-url={URLS.privacy} onClick={onClickButton}>
+          개인정보처리방침
+        </button>
         <button type="button">운영정책</button>
       </nav>
       <p className={styles.bottomText}>
