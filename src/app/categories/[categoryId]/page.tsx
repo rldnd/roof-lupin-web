@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { DEFAULT_METADATA } from "@/common/constants/metadata";
 import { getHomeCategoriesApi } from "@/services/home";
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const category = (await getHomeCategoriesApi()).find((category) => category.id === params.categoryId);
 
-  if (!category) return null;
+  if (!category) return DEFAULT_METADATA;
 
   return {
     title: `루프탑 ${category.name}`,

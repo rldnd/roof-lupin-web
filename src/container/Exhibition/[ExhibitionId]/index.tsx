@@ -1,7 +1,3 @@
-import { Suspense } from "react";
-
-import Skeleton from "react-loading-skeleton";
-
 import { TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION } from "@/common/constants";
 import { ToastPositioner } from "@/components";
 import { getExhibitionApi } from "@/services/exhibition";

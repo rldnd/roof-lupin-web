@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { DEFAULT_METADATA } from "@/common/constants/metadata";
 import { getServerSpaceApi } from "@/services/space";
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const space = await getServerSpaceApi(params.spaceId);
 
-  if (!space) return null;
+  if (!space) return DEFAULT_METADATA;
 
   return {
     title: space.title,
