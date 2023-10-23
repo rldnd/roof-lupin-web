@@ -2,36 +2,35 @@
 @use "src/styles/constants" as c;
 
 @mixin htmlStyles {
+  padding-bottom: 150px;
+
   > h1 {
     @include t.fontH1;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-    margin-top: 32px;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-black);
   }
 
   > h2 {
     @include t.fontH2;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-gray-900);
   }
 
   > h3 {
     @include t.fontH3Medium;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-gray-800);
   }
 
   > h4 {
     @include t.fontH4Regular;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-    margin-top: 16px;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-gray-700);
   }
 
   p {
     @include t.fontBody1Regular;
-    padding: 0 c.$S_PAGE_HORIZONTAL_PADDING;
-    margin-top: 24px;
+    padding: 8px c.$S_PAGE_HORIZONTAL_PADDING;
     color: var(--c-gray-700);
   }
 
