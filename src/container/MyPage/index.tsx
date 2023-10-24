@@ -7,6 +7,7 @@ import {
   CloseReservation,
   Info,
   Item,
+  KakaoChannelChatItem,
   Logout,
   PartnerButton,
   ServiceCenterItem,
@@ -26,7 +27,7 @@ export default async function MyContainer() {
             <Title className={styles.firstTitle}>고객지원</Title>
             <Item href="/my-page/announcements">공지사항</Item>
             <Item href="/my-page/frequent-questions">자주 묻는 질문 / FAQ</Item>
-            <Item>카카오톡 1:1 문의</Item>
+            <KakaoChannelChatItem />
             <ServiceCenterItem />
             <PartnerButton />
             <hr className={styles.divider} />

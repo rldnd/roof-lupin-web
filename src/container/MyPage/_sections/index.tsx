@@ -14,3 +14,4 @@ export { default as ServiceCenterItem } from "./ServiceCenterItem";
 
 export * from "./Menu";
 export { default as Logout } from "./Logout";
+export { default as KakaoChannelChatItem } from "./KakaoChannelChatItem";
