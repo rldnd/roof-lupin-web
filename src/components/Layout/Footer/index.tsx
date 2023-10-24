@@ -53,11 +53,15 @@ const Footer: React.FC<Props> = ({ className }) => {
         <p>대표 연락처 : 070-8028-3628</p>
       </address>
       <nav className={styles.policies}>
-        <button type="button">이용약관</button>
-        <button type="button" data-url={URLS.privacy} onClick={onClickButton}>
+        <button type="button" data-url={URLS.usagePolicy} onClick={onClickButton}>
+          이용약관
+        </button>
+        <button type="button" data-url={URLS.privacyPolicy} onClick={onClickButton}>
           개인정보처리방침
         </button>
-        <button type="button">운영정책</button>
+        <button type="button" data-url={URLS.operatePolicy} onClick={onClickButton}>
+          운영정책
+        </button>
       </nav>
       <p className={styles.bottomText}>
         쿠무코는 통신판매중개자로서, 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
