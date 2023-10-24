@@ -1,0 +1,38 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(0 auto auto 50%);
+  @include m.flex(space-between);
+  z-index: c.$Z_SPACE_DETAIL_HEADER;
+  gap: 16px;
+  width: 100%;
+  max-width: c.$S_CONTENT_WIDTH;
+  height: c.$S_SPACE_DETAIL_HEADER_HEIGHT;
+  padding: 12px 16px 10px 12px;
+  transform: translateX(-50%);
+
+  .title {
+    display: none;
+  }
+
+  &.breakpoint {
+    .title {
+      @include m.makeEllipsis;
+      @include m.fontButton1;
+      display: block;
+      flex: 1;
+      color: var(--c-gray-900);
+      opacity: var(--opacity);
+    }
+
+    button {
+      @include m.filterGray900;
+      opacity: var(--opacity);
+    }
+  }
+
+  &.backgroundBreakpoint {
+    background-color: rgba(255, 255, 255, var(--background-opacity));
+  }
+}

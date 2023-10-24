@@ -1,0 +1,17 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  width: 100%;
+
+  .thumbnail {
+    width: 100%;
+    height: c.$S_EXHIBITION_THUMBNAIL_HEIGHT;
+    object-fit: cover;
+  }
+
+  .content {
+    @include m.htmlStyles;
+    overflow-x: hidden;
+  }
+}

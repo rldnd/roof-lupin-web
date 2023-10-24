@@ -1,34 +1,40 @@
 @use "src/styles/constants" as c;
 @use "src/styles/mixins" as m;
 
-.wrapper {
-  position: relative;
+.link {
+  display: inline-block;
   width: 100%;
   height: c.$S_MAIN_CAROUSEL_HEIGHT;
-  cursor: grab;
 
-  .image {
+  .wrapper {
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
+    cursor: grab;
 
-  .textWrapper {
-    @include m.flex(flex-end, flex-start, column);
-    @include m.posCenterX;
-    bottom: 0;
-    gap: 14px;
-    width: 100%;
-    padding: c.$S_PAGE_HORIZONTAL_PADDING 28px;
-
-    > h2 {
-      @include m.fontH1;
-      color: var(--c-white);
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    > p {
-      @include m.fontH4Regular;
-      color: var(--c-white);
+    .textWrapper {
+      @include m.flex(flex-end, flex-start, column);
+      @include m.posCenterX;
+      bottom: 0;
+      gap: 14px;
+      width: 100%;
+      padding: c.$S_PAGE_HORIZONTAL_PADDING 28px;
+
+      > h2 {
+        @include m.fontH1;
+        color: var(--c-white);
+      }
+
+      > p {
+        @include m.fontH4Regular;
+        color: var(--c-white);
+      }
     }
   }
 }
