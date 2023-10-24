@@ -23,6 +23,8 @@ export interface Exhibition {
   isShow: boolean;
   /** 기획전 삭제일 */
   deletedAt: Date | null;
+  /** 기획전 공간 제목 */
+  spaceTitle: string;
 }
 
 export interface ExhibitionDetail extends Exhibition {

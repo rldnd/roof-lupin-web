@@ -19,6 +19,8 @@ export interface Curation extends Omit<DateDTO, "deletedAt"> {
   spaces: CurationSpace[];
   /** 순서 */
   orderNo: number | null;
+  /** 큐레이션 공간 제목 */
+  spaceTitle: string;
 }
 
 export interface CurationDetail extends Curation {

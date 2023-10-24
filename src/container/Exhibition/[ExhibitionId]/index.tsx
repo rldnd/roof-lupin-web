@@ -22,7 +22,7 @@ export default async function ExhibitionDetailContainer({ params }: Props) {
         <Header exhibition={exhibition} />
         <img src={exhibition.thumbnail} alt="썸네일" className={styles.thumbnail} />
         <div dangerouslySetInnerHTML={{ __html: exhibition.content }} className={styles.content} />
-        <SpaceList spaces={exhibition.spaces} />
+        <SpaceList title={exhibition.spaceTitle} spaces={exhibition.spaces} />
       </div>
     </ToastPositioner>
   );
