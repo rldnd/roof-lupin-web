@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, useState } from "react";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useMutation } from "@tanstack/react-query";
@@ -57,9 +58,11 @@ const Form: React.FC = () => {
         위의 안내사항을 숙지했으며 이에 동의합니다.
       </Checkbox>
       <footer className={styles.footer}>
-        <Button type="button" color="secondary" full>
-          더 써볼래요
-        </Button>
+        <Link href="/">
+          <Button type="button" color="secondary" full>
+            더 써볼래요
+          </Button>
+        </Link>
         <Button type="button" color="primary" full onClick={onClick} disabled={!checked}>
           탈퇴
         </Button>
