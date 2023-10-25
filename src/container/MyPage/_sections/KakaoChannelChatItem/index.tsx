@@ -1,6 +1,6 @@
 "use client";
 
-import type { WebKakaoOpenChannelTalkPayload } from "@/common/types/webview/kakao";
+import { WebCommonOpenUrlPayload } from "@/common/types/webview/common";
 import { usePlatform, useWebview } from "@/hooks";
 
 import { Item } from "../Menu";
@@ -10,16 +10,15 @@ const KakaoChannelChatItem: React.FC = () => {
   const { sendMessage } = useWebview();
 
   const onClick = () => {
+    const url = `https://pf.kakao.com/${process.env.NEXT_PUBLIC_KAKAO_CHANNEL_PROFILE_ID}/chat?chat_type=talk`;
+
     if (isWebview)
-      sendMessage<WebKakaoOpenChannelTalkPayload>({
-        type: "web-kakao/openChannelTalk",
-        data: { channelId: process.env.NEXT_PUBLIC_KAKAO_CHANNEL_PROFILE_ID! },
+      sendMessage<WebCommonOpenUrlPayload>({
+        type: "web-common/openUrl",
+        data: { url },
       });
     else {
-      window.open(
-        `https://pf.kakao.com/${process.env.NEXT_PUBLIC_KAKAO_CHANNEL_PROFILE_ID}/chat?chat_type=talk`,
-        "_blank",
-      );
+      window.open(url, "_blank");
     }
   };
 
