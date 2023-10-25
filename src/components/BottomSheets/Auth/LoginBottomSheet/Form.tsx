@@ -2,6 +2,8 @@
 
 import React, { type MouseEventHandler, useState } from "react";
 
+import { useUnmount } from "react-use";
+
 import type { Token } from "@/common/types/auth";
 import type { WebAuthKakaoLoginPayload } from "@/common/types/webview/auth";
 import { Button, Loading, PlatformButton } from "@/components";
@@ -42,6 +44,10 @@ const Form: React.FC<Props> = ({ close }) => {
     refetchMe();
     close();
   };
+
+  useUnmount(() => {
+    setIsLoading(false);
+  });
 
   return (
     <>
