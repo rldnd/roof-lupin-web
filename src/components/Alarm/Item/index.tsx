@@ -40,7 +40,11 @@ const AlarmContent: React.FC<ContentProps> = ({ alarm }) => {
         </div>
       )}
       <p className={styles.content}>{alarm.content}</p>
-      {Boolean(alarm.alarmAt) && <time dateTime={date}>{date}</time>}
+      {Boolean(alarm.alarmAt) && (
+        <time dateTime={date} className={styles.date}>
+          {date}
+        </time>
+      )}
     </>
   );
 };
