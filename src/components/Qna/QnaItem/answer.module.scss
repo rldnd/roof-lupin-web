@@ -11,6 +11,7 @@
   .answer {
     @include m.fontBody1Regular;
     position: relative;
+    line-height: 0;
     color: var(--c-black);
     white-space: pre-wrap;
 
