@@ -4,7 +4,7 @@ import { ChangeEventHandler, useState } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import Skeleton from "react-loading-skeleton";
 
@@ -32,6 +32,7 @@ import RefundPriceInfo, { LoadingRefundPriceInfo } from "../../_shared/RefundPri
 import styles from "./view.module.scss";
 
 const RefundView: React.FC = () => {
+  const queryClient = useQueryClient();
   const { replace } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { addToast } = useToast();
@@ -46,6 +47,10 @@ const RefundView: React.FC = () => {
   const { mutate } = useMutation(refundPaymentApi, {
     onSuccess: () => {
       refetch();
+      queryClient.invalidateQueries(["getMyCloseReservation"]);
+      queryClient.invalidateQueries(["getMyCountInfo"]);
+      queryClient.invalidateQueries(["paginateMyReservations"]);
+      queryClient.invalidateQueries(["getMyReservation"]);
       setPaymentRefund(initialPaymentRefund);
       replace(`/reservations/${reservationId}`);
     },
