@@ -10,6 +10,7 @@ import {
   KakaoChannelChatItem,
   Logout,
   PartnerButton,
+  PolicyItem,
   ServiceCenterItem,
   Title,
 } from "./_sections";
@@ -33,7 +34,7 @@ export default async function MyContainer() {
             <hr className={styles.divider} />
             <Title>설정</Title>
             <Item href="/settings">설정</Item>
-            <Item>약관 및 정책</Item>
+            <PolicyItem />
             <AppVersionItem />
             <Logout />
           </div>
