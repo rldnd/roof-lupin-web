@@ -76,11 +76,10 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const replaceLocationQuery = useCallback(
     (lat: string, lng: string) => {
+      setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
+
       if (isRestorePosition.current) {
-        setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
-        if (isRestorePosition.current) {
-          setRestoreMapCenter(id, { lat, lng });
-        }
+        setRestoreMapCenter(id, { lat, lng });
       }
     },
     [id, setMapCenter],
@@ -88,14 +87,12 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   const replaceLocationAndZoomQuery = useCallback(
     (lat: string, lng: string, zoom: number) => {
-      if (isRestorePosition.current) {
-        setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
-        setMapZoom((prev) => ({ ...prev, [id]: zoom }));
+      setMapCenter((prev) => ({ ...prev, [id]: { lat, lng } }));
+      setMapZoom((prev) => ({ ...prev, [id]: zoom }));
 
-        if (isRestorePosition.current) {
-          setRestoreMapCenter(id, { lat, lng });
-          setRestoreMapZoom(id, zoom);
-        }
+      if (isRestorePosition.current) {
+        setRestoreMapCenter(id, { lat, lng });
+        setRestoreMapZoom(id, zoom);
       }
     },
     [id, setMapCenter, setMapZoom],
