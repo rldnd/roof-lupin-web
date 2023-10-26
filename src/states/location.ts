@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 
+import { CURRENT_POSITION } from "@/common/constants";
 import type { Location } from "@/common/types/location";
+import { sessionPersistenceAtom } from "@/utils/jotai";
 
 interface ClickedMapMarkerValue {
   spaceId: string[];
@@ -15,6 +17,7 @@ export type MapZoom = Record<string, number>;
 export type MapSize = Record<string, { width: number; height: number }>;
 export type ClickedMapMarker = Record<string, ClickedMapMarkerValue | null>;
 export type HasInitNaverMapEventEmitter = Record<string, boolean>;
+export type CurrentPosition = Pick<Location, "lat" | "lng"> | null;
 
 export const initialMapZoom: MapZoom = {};
 export const mapZoomState = atom<MapZoom>(initialMapZoom);
@@ -33,3 +36,9 @@ export const clickedMapMarkerState = atom<ClickedMapMarker>(initialClickedMapMar
 
 export const initialHasInitNaverMapEventEmitter: HasInitNaverMapEventEmitter = {};
 export const hasInitNaverMapEventEmitterState = atom<HasInitNaverMapEventEmitter>(initialHasInitNaverMapEventEmitter);
+
+export const initialCurrentPosition: CurrentPosition = null;
+export const currentPositionState = sessionPersistenceAtom<CurrentPosition | null>(
+  CURRENT_POSITION,
+  initialCurrentPosition,
+);
