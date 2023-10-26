@@ -103,6 +103,12 @@ export const getClickedMapMarkerContent = (icon: string, count: number, title?: 
           </div>`;
 };
 
+export const getCurrentPositionMarkerContent = () => {
+  return `<div style="position: relative; width:38px; height:38px; display: flex; align-items: center; justify-content: center;">
+            <img src="/icons/map/map-current-position.svg" alt="현재 위치" />
+          </div>`;
+};
+
 export const getMapMarkerIconWithOrderNoSorting = (categories: SpaceCategory[]) => {
   if (categories.length === 0) return null;
   return [...categories].sort((a, b) => a.orderNo ?? 100 - (b.orderNo ?? 100))[0];

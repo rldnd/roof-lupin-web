@@ -15,6 +15,7 @@ import type {
   MarkerValue,
   MoveCenterParameter,
   NaverMapEventCallback,
+  SetCurrentPositionParameter,
 } from "./types";
 import { MAP_CLICKED_EVENT_NAME, MARKER_CLICKED_EVENT_NAME, NAVER_MAP_EVENT_NAME_MAPPER } from "@/common/constants";
 import { useDebounceCallback, useThrottleSetAtom } from "@/hooks";
@@ -31,6 +32,7 @@ import {
   checkMapLoaded,
   checkMarkerLocationDuplicates,
   getClickedMapMarkerContent,
+  getCurrentPositionMarkerContent,
   getMapMarkerContent,
   getMapNonInteractiveMarkerContent,
   getMarkerLocationObjectToString,
@@ -46,6 +48,7 @@ import naverMapEventEmitter from "./NaverMapEventEmitter";
 
 const MARKER_Z_INDEX = 0;
 const MARKER_CLICKED_Z_INDEX = 1;
+const CURRENT_POSITION_MARKER_Z_INDEX = 2;
 
 interface Props {
   id: string;
@@ -63,6 +66,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
 
   // MEMO: Record<'${lat},${lng}', value>
   const markers = useRef<Record<string, MarkerValue>>({});
+
+  const currentPositionMarker = useRef<naver.maps.Marker>();
 
   // MEMO: 하단의 atom은 Record<[mapId], value> 형태로 관리된다.
   // MEMO: 지도 여러개를 관리하기 위함
@@ -320,6 +325,29 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     [addMarker, clearMarkers, id],
   );
 
+  const setCurrentPosition = useCallback(
+    (data: BaseNaverMapEventParameter<SetCurrentPositionParameter>) => {
+      if (!checkMapLoaded(mapController) || !checkIsTargetMap(data.mapId, id)) return;
+      if (currentPositionMarker.current) {
+        currentPositionMarker.current.setMap(null);
+        currentPositionMarker.current = undefined;
+      }
+
+      const { lat, lng } = data.position;
+      currentPositionMarker.current = new naver.maps.Marker({
+        position: { lat: Number(lat), lng: Number(lng) },
+        map: mapController.current,
+        clickable: false,
+        icon: {
+          content: getCurrentPositionMarkerContent(),
+          size: new naver.maps.Size(38, 38),
+        },
+        zIndex: CURRENT_POSITION_MARKER_Z_INDEX,
+      });
+    },
+    [id],
+  );
+
   // MEMO: 지도를 destroy 하기 위한 emit 함수
   // MEMO: mapController.current를 초기화한다.
   // MEMO: listeners를 모두 제거하며, atom에 해당 mapId를 키로 갖고 있는 값들을 모두 제거한다.
@@ -357,6 +385,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
       if (event.action === "addMarkers") addMarkers(event);
       if (event.action === "destroy") destroy(event);
       if (event.action === "deleteMarker") deleteMarker(event);
+      if (event.action === "setCurrentPosition") setCurrentPosition(event);
       if (event.action === "clearMarkers") clearMarkers(event);
     };
 
@@ -376,6 +405,7 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     id,
     load,
     moveCenter,
+    setCurrentPosition,
     setHasInitNaverMapEventEmitter,
   ]);
 

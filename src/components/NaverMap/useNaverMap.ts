@@ -8,6 +8,7 @@ import type {
   DeleteMarkerParameter,
   LoadParameter,
   MoveCenterParameter,
+  SetCurrentPositionParameter,
 } from "./types";
 
 import naverMapEventEmitter from "./NaverMapEventEmitter";
@@ -19,6 +20,7 @@ type ReturnUseNaverMap = {
   addMarker(data: ActionOmitter<AddMarkerParameter>): void;
   addMarkers(data: ActionOmitter<AddMarkersParameter>): void;
   deleteMarker(data: ActionOmitter<DeleteMarkerParameter>): void;
+  setCurrentPosition(data: ActionOmitter<SetCurrentPositionParameter>): void;
   clearMarkers(): void;
   destroy(): void;
 };
@@ -72,6 +74,13 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
     [mapId],
   );
 
+  const setCurrentPosition = useCallback(
+    (data: ActionOmitter<SetCurrentPositionParameter>) => {
+      naverMapEventEmitter.setCurrentPosition({ ...data, mapId, action: "setCurrentPosition" });
+    },
+    [mapId],
+  );
+
   const clearMarkers = useCallback(() => {
     naverMapEventEmitter.clearMarkers({ mapId, action: "clearMarkers" });
   }, [mapId]);
@@ -88,6 +97,7 @@ const useNaverMap = (mapId: string): ReturnUseNaverMap => {
     addMarkers,
     deleteMarker,
     clearMarkers,
+    setCurrentPosition,
     destroy,
   };
 };

@@ -54,6 +54,11 @@ export interface ClearMarkersParameter {
   action: "clearMarkers";
 }
 
+export interface SetCurrentPositionParameter {
+  action: "setCurrentPosition";
+  position: Pick<Location, "lat" | "lng">;
+}
+
 export type ActionOmitter<T> = Omit<T, "action">;
 export type BaseNaverMapEventParameter<T = object> = T & {
   mapId: string;
@@ -68,6 +73,7 @@ export type NaverMapEventParameter = BaseNaverMapEventParameter<
   | AddNonInteractionMarker
   | DeleteMarkerParameter
   | ClearMarkersParameter
+  | SetCurrentPositionParameter
 >;
 
 export type NaverMapEventCallback = (event: NaverMapEventParameter) => void;

@@ -11,6 +11,7 @@ import type {
   LoadParameter,
   MoveCenterParameter,
   NaverMapEventCallback,
+  SetCurrentPositionParameter,
 } from "./types";
 
 export class NaverMapEventEmitter extends EventEmitter {
@@ -54,6 +55,10 @@ export class NaverMapEventEmitter extends EventEmitter {
 
   destroy(info: BaseNaverMapEventParameter<DestroyParameter>) {
     this.emit(this.eventName, info);
+  }
+
+  setCurrentPosition(data: BaseNaverMapEventParameter<SetCurrentPositionParameter>) {
+    this.emit(this.eventName, data);
   }
 }
 

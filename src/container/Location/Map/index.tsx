@@ -12,26 +12,25 @@ import type {
   WebMapRequestCurrentPositionPayload,
 } from "@/common/types/webview/map";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
-import { useToast, useWebview } from "@/hooks";
+import { useWebview } from "@/hooks";
 import { currentPositionState, hasInitNaverMapEventEmitterState } from "@/states";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 const Map: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [currentPosition, setCurrentPosition] = useAtom(currentPositionState);
-  const initialCurrentPosition = useRef(currentPosition);
+  const [position, setPosition] = useAtom(currentPositionState);
+  const initialCurrentPosition = useRef(position);
 
-  const { addToast } = useToast();
   const { sendMessage, addListener, removeListener } = useWebview();
   const hasInit = useAtomValue(hasInitNaverMapEventEmitterState);
-  const { load, destroy, moveCenter } = useNaverMap(LOCATION_PAGE_MAP_ID);
+  const { load, destroy, moveCenter, setCurrentPosition } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useEffect(() => {
     if (!isLoaded) return;
 
     sendMessage<WebMapRequestCurrentPositionPayload>({ type: "web-map/requestCurrentPosition" });
     addListener<AppMapCurrentPositionPayload>("app-map/currentPosition", ({ lat, lng }) => {
-      setCurrentPosition((prev) => {
+      setPosition((prev) => {
         if (!prev) moveCenter({ lat, lng });
         return { lat, lng };
       });
@@ -41,11 +40,17 @@ const Map: React.FC = () => {
       removeListener<AppMapCurrentPositionPayload>("app-map/currentPosition");
       sendMessage<WebMapCancelCurrentPositionPayload>({ type: "web-map/cancelCurrentPosition" });
     };
-  }, [sendMessage, addListener, addToast, removeListener, setCurrentPosition, isLoaded, moveCenter]);
+  }, [sendMessage, addListener, removeListener, setPosition, isLoaded, moveCenter]);
+
+  useEffect(() => {
+    if (!isLoaded || !position) return;
+
+    setCurrentPosition({ position });
+  }, [isLoaded, position, setCurrentPosition]);
 
   useEffect(() => {
     if (!(LOCATION_PAGE_MAP_ID in hasInit) || !hasInit[LOCATION_PAGE_MAP_ID]) return;
-    const { lat, lng } = initialCurrentPosition.current ? initialCurrentPosition.current : INITIAL_LOCATION;
+    const { lat, lng } = initialCurrentPosition.current ?? INITIAL_LOCATION;
     load({
       options: { center: { lat: Number(lat), lng: Number(lng) }, zoom: INITIAL_ZOOM },
       restorePosition: true,
