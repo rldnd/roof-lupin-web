@@ -7,26 +7,32 @@ import { useUnmount } from "react-use";
 
 import { INITIAL_LOCATION, INITIAL_ZOOM, LOCATION_PAGE_MAP_ID } from "@/common/constants";
 import type {
+  AppMapCurrentPositionPayload,
   WebMapCancelCurrentPositionPayload,
   WebMapRequestCurrentPositionPayload,
 } from "@/common/types/webview/map";
 import { NaverMap, useNaverMap } from "@/components/NaverMap";
-import { useWebview } from "@/hooks";
+import { useToast, useWebview } from "@/hooks";
 import { hasInitNaverMapEventEmitterState } from "@/states";
 import sizes from "@/styles/constants/sizes.module.scss";
 
 const Map: React.FC = () => {
-  const { sendMessage } = useWebview();
+  const { addToast } = useToast();
+  const { sendMessage, addListener, removeListener } = useWebview();
   const hasInit = useAtomValue(hasInitNaverMapEventEmitterState);
   const { load, destroy } = useNaverMap(LOCATION_PAGE_MAP_ID);
 
   useEffect(() => {
     sendMessage<WebMapRequestCurrentPositionPayload>({ type: "web-map/requestCurrentPosition" });
+    addListener<AppMapCurrentPositionPayload>("app-map/currentPosition", ({ lat, lng }) => {
+      addToast({ message: `현재 위치 위도: ${lat} / 경도: ${lng}` });
+    });
 
     return () => {
+      removeListener<AppMapCurrentPositionPayload>("app-map/currentPosition");
       sendMessage<WebMapCancelCurrentPositionPayload>({ type: "web-map/cancelCurrentPosition" });
     };
-  }, [sendMessage]);
+  }, [sendMessage, addListener, addToast, removeListener]);
 
   useEffect(() => {
     if (!(LOCATION_PAGE_MAP_ID in hasInit) || !hasInit[LOCATION_PAGE_MAP_ID]) return;
@@ -35,7 +41,6 @@ const Map: React.FC = () => {
   }, [load, hasInit]);
 
   useUnmount(() => {
-    sendMessage<WebMapCancelCurrentPositionPayload>({ type: "web-map/cancelCurrentPosition" });
     destroy();
   });
 
