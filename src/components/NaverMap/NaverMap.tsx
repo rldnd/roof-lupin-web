@@ -467,7 +467,13 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
     };
   }, [clickedMapMarker, id, setClickedMapMarker]);
 
-  return <div id={id} style={{ width, height }} className={className} />;
+  return (
+    <>
+      <div id={id} style={{ width, height }} className={className} />
+      <img src="/icons/map/map-marker.svg" hidden alt="마커" />
+      <img src="/icons/map/map-clicked-marker.svg" hidden alt="마커" />
+    </>
+  );
 };
 
 export default memo(Map);
