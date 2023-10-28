@@ -13,7 +13,7 @@ import { PopConfirm } from "@/components/Common/PopConfirm";
 import { Toast } from "@/components/Common/Toast";
 
 import { suit } from "./fonts";
-import NavigationStore from "./NavigationHandler";
+import NavigationHandler from "./NavigationHandler";
 import PlatformChecker from "./PlatformChecker";
 import Providers from "./Providers";
 import PushTokenHandler from "./PushTokenHandler";
@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <WindowSizeHandler />
         </Suspense>
         <Suspense fallback={null}>
-          <NavigationStore />
+          <NavigationHandler />
         </Suspense>
       </body>
     </html>

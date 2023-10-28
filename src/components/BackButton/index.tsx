@@ -1,8 +1,8 @@
 "use client";
 
-import { type ComponentProps, memo, type MouseEventHandler, useCallback } from "react";
+import { type ComponentProps, memo, type MouseEventHandler, useCallback, useRef } from "react";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { getBeforeNavigationUrl } from "@/utils/navigation";
 
@@ -12,24 +12,35 @@ interface Props extends ComponentProps<"button"> {
 }
 
 const BackButton: React.FC<Props> = ({ className, onClick: onClickProps, replaceUrl = "/", href, ...props }) => {
+  const pathname = usePathname();
   const { back, replace } = useRouter();
 
+  const tempPathname = useRef(pathname);
+
   const handleRoute = useCallback(() => {
-    if (href) {
-      replace(href);
-      return;
-    }
-    const beforeUrl = getBeforeNavigationUrl();
-    if (!beforeUrl) replace(replaceUrl);
-    else back();
-  }, [back, href, replace, replaceUrl]);
+    return new Promise<void>((res) => {
+      if (href) {
+        replace(href);
+        res();
+      }
+      const beforeUrl = getBeforeNavigationUrl();
+      if (!beforeUrl || beforeUrl === pathname) {
+        replace(replaceUrl);
+        res();
+      } else {
+        back();
+        res();
+      }
+    });
+  }, [back, href, pathname, replace, replaceUrl]);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
+    async (e) => {
       onClickProps?.(e);
-      handleRoute();
+      await handleRoute();
+      if (window.location.pathname === tempPathname.current) replace(replaceUrl);
     },
-    [onClickProps, handleRoute],
+    [onClickProps, handleRoute, replace, replaceUrl],
   );
 
   return <button className={className} onClick={onClick} aria-label="뒤로가기 버튼" {...props} />;
