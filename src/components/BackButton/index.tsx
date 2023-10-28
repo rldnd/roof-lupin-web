@@ -1,10 +1,11 @@
 "use client";
 
-import { type ComponentProps, memo, type MouseEventHandler, useCallback, useRef } from "react";
+import { type ComponentProps, memo, type MouseEventHandler, useCallback } from "react";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import { getBeforeNavigationUrl } from "@/utils/navigation";
+import { HISTORY_STACK_URL } from "@/common/constants";
+import { getHistoryStackUrl } from "@/utils/navigation";
 
 interface Props extends ComponentProps<"button"> {
   replaceUrl?: string;
@@ -12,35 +13,29 @@ interface Props extends ComponentProps<"button"> {
 }
 
 const BackButton: React.FC<Props> = ({ className, onClick: onClickProps, replaceUrl = "/", href, ...props }) => {
-  const pathname = usePathname();
   const { back, replace } = useRouter();
 
-  const tempPathname = useRef(pathname);
-
   const handleRoute = useCallback(() => {
-    return new Promise<void>((res) => {
-      if (href) {
-        replace(href);
-        res();
-      }
-      const beforeUrl = getBeforeNavigationUrl();
-      if (!beforeUrl || beforeUrl === pathname) {
-        replace(replaceUrl);
-        res();
-      } else {
-        back();
-        res();
-      }
-    });
-  }, [back, href, pathname, replace, replaceUrl]);
+    if (href) {
+      replace(href);
+      return;
+    }
+
+    const historyStackUrl = getHistoryStackUrl();
+    if (historyStackUrl?.length === 1) {
+      replace(replaceUrl);
+      sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([replaceUrl]));
+    } else {
+      back();
+    }
+  }, [back, href, replace, replaceUrl]);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(
-    async (e) => {
+    (e) => {
       onClickProps?.(e);
-      await handleRoute();
-      if (window.location.pathname === tempPathname.current) replace(replaceUrl);
+      handleRoute();
     },
-    [onClickProps, handleRoute, replace, replaceUrl],
+    [onClickProps, handleRoute],
   );
 
   return <button className={className} onClick={onClick} aria-label="뒤로가기 버튼" {...props} />;

@@ -10,7 +10,7 @@ import { AuthChecker } from "@/components";
 import { SpaceReservationInfoFilterBottomSheet } from "@/components/BottomSheets/Space";
 import { spaceReservationInfoState, spaceSortMenuState } from "@/states";
 import { dayjs } from "@/utils/date";
-import { getBeforeNavigationUrl } from "@/utils/navigation";
+import { getHistoryStackUrl } from "@/utils/navigation";
 
 import { IconRepeat } from "public/icons";
 
@@ -36,7 +36,7 @@ const Footer: React.FC<Props> = ({ maxUser, overflowUserCost, overflowUserCount 
 
   useEffect(() => {
     const { year, month, day, userCount } = spaceSortMenu;
-    const beforeUrl = getBeforeNavigationUrl();
+    const beforeUrl = getHistoryStackUrl()?.[0];
     if (beforeUrl?.includes(`/spaces/${spaceId}`)) return;
     setSpaceReservationInfo(() => ({ year, month, day, userCount: maxUser < userCount ? maxUser : userCount }));
   }, [spaceSortMenu, maxUser, setSpaceReservationInfo, spaceId]);

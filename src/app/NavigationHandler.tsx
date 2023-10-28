@@ -4,15 +4,19 @@ import { useEffect } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { setBeforeNavigationUrl } from "@/utils/navigation";
+import { getHistoryStackUrl, popBeforeStackUrl, pushHistoryStackUrl } from "@/utils/navigation";
 
 const NavigationHandler: React.FC = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    return () => {
-      setBeforeNavigationUrl(pathname);
-    };
+    const historyStackUrl = getHistoryStackUrl();
+
+    if (Array.isArray(historyStackUrl) && historyStackUrl.length > 1 && pathname === historyStackUrl.at(-2)) {
+      popBeforeStackUrl();
+    } else {
+      pushHistoryStackUrl(pathname);
+    }
   }, [pathname]);
 
   return null;
