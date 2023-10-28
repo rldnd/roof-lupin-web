@@ -43,7 +43,7 @@ const LoginBottomSheet: React.FC = () => {
         className={styles.logo}
       />
       <span className={styles.desc}>지금 가입하고 루프라이프를 시작해보세요</span>
-      <Form close={close} />
+      <Form close={close} isShow={isShow} />
       <button type="button" className={styles.closeButton} onClick={close}>
         둘러보기
       </button>

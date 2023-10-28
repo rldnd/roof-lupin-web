@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type MouseEventHandler, useState } from "react";
+import React, { type MouseEventHandler, useEffect, useState } from "react";
 
 import { useUnmount } from "react-use";
 
@@ -17,10 +17,11 @@ import { IconApple, IconKakao, IconNaver } from "public/icons";
 import styles from "./form.module.scss";
 
 interface Props {
+  isShow: boolean;
   close: () => void;
 }
 
-const Form: React.FC<Props> = ({ close }) => {
+const Form: React.FC<Props> = ({ close, isShow }) => {
   const { refetchMe } = useMe();
   const { isIosWebview } = usePlatform();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +30,13 @@ const Form: React.FC<Props> = ({ close }) => {
   const onLoginKakaoWebview = () => {
     setIsLoading(true);
     sendMessage<WebAuthKakaoLoginPayload>({ type: "web-auth/kakaoLogin" });
+    close();
   };
 
   const onClickSocial: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { dataset } = e.currentTarget;
     window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/social/${dataset.social}`, "_self");
+    close();
   };
 
   const onClickTestLogin = async () => {
@@ -45,9 +48,13 @@ const Form: React.FC<Props> = ({ close }) => {
     close();
   };
 
-  useUnmount(() => {
+  useEffect(() => {
+    if (isShow) return;
     setIsLoading(false);
-  });
+    return () => {
+      setIsLoading(false);
+    };
+  }, [isShow]);
 
   return (
     <>
