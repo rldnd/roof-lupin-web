@@ -13,14 +13,15 @@ import type {
   WebCommonRequestAlarmPermissionPayload,
   WebCommonRequestLocationPermissionPayload,
 } from "@/common/types/webview/common";
-import { useWebview } from "@/hooks";
+import { usePlatform, useWebview } from "@/hooks";
 import { updateMySettingApi } from "@/services/user";
 import { permissionState } from "@/states/global";
 
 import Section from "../Section";
 import ToggleItem, { LoadingToggleItem } from "../ToggleItem";
 
-const AppPermissionSection: React.FC = () => {
+const TopSection: React.FC = () => {
+  const { isWebview } = usePlatform();
   const { mutate } = useMutation(updateMySettingApi);
   const [permission, setPermission] = useAtom(permissionState);
   const { addListener, sendMessage, removeListener } = useWebview();
@@ -65,25 +66,24 @@ const AppPermissionSection: React.FC = () => {
           알림 설정
         </ToggleItem>
       </Section>
-      <Section>
-        <ToggleItem checked={permission.location} onChange={onChangeLocation}>
-          위치 정보 접근 권한
-        </ToggleItem>
-      </Section>
+      {isWebview && (
+        <Section>
+          <ToggleItem checked={permission.location} onChange={onChangeLocation}>
+            위치 정보 접근 권한
+          </ToggleItem>
+        </Section>
+      )}
     </>
   );
 };
 
-export default AppPermissionSection;
+export default TopSection;
 
-export const LoadingAppPermissionSection: React.FC = () => {
+export const LoadingTopSection: React.FC = () => {
   return (
     <>
       <Section>
         <LoadingToggleItem>알림 설정</LoadingToggleItem>
-      </Section>
-      <Section>
-        <LoadingToggleItem>위치 정보 접근 권한</LoadingToggleItem>
       </Section>
     </>
   );

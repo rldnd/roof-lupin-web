@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 
-import { LoadingAppPermissionSection } from "./AppPermissionSection";
 import { LoadingEventSection } from "./EventSection";
+import { LoadingTopSection } from "./TopSection";
 
-export const AppPermissionSection = dynamic(() => import("./AppPermissionSection"), {
+export const TopSection = dynamic(() => import("./TopSection"), {
   ssr: false,
-  loading: () => <LoadingAppPermissionSection />,
+  loading: () => <LoadingTopSection />,
 });
 
 export const EventSection = dynamic(() => import("./EventSection"), {
