@@ -10,10 +10,10 @@ import type {
   AppCommonGetPermissionsPayload,
   WebCommonGetPermissionsPayload,
   WebCommonOpenSettingsPayload,
-  WebCommonRequestAlarmPermissionPayload,
   WebCommonRequestLocationPermissionPayload,
 } from "@/common/types/webview/common";
 import { usePlatform, useWebview } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { updateMySettingApi } from "@/services/user";
 import { permissionState } from "@/states/global";
 
@@ -22,14 +22,22 @@ import ToggleItem, { LoadingToggleItem } from "../ToggleItem";
 
 const TopSection: React.FC = () => {
   const { isWebview } = usePlatform();
-  const { mutate } = useMutation(updateMySettingApi);
+
+  const { me, refetchMe } = useMe();
+  const { mutateAsync } = useMutation(updateMySettingApi, { onSuccess: refetchMe });
   const [permission, setPermission] = useAtom(permissionState);
   const { addListener, sendMessage, removeListener } = useWebview();
 
-  const onChangeAlarm: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChangeAlarm: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const { checked } = e.currentTarget;
-    if (!checked) sendMessage<WebCommonOpenSettingsPayload>({ type: "web-common/openSettings" });
-    else sendMessage<WebCommonRequestAlarmPermissionPayload>({ type: "web-common/requestAlarmPermission" });
+    if (checked) await mutateAsync({ isAlarmAccepted: checked, isPushAccepted: permission.alarm });
+    else
+      await mutateAsync({
+        isAlarmAccepted: checked,
+        isEmailAccepted: false,
+        isKakaoTalkAccepted: false,
+        isPushAccepted: false,
+      });
   };
 
   const onChangeLocation: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -39,15 +47,11 @@ const TopSection: React.FC = () => {
   };
 
   const updateMySetting = useCallback(
-    ({ alarm, location }: AppCommonGetPermissionData) => {
+    async ({ alarm, location }: AppCommonGetPermissionData) => {
       setPermission({ alarm, location });
-      mutate({
-        isAlarmAccepted: alarm,
-        isLocationInfoAccepted: location,
-        isPushAccepted: !alarm ? false : undefined,
-      });
+      await mutateAsync({ isPushAccepted: alarm && me?.setting.isAlarmAccepted });
     },
-    [mutate, setPermission],
+    [me?.setting.isAlarmAccepted, mutateAsync, setPermission],
   );
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const TopSection: React.FC = () => {
   return (
     <>
       <Section>
-        <ToggleItem checked={permission.alarm} onChange={onChangeAlarm}>
+        <ToggleItem checked={me?.setting.isAlarmAccepted || false} onChange={onChangeAlarm}>
           알림 설정
         </ToggleItem>
       </Section>
