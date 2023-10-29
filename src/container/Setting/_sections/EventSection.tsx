@@ -24,6 +24,7 @@ const EventSection: React.FC = () => {
   };
 
   if (!me) return <LoadingEventSection />;
+  if (!me.setting.isAlarmAccepted) return null;
 
   const { isEmailAccepted, isKakaoTalkAccepted, isPushAccepted, isAlarmAccepted } = me.setting;
 
