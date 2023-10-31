@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import cx from "clsx";
 
-import { useHeaderScrollOpacity } from "@/hooks";
+import { useHeaderScrollOpacity, useIamport } from "@/hooks";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { getNumberFromPixel } from "@/utils/styles";
 
@@ -23,6 +23,7 @@ const Alarm = dynamic(() => import("./Alarm"), {
 });
 
 const Header: React.FC = () => {
+  const { requestCertificate } = useIamport();
   const { breakpoint, backgroundBreakpoint, opacity, backgroundOpacity } = useHeaderScrollOpacity({
     containerHeight:
       getNumberFromPixel(sizes.mainCarouselHeight) + getNumberFromPixel(sizes.mainCarouselProgressHeight),
@@ -36,7 +37,8 @@ const Header: React.FC = () => {
   } as CSSProperties;
 
   const onClickLogo = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // window.scrollTo({ top: 0, behavior: "smooth" });
+    requestCertificate();
   };
 
   return (

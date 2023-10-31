@@ -1,9 +1,8 @@
 import { Suspense } from "react";
 
 import type { Metadata } from "next";
-
-import "@/utils/ga";
-import "@/utils/naverMap";
+import dynamic from "next/dynamic";
+import Script from "next/script";
 
 import EventEmitter from "events";
 import NextTopLoader from "nextjs-toploader";
@@ -23,6 +22,8 @@ import styles from "./layout.module.scss";
 import "@/styles/global.scss";
 
 EventEmitter.defaultMaxListeners = 30;
+
+const GAScript = dynamic(() => import("./GAScript"), { ssr: false });
 
 export const metadata: Metadata = {
   title: {
@@ -81,6 +82,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <NavigationHandler />
         </Suspense>
+        <Script async src="https://cdn.iamport.kr/v1/iamport.js" />
+        <GAScript />
       </body>
     </html>
   );
