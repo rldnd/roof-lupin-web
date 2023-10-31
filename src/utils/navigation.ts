@@ -11,7 +11,7 @@ export const pushHistoryStackUrl = (pathname: string, search?: string, force = f
   if (!isClient) return;
 
   const historyStackUrl = getHistoryStackUrl();
-  if (!force && historyStackUrl?.at(-1)?.includes(pathname)) return;
+  if (!force && historyStackUrl?.at(-1) === `${pathname}${search}`) return;
   if (Array.isArray(historyStackUrl) && historyStackUrl.length > 0) {
     sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([...historyStackUrl, `${pathname}${search}`]));
   } else {

@@ -8,6 +8,7 @@ import { useAtomValue } from "jotai";
 import type { SpaceDetail } from "@/common/types/space";
 import { Button } from "@/components";
 import { useSuspenseQuery } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { prepareReservationApi } from "@/services/reservation";
 import { getClientSpaceApi } from "@/services/space";
 import {
@@ -24,6 +25,7 @@ import styles from "./submitButton.module.scss";
 const Submit: React.FC = () => {
   const { replace } = useRouter();
   const { spaceId } = useParams();
+  const { me } = useMe();
 
   const { mutate: prepareReservation } = useMutation(prepareReservationApi, {
     onSuccess: (data) => {
@@ -67,7 +69,8 @@ const Submit: React.FC = () => {
         disabled={disabled}
         onClick={onClickButton}
       >
-        지금 예약 요청하기
+        {me?.isCertified && me.setting.isAdult && <>지금 예약 요청하기</>}
+        {(!me?.isCertified || !me.setting.isAdult) && <>본인인증 필요</>}
       </Button>
     </section>
   );
