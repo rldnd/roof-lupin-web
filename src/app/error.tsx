@@ -26,10 +26,18 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
     return [500, error.name, error.message];
   })();
 
-  const onClickButton = () => {
-    resetReactQueryError();
-    reset();
+  const clearError = () => {
+    return new Promise<void>((res) => {
+      resetReactQueryError();
+      reset();
+      res();
+    });
+  };
+
+  const onClickButton = async () => {
+    await clearError();
     replace("/");
+    clearError();
   };
 
   return (
