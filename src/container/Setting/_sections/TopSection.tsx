@@ -49,7 +49,7 @@ const TopSection: React.FC = () => {
   const updateMySetting = useCallback(
     async ({ alarm, location }: AppCommonGetPermissionData) => {
       setPermission({ alarm, location });
-      await mutateAsync({ isPushAccepted: alarm && me?.setting.isAlarmAccepted });
+      await mutateAsync({ isPushAccepted: alarm && me?.setting.isAlarmAccepted, isLocationInfoAccepted: location });
     },
     [me?.setting.isAlarmAccepted, mutateAsync, setPermission],
   );
