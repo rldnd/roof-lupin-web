@@ -49,9 +49,19 @@ export interface CertificationParam {
   pg?: string;
 }
 
+export interface CertificationCallbackArgs {
+  error_code: string | null;
+  error_msg: string | null;
+  imp_uid: string;
+  merchant_uid: Date;
+  pg_provider?: string;
+  pg_type?: string;
+  success: boolean;
+}
+
 export interface Iamport {
   init(uid: string): void;
-  certification(param: CertificationParam, callback: unknown): Promise<void>;
+  certification(param: CertificationParam, callback: (args: CertificationCallbackArgs) => unknown): Promise<void>;
 }
 
 declare global {
