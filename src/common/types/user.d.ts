@@ -60,3 +60,8 @@ export interface CountInfo {
   /** 리뷰 수 */
   reviewCount: number;
 }
+
+export interface CertificatePhone {
+  /** 본인 인증 결과 */
+  imp_uid: string;
+}

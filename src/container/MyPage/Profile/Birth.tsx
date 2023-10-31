@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-import { MyBirthBottomSheet } from "@/components/BottomSheets/MyPage";
+import { useIamport } from "@/hooks";
 import { useMe } from "@/hooks/queries";
 import { getBirthDay, getBirthYearTwoDigits } from "@/utils/time";
 
@@ -12,8 +10,7 @@ import Item from "./Item";
 
 const Birth: React.FC = () => {
   const { me } = useMe();
-
-  const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
+  const { requestCertificate } = useIamport();
 
   if (!me) return null;
 
@@ -24,17 +21,14 @@ const Birth: React.FC = () => {
       : "";
 
   return (
-    <>
-      <Item
-        label="생년월일"
-        placeholder="YY.MM.DD"
-        right={<IconGrayRightChevronLargeThick />}
-        onClick={() => setIsShowBottomSheet(true)}
-      >
-        {birth}
-      </Item>
-      <MyBirthBottomSheet isShow={isShowBottomSheet} onClose={() => setIsShowBottomSheet(false)} />
-    </>
+    <Item
+      label="생년월일"
+      placeholder="YY.MM.DD"
+      right={<IconGrayRightChevronLargeThick />}
+      onClick={requestCertificate}
+    >
+      {birth}
+    </Item>
   );
 };
 

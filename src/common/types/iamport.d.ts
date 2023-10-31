@@ -49,15 +49,25 @@ export interface CertificationParam {
   pg?: string;
 }
 
-export interface CertificationCallbackArgs {
-  error_code: string | null;
-  error_msg: string | null;
+interface CertificationCallbackSuccessArgs {
+  error_code: null;
+  error_msg: null;
   imp_uid: string;
   merchant_uid: Date;
-  pg_provider?: string;
-  pg_type?: string;
-  success: boolean;
+  pg_provider: string;
+  pg_type: string;
+  success: true;
 }
+
+interface CertificationCallbackErrorArgs {
+  error_code: string;
+  error_msg: string;
+  imp_uid: string;
+  merchant_uid: Date;
+  success: false;
+}
+
+export type CertificationCallbackArgs = CertificationCallbackSuccessArgs | CertificationCallbackErrorArgs;
 
 export interface Iamport {
   init(uid: string): void;

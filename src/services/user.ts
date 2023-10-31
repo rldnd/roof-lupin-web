@@ -1,4 +1,4 @@
-import type { CommonUser, CountInfo, Gender, PushToken } from "@/common/types/user";
+import type { CertificatePhone, CommonUser, CountInfo, Gender, PushToken } from "@/common/types/user";
 import { apiClient } from "@/services/apiClient";
 
 export interface UpdateUserBody {
@@ -37,3 +37,6 @@ export const updateMeApi = (body: Partial<UpdateUserBody>) => apiClient.patch("/
 export const updateMySettingApi = (body: Partial<UpdateMySettingBody>) => apiClient.patch("/users/settings", body);
 
 export const resignApi = () => apiClient.delete("/users");
+
+export const certificatePhoneApi = (body: CertificatePhone) =>
+  apiClient.post<CommonUser>("/users/certificate/phone", body);
