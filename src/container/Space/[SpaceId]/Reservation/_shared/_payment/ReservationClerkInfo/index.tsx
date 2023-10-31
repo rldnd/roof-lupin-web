@@ -1,42 +1,43 @@
 "use client";
 
-import { ChangeEventHandler } from "react";
+import { useEffect } from "react";
 
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 
-import { UnderlinedInput } from "@/components";
+import { Button, DataItem, DataList } from "@/components";
+import { useIamport } from "@/hooks";
+import { useMe } from "@/hooks/queries";
 import { reservationState } from "@/states";
+import { getPhoneNumberWithHyphen } from "@/utils/regex";
 
 import styles from "./reservationClerkInfo.module.scss";
 
 const ReservationClerkInfo: React.FC = () => {
-  const [reservation, setReservation] = useAtom(reservationState);
+  const { me } = useMe();
+  const setReservation = useSetAtom(reservationState);
+  const { requestCertificate } = useIamport();
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.currentTarget;
-    setReservation((prev) => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    if (!me) return;
+    if (me.isCertified && me.setting.isAdult)
+      setReservation((prev) => ({ ...prev, userName: me.name, userPhoneNumber: me.phoneNumber }));
+    else setReservation((prev) => ({ ...prev, userName: null, userPhoneNumber: null }));
+  }, [me, setReservation]);
 
   return (
     <section className={styles.wrapper}>
       <h2>예약자 정보</h2>
-      <UnderlinedInput
-        label="성명"
-        className={styles.input}
-        name="userName"
-        value={reservation.userName ?? ""}
-        placeholder="예약자 성명을 입력해주세요"
-        onChange={onChange}
-      />
-      <UnderlinedInput
-        inputMode="tel"
-        label="전화번호"
-        className={styles.input}
-        name="userPhoneNumber"
-        placeholder="예약자 전화번호를 입력해주세요"
-        value={reservation.userPhoneNumber ?? ""}
-        onChange={onChange}
-      />
+      {me?.isCertified && me.setting.isAdult && (
+        <DataList>
+          <DataItem label="이름">{me.name}</DataItem>
+          <DataItem label="전화번호">{getPhoneNumberWithHyphen(me?.phoneNumber ?? "")}</DataItem>
+        </DataList>
+      )}
+      {(!me?.isCertified || !me?.setting.isAdult) && (
+        <Button color="secondary" full onClick={requestCertificate}>
+          최초 1회 본인인증하기
+        </Button>
+      )}
     </section>
   );
 };

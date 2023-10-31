@@ -7,15 +7,15 @@ export const getHistoryStackUrl = () => {
   return (JSON.parse(sessionStorage.getItem(HISTORY_STACK_URL) ?? "[]") ?? []) as string[];
 };
 
-export const pushHistoryStackUrl = (pathname: string) => {
+export const pushHistoryStackUrl = (pathname: string, search?: string, force = false) => {
   if (!isClient) return;
 
   const historyStackUrl = getHistoryStackUrl();
-  if (historyStackUrl?.at(-1) === pathname) return;
+  if (!force && historyStackUrl?.at(-1)?.includes(pathname)) return;
   if (Array.isArray(historyStackUrl) && historyStackUrl.length > 0) {
-    sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([...historyStackUrl, pathname]));
+    sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([...historyStackUrl, `${pathname}${search}`]));
   } else {
-    sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([pathname]));
+    sessionStorage.setItem(HISTORY_STACK_URL, JSON.stringify([`${pathname}${search}`]));
   }
 };
 

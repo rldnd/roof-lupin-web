@@ -14,6 +14,7 @@ import {
   reservationPackageState,
   reservationTimeState,
 } from "@/states";
+import { pushHistoryStackUrl } from "@/utils/navigation";
 
 import styles from "./reservationButton.module.scss";
 
@@ -33,6 +34,11 @@ const ReservationButton: React.FC = () => {
     (!data.deposit || (data.deposit && reservationDepositConfirm));
 
   const onClickButton = () => {
+    pushHistoryStackUrl(
+      `/spaces/${spaceId}/reservations`,
+      location.search.replace("tab=reservation", "tab=payment"),
+      true,
+    );
     push(getQueryStringWithPath(set({ tab: RESERVATION_TAB_MAPPER.PAYMENT })));
   };
 

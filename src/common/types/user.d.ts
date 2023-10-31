@@ -28,11 +28,13 @@ export interface CommonUser extends DateDTO {
   /** 000 XXXX XXXX (-을 제외한 11자리) */
   phoneNumber: string | null;
   birthYear: string | null;
+  birthMonth: string | null;
   birthDay: string | null;
   gender: Gender | null;
   profileImage: string | null;
   /** 유저 소셜 타입 */
   socialType: SocialType;
+  isCertified: boolean;
   /** 설정 */
   setting: UserSetting;
 }

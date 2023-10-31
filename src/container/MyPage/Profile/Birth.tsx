@@ -2,7 +2,7 @@
 
 import { useIamport } from "@/hooks";
 import { useMe } from "@/hooks/queries";
-import { getBirthDay, getBirthYearTwoDigits } from "@/utils/time";
+import { getBirthYearTwoDigits } from "@/utils/time";
 
 import { IconGrayRightChevronLargeThick } from "public/icons";
 
@@ -14,11 +14,9 @@ const Birth: React.FC = () => {
 
   if (!me) return null;
 
-  const { birthYear, birthDay } = me;
+  const { birthYear, birthMonth, birthDay } = me;
   const birth =
-    birthYear && birthDay
-      ? `${getBirthYearTwoDigits(birthYear)}.${getBirthDay(birthDay)?.month}.${getBirthDay(birthDay)?.day}`
-      : "";
+    birthYear && birthMonth && birthDay ? `${getBirthYearTwoDigits(birthYear)}.${birthMonth}.${birthDay}` : "";
 
   return (
     <Item

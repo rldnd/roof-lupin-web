@@ -33,10 +33,3 @@ export const getBirthYearTwoDigits = (birthYear: string | null): string | null =
   if (!birthYear) return null;
   return birthYear.slice(2);
 };
-
-export const getBirthDay = (birthDay: string | null): BirthDay | null => {
-  if (!birthDay) return null;
-  const month = birthDay.slice(0, 2);
-  const day = birthDay.slice(2);
-  return { month, day };
-};

@@ -74,7 +74,10 @@ const Submit: React.FC = () => {
         disabled={disabled}
         onClick={onClickButton}
       >
-        {(body?.totalCost ?? 0).toLocaleString("ko-KR")}원 결제하기
+        {(!reservation.userName || !reservation.userPhoneNumber) && <>본인인증 필요</>}
+        {reservation.userName && reservation.userPhoneNumber && (
+          <>{`${(body?.totalCost ?? 0).toLocaleString("ko-KR")} 원 결제하기`}</>
+        )}
       </Button>
     </section>
   );

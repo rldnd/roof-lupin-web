@@ -12,10 +12,10 @@ const NavigationHandler: React.FC = () => {
   useEffect(() => {
     const historyStackUrl = getHistoryStackUrl();
 
-    if (Array.isArray(historyStackUrl) && historyStackUrl.length > 1 && pathname === historyStackUrl.at(-2)) {
+    if (Array.isArray(historyStackUrl) && historyStackUrl.length > 1 && historyStackUrl.at(-2)?.includes(pathname)) {
       popBeforeStackUrl();
     } else {
-      pushHistoryStackUrl(pathname);
+      pushHistoryStackUrl(pathname, location.search);
     }
   }, [pathname]);
 

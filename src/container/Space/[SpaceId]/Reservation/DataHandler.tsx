@@ -86,6 +86,7 @@ const DataHandler: React.FC = () => {
     }
 
     if (tab.toLocaleLowerCase().includes("reservation")) resetReservationInfo();
+
     setReservation((prev) => ({
       ...prev,
       year: Number(year),

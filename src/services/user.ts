@@ -6,6 +6,7 @@ export interface UpdateUserBody {
   email: string;
   phoneNumber: string;
   birthDay: string;
+  birthMonth: string;
   birthYear: string;
   gender: Gender;
   profileImage: string;

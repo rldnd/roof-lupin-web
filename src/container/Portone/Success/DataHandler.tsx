@@ -24,7 +24,7 @@ const DataHandler: React.FC = () => {
       certificatePhone({ imp_uid: impUid })
         .then(() => {
           const historyStackUrl = getHistoryStackUrl();
-          const beforeUrl = historyStackUrl?.reverse().find((url) => url !== "/portone/success");
+          const beforeUrl = historyStackUrl?.reverse().find((url) => !url.includes("/portone/success"));
           router.replace(beforeUrl ?? "/");
         })
         .catch(() => {

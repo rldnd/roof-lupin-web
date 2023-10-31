@@ -1,5 +1,7 @@
 "use client";
 
+import { useParams } from "next/navigation";
+
 import { BaseHeader } from "@/components/Layout";
 
 import styles from "./header.module.scss";
@@ -9,7 +11,14 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ title }) => {
-  return <BaseHeader title={title} className={styles.wrapper} />;
+  const { spaceId } = useParams();
+  return (
+    <BaseHeader
+      title={title}
+      className={styles.wrapper}
+      href={`/spaces/${spaceId}/reservations${location.search.replace("tab=payment", "tab=reservation")}`}
+    />
+  );
 };
 
 export default Header;
