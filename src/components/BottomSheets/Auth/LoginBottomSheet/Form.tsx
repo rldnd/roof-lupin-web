@@ -74,12 +74,16 @@ const Form: React.FC<Props> = ({ close, isShow }) => {
           <IconNaver />
           네이버로 계속하기
         </button>
-        {isIosWebview && (
+        <button type="button" onClick={onClickSocial} data-social="apple" title="애플 로그인">
+          <IconApple />
+          Apple로 계속하기
+        </button>
+        {/* {isIosWebview && (
           <button type="button" onClick={onClickSocial} data-social="apple" title="애플 로그인">
             <IconApple />
             Apple로 계속하기
           </button>
-        )}
+        )} */}
         {process.env.NEXT_PUBLIC_NODE_ENV === "development" && (
           <Button type="button" color="primary" full onClick={onClickTestLogin}>
             테스트 로그인
