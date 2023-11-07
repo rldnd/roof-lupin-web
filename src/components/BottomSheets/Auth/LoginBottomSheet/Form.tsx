@@ -27,11 +27,11 @@ const Form: React.FC<Props> = ({ close, isShow }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useWebview();
 
-  const onLoginKakaoWebview = () => {
-    setIsLoading(true);
-    sendMessage<WebAuthKakaoLoginPayload>({ type: "web-auth/kakaoLogin" });
-    close();
-  };
+  // const onLoginKakaoWebview = () => {
+  //   setIsLoading(true);
+  //   sendMessage<WebAuthKakaoLoginPayload>({ type: "web-auth/kakaoLogin" });
+  //   close();
+  // };
 
   const onClickSocial: MouseEventHandler<HTMLButtonElement> = (e) => {
     const { dataset } = e.currentTarget;
@@ -59,17 +59,10 @@ const Form: React.FC<Props> = ({ close, isShow }) => {
   return (
     <>
       <section className={styles.wrapper} aria-label="소셜 로그인 폼">
-        <PlatformButton
-          type="button"
-          desktop={onClickSocial}
-          mobile={onClickSocial}
-          webview={onLoginKakaoWebview}
-          data-social="kakao"
-          title="카카오 로그인"
-        >
+        <button type="button" onClick={onClickSocial} data-social="kakao" title="카카오 로그인">
           <IconKakao />
           카카오로 계속하기
-        </PlatformButton>
+        </button>
         <button type="button" onClick={onClickSocial} data-social="naver" title="네이버 로그인">
           <IconNaver />
           네이버로 계속하기
