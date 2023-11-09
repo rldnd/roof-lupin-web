@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, type MouseEventHandler, type ReactNode, useRef } from "react";
+import { memo, type MouseEventHandler, type ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import cx from "classnames";
@@ -39,6 +39,7 @@ const BottomSheetPortal: React.FC<Props> = ({
   shouldCloseOnOverlayClick = true,
 }) => {
   const nodeRef = useRef(null);
+  const [innerOpen, setInnerOpen] = useState(false);
   const { block, unBlock } = useScrollBlock();
 
   useClientEffect(() => {
@@ -52,11 +53,16 @@ const BottomSheetPortal: React.FC<Props> = ({
     unBlock();
   });
 
+  useEffect(() => {
+    if (isShow) setInnerOpen(true);
+    else setTimeout(() => setInnerOpen(false), 200);
+  }, [isShow]);
+
   if (!bottomSheetRoot) return null;
 
   return createPortal(
     <CSSTransition
-      in={isShow}
+      in={innerOpen}
       timeout={200}
       classNames={{
         enter: styles.enter,
