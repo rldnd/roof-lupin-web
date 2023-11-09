@@ -1,6 +1,8 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
+
+import dynamic from "next/dynamic";
 
 import cx from "clsx";
 import { useAtomValue } from "jotai";
@@ -13,9 +15,9 @@ import { spaceSortMenuState } from "@/states";
 
 import { IconBottomCaret, IconFilter } from "public/icons";
 
-import TagList from "./TagList";
-
 import styles from "./filter.module.scss";
+
+const TagList = dynamic(() => import("./TagList"), { ssr: false });
 
 const Filter: React.FC = () => {
   const scrollDirection = useScrollDirection();
@@ -29,9 +31,7 @@ const Filter: React.FC = () => {
   return (
     <>
       <section className={cx(styles.wrapper, styles[scrollDirection])}>
-        <Suspense fallback={null}>
-          <TagList />
-        </Suspense>
+        <TagList />
         <menu className={styles.menu}>
           <li>
             <button

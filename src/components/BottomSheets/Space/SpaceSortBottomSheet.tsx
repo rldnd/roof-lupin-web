@@ -1,6 +1,6 @@
 "use client";
 
-import { type MouseEventHandler, startTransition } from "react";
+import { type MouseEventHandler } from "react";
 
 import { useAtom } from "jotai";
 
@@ -21,11 +21,7 @@ const SpaceSortBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const sort = e.currentTarget.dataset.sort as SpaceSort;
-
-    startTransition(() => {
-      setSpaceSortMenu((prev) => ({ ...prev, sort }));
-    });
-
+    setSpaceSortMenu((prev) => ({ ...prev, sort }));
     onClose(e);
   };
 
