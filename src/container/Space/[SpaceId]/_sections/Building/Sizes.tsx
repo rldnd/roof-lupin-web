@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Sizes: React.FC<Props> = ({ sizes }) => {
-  const [isSquareFeet, setIsSquareFeet] = useState(true);
+  const [isSquareFeet, setIsSquareFeet] = useState(false);
 
   const floorSizes = sizes.reduce<FloorSize[]>((acc, cur) => {
     const floorSize = acc.find((floorSize) => floorSize.floor === cur.floor);
