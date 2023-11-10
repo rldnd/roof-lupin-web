@@ -43,7 +43,7 @@ const SpaceDetailFilterBottomSheet: React.FC<Props> = ({ isShow, onClose }) => {
 
   useEffect(() => {
     setLocalMenu(spaceSortMenu);
-  }, [spaceSortMenu]);
+  }, [spaceSortMenu, isShow]);
 
   return (
     <BaseBottomSheet

@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import dynamic from "next/dynamic";
-
 import cx from "clsx";
 import { useAtomValue } from "jotai";
 import { isBoolean } from "lodash-es";
@@ -15,9 +13,9 @@ import { spaceSortMenuState } from "@/states";
 
 import { IconBottomCaret, IconFilter } from "public/icons";
 
-import styles from "./filter.module.scss";
+import TagList from "./TagList";
 
-const TagList = dynamic(() => import("./TagList"), { ssr: false });
+import styles from "./filter.module.scss";
 
 const Filter: React.FC = () => {
   const scrollDirection = useScrollDirection();
