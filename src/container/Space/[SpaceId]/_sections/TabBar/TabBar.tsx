@@ -5,10 +5,12 @@ import { memo, type MouseEventHandler, useCallback, useMemo, useRef } from "reac
 import { useParams } from "next/navigation";
 
 import cx from "clsx";
+import { useAtomValue } from "jotai";
 
 import type { ReviewSummary } from "@/common/types/review";
 import { useClientEffect, useSuspenseQuery, useWindowScroll } from "@/hooks";
 import { getReviewsSummaryApi } from "@/services/review";
+import { hasInitNaverMapEventEmitterState } from "@/states";
 import sizes from "@/styles/constants/sizes.module.scss";
 import { isClient } from "@/utils/next";
 import { getNumberFromPixel } from "@/utils/styles";
@@ -50,6 +52,7 @@ const TabBar: React.FC = () => {
   const { y } = useWindowScroll();
   const tabBarPosition = useRef(Infinity);
   const positions = useRef(initialPositions);
+  const hasInitNaverMap = useAtomValue(hasInitNaverMapEventEmitterState);
 
   const { data: summary } = useSuspenseQuery<ReviewSummary>(
     ["getReviewsSummary", spaceId],
@@ -95,7 +98,7 @@ const TabBar: React.FC = () => {
       review: getSectionOffsetTop($reviewSection.offsetTop),
       refund: getSectionOffsetTop($refundSection.offsetTop),
     };
-  }, []);
+  }, [hasInitNaverMap]);
 
   return (
     <nav
