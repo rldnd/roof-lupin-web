@@ -12,7 +12,7 @@ export default async function FrequentQuestionContainer() {
   return (
     <ToastPositioner position={TOAST_BOTTOM_WITHOUT_BOTTOM_NAVIGATION}>
       <div className={styles.wrapper}>
-        <BaseCenterHeader title="자주 묻는 질문 / FAQ" />
+        <BaseCenterHeader title="자주 묻는 질문" />
         <main>
           <Suspense fallback={<LoadingList />}>
             <List />

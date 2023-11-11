@@ -6,10 +6,13 @@ import { FrequentQuestion } from "@/common/types/frequentQuestion";
 import { useSuspenseQuery } from "@/hooks";
 import { getFrequentQuestionsApi } from "@/services/frequentQuestion";
 
+import Empty from "./Empty";
 import Item, { LoadingItem } from "./Item";
 
 const List: React.FC = () => {
   const { data } = useSuspenseQuery<FrequentQuestion[]>(["frequentQuestions"], getFrequentQuestionsApi);
+
+  if (data.length !== 0) return <Empty />;
 
   return (
     <ul>

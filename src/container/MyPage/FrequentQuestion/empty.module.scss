@@ -1,0 +1,11 @@
+@use "src/styles/constants" as c;
+@use "src/styles/mixins" as m;
+
+.wrapper {
+  @include m.fixed(50% auto auto 50%);
+  @include m.fontButton1;
+  width: 100%;
+  color: var(--c-gray-600);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
