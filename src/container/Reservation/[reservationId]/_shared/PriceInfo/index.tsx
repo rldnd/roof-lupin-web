@@ -68,9 +68,9 @@ const PriceInfo: React.FC<Props> = ({ reservation, className }) => {
         items={[...timePrice, ...packagePrice, ...additionalServicesPrice, ...additionalUserPrice, ...couponPrice]}
         bottomItems={[{ title: "결제수단", text: payMethod ?? "" }]}
       />
-      <Button color="bw" full type="button" className={styles.receiptButton}>
+      {/* <Button color="bw" full type="button" className={styles.receiptButton}>
         영수증 조회
-      </Button>
+      </Button> */}
     </section>
   );
 };
