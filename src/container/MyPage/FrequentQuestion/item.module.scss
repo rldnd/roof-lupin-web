@@ -16,8 +16,17 @@
 
     .title {
       @include m.fontH4SemiBold;
+      position: relative;
       align-self: center;
+      padding-left: 20px;
       color: var(--c-black);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "Q.";
+      }
     }
 
     .chevronWrapper {

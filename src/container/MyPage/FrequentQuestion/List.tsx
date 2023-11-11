@@ -12,7 +12,7 @@ import Item, { LoadingItem } from "./Item";
 const List: React.FC = () => {
   const { data } = useSuspenseQuery<FrequentQuestion[]>(["frequentQuestions"], getFrequentQuestionsApi);
 
-  if (data.length !== 0) return <Empty />;
+  if (data.length === 0) return <Empty />;
 
   return (
     <ul>
