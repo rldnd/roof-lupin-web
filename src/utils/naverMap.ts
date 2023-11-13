@@ -80,8 +80,8 @@ export const getMapMarkerContent = (icon: string, count: number) => {
       : "";
 
   return `<div style="position: relative; width:38px; height:38px; display: flex; align-items: center; justify-content: center;">
-            <img src="/icons/map/map-marker.svg" alt="마커" />
-            <img src=${icon} width="20px" height="20px" alt="마커 이미지" object-fit: contain; style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%);"/>
+            <img src="/images/map/small_marker.png" width="38px" height="38px" object-fit: contain; alt="마커" />
+            <img src=${icon} width="20px" height="20px" alt="마커 이미지" object-fit: contain; style="position: absolute; top: 6px; left: 50%; transform: translateX(-50%);"/>
             ${badge}
           </div>`;
 };
@@ -96,8 +96,8 @@ export const getClickedMapMarkerContent = (icon: string, count: number, title?: 
       : "";
 
   return `<div style="position: relative; display: flex; align-items: center; justify-content: center; width:100px; flex-direction: column; margin-top: 32px;">
-            <img src="/icons/map/map-clicked-marker.svg" width="62px" height="72.333px" alt="마커" />
-            <img src=${icon} width="20px" height="20px" alt="마커 이미지" style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%) scale(1.6);"/>
+            <img src="/images/map/active_marker.png" object-fit: contain; width="72px" height="72px" alt="마커" />
+            <img src=${icon} width="20px" height="20px" alt="마커 이미지" style="position: absolute; object-fit:contain; top: 16px; left: 50%; transform: translateX(-50%) scale(1.6);"/>
             ${titleText}
             ${badge}
           </div>`;

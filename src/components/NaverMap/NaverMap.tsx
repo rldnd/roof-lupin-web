@@ -470,8 +470,8 @@ const Map: React.FC<Props> = ({ id, width, height, className }) => {
   return (
     <>
       <div id={id} style={{ width, height }} className={className} />
-      <img src="/icons/map/map-marker.svg" hidden alt="마커" />
-      <img src="/icons/map/map-clicked-marker.svg" hidden alt="마커" />
+      <img src="/images/map/small_marker.png" hidden alt="마커" />
+      <img src="/images/map/active_marker.png" hidden alt="마커" />
     </>
   );
 };
