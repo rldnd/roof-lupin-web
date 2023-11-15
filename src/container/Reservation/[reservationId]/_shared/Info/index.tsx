@@ -25,7 +25,7 @@ const Info: React.FC<Props> = ({ className, reservation }) => {
         <dd className={styles.value}>{reservation.user.name}</dd>
         <br />
         <dt className={styles.label}>예약자 휴대폰 번호</dt>
-        <dd className={styles.value}>{getPhoneNumberWithHyphen(reservation.userPhoneNumber)} (안심번호)</dd>
+        <dd className={styles.value}>{getPhoneNumberWithHyphen(reservation.userPhoneNumber)}</dd>
       </dl>
     </section>
   );
