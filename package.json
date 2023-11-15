@@ -14,7 +14,7 @@
     "build:stage": "env-cmd -f .env.staging next build",
     "build:prod": "env-cmd -f .env.production next build",
     "build:analyze": "cross-env ANALYZE=true next build",
-    "build:vercel": "sh ./scripts/build.sh",
+    "build:vercel": "sh ./src/scripts/build.sh",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
