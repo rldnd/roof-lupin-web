@@ -36,7 +36,7 @@ const BottomSection: React.FC = () => {
         value={body.content}
         className={styles.textarea}
         onChange={onChangeTextarea}
-        placeholder={` •  솔직한 리뷰를 남겨주세요!\n •  사진은 몇 장까지 첨부할 수 있어요.`}
+        placeholder={` •  솔직한 리뷰를 남겨주세요!\n •  사진은 세 장까지 첨부할 수 있어요.`}
       />
       {body.tempImages.length > 0 && (
         <HorizonDraggable className={styles.images}>
