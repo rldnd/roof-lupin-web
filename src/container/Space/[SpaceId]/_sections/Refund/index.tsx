@@ -13,7 +13,6 @@ const Refund: React.FC<Props> = ({ refundPolicies }) => {
     <section id="refund-section" className={styles.wrapper}>
       <h2>취소 및 환불 정책</h2>
       <p>
-        {`예약일 기준 8일 전 : 100% 환불\n`}
         {[...refundPolicies]
           .sort((a, b) => b.daysBefore - a.daysBefore)
           .map((policy) => (
