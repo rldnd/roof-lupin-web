@@ -16,7 +16,7 @@ $TAG_IMAGE_SIZE: 24px;
   img {
     width: $TAG_IMAGE_SIZE;
     height: $TAG_IMAGE_SIZE;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .name {
